@@ -1,15 +1,15 @@
-# FlutterProject
-flutter study team project
+# Flutter Study
+Flutter Practice Project 
 
-## Getting Started
+## Team Building
+|이름|맡은 기능|
+|---|------------|
+|곽나연|  |
+|김경태|  |
+|박현민|  |
+|이희상|  |
+|최정창|  |
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Subject
+## 나만의 여행 플래너 (개꿀트립🍯)
