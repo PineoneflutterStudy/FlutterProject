@@ -1,5 +1,5 @@
 # FlutterProject
-flutter study team1 project
+flutter study team project
 
 ## Getting Started
 
