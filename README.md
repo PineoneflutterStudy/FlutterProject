@@ -1,7 +1,7 @@
 # Flutter Study
 Flutter Practice Project 
 
-## Team Building
+## Team Members
 |이름|맡은 기능|
 |---|------------|
 |곽나연|  |
@@ -11,5 +11,5 @@ Flutter Practice Project
 |최정창|  |
 
 
-# Subject
-## 나만의 여행 플래너 (개꿀트립🍯)
+## Subject
+### 나만의 여행 플래너 (개꿀트립🍯)
