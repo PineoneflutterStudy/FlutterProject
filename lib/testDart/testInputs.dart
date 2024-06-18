@@ -16,7 +16,7 @@ class HomeWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue.shade200,
-          title: const Text('Stateless Stateful 차이 비교')),
+          title: const Text('다양한 입력 기능 사용해보기')),
       body: const Body(),
     );
   }

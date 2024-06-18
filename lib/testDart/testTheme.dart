@@ -42,7 +42,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter에서 화면 이동하기 2'),
+        title: const Text('Flutter 테마적용하기'),
       ),
       body: Center(
         child: Column(

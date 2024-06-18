@@ -17,7 +17,7 @@ class HomeWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue.shade200,
-          title: const Text('Stateless Stateful 차이 비교')),
+          title: const Text('Callback 사용법')),
       body: const Body(),
     );
   }

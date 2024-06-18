@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // Widget 여러겹 쌓아보기
+// Widget 배치하기
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue.shade200,
-          title: const Text('Widget 비율로 배치하기')),
+          title: const Text('Widget 배치하기')),
       body: const Body2(),
     ), // Scaffold - 기본, 도화지
   ));
