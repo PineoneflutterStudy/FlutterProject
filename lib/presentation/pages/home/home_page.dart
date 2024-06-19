@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../appbar/home_appbar.dart';
+
 // 홈 화면
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: HomeAppbar(title: '개꿀트립'),
       body: Center(
           child: Text(
         'home_page',
