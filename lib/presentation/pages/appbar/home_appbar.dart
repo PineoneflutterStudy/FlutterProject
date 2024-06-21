@@ -17,14 +17,9 @@ class HomeAppbar extends StatelessWidget implements  PreferredSizeWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.amberAccent,
-          foregroundColor: Colors.white,
           elevation: 5, // 하단 음영
           centerTitle: true,
-          title: Text(
-            title,
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          )),
+          title: Text(title, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),)),
     );
   }
 
