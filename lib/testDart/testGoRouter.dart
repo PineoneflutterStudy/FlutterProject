@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_team1/screen/new_page_go_router.dart';
+import 'package:flutter_project_team1/testDart/screen/new_page_go_router.dart';
 import 'package:go_router/go_router.dart';
 
 //페이지 이동방법 3

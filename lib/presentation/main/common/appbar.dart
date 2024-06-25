@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +6,10 @@ import 'package:flutter/material.dart';
  *
  * Title만 전달받아 set
  */
-class HomeAppbar extends StatelessWidget implements  PreferredSizeWidget{
+class MainAppbar extends StatelessWidget implements  PreferredSizeWidget{
   final String title;
   final double appbar_height = 50;
-  const HomeAppbar({super.key, required this.title});
+  const MainAppbar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

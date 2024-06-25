@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_team1/screen/new_page.dart';
+import 'package:flutter_project_team1/testDart/screen/new_page.dart';
 
 //페이지 이동방법 2
 void main() {

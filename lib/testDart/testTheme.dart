@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_team1/testDart/style/theme.dart';
 
-import '../style/theme.dart';
 
 // theme 사용
 // https://m3.material.io/ 참고
@@ -38,7 +38,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     //theme data 가져오기
     final textTheme = Theme.of(context).textTheme;
     // 전연변수로 선언된 custom theme 사용
-    final textTheme2 = customTheme.textTheme;
+    // final textTheme2 = customTheme.textTheme;
 
     return Scaffold(
       appBar: AppBar(
