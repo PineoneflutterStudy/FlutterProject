@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../dialogs/select_meet_transportation_dialog.dart';
 import '../screens/meet_place_set_screen.dart';
 
 class EmptyMeetWidget extends StatelessWidget {
@@ -14,14 +15,19 @@ class EmptyMeetWidget extends StatelessWidget {
         GestureDetector(
           // 제스처 감지
           onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => SelectMeetTransportationDialog(),
+            );
+            // 이동 수단 Dialog show
             // tap 시 약속장소 정하기 화면 이동
-            Navigator.push(
+            /*Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => MeetPlaceSetScreen(),
                 fullscreenDialog: true,
               ),
-            );
+            );*/
           },
           child: Icon(
             Icons.add_circle_sharp,
