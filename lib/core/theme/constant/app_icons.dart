@@ -27,4 +27,12 @@ class AppIcons {
   static const String ImgBeeLaugh = '$assetImagePath/img_bee_laugh.png';
   static const String ImgBeeLove = '$assetImagePath/img_bee_love.png';
   static const String ImgBeeWink = '$assetImagePath/img_bee_wink.png';
+
+// image - meet
+  static const String ImgSelectCar = '$assetImagePath/select_car.png';
+  static const String ImgNonSelectCar = '$assetImagePath/non_select_car.png';
+  static const String ImgSelectSubway = '$assetImagePath/select_subway.png';
+  static const String ImgNonSelectSubway = '$assetImagePath/non_select_subway.png';
+  static const String ImgSelectWalk = '$assetImagePath/select_walk.png';
+  static const String ImgNonSelectWalk = '$assetImagePath/non_select_walk.png';
 }

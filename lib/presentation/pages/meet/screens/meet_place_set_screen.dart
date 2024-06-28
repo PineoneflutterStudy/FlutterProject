@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
  */
 
 class MeetPlaceSetScreen extends StatefulWidget {
-  const MeetPlaceSetScreen({super.key});
 
   @override
   State<MeetPlaceSetScreen> createState() => _MeetPlaceSetScreenState();

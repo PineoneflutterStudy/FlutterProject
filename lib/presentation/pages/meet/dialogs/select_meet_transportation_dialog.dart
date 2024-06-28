@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/meet_place_set_screen.dart';
+import '../../../../domain/model/meet/meet_traffic_model.dart';
+import '../screens/select_traffic_icon_screen.dart';
+import '../widgets/common/select_move_step_widget.dart';
+import '../widgets/common/text_content_area_widget.dart';
+import '../widgets/common/title_text_area_widget.dart';
 
 /**
  * 약속 이동 수단 선택 Dialog
  */
-const List<String> trafficList = <String>['지하철', '차'];
-const double buttonWidth = 120;
-const double buttonHeight = 50;
 const double dialogBgRadius = 30;
 const double textSize_title = 30;
-const double textSize_nor = 20;
+const double textSize_content = 25;
 
 class SelectMeetTransportationDialog extends StatefulWidget {
   const SelectMeetTransportationDialog({super.key});
@@ -21,13 +21,17 @@ class SelectMeetTransportationDialog extends StatefulWidget {
       _SelectMeetTransportationDialogState();
 }
 
-class _SelectMeetTransportationDialogState
-    extends State<SelectMeetTransportationDialog> {
-  String dropdownTraffic = trafficList.first;
+class _SelectMeetTransportationDialogState extends State<SelectMeetTransportationDialog> {
+
+  List<MeetTrafficModel> trafficList = [
+    MeetTrafficModel(traffic: 'car'),
+    MeetTrafficModel(traffic: 'subway'),
+    MeetTrafficModel(traffic: 'walk'),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    print(dropdownTraffic);
+    String selectTraffic = "";
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,128 +42,52 @@ class _SelectMeetTransportationDialogState
               borderRadius: BorderRadius.circular(dialogBgRadius),
             ),
           ),
-          Text(
-            '선택해주세요!',
-            style: TextStyle(fontSize: textSize_title),
+          TitleTextAreaWidget(content: '선택해주세요!', contentSize: textSize_title),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: TextContentAreaWidget(
+              content: '약속장소로 이동할 교통수단을\n선택해주세요.',
+              contentSize: textSize_content,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          // 아이콘으로 교통 수단 선택한다.....
+          SelectTrafficIconScreen(trafficList: trafficList,),
+
+          // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Center(
+              child: SelectMoveStepWidget(
+                backText: '취소',
+                nextText: '출발지 입력',
+                onBackPress: () {
+                  print('선택 Dialog 종료');
+                  Navigator.of(context).pop();
+                },
+                onNextPress: () {
+                  print('출발지 입력 Dialog 이동');
+                  for (int i = 0; i < trafficList.length; i++) {
+                    if (trafficList[i].imageIndex == 1) {
+                      selectTraffic = trafficList[i].traffic;
+                    }
+                  }
+
+                  print('확인용 로그 -> $selectTraffic');
+                },
+              ),
+            ),
           ),
           SizedBox(
             height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              children: [
-                Text(
-                  '약속장소로 이동할 교통수단은',
-                  style: TextStyle(fontSize: 30),
-                ),
-                // DropDown
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 10, left: 10),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Colors.white70,
-                            border:
-                                Border.all(color: Colors.amberAccent, width: 3),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: DropdownButton(
-                            value: dropdownTraffic,
-                            items: trafficList
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newTraffic) {
-                              setState(() {
-                                dropdownTraffic = newTraffic!;
-                                print(dropdownTraffic);
-                              });
-                            },
-                            icon: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 20),
-                              child: const Icon(
-                                Icons.arrow_drop_down_circle,
-                                color: Colors.amberAccent,
-                                size: 15,
-                              ),
-                            ),
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.black),
-                            dropdownColor: Colors.white,
-                            underline: Container(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      '입니다.',
-                      style: TextStyle(fontSize: textSize_title),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ElevatedButton(
-                        // [취소] 버튼
-                        onPressed: () {
-                          print('Dialog 닫기');
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          '취소',
-                          style: TextStyle(fontSize: textSize_nor),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.white70,
-                            elevation: 10,
-                            minimumSize: Size(buttonWidth, buttonHeight)),
-                      ),
-                      Container(
-                        // [정하기] Button
-                        margin: EdgeInsets.only(left: 10),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            print('약속장소 정하기 화면 이동!!');
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MeetPlaceSetScreen(),
-                                fullscreenDialog: true,
-                              ),
-                            );
-                          },
-                          child: Text(
-                            '정하기',
-                            style: TextStyle(fontSize: textSize_nor),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              shadowColor: Colors.white70,
-                              elevation: 10,
-                              minimumSize: Size(buttonWidth, buttonHeight)),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
           ),
         ],
       ),
