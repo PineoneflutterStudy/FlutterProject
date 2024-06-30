@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../domain/model/meet/meet_traffic_model.dart';
-import '../provider/start_position_bottom_sheet_provider.dart';
 import '../screens/meet_place_set_screen.dart';
 import '../screens/select_traffic_icon_screen.dart';
 import '../widgets/common/select_move_step_widget.dart';
@@ -26,8 +24,8 @@ class SelectMeetTransportationDialog extends StatefulWidget {
       _SelectMeetTransportationDialogState();
 }
 
-class _SelectMeetTransportationDialogState
-    extends State<SelectMeetTransportationDialog> {
+class _SelectMeetTransportationDialogState extends State<SelectMeetTransportationDialog> {
+
   List<MeetTrafficModel> trafficList = [
     MeetTrafficModel(traffic: 'car'),
     MeetTrafficModel(traffic: 'subway'),
@@ -62,9 +60,7 @@ class _SelectMeetTransportationDialogState
             height: 10,
           ),
           // 아이콘으로 교통 수단 선택한다.....
-          SelectTrafficIconScreen(
-            trafficList: trafficList,
-          ),
+          SelectTrafficIconScreen(trafficList: trafficList,),
 
           // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
           SizedBox(
@@ -96,10 +92,7 @@ class _SelectMeetTransportationDialogState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (_) => StartPositionBottomSheetProvider(),
-                          child: MeetPlaceSetScreen(),
-                        ),
+                        builder: (context) => MeetPlaceSetScreen(),
                         fullscreenDialog: true,
                       ),
                     );
@@ -119,11 +112,11 @@ class _SelectMeetTransportationDialogState
 
 void showToast(String message) {
   Fluttertoast.showToast(
-    msg: message,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: Colors.white,
-    fontSize: 15,
-    textColor: Colors.black,
-    toastLength: Toast.LENGTH_SHORT,
+      msg: message,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.white,
+      fontSize: 15,
+      textColor: Colors.black,
+      toastLength: Toast.LENGTH_SHORT,
   );
 }

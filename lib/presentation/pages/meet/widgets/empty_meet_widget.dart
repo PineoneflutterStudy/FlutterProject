@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../dialogs/select_meet_transportation_dialog.dart';
-import '../screens/meet_place_set_screen.dart';
 
 class EmptyMeetWidget extends StatelessWidget {
   const EmptyMeetWidget({super.key});

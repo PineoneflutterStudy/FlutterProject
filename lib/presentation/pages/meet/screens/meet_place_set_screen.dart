@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../dialogs/select_meet_start_position_dialog.dart';
-import '../provider/start_position_bottom_sheet_provider.dart';
 
 /**
  * 약속장소 정하기 Screen
@@ -22,11 +21,12 @@ class MeetPlaceSetScreen extends StatefulWidget {
 }
 
 class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
+  bool isPosition = false; // 출발지 입력 시....
+
   @override
   void initState() {
     super.initState();
     // 최초 진입 시 하단에 생성되는 주소 입력 Dialog / 뒤 메인 화면은 지도화면
-    /*selectPositionDialog(context);*/
     WidgetsBinding.instance.addPostFrameCallback((_) {
       selectPositionDialog(context);
     });
@@ -38,16 +38,20 @@ class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
         enableDrag: false,
         isDismissible: false,
         builder: (BuildContext context) {
-          return Consumer<StartPositionBottomSheetProvider>(
-              builder: (context, provider, child) {
-                return WillPopScope(
-                  onWillPop: () async {
-                    return provider.canPop;
-                  },
-                  child: SelectMeetStartPositionDialog(),
-                );
-              });
-        });
+          return WillPopScope(
+            onWillPop: () {
+              return Future(() => true);
+            },
+            child: SelectMeetStartPositionDialog(),
+          );
+        }).whenComplete(() {
+      if (isPosition) {
+        showToast('아예 뒤로...');
+        Navigator.of(context).pop();
+      } else {
+        showToast('주소입력착만 뒤로...');
+      }
+    });
   }
 
   @override
@@ -72,4 +76,15 @@ class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
       ),
     );
   }
+}
+
+void showToast(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.white,
+    fontSize: 15,
+    textColor: Colors.black,
+    toastLength: Toast.LENGTH_SHORT,
+  );
 }

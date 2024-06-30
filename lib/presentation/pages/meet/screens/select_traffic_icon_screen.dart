@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../domain/model/meet/meet_traffic_model.dart';
-import '../dialogs/select_meet_transportation_dialog.dart';
 
 class SelectTrafficIconScreen extends StatefulWidget {
 

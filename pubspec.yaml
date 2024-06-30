@@ -45,6 +45,7 @@ dependencies:
 
   fluttertoast: ^8.0.8 # 토스트 팝업 사용
   provider: ^6.0.3 # Provider 사용
+  remedi_kopo: ^0.0.2 # 카카오 주소검색 API 사용
 
   #firebase
   firebase_core: ^3.1.1
