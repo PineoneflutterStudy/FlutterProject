@@ -19,15 +19,6 @@ class EmptyMeetWidget extends StatelessWidget {
               context: context,
               builder: (context) => SelectMeetTransportationDialog(),
             );
-            // 이동 수단 Dialog show
-            // tap 시 약속장소 정하기 화면 이동
-            /*Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MeetPlaceSetScreen(),
-                fullscreenDialog: true,
-              ),
-            );*/
           },
           child: Icon(
             Icons.add_circle_sharp,

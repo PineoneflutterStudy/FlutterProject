@@ -43,6 +43,9 @@ dependencies:
   flutter_bloc: ^8.1.6 # cubit
   google_fonts: ^6.2.1 #font
 
+  fluttertoast: ^8.0.8 # 토스트 팝업 사용
+  provider: ^6.0.3 # Provider 사용
+
   #firebase
   firebase_core: ^3.1.1
   firebase_auth: ^5.1.1

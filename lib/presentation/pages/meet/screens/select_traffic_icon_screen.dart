@@ -16,12 +16,6 @@ class SelectTrafficIconScreen extends StatefulWidget {
 }
 
 class _SelectTrafficIconScreenState extends State<SelectTrafficIconScreen> {
-   /*List<MeetTrafficModel> trafficList = [
-    MeetTrafficModel(traffic: 'car'),
-    MeetTrafficModel(traffic: 'subway'),
-    MeetTrafficModel(traffic: 'walk'),
-  ];*/
-
   List<List<String>> trafficImages = [
     [AppIcons.ImgNonSelectCar, AppIcons.ImgSelectCar], // car images
     [AppIcons.ImgNonSelectSubway, AppIcons.ImgSelectSubway], // subway images

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../domain/model/meet/meet_traffic_model.dart';
+import '../provider/start_position_bottom_sheet_provider.dart';
+import '../screens/meet_place_set_screen.dart';
 import '../screens/select_traffic_icon_screen.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
 import '../widgets/common/title_text_area_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /**
+ * 1Step
  * 약속 이동 수단 선택 Dialog
  */
 const double dialogBgRadius = 30;
@@ -21,8 +26,8 @@ class SelectMeetTransportationDialog extends StatefulWidget {
       _SelectMeetTransportationDialogState();
 }
 
-class _SelectMeetTransportationDialogState extends State<SelectMeetTransportationDialog> {
-
+class _SelectMeetTransportationDialogState
+    extends State<SelectMeetTransportationDialog> {
   List<MeetTrafficModel> trafficList = [
     MeetTrafficModel(traffic: 'car'),
     MeetTrafficModel(traffic: 'subway'),
@@ -57,7 +62,9 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
             height: 10,
           ),
           // 아이콘으로 교통 수단 선택한다.....
-          SelectTrafficIconScreen(trafficList: trafficList,),
+          SelectTrafficIconScreen(
+            trafficList: trafficList,
+          ),
 
           // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
           SizedBox(
@@ -80,8 +87,23 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
                       selectTraffic = trafficList[i].traffic;
                     }
                   }
-
-                  print('확인용 로그 -> $selectTraffic');
+                  if (selectTraffic.isEmpty) {
+                    showToast('교통 수단 선택이 비었습니다.');
+                  } else {
+                    // 이동 수단 Dialog show
+                    // tap 시 약속장소 정하기 화면 이동
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (_) => StartPositionBottomSheetProvider(),
+                          child: MeetPlaceSetScreen(),
+                        ),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  }
                 },
               ),
             ),
@@ -93,4 +115,15 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
       ),
     );
   }
+}
+
+void showToast(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.white,
+    fontSize: 15,
+    textColor: Colors.black,
+    toastLength: Toast.LENGTH_SHORT,
+  );
 }
