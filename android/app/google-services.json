@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "624778146933",
+    "project_id": "gaekkul-project",
+    "storage_bucket": "gaekkul-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624778146933:android:70def5443c7cc94600743c",
+        "android_client_info": {
+          "package_name": "com.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCPbns1HBpaU7HjWM8RR1g3VWUDtBKuDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
