@@ -1,18 +1,24 @@
 {
   "project_info": {
     "project_number": "624778146933",
+    "firebase_url": "https://gaekkul-project-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "gaekkul-project",
     "storage_bucket": "gaekkul-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:624778146933:android:70def5443c7cc94600743c",
+        "mobilesdk_app_id": "1:624778146933:android:fe3cac186499a37900743c",
         "android_client_info": {
-          "package_name": "com.example"
+          "package_name": "com.example.flutter_project_team1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "624778146933-pkfe3sd90ap237rggfgg9h066cpnugs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCCPbns1HBpaU7HjWM8RR1g3VWUDtBKuDA"
@@ -20,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624778146933-pkfe3sd90ap237rggfgg9h066cpnugs8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "624778146933-a95pod5tdr4seol280crhdui5oblp6nv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterProjectTeam1"
+              }
+            }
+          ]
         }
       }
     }
