@@ -1,16 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../../../../domain/model/meet/meet_traffic_model.dart';
+import '../screens/kakao_address_start_position_screen.dart';
 import '../screens/meet_place_set_screen.dart';
-import '../screens/select_traffic_icon_screen.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
 import '../widgets/common/title_text_area_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'package:remedi_kopo/remedi_kopo.dart';
+
 /**
- * 1Step
- * 약속 이동 수단 선택 Dialog
+ * 출발지 입력 Dialog
  */
 const double dialogBgRadius = 30;
 const double textSize_title = 30;
@@ -20,21 +22,12 @@ class SelectMeetTransportationDialog extends StatefulWidget {
   const SelectMeetTransportationDialog({super.key});
 
   @override
-  State<SelectMeetTransportationDialog> createState() =>
-      _SelectMeetTransportationDialogState();
+  State<SelectMeetTransportationDialog> createState() => _SelectMeetTransportationDialogState();
 }
 
 class _SelectMeetTransportationDialogState extends State<SelectMeetTransportationDialog> {
-
-  List<MeetTrafficModel> trafficList = [
-    MeetTrafficModel(traffic: 'car'),
-    MeetTrafficModel(traffic: 'subway'),
-    MeetTrafficModel(traffic: 'walk'),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    String selectTraffic = "";
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -45,23 +38,62 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
               borderRadius: BorderRadius.circular(dialogBgRadius),
             ),
           ),
-          TitleTextAreaWidget(content: '선택해주세요!', contentSize: textSize_title),
+          TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
           SizedBox(
             height: 10,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: TextContentAreaWidget(
-              content: '약속장소로 이동할 교통수단을\n선택해주세요.',
+              content: '먼저 출발지를 입력해주세요.',
               contentSize: textSize_content,
             ),
           ),
           SizedBox(
             height: 10,
           ),
-          // 아이콘으로 교통 수단 선택한다.....
-          SelectTrafficIconScreen(trafficList: trafficList,),
-
+          // 주소 검색 Api 사용
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child:
+            GestureDetector(
+              // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+              onTap: () {
+                print('주소입력 화면으로 이동합니다.');
+                // 주소 입력 화면 이동
+                HapticFeedback.mediumImpact();
+                addressApi();
+              },
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(dialogBgRadius),
+                  border: Border.all(color: Colors.amberAccent, width: 2),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text(
+                        '출발지를 입력해주세요!',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      margin: EdgeInsets.only(left: 15),
+                    ),
+                    Container(
+                      child: IconButton(
+                        onPressed: () {
+                          // 취소 버튼 입력 시...
+                          print('출발지 입력정보를 지웁니다....');
+                        },
+                        icon: Icon(Icons.cancel),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
           // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
           SizedBox(
             height: 10,
@@ -71,32 +103,21 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
             child: Center(
               child: SelectMoveStepWidget(
                 backText: '취소',
-                nextText: '출발지 입력',
+                nextText: '중간지점 찾기!',
                 onBackPress: () {
-                  print('선택 Dialog 종료');
+                  print('출발지 입력 Dialog 종료');
                   Navigator.of(context).pop();
                 },
                 onNextPress: () {
-                  print('출발지 입력 Dialog 이동');
-                  for (int i = 0; i < trafficList.length; i++) {
-                    if (trafficList[i].imageIndex == 1) {
-                      selectTraffic = trafficList[i].traffic;
-                    }
-                  }
-                  if (selectTraffic.isEmpty) {
-                    showToast('교통 수단 선택이 비었습니다.');
-                  } else {
-                    // 이동 수단 Dialog show
-                    // tap 시 약속장소 정하기 화면 이동
-                    Navigator.of(context).pop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MeetPlaceSetScreen(),
-                        fullscreenDialog: true,
-                      ),
-                    );
-                  }
+                  print('중간지점 찾기 Dialog 이동');
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MeetPlaceSetScreen(),
+                      fullscreenDialog: true,
+                    ),
+                  );
                 },
               ),
             ),
@@ -108,15 +129,24 @@ class _SelectMeetTransportationDialogState extends State<SelectMeetTransportatio
       ),
     );
   }
+  void addressApi() async {
+    KopoModel model = await Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (context) => RemediKopo(),
+        ),
+    );
+    print('주소 확인 : ${model.address}');
+  }
 }
 
 void showToast(String message) {
   Fluttertoast.showToast(
-      msg: message,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.white,
-      fontSize: 15,
-      textColor: Colors.black,
-      toastLength: Toast.LENGTH_SHORT,
+    msg: message,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.white,
+    fontSize: 15,
+    textColor: Colors.black,
+    toastLength: Toast.LENGTH_SHORT,
   );
 }

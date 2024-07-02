@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../dialogs/select_meet_start_position_dialog.dart';
-
 /**
  * 약속장소 정하기 Screen
  *
@@ -26,32 +24,6 @@ class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
   @override
   void initState() {
     super.initState();
-    // 최초 진입 시 하단에 생성되는 주소 입력 Dialog / 뒤 메인 화면은 지도화면
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      selectPositionDialog(context);
-    });
-  }
-
-  void selectPositionDialog(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        enableDrag: false,
-        isDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {
-              return Future(() => true);
-            },
-            child: SelectMeetStartPositionDialog(),
-          );
-        }).whenComplete(() {
-      if (isPosition) {
-        showToast('아예 뒤로...');
-        Navigator.of(context).pop();
-      } else {
-        showToast('주소입력착만 뒤로...');
-      }
-    });
   }
 
   @override
