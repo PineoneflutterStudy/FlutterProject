@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,17 +58,33 @@ class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
             height: 10,
           ),
           // 주소 검색 Api 사용
-          Container(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height
-            ),
-            child: Expanded(
-                child: makeStartAddressList()
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: makeStartAddressList()),
+            ],
           ),
           // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
           SizedBox(
-            height: 10,
+            height: 5,
+          ),
+          Container(
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (initAddressNum >= 4) {
+                    showToast('최대치를 초과하였습니다!');
+                  } else {
+                    initAddressNum++;
+                  }
+                });
+              },
+              icon: Icon(
+                Icons.add_circle_sharp,
+                color: Colors.amberAccent,
+                size: 30,
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -107,7 +125,6 @@ class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
         builder: (context) => RemediKopo(),
       ),
     );
-    print('주소 확인 : ${model.address}');
     showToast('${model.address}');
   }
 
@@ -143,7 +160,7 @@ class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
                         children: [
                           Container(
                             child: Text(
-                              '출발지를 입력해주세요!',
+                              '${index + 1}. 출발지를 입력해주세요!',
                               style: TextStyle(fontSize: 20),
                             ),
                             margin: EdgeInsets.only(left: 15),
