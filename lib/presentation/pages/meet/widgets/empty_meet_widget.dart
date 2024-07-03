@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../dialogs/select_meet_transportation_dialog.dart';
+import '../dialogs/start_address_input_dialog.dart';
 
 class EmptyMeetWidget extends StatelessWidget {
   const EmptyMeetWidget({super.key});
@@ -16,7 +16,7 @@ class EmptyMeetWidget extends StatelessWidget {
           onTap: () {
             showDialog(
               context: context,
-              builder: (context) => SelectMeetTransportationDialog(),
+              builder: (context) => StartAddressInputDialog(),
             );
           },
           child: Icon(
