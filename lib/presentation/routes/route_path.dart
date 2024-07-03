@@ -9,4 +9,5 @@ class RoutePath{
   static const String like = '/like';
   static const String meet = '/meet';
   static const String user = '/user';
+  static const String login = '/login';
 }

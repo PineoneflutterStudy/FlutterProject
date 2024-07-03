@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../main/main_screen.dart';
 import '../pages/home/home_page.dart';
 import '../pages/like/like_page.dart';
+import '../pages/login/login_page.dart';
 import '../pages/meet/meet_page.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/splash/splash_page.dart';
@@ -38,4 +39,8 @@ final GoRouter router = GoRouter(routes: [
       path: RoutePath.user,
       name: 'user',
       builder: (context, state) => const UserPage()),
+  GoRoute(
+      path: RoutePath.login,
+      name: 'login',
+      builder: (context, state) => const LoginPage()),
 ], initialLocation: '/splash');

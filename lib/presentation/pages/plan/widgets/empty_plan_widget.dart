@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../dialog/login_popup.dart';
+
 class EmptyPlanWidget extends StatelessWidget {
   const EmptyPlanWidget({super.key});
 
@@ -11,7 +13,7 @@ class EmptyPlanWidget extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            // todo 로그인 팝업
+            showDialog(context: context, builder: (context) => LoginPopup());
           },
           child: Icon(
             Icons.add_circle_sharp,
