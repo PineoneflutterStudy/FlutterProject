@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../main/common/appbar.dart';
+import '../../../../data/data_source/mock/category/ctgr_mock_api.dart';
+import '../../../../data/dto/display/category/category.dto.dart';
 
 class PlannerPage extends StatefulWidget {
   const PlannerPage({super.key});
@@ -10,15 +11,59 @@ class PlannerPage extends StatefulWidget {
 }
 
 class _PlannerPageState extends State<PlannerPage> {
+  List<CategoryDto> categoryList = []; // 데이터를 저장할 리스트
+  bool isLoading = true; // 로딩 상태를 나타낼 변수
+  String errorMessage = ''; // 에러 메시지를 저장할 변수
+  @override
+  void initState() {
+    super.initState();
+    getCategoryList();
+  }
+
+  Future<void> getCategoryList() async {
+    try {
+      final data = await CtgrMockApi().getCategoryList('plan');
+      if(data.status == '0'){
+        setState(() {
+          categoryList = data.data;
+          isLoading = false; // 데이터 로딩 완료
+        });
+      }else{
+        setState(() {
+          isLoading = false; // 데이터 로딩 완료
+          errorMessage = data.message;
+        });
+      }
+    } catch (e) {
+      // todo 에러 처리 로직 추가
+      setState(() {
+        isLoading = false; // 에러 발생 시 로딩 상태 해제
+      });
+      print('Failed to load data: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: '나만의 여행플래너'),
-      body: Center(
-          child: Text(
-            'plan_page',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          )),
+    return Column(
+      children: [
+        if (isLoading)
+          CircularProgressIndicator(), // 로딩 중일 때 보여줄 위젯
+        if (!isLoading && errorMessage.isNotEmpty)
+          Text(errorMessage), // 에러 발생 시 보여줄 위젯
+        if (!isLoading && categoryList.isEmpty)
+          Text('No data available'), // 데이터가 없을 때 보여줄 위젯
+        if (!isLoading && categoryList.isNotEmpty)
+          Expanded(
+            child: ListView.builder(
+              itemCount: categoryList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(categoryList[index].ctgrName),
+                );
+              },
+            ),
+          ),
+      ],
     );
   }
 }

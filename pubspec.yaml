@@ -26,14 +26,18 @@ dependencies:
   image_picker: ^1.1.2 # 제품등록
   cached_network_image: ^3.3.1 # network image 사용
   flutter_image_compress: ^2.3.0 # 이미지 용량 압축
-
   intl: ^0.19.0 #데이터 포맷
-  freezed_annotation: ^2.4.1 # 데이터 모델
-  json_annotation: ^4.9.0 #json 변환
 
   fluttertoast: ^8.0.8 # 토스트 팝업 사용
   provider: ^6.0.3 # Provider 사용
   remedi_kopo: ^0.0.2 # 카카오 주소검색 API 사용
+
+  #freezed
+  freezed_annotation: ^2.4.1 # 데이터 모델
+  json_annotation: ^4.9.0 #json 변환
+
+  retrofit: ^4.1.0   #Retrofit
+  dio: ^5.4.3+1 #Dio
 
   #firebase
   google_sign_in: ^6.2.1 #구글로그인
@@ -49,9 +53,12 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^3.0.0
-  build_runner: ^2.4.11
+
   freezed: ^2.5.2 # 데이터 모델
+  build_runner: ^2.4.11
   json_serializable: ^6.8.0
+
+  retrofit_generator: ^8.1.1
 
 
 flutter:

@@ -28,7 +28,7 @@ class _PlanPageState extends State<PlanPage> {
   }
 
   void _CheckLoginState() {
-    var isLogin = false;
+    var isLogin = true;
     //todo login check 로직
     //todo user 정보 불러오기
 
