@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../screens/kakao_address_start_position_screen.dart';
+import '../screens/address_input_add_item_screen.dart';
+import '../screens/address_input_basic_item_screen.dart';
 import '../screens/meet_place_set_screen.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
@@ -30,6 +31,19 @@ class StartAddressInputDialog extends StatefulWidget {
 
 class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
   int initAddressNum = 2;
+  List<Widget> addressFields = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for (int i = 0; i < initAddressNum; i++) {
+      addressFields.add(AddressInputBasicItemScreen(
+        indexNum: i + 1,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +90,9 @@ class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
                     showToast('최대치를 초과하였습니다!');
                   } else {
                     initAddressNum++;
+                    addressFields.add(AddressInputAddItemScreen(
+                      indexNum: initAddressNum,
+                    ));
                   }
                 });
               },
@@ -142,42 +159,14 @@ class _StartAddressInputDialogState extends State<StartAddressInputDialog> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
-                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
-                    onTap: () {
-                      print('주소입력 화면으로 이동합니다. 몇번쨰 index?? -> $index');
-                      // 주소 입력 화면 이동
-                      HapticFeedback.mediumImpact();
-                      addressApi();
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.amberAccent, width: 2),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Text(
-                              '${index + 1}. 출발지를 입력해주세요!',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            margin: EdgeInsets.only(left: 15),
-                          ),
-                          Container(
-                            child: IconButton(
-                              onPressed: () {
-                                // 취소 버튼 입력 시...
-                                print('출발지 입력정보를 지웁니다....');
-                              },
-                              icon: Icon(Icons.cancel),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                      // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+                      onTap: () {
+                        print('주소입력 화면으로 이동합니다. 몇번쨰 index?? -> $index');
+                        // 주소 입력 화면 이동
+                        HapticFeedback.mediumImpact();
+                        addressApi();
+                      },
+                      child: addressFields[index]),
                 ),
                 SizedBox(
                   height: 10,
