@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class AddressInputAddItemScreen extends StatelessWidget {
 
   final int indexNum;
+  final String address;
 
-  const AddressInputAddItemScreen({super.key, required this.indexNum});
+  const AddressInputAddItemScreen({super.key, required this.indexNum, required this.address});
 
   @override
   Widget build(BuildContext context) {

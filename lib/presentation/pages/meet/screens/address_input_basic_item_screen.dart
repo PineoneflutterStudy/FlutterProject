@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 class AddressInputBasicItemScreen extends StatelessWidget {
 
   final int indexNum;
+  final String address;
 
-  const AddressInputBasicItemScreen({super.key, required this.indexNum});
+  const AddressInputBasicItemScreen({super.key, required this.indexNum, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class AddressInputBasicItemScreen extends StatelessWidget {
       ),
       child: Container(
         child: Text(
-          '${indexNum}. 출발지를 입력해주세요!',
+          '$indexNum. 출발지를 입력해주세요!',
           style: TextStyle(fontSize: 20),
         ),
         margin: EdgeInsets.only(left: 15),
