@@ -6,6 +6,7 @@ import '../../../../domain/model/common/result.dart';
 import '../../../../domain/model/display/category/category.model.dart';
 import '../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
+import '../../../../service_locator.dart';
 
 class PlannerPage extends StatefulWidget {
   const PlannerPage({super.key});
@@ -26,9 +27,7 @@ class _PlannerPageState extends State<PlannerPage> {
 
   Future<void> getCategoryList() async {
     try {
-      final result = await DisplayUsecase(DisplayRepositoryImpl(CtgrMockApi()))
-          .execute(usecase: GetCategorysUsecase('plan'));
-
+      final result = await locator<DisplayUsecase>().execute(usecase: GetCategorysUsecase('plan'));
       if(result is Success){
         setState(() {
           categoryList = result.data ?? [];
