@@ -5,7 +5,7 @@ part 'response_wrapper.freezed.dart';
 part 'response_wrapper.g.dart';
 
 @Freezed(genericArgumentFactories: true)
-class ResponseWrapper<T> with _$ResponseWrapper {
+class ResponseWrapper<T> with _$ResponseWrapper<T> {
   const factory ResponseWrapper({
     @Default('') String status,
     @Default('') String code,
@@ -15,6 +15,6 @@ class ResponseWrapper<T> with _$ResponseWrapper {
 
 
 
-  factory ResponseWrapper.fromJson(Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$ResponseWrapperFromJson(json,fromJsonT);
+  factory ResponseWrapper.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
+      _$ResponseWrapperFromJson<T>(json, fromJsonT);
 }

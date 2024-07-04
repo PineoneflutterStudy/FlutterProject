@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category.dto.dart';
+part of 'category.model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) {
-  return _CategoryDto.fromJson(json);
+Category _$CategoryFromJson(Map<String, dynamic> json) {
+  return _Category.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CategoryDto {
+mixin _$Category {
   int get ctgrId => throw _privateConstructorUsedError;
   String get ctgrName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CategoryDtoCopyWith<CategoryDto> get copyWith =>
+  $CategoryCopyWith<Category> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryDtoCopyWith<$Res> {
-  factory $CategoryDtoCopyWith(
-          CategoryDto value, $Res Function(CategoryDto) then) =
-      _$CategoryDtoCopyWithImpl<$Res, CategoryDto>;
+abstract class $CategoryCopyWith<$Res> {
+  factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
+      _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
   $Res call({int ctgrId, String ctgrName});
 }
 
 /// @nodoc
-class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
-    implements $CategoryDtoCopyWith<$Res> {
-  _$CategoryDtoCopyWithImpl(this._value, this._then);
+class _$CategoryCopyWithImpl<$Res, $Val extends Category>
+    implements $CategoryCopyWith<$Res> {
+  _$CategoryCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +67,22 @@ class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
 }
 
 /// @nodoc
-abstract class _$$CategoryDtoImplCopyWith<$Res>
-    implements $CategoryDtoCopyWith<$Res> {
-  factory _$$CategoryDtoImplCopyWith(
-          _$CategoryDtoImpl value, $Res Function(_$CategoryDtoImpl) then) =
-      __$$CategoryDtoImplCopyWithImpl<$Res>;
+abstract class _$$CategoryImplCopyWith<$Res>
+    implements $CategoryCopyWith<$Res> {
+  factory _$$CategoryImplCopyWith(
+          _$CategoryImpl value, $Res Function(_$CategoryImpl) then) =
+      __$$CategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int ctgrId, String ctgrName});
 }
 
 /// @nodoc
-class __$$CategoryDtoImplCopyWithImpl<$Res>
-    extends _$CategoryDtoCopyWithImpl<$Res, _$CategoryDtoImpl>
-    implements _$$CategoryDtoImplCopyWith<$Res> {
-  __$$CategoryDtoImplCopyWithImpl(
-      _$CategoryDtoImpl _value, $Res Function(_$CategoryDtoImpl) _then)
+class __$$CategoryImplCopyWithImpl<$Res>
+    extends _$CategoryCopyWithImpl<$Res, _$CategoryImpl>
+    implements _$$CategoryImplCopyWith<$Res> {
+  __$$CategoryImplCopyWithImpl(
+      _$CategoryImpl _value, $Res Function(_$CategoryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +91,7 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
     Object? ctgrId = null,
     Object? ctgrName = null,
   }) {
-    return _then(_$CategoryDtoImpl(
+    return _then(_$CategoryImpl(
       ctgrId: null == ctgrId
           ? _value.ctgrId
           : ctgrId // ignore: cast_nullable_to_non_nullable
@@ -107,29 +106,27 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CategoryDtoImpl with DiagnosticableTreeMixin implements _CategoryDto {
-  const _$CategoryDtoImpl({this.ctgrId = -1, this.ctgrName = ''});
+class _$CategoryImpl with DiagnosticableTreeMixin implements _Category {
+  const _$CategoryImpl({required this.ctgrId, required this.ctgrName});
 
-  factory _$CategoryDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CategoryDtoImplFromJson(json);
+  factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CategoryImplFromJson(json);
 
   @override
-  @JsonKey()
   final int ctgrId;
   @override
-  @JsonKey()
   final String ctgrName;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CategoryDto(ctgrId: $ctgrId, ctgrName: $ctgrName)';
+    return 'Category(ctgrId: $ctgrId, ctgrName: $ctgrName)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'CategoryDto'))
+      ..add(DiagnosticsProperty('type', 'Category'))
       ..add(DiagnosticsProperty('ctgrId', ctgrId))
       ..add(DiagnosticsProperty('ctgrName', ctgrName));
   }
@@ -138,7 +135,7 @@ class _$CategoryDtoImpl with DiagnosticableTreeMixin implements _CategoryDto {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CategoryDtoImpl &&
+            other is _$CategoryImpl &&
             (identical(other.ctgrId, ctgrId) || other.ctgrId == ctgrId) &&
             (identical(other.ctgrName, ctgrName) ||
                 other.ctgrName == ctgrName));
@@ -151,23 +148,24 @@ class _$CategoryDtoImpl with DiagnosticableTreeMixin implements _CategoryDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CategoryDtoImplCopyWith<_$CategoryDtoImpl> get copyWith =>
-      __$$CategoryDtoImplCopyWithImpl<_$CategoryDtoImpl>(this, _$identity);
+  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
+      __$$CategoryImplCopyWithImpl<_$CategoryImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CategoryDtoImplToJson(
+    return _$$CategoryImplToJson(
       this,
     );
   }
 }
 
-abstract class _CategoryDto implements CategoryDto {
-  const factory _CategoryDto({final int ctgrId, final String ctgrName}) =
-      _$CategoryDtoImpl;
+abstract class _Category implements Category {
+  const factory _Category(
+      {required final int ctgrId,
+      required final String ctgrName}) = _$CategoryImpl;
 
-  factory _CategoryDto.fromJson(Map<String, dynamic> json) =
-      _$CategoryDtoImpl.fromJson;
+  factory _Category.fromJson(Map<String, dynamic> json) =
+      _$CategoryImpl.fromJson;
 
   @override
   int get ctgrId;
@@ -175,6 +173,6 @@ abstract class _CategoryDto implements CategoryDto {
   String get ctgrName;
   @override
   @JsonKey(ignore: true)
-  _$$CategoryDtoImplCopyWith<_$CategoryDtoImpl> get copyWith =>
+  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -7,11 +7,9 @@ part 'category.dto.g.dart';
 @freezed
 class CategoryDto with _$CategoryDto {
   const factory CategoryDto({
+    @Default(-1) int ctgrId,
     @Default('') String ctgrName,
-    @Default(-1) int ctgrId
   }) = _CategoryDto;
-
-
 
   factory CategoryDto.fromJson(Map<String, dynamic> json) =>
       _$CategoryDtoFromJson(json);

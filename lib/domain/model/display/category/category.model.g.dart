@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dto.dart';
+part of 'category.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CategoryDtoImpl _$$CategoryDtoImplFromJson(Map<String, dynamic> json) =>
-    _$CategoryDtoImpl(
-      ctgrId: (json['ctgrId'] as num?)?.toInt() ?? -1,
-      ctgrName: json['ctgrName'] as String? ?? '',
+_$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
+    _$CategoryImpl(
+      ctgrId: (json['ctgrId'] as num).toInt(),
+      ctgrName: json['ctgrName'] as String,
     );
 
-Map<String, dynamic> _$$CategoryDtoImplToJson(_$CategoryDtoImpl instance) =>
+Map<String, dynamic> _$$CategoryImplToJson(_$CategoryImpl instance) =>
     <String, dynamic>{
       'ctgrId': instance.ctgrId,
       'ctgrName': instance.ctgrName,
