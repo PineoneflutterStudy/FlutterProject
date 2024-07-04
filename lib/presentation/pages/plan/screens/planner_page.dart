@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/data_source/mock/category/ctgr_mock_api.dart';
 import '../../../../data/repository_impl/display/display_repository_impl.dart';
+import '../../../../domain/model/common/result.dart';
 import '../../../../domain/model/display/category/category.model.dart';
+import '../../../../domain/usecase/display/category/get_category.usecase.dart';
+import '../../../../domain/usecase/display/display.usecase.dart';
 
 class PlannerPage extends StatefulWidget {
   const PlannerPage({super.key});
@@ -23,32 +26,33 @@ class _PlannerPageState extends State<PlannerPage> {
 
   Future<void> getCategoryList() async {
     try {
-      final data = await DisplayRepositoryImpl(CtgrMockApi()).getCategoryList(menuType: 'plan');
-      if(data.status == '0'){
+      final result = await DisplayUsecase(DisplayRepositoryImpl(CtgrMockApi()))
+          .execute(usecase: GetCategorysUsecase('plan'));
+
+      if(result is Success){
         setState(() {
-          categoryList = data.data ?? [];
+          categoryList = result.data ?? [];
           isLoading = false; // 데이터 로딩 완료
         });
       }else{
-        setState(() {
-          isLoading = false; // 데이터 로딩 완료
-          errorMessage = data.message;
-        });
+        isLoading = false;
+        errorMessage = result.message;
       }
+
     } catch (e) {
-      // todo 에러 처리 로직 추가
+      // todo 에러 처리
       setState(() {
         isLoading = false; // 에러 발생 시 로딩 상태 해제
       });
       print('Failed to load data: $e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (isLoading)
-          CircularProgressIndicator(), // 로딩 중일 때 보여줄 위젯
+        if (isLoading) CircularProgressIndicator(), // 로딩 중일 때 보여줄 위젯
         if (!isLoading && errorMessage.isNotEmpty)
           Text(errorMessage), // 에러 발생 시 보여줄 위젯
         if (!isLoading && categoryList.isEmpty)
