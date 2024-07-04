@@ -10,7 +10,7 @@ class GetCategorysUsecase extends RemoteUsecase<DisplayRepository> {
 
   Future call(DisplayRepository repository) async {
     final result = await repository.getCategoryList(menuType: menuType);
-    return (result.status == '0')
+    return (result.status == 'success')
         ? Result.Success(result.data ?? [])
         : Result.failure(ErrorResponse(
             status: result.status,
