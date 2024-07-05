@@ -5,7 +5,11 @@ class AddressInputAddItemScreen extends StatelessWidget {
   final int indexNum;
   final String address;
 
-  const AddressInputAddItemScreen({super.key, required this.indexNum, required this.address});
+  final void Function()? onDeleteBtnPress; // 입력 주소 제거
+  final void Function()? onRemoveBtnPress; // 입력할 수 있는 항목 제거
+
+  const AddressInputAddItemScreen(
+      {super.key, required this.indexNum, required this.address, required this.onDeleteBtnPress, required this.onRemoveBtnPress});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +24,21 @@ class AddressInputAddItemScreen extends StatelessWidget {
         children: [
           Container(
             child: Text(
-              '${indexNum}. 출발지를 입력해주세요!',
+              address.isEmpty ? '$indexNum. 출발지를 입력해주세요!' : '$indexNum. $address',
               style: TextStyle(fontSize: 20),
             ),
             margin: EdgeInsets.only(left: 15),
           ),
           Container(
             child: IconButton(
-              onPressed: () {
-                // 취소 버튼 입력 시...
-                print('출발지 입력정보를 지웁니다....');
-              },
-              icon: Icon(Icons.cancel),
+                onPressed: address.isEmpty ? onRemoveBtnPress : onDeleteBtnPress,
+                icon: address.isEmpty
+                    ? Icon(
+                  Icons.remove_circle, color: Colors.black.withOpacity(0.4),)
+                    : Icon(
+                  Icons.cancel,
+                  color: Colors.black.withOpacity(0.8),
+                ),
             ),
           )
         ],

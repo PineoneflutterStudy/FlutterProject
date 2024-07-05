@@ -9,9 +9,11 @@ class AddressInputViewModel extends ChangeNotifier {
   AddressInputViewModel(this._startAddressRepository);
 
   List<StartAddressModel> _addressList = [];
+
   List<StartAddressModel> get addressList => _addressList;
 
   int _addressSize = 2;
+
   int get addressSize => _addressSize;
 
   /**
@@ -36,6 +38,34 @@ class AddressInputViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /**
+   * 주소지 검색으로 주소 업데이트
+   */
+  Future<void> updateAddress(int index, String address) async {
+    await _startAddressRepository.updateAddress(index, address);
+    _addressList = await _startAddressRepository.getAllAddress();
+    notifyListeners();
+  }
+
+  /**
+   * X 버튼 입력으로 주소 지우기
+   */
+  Future<void> deleteAddress(int index) async {
+    await _startAddressRepository.deleteAddress(index);
+    _addressList = await _startAddressRepository.getAllAddress();
+    notifyListeners();
+  }
+
+  Future<void> removeAddress(int index) async {
+    await _startAddressRepository.removeAddress(index);
+    List<String> addressList = beforeAddress();
+    for(int i = 0; i < addressList.length; i++) {
+      await _startAddressRepository.updateAddress(i, addressList[i]);
+    }
+    _addressList = await _startAddressRepository.getAllAddress();
+    notifyListeners();
+  }
+
   // AddresssSize 증가
   void addAddressSize() {
     _addressSize++;
@@ -47,4 +77,11 @@ class AddressInputViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<String> beforeAddress()  {
+    List<String> address = [];
+    for (int i = 0; i < _addressList.length; i++) {
+      address.add(_addressList[i].address);
+    }
+    return address;
+  }
 }

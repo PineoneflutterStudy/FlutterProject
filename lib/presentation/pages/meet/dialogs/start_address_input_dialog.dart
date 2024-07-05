@@ -28,110 +28,100 @@ class StartAddressInputDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => AddressInputViewModel(StartAddressRepositoryImpl()),
-        child: Dialog(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(dialogBgRadius),
-                ),
+      create: (context) => AddressInputViewModel(StartAddressRepositoryImpl()),
+      child: Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(dialogBgRadius),
               ),
-              TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
-              SizedBox(
-                height: 10,
+            ),
+            TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: TextContentAreaWidget(
+                content: '먼저 출발지를 입력해주세요.',
+                contentSize: textSize_content,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: TextContentAreaWidget(
-                  content: '먼저 출발지를 입력해주세요.',
-                  contentSize: textSize_content,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // 주소 검색 Api 사용
-              Consumer<AddressInputViewModel>(
-                builder: (context, viewModel, Widget? child) {
-                  print('값확인 -> ${viewModel.addressList.length}');
-                  if (viewModel.addressList.length == 0) viewModel.basicAddress();
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(child: makeStartAddressList(context, viewModel)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        child: IconButton(
-                          onPressed: () {
-                            if (viewModel.addressList.length >= 4) {
-                              showToast('최대치를 초과하였습니다!');
-                            } else {
-                              viewModel.addAddressSize();
-                              viewModel.addAddress(viewModel.addressSize, '');
-                            }
-                          },
-                          icon: Icon(
-                            Icons.add_circle_sharp,
-                            color: Colors.amberAccent,
-                            size: 30,
-                          ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            // 주소 검색 Api 사용
+            Consumer<AddressInputViewModel>(
+              builder: (context, viewModel, Widget? child) {
+                if (viewModel.addressList.length == 0) viewModel.basicAddress();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: makeStartAddressList(context, viewModel)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      child: IconButton(
+                        onPressed: () {
+                          if (viewModel.addressList.length >= 4) {
+                            showToast('최대 4명까지 입력 가능합니다!');
+                          } else {
+                            viewModel.addAddressSize();
+                            viewModel.addAddress(viewModel.addressSize - 1, '');
+                          }
+                        },
+                        icon: Icon(
+                          Icons.add_circle_sharp,
+                          color: Colors.amberAccent,
+                          size: 30,
                         ),
                       ),
-                    ],
-                  );
-                },
-              ),
-              // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Center(
-                  child: SelectMoveStepWidget(
-                    backText: '취소',
-                    nextText: '중간지점 찾기!',
-                    onBackPress: () {
-                      print('출발지 입력 Dialog 종료');
-                      Navigator.of(context).pop();
-                    },
-                    onNextPress: () {
-                      print('중간지점 찾기 Dialog 이동');
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MeetPlaceSetScreen(),
-                          fullscreenDialog: true,
-                        ),
-                      );
-                    },
-                  ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Center(
+                child: SelectMoveStepWidget(
+                  backText: '취소',
+                  nextText: '중간지점 찾기!',
+                  onBackPress: () {
+                    print('출발지 입력 Dialog 종료');
+                    Navigator.of(context).pop();
+                  },
+                  onNextPress: () {
+                    print('중간지점 찾기 Dialog 이동');
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MeetPlaceSetScreen(),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
-    );
-  }
-
-  void addressApi(BuildContext context) async {
-    KopoModel model = await Navigator.push(
-      context,
-      CupertinoPageRoute(
-        builder: (context) => RemediKopo(),
       ),
     );
-    showToast('${model.address}');
   }
 
   // 출발지 입력 ListView
@@ -148,17 +138,34 @@ class StartAddressInputDialog extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
-                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+                      // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
                       onTap: () {
-                        print('주소입력 화면으로 이동합니다. 몇번쨰 index?? -> $index');
                         // 주소 입력 화면 이동
                         HapticFeedback.mediumImpact();
-                        addressApi(context);
+                        addressApi(context, index, viewModel);
                       },
-                      child: index < 2?
-                      AddressInputBasicItemScreen(indexNum: index + 1,address: viewModel.addressList[index].address,)
-                          : AddressInputAddItemScreen(indexNum: index + 1,address: viewModel.addressList[index].address,)
-                  ),
+                      child: index < 2
+                          ? AddressInputBasicItemScreen(
+                              indexNum: index + 1,
+                              address: viewModel.addressList[index].address,
+                              onDeleteBtnPress: () {
+                                // 입력 주소 제거
+                                viewModel.deleteAddress(index);
+                              },
+                            )
+                          : AddressInputAddItemScreen(
+                              indexNum: index + 1,
+                              address: viewModel.addressList[index].address,
+                              onDeleteBtnPress: () {
+                                // 입력 주소 제거
+                                viewModel.deleteAddress(index);
+                              },
+                              onRemoveBtnPress: () {
+                                // 입력할 수 있는 항목 제거
+                                viewModel.removeAddress(index);
+                                viewModel.decAddressSize();
+                              },
+                            )),
                 ),
                 SizedBox(
                   height: 10,
@@ -170,6 +177,17 @@ class StartAddressInputDialog extends StatelessWidget {
       },
       shrinkWrap: true,
     );
+  }
+
+  void addressApi(BuildContext context, int listIndex,
+      AddressInputViewModel viewModel) async {
+    KopoModel model = await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => RemediKopo(),
+      ),
+    );
+    viewModel.updateAddress(listIndex, model.address!);
   }
 
   void showToast(String message) {

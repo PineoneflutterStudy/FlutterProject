@@ -10,11 +10,16 @@ import 'package:flutter/material.dart';
  */
 
 class AddressInputBasicItemScreen extends StatelessWidget {
-
   final int indexNum;
   final String address;
 
-  const AddressInputBasicItemScreen({super.key, required this.indexNum, required this.address});
+  final void Function()? onDeleteBtnPress; // 입력 주소 제거
+
+  const AddressInputBasicItemScreen(
+      {super.key,
+      required this.indexNum,
+      required this.address,
+      required this.onDeleteBtnPress});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +30,29 @@ class AddressInputBasicItemScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Colors.amberAccent, width: 2),
       ),
-      child: Container(
-        child: Text(
-          '$indexNum. 출발지를 입력해주세요!',
-          style: TextStyle(fontSize: 20),
-        ),
-        margin: EdgeInsets.only(left: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child: Text(
+              address.isEmpty ? '$indexNum. 출발지를 입력해주세요!' : '$indexNum. $address',
+              style: TextStyle(fontSize: 20),
+            ),
+            margin: EdgeInsets.only(left: 15),
+          ),
+          Visibility(
+            visible: address.isEmpty ? false : true,
+            child: Container(
+              child: IconButton(
+                onPressed: onDeleteBtnPress,
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black.withOpacity(0.8),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -15,6 +15,21 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
     return _addressModel;
   }
 
+  @override
+  Future<void> updateAddress(int index, String newAddress) async {
+    _addressModel[index] = StartAddressModel(index: index, address: newAddress);
+  }
+
+  @override
+  Future<void> deleteAddress(int index) async {
+    _addressModel[index] = StartAddressModel(index: index, address: '');
+  }
+
+  @override
+  Future<void> removeAddress(int index) async {
+    _addressModel.removeAt(index);
+  }
+
 
 
 }
