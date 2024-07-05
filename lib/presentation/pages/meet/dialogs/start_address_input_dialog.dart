@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
+import '../../../../domain/model/meet/start_address_model.dart';
 import '../screens/address_input_add_item_screen.dart';
 import '../screens/address_input_basic_item_screen.dart';
 import '../screens/meet_place_set_screen.dart';
@@ -86,34 +87,38 @@ class StartAddressInputDialog extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Center(
+                        child: SelectMoveStepWidget(
+                          backText: '취소',
+                          nextText: '중간지점 찾기!',
+                          onBackPress: () {
+                            Navigator.of(context).pop();
+                          },
+                          onNextPress: () {
+                            bool isEmptyAddress = checkEmptyAddress(viewModel.addressList);
+                            if (isEmptyAddress) {
+                              // 주소가 모두 입력
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MeetPlaceSetScreen(addressList: viewModel.addressList,),
+                                  fullscreenDialog: true,
+                                ),
+                              );
+                            } else {
+                              // 하나라도 비어있는 주소가 존재한다...
+                              showToast('비어있는 출발지가 있습니다!');
+                            }
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 );
               },
-            ),
-            // 선택한 대중교통이 뭔지 간단한 텍스트로 보여주기
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Center(
-                child: SelectMoveStepWidget(
-                  backText: '취소',
-                  nextText: '중간지점 찾기!',
-                  onBackPress: () {
-                    print('출발지 입력 Dialog 종료');
-                    Navigator.of(context).pop();
-                  },
-                  onNextPress: () {
-                    print('중간지점 찾기 Dialog 이동');
-                    Navigator.of(context).pop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MeetPlaceSetScreen(),
-                        fullscreenDialog: true,
-                      ),
-                    );
-                  },
-                ),
-              ),
             ),
             SizedBox(
               height: 20,
@@ -179,6 +184,9 @@ class StartAddressInputDialog extends StatelessWidget {
     );
   }
 
+  /**
+   * 주소검색 APi 실행 후 결과값 저장
+   */
   void addressApi(BuildContext context, int listIndex,
       AddressInputViewModel viewModel) async {
     KopoModel model = await Navigator.push(
@@ -190,6 +198,22 @@ class StartAddressInputDialog extends StatelessWidget {
     viewModel.updateAddress(listIndex, model.address!);
   }
 
+  /**
+   * 현재 주소들이 비어있는지 확인
+   */
+  bool checkEmptyAddress(List<StartAddressModel> addressList) {
+    int emptyCount = 0;
+    for (int i = 0; i < addressList.length; i++) {
+      if(addressList[i].address.isEmpty) {
+        emptyCount++;
+      }
+    }
+    return emptyCount > 0? false : true;
+  }
+
+  /**
+   * 토스트 메시지 제공
+   */
   void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
