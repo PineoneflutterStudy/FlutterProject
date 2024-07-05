@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
 
-/**
- * 출발지 입력 기본적으로 보여지는 Item Screen
- *
- * @Description
- * 출발지를 입력해주세요! / X 버튼 미제공
- *
- * @param indexNum - Listview index number
- */
+class AddressInputAddItemWidget extends StatelessWidget {
 
-class AddressInputBasicItemScreen extends StatelessWidget {
   final int indexNum;
   final String address;
 
   final void Function()? onDeleteBtnPress; // 입력 주소 제거
+  final void Function()? onRemoveBtnPress; // 입력할 수 있는 항목 제거
 
-  const AddressInputBasicItemScreen(
-      {super.key,
-      required this.indexNum,
-      required this.address,
-      required this.onDeleteBtnPress});
+  const AddressInputAddItemWidget(
+      {super.key, required this.indexNum, required this.address, required this.onDeleteBtnPress, required this.onRemoveBtnPress});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -40,18 +29,18 @@ class AddressInputBasicItemScreen extends StatelessWidget {
             ),
             margin: EdgeInsets.only(left: 15),
           ),
-          Visibility(
-            visible: address.isEmpty ? false : true,
-            child: Container(
-              child: IconButton(
-                onPressed: onDeleteBtnPress,
-                icon: Icon(
+          Container(
+            child: IconButton(
+                onPressed: address.isEmpty ? onRemoveBtnPress : onDeleteBtnPress,
+                icon: address.isEmpty
+                    ? Icon(
+                  Icons.remove_circle, color: Colors.black.withOpacity(0.4),)
+                    : Icon(
                   Icons.cancel,
                   color: Colors.black.withOpacity(0.8),
                 ),
-              ),
             ),
-          ),
+          )
         ],
       ),
     );

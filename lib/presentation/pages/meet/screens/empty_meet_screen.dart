@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../dialogs/start_address_input_dialog.dart';
 
-class EmptyMeetWidget extends StatelessWidget {
-  const EmptyMeetWidget({super.key});
+class EmptyMeetScreen extends StatelessWidget {
+  const EmptyMeetScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

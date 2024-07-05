@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_team1/presentation/pages/meet/widgets/empty_meet_widget.dart';
+import 'package:flutter_project_team1/presentation/pages/meet/screens/empty_meet_screen.dart';
 
 import '../../main/common/appbar.dart';
 
@@ -29,7 +29,7 @@ class _MeetPageState extends State<MeetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppbar(title: '우리 어디서 만날까?'),
-      body: EmptyMeetWidget(),
+      body: EmptyMeetScreen(),
     );
   }
 }

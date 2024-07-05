@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../../../../domain/model/meet/start_address_model.dart';
-import '../screens/address_input_add_item_screen.dart';
-import '../screens/address_input_basic_item_screen.dart';
+import '../widgets/address_input_add_item_widget.dart';
+import '../widgets/address_input_basic_item_widget.dart';
 import '../screens/meet_place_set_screen.dart';
 import '../viewmodel/address_input_view_model.dart';
 import '../widgets/common/select_move_step_widget.dart';
@@ -150,7 +150,7 @@ class StartAddressInputDialog extends StatelessWidget {
                         addressApi(context, index, viewModel);
                       },
                       child: index < 2
-                          ? AddressInputBasicItemScreen(
+                          ? AddressInputBasicItemWidget(
                               indexNum: index + 1,
                               address: viewModel.addressList[index].address,
                               onDeleteBtnPress: () {
@@ -158,7 +158,7 @@ class StartAddressInputDialog extends StatelessWidget {
                                 viewModel.deleteAddress(index);
                               },
                             )
-                          : AddressInputAddItemScreen(
+                          : AddressInputAddItemWidget(
                               indexNum: index + 1,
                               address: viewModel.addressList[index].address,
                               onDeleteBtnPress: () {
