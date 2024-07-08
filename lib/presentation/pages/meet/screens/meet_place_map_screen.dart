@@ -16,22 +16,10 @@ import '../../../../domain/model/display/meet/start_address_model.dart';
  *  - 하고싶은건 1번친구 링크 보내기 -> 카카오톡 친구 확인 -> 1번 친구에 해당하는 친구에게 Url링크로 바로 길찾기에 해당 루트 입력되도록.....
  */
 
-class MeetPlaceSetScreen extends StatefulWidget {
+class MeetPlaceMapScreen extends StatelessWidget {
   final List<StartAddressModel> addressList;
 
-  const MeetPlaceSetScreen({super.key, required this.addressList});
-
-  @override
-  State<MeetPlaceSetScreen> createState() => _MeetPlaceSetScreenState();
-}
-
-class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
-  bool isPosition = false; // 출발지 입력 시....
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  const MeetPlaceMapScreen({super.key, required this.addressList});
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +55,22 @@ class _MeetPlaceSetScreenState extends State<MeetPlaceSetScreen> {
 
   ListView makeList(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.addressList.length,
-        itemBuilder: (context, index) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${widget.addressList[index].index + 1} 번째 주소 - ${widget.addressList[index].address}',
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
-          );
-        },
+      itemCount: addressList.length,
+      itemBuilder: (context, index) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${addressList[index].index + 1} 번째 주소 - ${addressList[index].address}\n 위도 - ${addressList[index].latitude} / 경도 - ${addressList[index].longitude}',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            )
+          ],
+        );
+      },
       shrinkWrap: true,
     );
   }

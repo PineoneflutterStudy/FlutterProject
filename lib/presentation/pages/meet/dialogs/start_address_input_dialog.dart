@@ -7,7 +7,7 @@ import '../../../../data/repository_impl/display/meet/start_address_repository_i
 import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
-import '../screens/meet_place_set_screen.dart';
+import '../screens/meet_place_map_screen.dart';
 import '../viewmodel/address_input_view_model.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
@@ -77,7 +77,7 @@ class StartAddressInputDialog extends StatelessWidget {
                             showToast('최대 4명까지 입력 가능합니다!');
                           } else {
                             viewModel.addAddressSize();
-                            viewModel.addAddress(viewModel.addressSize - 1, '');
+                            viewModel.addAddress(viewModel.addressSize - 1, '', 0.0, 0.0);
                           }
                         },
                         icon: Icon(
@@ -104,7 +104,7 @@ class StartAddressInputDialog extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MeetPlaceSetScreen(addressList: viewModel.addressList,),
+                                  builder: (context) => MeetPlaceMapScreen(addressList: viewModel.addressList,),
                                   fullscreenDialog: true,
                                 ),
                               );
@@ -146,7 +146,6 @@ class StartAddressInputDialog extends StatelessWidget {
                       // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
                       onTap: () {
                         // 주소 입력 화면 이동
-                        HapticFeedback.mediumImpact();
                         addressApi(context, index, viewModel);
                       },
                       child: index < 2
@@ -193,7 +192,7 @@ class StartAddressInputDialog extends StatelessWidget {
         MaterialPageRoute(
             builder: (_) => KpostalView(
               callback: (Kpostal result) {
-                viewModel.updateAddress(listIndex, result.address);
+                viewModel.updateAddress(listIndex, result.address, result.latitude!, result.longitude!);
               },
             )),
     );

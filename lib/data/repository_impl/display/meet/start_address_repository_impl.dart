@@ -16,13 +16,13 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   }
 
   @override
-  Future<void> updateAddress(int index, String newAddress) async {
-    _addressModel[index] = StartAddressModel(index: index, address: newAddress);
+  Future<void> updateAddress(int index, String newAddress, double latitude, double longitude) async {
+    _addressModel[index] = StartAddressModel(index: index, address: newAddress, latitude: latitude, longitude: longitude);
   }
 
   @override
   Future<void> deleteAddress(int index) async {
-    _addressModel[index] = StartAddressModel(index: index, address: '');
+    _addressModel[index] = StartAddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0);
   }
 
   @override
