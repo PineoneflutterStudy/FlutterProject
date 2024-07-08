@@ -20,7 +20,7 @@ class _KkulTripApi implements KkulTripApi {
 
   @override
   Future<ResponseWrapper<List<CategoryDto>>> getCategoryList(
-      String menuType) async {
+      MenuType menuType) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -33,7 +33,7 @@ class _KkulTripApi implements KkulTripApi {
     )
             .compose(
               _dio.options,
-              '/api/categorys/${menuType}',
+              '/api/categorys/${menuType.name}',
               queryParameters: queryParameters,
               data: _data,
             )

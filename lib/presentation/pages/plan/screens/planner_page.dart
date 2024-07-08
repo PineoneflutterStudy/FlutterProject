@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/exception/common_exception.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/common/result.dart';
@@ -27,7 +28,7 @@ class _PlannerPageState extends State<PlannerPage> {
 
   Future<void> getCategoryList() async {
     try {
-      final result = await locator<DisplayUsecase>().execute(usecase: GetCategorysUsecase('plan'));
+      final result = await locator<DisplayUsecase>().execute(usecase: GetCategorysUsecase(MenuType.plan));
       CustomLogger.logger.d(result);
       if(result is Success){
         setState(() {

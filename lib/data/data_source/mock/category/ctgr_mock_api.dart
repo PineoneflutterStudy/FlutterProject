@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../../../core/utils/constant.dart';
 import '../../../../presentation/main/common/response_wrapper/response_wrapper.dart';
 import '../../../dto/display/category/category.dto.dart';
 import '../../remote/kkultrip.api.dart';
@@ -6,12 +7,12 @@ import 'ctgr_mock_data.dart';
 
 class CtgrMockApi implements KkulTripApi{
   @override
-  Future<ResponseWrapper<List<CategoryDto>>> getCategoryList(String menuType) {
+  Future<ResponseWrapper<List<CategoryDto>>> getCategoryList(MenuType menuType) {
     return Future(() => ResponseWrapper(
       status: 'success', //성공 0, 실패 1
       code: '0000',
       message: '',
-      data: _ctgrParser((menuType == 'home') ? CtgrMockData.homeCategory : CtgrMockData.planCategory)
+      data: _ctgrParser((menuType == MenuType.home) ? CtgrMockData.homeCategory : CtgrMockData.planCategory)
     ));
   }
 

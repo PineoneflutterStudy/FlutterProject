@@ -1,3 +1,4 @@
+import '../../../core/utils/constant.dart';
 import '../../../domain/model/display/category/category.model.dart';
 import '../../../domain/repository/display.repository.dart';
 import '../../../presentation/main/common/response_wrapper/response_wrapper.dart';
@@ -12,7 +13,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
   @override
   Future<ResponseWrapper<List<Category>>> getCategoryList({
-    required String menuType,
+    required MenuType menuType,
   }) async {
     final response = await _kkulTripApi.getCategoryList(menuType);
     return response.toModel<List<Category>>(
