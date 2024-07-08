@@ -14,7 +14,7 @@ import '../widgets/common/text_content_area_widget.dart';
 import '../widgets/common/title_text_area_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:remedi_kopo/remedi_kopo.dart';
+import 'package:kpostal/kpostal.dart';
 
 /**
  * 출발지 입력 Dialog
@@ -187,15 +187,16 @@ class StartAddressInputDialog extends StatelessWidget {
   /**
    * 주소검색 APi 실행 후 결과값 저장
    */
-  void addressApi(BuildContext context, int listIndex,
-      AddressInputViewModel viewModel) async {
-    KopoModel model = await Navigator.push(
-      context,
-      CupertinoPageRoute(
-        builder: (context) => RemediKopo(),
-      ),
+  void addressApi(BuildContext context, int listIndex, AddressInputViewModel viewModel) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => KpostalView(
+              callback: (Kpostal result) {
+                viewModel.updateAddress(listIndex, result.address);
+              },
+            )),
     );
-    viewModel.updateAddress(listIndex, model.address!);
   }
 
   /**
