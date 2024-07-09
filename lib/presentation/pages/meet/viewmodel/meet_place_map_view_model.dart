@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../domain/model/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
-
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /**
  * 약속 중간지점 구하기 Screen ViewModel
