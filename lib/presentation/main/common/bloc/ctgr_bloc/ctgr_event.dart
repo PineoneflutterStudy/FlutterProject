@@ -6,6 +6,5 @@ abstract class CtgrEvent{
 
 class CtgrInitialized extends CtgrEvent{
   final MenuType menuType;
-
   CtgrInitialized(this.menuType);
 }

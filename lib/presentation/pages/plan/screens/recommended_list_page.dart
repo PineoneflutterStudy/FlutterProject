@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/dialog/common_dialog.dart';
-import '../bloc/ctgr_bloc/ctgr_bloc.dart';
 
 import '../../../../core/utils/constant.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../service_locator.dart';
-import '../component/global_nav/global_nav_bar.dart';
-import '../component/global_nav/global_nav_bar_view.dart';
+import '../../../main/common/bloc/ctgr_bloc/ctgr_bloc.dart';
+import '../../../main/common/component/category_nav/category_nav_bar.dart';
+import '../widgets/planner_nav_bar_view.dart';
 
 class RecommendedListPage extends StatelessWidget {
   const RecommendedListPage({super.key});
@@ -38,8 +38,8 @@ class RecommendedListPageView extends StatelessWidget {
                 length: state.ctgrs.length,
                 child: Column(
                   children: [
-                    GlobalNavBar(state.ctgrs),
-                    GlobalNavBarView(state.menuType, state.ctgrs),
+                    CategoryNavBar(state.ctgrs),
+                    PlannerNavBarView(state.menuType, state.ctgrs),
                   ],
                 ));
           case Status.success:
@@ -48,8 +48,8 @@ class RecommendedListPageView extends StatelessWidget {
                 length: state.ctgrs.length,
                 child: Column(
                   children: [
-                    GlobalNavBar(state.ctgrs),
-                    GlobalNavBarView(state.menuType, state.ctgrs),
+                    CategoryNavBar(state.ctgrs),
+                    PlannerNavBarView(state.menuType, state.ctgrs),
                   ],
                 ));
           case Status.error:
@@ -58,10 +58,8 @@ class RecommendedListPageView extends StatelessWidget {
       },
       listener: (context, state) async {
         if (state.status == Status.error) {
-          final bool result =
-              (await CommonDialog.errorDialog(context, state.error) ?? false);
-          if (result) {
-            // 다시 시도
+          final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
+          if (result) { // [다시 시도] 버튼 클릭
             context.read<CtgrBloc>().add(CtgrInitialized(MenuType.plan));
           }
         }

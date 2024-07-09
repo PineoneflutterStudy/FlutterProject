@@ -6,8 +6,11 @@ import '../../../../../core/utils/constant.dart';
 import '../../../../../domain/model/display/category/category.model.dart';
 import '../../bloc/ctgr_bloc/ctgr_bloc.dart';
 
-class GlobalNavBar extends StatelessWidget {
-  const GlobalNavBar(this.categorys, {super.key});
+/**
+ * 상단 카테고리 형 NavBar
+ */
+class CategoryNavBar extends StatelessWidget {
+  const CategoryNavBar(this.categorys, {super.key});
 
   final List<Category> categorys;
 
@@ -23,16 +26,14 @@ class GlobalNavBar extends StatelessWidget {
             TabBar(
               tabs: List.generate(
                 categorys.length,
-                (index) => Tab(
-                  text: categorys[index].ctgrName,
+                (index) => Tab(text: categorys[index].ctgrName,
                 ),
               ),
-              indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: colorScheme.primary, width: 2)),
+              indicator: UnderlineTabIndicator(borderSide: BorderSide(color: colorScheme.primary, width: 2)),
               indicatorSize: TabBarIndicatorSize.label,
               labelPadding: EdgeInsets.symmetric(horizontal: 8),
-              labelStyle: textScheme.titleMedium.semiBold,
-              unselectedLabelStyle: textScheme.titleMedium,
+              labelStyle: textScheme.titleLarge.semiBold,
+              unselectedLabelStyle: textScheme.titleLarge,
               unselectedLabelColor: colorScheme.contentSecondary,
             ),
             if (state.status == Status.loading)

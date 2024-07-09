@@ -4,6 +4,9 @@ import '../../../model/common/result.dart';
 import '../../../repository/display.repository.dart';
 import '../../base/remote.usecase.dart';
 
+/**
+ * 상단 카테고리 유형 카테고리 Title, Id 받아오기
+ */
 class GetCategorysUsecase extends RemoteUsecase<DisplayRepository> {
   final MenuType menuType;
 

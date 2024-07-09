@@ -1,3 +1,4 @@
+import 'package:flutter_project_team1/core/utils/constant.dart';
 import 'package:flutter_project_team1/core/utils/error/error_response.dart';
 import 'package:flutter_project_team1/data/data_source/remote/kkultrip.api.dart';
 import 'package:flutter_project_team1/data/repository_impl/display/display_repository_impl.dart';
@@ -27,7 +28,7 @@ void main() {
     final result = Result.Success([Category(ctgrId: -1, ctgrName: '카테고리 테스트')]);
     final usecase = MockGetCategoryUsecase();
 
-    when(()=>usecase.menuType).thenThrow('plan');
+    when(()=>usecase.menuType).thenThrow(MenuType.plan);
     when(()=>usecase.call(displayRepository)).thenAnswer((_) async => result);
 
     final actual = await displayUsecase.execute(usecase: usecase);
@@ -38,7 +39,7 @@ void main() {
     final result = Result<List<Category>>.failure(ErrorResponse(status: 'error'));
     final usecase = MockGetCategoryUsecase();
 
-    when(()=>usecase.menuType).thenThrow('plan');
+    when(()=>usecase.menuType).thenThrow(MenuType.plan);
     when(()=>usecase.call(displayRepository)).thenAnswer((_) async => result);
 
     final actual = await displayUsecase.execute(usecase: usecase);

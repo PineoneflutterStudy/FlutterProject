@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../main/common/appbar.dart';
+import '../../main/common/component/widget/appbar.dart';
 import 'screens/planner_page.dart';
 import 'screens/recommended_list_page.dart';
 import 'widgets/empty_plan_widget.dart';

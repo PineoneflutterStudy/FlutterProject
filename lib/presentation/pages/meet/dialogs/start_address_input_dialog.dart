@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
-import '../../../../domain/model/meet/start_address_model.dart';
+import '../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
+import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
 import '../screens/meet_place_set_screen.dart';

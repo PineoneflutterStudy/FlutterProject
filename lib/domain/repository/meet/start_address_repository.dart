@@ -1,4 +1,5 @@
-import '../../model/meet/start_address_model.dart';
+
+import '../../model/display/meet/start_address_model.dart';
 
 abstract class StartAddressRepository {
   Future<void> setAddress(StartAddressModel addressModel);

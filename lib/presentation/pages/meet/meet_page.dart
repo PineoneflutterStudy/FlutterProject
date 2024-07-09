@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_team1/presentation/pages/meet/screens/empty_meet_screen.dart';
 
-import '../../main/common/appbar.dart';
+import '../../main/common/component/widget/appbar.dart';
+
 
 /**
  * Manager 김경태

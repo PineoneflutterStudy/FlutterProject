@@ -1,5 +1,5 @@
-import '../../../domain/model/meet/start_address_model.dart';
-import '../../../domain/repository/meet/start_address_repository.dart';
+import '../../../../domain/model/display/meet/start_address_model.dart';
+import '../../../../domain/repository/meet/start_address_repository.dart';
 
 class StartAddressRepositoryImpl implements StartAddressRepository {
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/constant.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../core/utils/constant.dart';
+import '../../../../domain/model/display/category/category.model.dart';
 
-class GlobalNavBarView extends StatelessWidget {
-  const GlobalNavBarView(this.menuType, this.categorys, {super.key});
+class PlannerNavBarView extends StatelessWidget {
+  const PlannerNavBarView(this.menuType, this.categorys, {super.key});
 
   final MenuType menuType;
   final List<Category> categorys;

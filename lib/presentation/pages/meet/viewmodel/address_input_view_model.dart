@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/model/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
 
 class AddressInputViewModel extends ChangeNotifier {

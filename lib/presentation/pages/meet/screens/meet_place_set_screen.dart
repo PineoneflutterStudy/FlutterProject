@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../../domain/model/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/start_address_model.dart';
+
 
 /**
  * 약속장소 정하기 Screen

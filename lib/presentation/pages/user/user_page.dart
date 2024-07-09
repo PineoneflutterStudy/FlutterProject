@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 import '../../../core/utils/logger.dart';
-import '../../main/common/appbar.dart';
+import '../../main/common/component/widget/appbar.dart';
 import '../login/login_page.dart';
 
 /**
