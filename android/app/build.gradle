@@ -55,6 +55,9 @@ android {
     }
 }
 
+// 빌드 시 Reading env from : .env 를 띄우기 위해서
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+
 flutter {
     source = "../.."
 }

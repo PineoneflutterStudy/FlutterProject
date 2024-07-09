@@ -32,6 +32,7 @@ dependencies:
   provider: ^6.0.3 # Provider 사용
   kpostal: ^0.5.1 # 카카오Map과 버전 충돌로 remedi_kopo 대체...
   kakao_map_plugin: ^0.3.1 #카카오 Map
+  flutter_dotenv: ^5.1.0 # .env 파일 Api Key 입력 후 사용..
 
   #freezed
   freezed_annotation: ^2.4.1 # 데이터 모델
@@ -79,6 +80,7 @@ flutter:
     - assets/icon/
     - assets/images/
     - assets/fonts/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

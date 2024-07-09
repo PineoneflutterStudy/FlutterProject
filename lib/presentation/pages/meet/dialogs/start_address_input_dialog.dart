@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
 import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../widgets/address_input_add_item_widget.dart';
@@ -73,12 +73,8 @@ class StartAddressInputDialog extends StatelessWidget {
                     Container(
                       child: IconButton(
                         onPressed: () {
-                          if (viewModel.addressList.length >= 4) {
-                            showToast('최대 4명까지 입력 가능합니다!');
-                          } else {
-                            viewModel.addAddressSize();
-                            viewModel.addAddress(viewModel.addressSize - 1, '', 0.0, 0.0);
-                          }
+                          viewModel.isMaxAddAddress();
+                          if(viewModel.toastMessage.isNotEmpty) showToast('${viewModel.toastMessage}');
                         },
                         icon: Icon(
                           Icons.add_circle_sharp,
@@ -97,8 +93,8 @@ class StartAddressInputDialog extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                           onNextPress: () {
-                            bool isEmptyAddress = checkEmptyAddress(viewModel.addressList);
-                            if (isEmptyAddress) {
+                            viewModel.isEmptyAddress();
+                            if (!viewModel.emptyAddress) {
                               // 주소가 모두 입력
                               Navigator.of(context).pop();
                               Navigator.push(
@@ -196,19 +192,6 @@ class StartAddressInputDialog extends StatelessWidget {
               },
             )),
     );
-  }
-
-  /**
-   * 현재 주소들이 비어있는지 확인
-   */
-  bool checkEmptyAddress(List<StartAddressModel> addressList) {
-    int emptyCount = 0;
-    for (int i = 0; i < addressList.length; i++) {
-      if(addressList[i].address.isEmpty) {
-        emptyCount++;
-      }
-    }
-    return emptyCount > 0? false : true;
   }
 
   /**

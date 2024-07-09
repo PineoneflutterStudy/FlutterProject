@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
+import '../../../../domain/model/meet/start_address_model.dart';
+import '../viewmodel/meet_place_map_view_model.dart';
 import '../../../../domain/model/display/meet/start_address_model.dart';
 
 
@@ -23,55 +27,28 @@ class MeetPlaceMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: false,
-          title: Container(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Text(
-              '약속장소 정하기!',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-          )),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Center(
-              child: Row(
-                children: [
-                  Expanded(child: makeList(context)),
-                ],
+    return ChangeNotifierProvider(
+        create: (context) => MeetPlaceMapViewModel(StartAddressRepositoryImpl()),
+      child: Scaffold(
+        appBar: AppBar(
+            centerTitle: false,
+            title: Container(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              child: Text(
+                '약속장소 정하기!',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-          ],
+            )),
+        body: Consumer<MeetPlaceMapViewModel> (
+          builder: (context, viewModel, Widget? child) {
+            if (viewModel.addressList.isEmpty) viewModel.setAddressInfo(addressList);
+            return Container(
+              child: KakaoMap(
+              ),
+            );
+          },
         ),
       ),
-    );
-  }
-
-  ListView makeList(BuildContext context) {
-    return ListView.builder(
-      itemCount: addressList.length,
-      itemBuilder: (context, index) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              '${addressList[index].index + 1} 번째 주소 - ${addressList[index].address}\n 위도 - ${addressList[index].latitude} / 경도 - ${addressList[index].longitude}',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            )
-          ],
-        );
-      },
-      shrinkWrap: true,
     );
   }
 }

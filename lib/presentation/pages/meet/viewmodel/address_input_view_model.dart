@@ -13,12 +13,17 @@ class AddressInputViewModel extends ChangeNotifier {
   AddressInputViewModel(this._startAddressRepository);
 
   List<StartAddressModel> _addressList = [];
-
   List<StartAddressModel> get addressList => _addressList;
 
   int _addressSize = 2;
-
   int get addressSize => _addressSize;
+
+  String _toastMessage = '';
+  String get toastMessage => _toastMessage;
+
+  bool _emptyAddress = false;
+  bool get emptyAddress => _emptyAddress;
+
 
   /**
    * 최초 진입 시 기본적으로 2개의 아이템을 제공해주도록...
@@ -60,6 +65,9 @@ class AddressInputViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /**
+   * 출발지 입력 제거
+   */
   Future<void> removeAddress(int index) async {
     await _startAddressRepository.removeAddress(index);
     List<StartAddressModel> addressList = beforeAddress();
@@ -67,6 +75,33 @@ class AddressInputViewModel extends ChangeNotifier {
       await _startAddressRepository.updateAddress(i, addressList[i].address, addressList[i].latitude, addressList[i].longitude);
     }
     _addressList = await _startAddressRepository.getAllAddress();
+    notifyListeners();
+  }
+
+  /**
+   * + 버튼 입력으로 출발지 add
+   */
+  Future<void> isMaxAddAddress() async {
+    if(_addressList.length >= 4) {
+      _toastMessage = '최대 4명까지 입력 가능합니다!';
+    } else {
+      _addressSize++;
+      addAddress(addressSize - 1,  '', 0.0, 0.0);
+    }
+    notifyListeners();
+  }
+
+  /**
+   * 주소지가 비었는지 확인
+   */
+  Future<void> isEmptyAddress() async {
+    int emptyCount = 0;
+    for (int i = 0; i < addressList.length; i++) {
+      if(addressList[i].address.isEmpty) {
+        emptyCount++;
+      }
+    }
+    emptyCount > 0 ? _emptyAddress = true : _emptyAddress = false;
     notifyListeners();
   }
 
