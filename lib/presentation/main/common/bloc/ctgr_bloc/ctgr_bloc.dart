@@ -5,7 +5,6 @@ import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../../core/utils/exception/common_exception.dart';
-import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/common/result.dart';
 import '../../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';
@@ -29,6 +28,7 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
   ) async {
     final menuType = event.menuType;
     emit(state.copyWith(status: Status.loading));
+    // loading image test
     // await Future.delayed(Duration(seconds: 2));
     try {
       final response = await _fetch(menuType);
@@ -38,7 +38,6 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
         emit(state.copyWith(status: Status.error, error: error));
       });
     } catch (error) {
-      CustomLogger.logger.e(error);
       emit(state.copyWith(status: Status.error, error: CommonException.setError(error)));
     }
   }

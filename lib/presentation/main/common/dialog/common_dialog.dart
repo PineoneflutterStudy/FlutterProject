@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../error/error_response.dart';
+import '../../../../core/utils/error/error_response.dart';
 
 class CommonDialog {
   CommonDialog();
 
+  //Todo error Code에 따른 Message 정의 필요
   static Future<bool?> errorDialog(BuildContext context, ErrorResponse? error) {
     return showDialog<bool>(
         context: context,
