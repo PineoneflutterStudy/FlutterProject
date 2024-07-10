@@ -26,6 +26,7 @@ class MeetPlaceMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
         create: (context) => MeetPlaceMapViewModel(StartAddressRepositoryImpl()),
       child: Scaffold(
@@ -43,6 +44,8 @@ class MeetPlaceMapScreen extends StatelessWidget {
             if (viewModel.addressList.isEmpty) viewModel.setAddressInfo(addressList);
             return Container(
               child: KakaoMap(
+                center: LatLng(viewModel.addressList[0].latitude, viewModel.addressList[0].longitude),
+                markers: [],
               ),
             );
           },

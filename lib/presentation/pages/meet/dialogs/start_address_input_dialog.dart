@@ -33,6 +33,7 @@ class StartAddressInputDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
+              margin: EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(dialogBgRadius),

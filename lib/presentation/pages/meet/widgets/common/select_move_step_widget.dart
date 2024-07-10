@@ -18,29 +18,34 @@ class SelectMoveStepWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            IconButton(
-              onPressed: onBackPress,
-              icon: Icon(Icons.arrow_back_ios_sharp),
-            ),
-            Text(
-              backText,
-              style: TextStyle(fontSize: 28),
-            ),
-          ],
+        InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          onTap: onBackPress,
+          child: Row(
+            children: [
+              Icon(Icons.arrow_back_ios_sharp),
+              Text(
+                backText,
+                style: TextStyle(fontSize: 28),
+              ),
+            ],
+          ),
         ),
-        Row(
-          children: [
-            Text(
-              nextText,
-              style: TextStyle(fontSize: 28),
-            ),
-            IconButton(
-                onPressed: onNextPress,
-                icon: Icon(Icons.arrow_forward_ios_sharp)),
-          ],
-        )
+        InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          onTap: onNextPress,
+          child: Row(
+            children: [
+              Text(
+                nextText,
+                style: TextStyle(fontSize: 28),
+              ),
+              Icon(Icons.arrow_forward_ios_sharp),
+            ],
+          ),
+        ),
       ],
     );
   }
