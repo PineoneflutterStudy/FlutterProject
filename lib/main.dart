@@ -7,9 +7,9 @@ import 'presentation/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
-  await dotenv.load(fileName: '.env');
 
-  AuthRepository.initialize(appKey: dotenv.env['KAKAO_API_KEY'] ?? '');
+  await dotenv.load(fileName: '.env');
+  AuthRepository.initialize(appKey: dotenv.env['KAKAO_JAVA_SCRIPT_KEY'] ?? '');
 
   setLocator();
   runApp(const MainApp());
