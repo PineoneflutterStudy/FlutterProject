@@ -96,6 +96,7 @@ class StartAddressInputDialog extends StatelessWidget {
                             if (!viewModel.emptyAddress) {
                               // 주소가 모두 입력
                               Navigator.of(context).pop();
+                              viewModel.saveAddressInfo();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

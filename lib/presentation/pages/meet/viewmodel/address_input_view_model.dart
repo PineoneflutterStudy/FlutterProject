@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/start_address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
 
@@ -11,6 +14,8 @@ class AddressInputViewModel extends ChangeNotifier {
   final StartAddressRepository _startAddressRepository;
 
   AddressInputViewModel(this._startAddressRepository);
+
+  final Logger _logger = CustomLogger.logger; // 로그 출력
 
   List<StartAddressModel> _addressList = [];
   List<StartAddressModel> get addressList => _addressList;
@@ -103,6 +108,37 @@ class AddressInputViewModel extends ChangeNotifier {
     }
     emptyCount > 0 ? _emptyAddress = true : _emptyAddress = false;
     notifyListeners();
+  }
+
+  /**
+   * Shared Preferences에 출발지 정보 저장하기
+   */
+  Future<void> saveAddressInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    List<String> indexList = []; // index
+    List<String> startAddressList = []; // 출발지
+    List<String> latitudeList = []; // 위도
+    List<String> longitudeList = []; // 경도
+
+    for (int i = 0; i < addressList.length; i++) {
+      indexList.add(addressList[i].index.toString());
+      startAddressList.add(addressList[i].address);
+      latitudeList.add(addressList[i].latitude.toString());
+      longitudeList.add(addressList[i].longitude.toString());
+      _logger.i('저장 성공');
+    }
+
+    await prefs.setStringList("indexList", indexList); // index
+    await prefs.setStringList("addressList", startAddressList); // 주소(출발지 정보)
+    await prefs.setStringList("latitudeList", latitudeList); // 위도
+    await prefs.setStringList("longitudeList", longitudeList); // 경도
+
+
+    _logger.i('인덱스값 확인 -> ${prefs.getStringList("indexList")}');
+    _logger.i('주소값 확인 -> ${prefs.getStringList("addressList")}');
+    _logger.i('위도값 확인 -> ${prefs.getStringList("latitudeList")}');
+    _logger.i('경도값 확인 -> ${prefs.getStringList("longitudeList")}');
   }
 
   // AddresssSize 증가
