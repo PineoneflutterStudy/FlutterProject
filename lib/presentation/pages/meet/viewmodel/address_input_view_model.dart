@@ -3,7 +3,7 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/display/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
 
 /**
@@ -17,8 +17,8 @@ class AddressInputViewModel extends ChangeNotifier {
 
   final Logger _logger = CustomLogger.logger; // 로그 출력
 
-  List<StartAddressModel> _addressList = [];
-  List<StartAddressModel> get addressList => _addressList;
+  List<AddressModel> _addressList = [];
+  List<AddressModel> get addressList => _addressList;
 
   int _addressSize = 2;
   int get addressSize => _addressSize;
@@ -35,7 +35,7 @@ class AddressInputViewModel extends ChangeNotifier {
    */
   Future<void> basicAddress() async {
     for (int i = 0; i < addressSize; i++) {
-      final basicAddress = StartAddressModel(index: i, address: '', latitude: 0.0, longitude: 0.0);
+      final basicAddress = AddressModel(index: i, address: '', latitude: 0.0, longitude: 0.0);
       await _startAddressRepository.setAddress(basicAddress);
     }
     _addressList = await _startAddressRepository.getAllAddress();
@@ -46,7 +46,7 @@ class AddressInputViewModel extends ChangeNotifier {
    * + 버튼 입력으로 출발지 입력을 늘릴때...
    */
   Future<void> addAddress(int index, String address, double latitude, double longitude) async {
-    final newAddress = StartAddressModel(index: index, address: address, latitude: latitude, longitude: longitude);
+    final newAddress = AddressModel(index: index, address: address, latitude: latitude, longitude: longitude);
     await _startAddressRepository.setAddress(newAddress);
     _addressList = await _startAddressRepository.getAllAddress();
     notifyListeners();
@@ -75,7 +75,7 @@ class AddressInputViewModel extends ChangeNotifier {
    */
   Future<void> removeAddress(int index) async {
     await _startAddressRepository.removeAddress(index);
-    List<StartAddressModel> addressList = beforeAddress();
+    List<AddressModel> addressList = beforeAddress();
     for(int i = 0; i < addressList.length; i++) {
       await _startAddressRepository.updateAddress(i, addressList[i].address, addressList[i].latitude, addressList[i].longitude);
     }
@@ -152,8 +152,8 @@ class AddressInputViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<StartAddressModel> beforeAddress()  {
-    List<StartAddressModel> address = [];
+  List<AddressModel> beforeAddress()  {
+    List<AddressModel> address = [];
     for (int i = 0; i < _addressList.length; i++) {
       address.add(_addressList[i]);
     }

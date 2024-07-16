@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
-import '../../../../domain/model/display/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
 
 /**
@@ -16,9 +16,9 @@ class MeetPlaceMapViewModel extends ChangeNotifier {
   int markerHeight = 20;
 
   // 출발지 주소 리스트
-  List<StartAddressModel> _addressList = [];
+  List<AddressModel> _addressList = [];
 
-  List<StartAddressModel> get addressList => _addressList;
+  List<AddressModel> get addressList => _addressList;
 
   String _apiKey = '';
 
@@ -28,7 +28,7 @@ class MeetPlaceMapViewModel extends ChangeNotifier {
 
   Set<Marker> get mapMarkers => _mapMarkers;
 
-  Future<void> setAddressInfo(List<StartAddressModel> list) async {
+  Future<void> setAddressInfo(List<AddressModel> list) async {
     for (int i = 0; i < list.length; i++) {
       await _startAddressRepository.setAddress(list[i]);
     }

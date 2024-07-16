@@ -5,7 +5,7 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
-import '../../../../domain/model/display/meet/start_address_model.dart';
+import '../../../../domain/model/display/meet/address_model.dart';
 import '../viewmodel/meet_place_map_view_model.dart';
 
 /**
@@ -20,7 +20,7 @@ import '../viewmodel/meet_place_map_view_model.dart';
  */
 
 class MeetPlaceMapScreen extends StatelessWidget {
-  final List<StartAddressModel> addressList;
+  final List<AddressModel> addressList;
 
   const MeetPlaceMapScreen({super.key, required this.addressList});
 
