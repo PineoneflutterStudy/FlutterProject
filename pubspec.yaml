@@ -44,6 +44,7 @@ dependencies:
   dio: ^5.4.3+1 #Dio
   get_it: ^7.7.0
   mocktail: ^1.0.4
+  http: ^1.2.1 #Http 통신, 크롤링
 
   #firebase
   google_sign_in: ^6.2.1 #구글로그인
