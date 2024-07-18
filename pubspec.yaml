@@ -32,7 +32,7 @@ dependencies:
   provider: ^6.0.3 # Provider 사용
   kpostal: ^0.5.1 # 카카오Map과 버전 충돌로 remedi_kopo 대체...
   kakao_map_plugin: ^0.3.1 #카카오 Map
-  flutter_dotenv: ^5.1.0 # .env 파일 Api Key 입력 후 사용..
+  flutter_config: ^2.0.2 # .env 파일 Api Key 입력 후 사용..
   shared_preferences: ^2.2.3
 
   #freezed
@@ -98,14 +98,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Dongle
-       fonts:
-         - asset: assets/fonts/Dongle-Light.ttf
-           weight: 200
-         - asset: assets/fonts/Dongle-Regular.ttf
-           weight: 400
-         - asset: assets/fonts/Dongle-Bold.ttf
-           weight: 700
+    - family: Dongle
+      fonts:
+        - asset: assets/fonts/Dongle-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Dongle-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Dongle-Bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

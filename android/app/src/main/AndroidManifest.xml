@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
 
-        <!-- eff 아래 KAKAO_NATIVE_APP_KEY env 에서 가져오기 -->
         <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
         <activity
             android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
@@ -42,7 +41,7 @@
 
                 <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
                 <!-- 카카오 로그인 Redirect URI -->
-                <data android:scheme="kakao KAKAO_NATIVE_APP_KEY" android:host="oauth"/>
+                <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="oauth"/>
             </intent-filter>
         </activity>
 

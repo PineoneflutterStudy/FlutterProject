@@ -25,6 +25,8 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+
 android {
     namespace = "com.example.flutter_project_team1"
     compileSdk = flutter.compileSdkVersion
@@ -44,6 +46,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        manifestPlaceholders += [KAKAO_NATIVE_APP_KEY: project.env.get("KAKAO_NATIVE_APP_KEY")]
     }
 
     buildTypes {
