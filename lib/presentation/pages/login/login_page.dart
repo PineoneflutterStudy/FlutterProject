@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
@@ -30,6 +31,8 @@ final List<AuthType> authTypeList = <AuthType>[
 //==============================================================================
 //  Fields
 //==============================================================================
+String _accessToken = '';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -98,8 +101,24 @@ class _LoginPageState extends State<LoginPage> {
     _logger.i('$_tag launchGoogleLogin()');
   }
 
-  void launchNaverLogin() {
-    _logger.i('$_tag launchNaverLogin()');
+  Future<void> launchNaverLogin() async {
+    await FlutterNaverLogin.logIn().then(
+      (value) async {
+        switch (value.status) {
+          case NaverLoginStatus.loggedIn:
+            NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
+            _accessToken = result.accessToken;
+            _logger.i('$_tag Naver Login Successed');
+            _logger.d('$_tag accessToken = $_accessToken');
+
+          case NaverLoginStatus.cancelledByUser:
+            _logger.i('$_tag Naver Login Canceled');
+
+          case NaverLoginStatus.error:
+            _logger.e('$_tag Naver Login Failed, error = ${value.errorMessage}');
+        }
+      },
+    );
   }
 
   Future<void> launchKakaoLogin() async {
