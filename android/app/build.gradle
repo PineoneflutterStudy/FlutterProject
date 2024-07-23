@@ -7,6 +7,15 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = file("${System.getenv('ProjectCommon')}/FlutterStudy/key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    println "Info - load keystorePropertiesFile successed."
+} else {
+    println "Error - load keystorePropertiesFile failed."
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -39,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.flutter_project_team1"
+        applicationId = namespace
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = 23 // flutter.minSdkVersion.toInteger()
@@ -49,11 +58,32 @@ android {
         manifestPlaceholders += [KAKAO_NATIVE_APP_KEY: project.env.get("KAKAO_NATIVE_APP_KEY")]
     }
 
-    buildTypes {
+    signingConfigs {
+        // TODO: 현재 키가 하나 밖에 없다. debug, release 구분 필요.
+        debug {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file("${System.getenv('ProjectCommon')}/FlutterStudy/kkul_trip_debug.jks")
+            storePassword keystoreProperties['storePassword']
+        }
+
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file("${System.getenv('ProjectCommon')}/FlutterStudy/kkul_trip_debug.jks")
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        debug {
+            // use `flutter run --debug` command.
             signingConfig = signingConfigs.debug
+        }
+
+        release {
+            // use `flutter run --release` command.
+            signingConfig = signingConfigs.release
         }
     }
 }
