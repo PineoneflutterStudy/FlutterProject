@@ -4,7 +4,7 @@ import '../main/main_screen.dart';
 import '../pages/home/home_page.dart';
 import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
-import '../pages/meet/meet_page.dart';
+import '../pages/meet/main_meet_page/view/meet_page.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/splash/splash_page.dart';
 import '../pages/user/user_page.dart';

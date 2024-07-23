@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../pages/home/home_page.dart';
 import '../pages/like/like_page.dart';
-import '../pages/meet/meet_page.dart';
+import '../pages/meet/main_meet_page/view/meet_page.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/user/user_page.dart';
 import 'cubit/bottom_nav_cubit.dart';

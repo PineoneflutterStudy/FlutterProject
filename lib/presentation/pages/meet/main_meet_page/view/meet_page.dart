@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_team1/presentation/pages/meet/screens/empty_meet_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../main/common/component/widget/appbar.dart';
+import '../../../../main/common/component/widget/appbar.dart';
+import '../../empty_page/view/screens/empty_meet_screen.dart';
 
 
 /**
@@ -17,7 +19,6 @@ import '../../main/common/component/widget/appbar.dart';
  * 잡은 약속이 없다? -> + 버튼과 [약속장소 정하기] 문구 보여주기 ====> 1 Step TODO
  * 잡은 약속이 이전에 있다? -> 잡은 목록 리스트로 출력 및 마지막에 + 버튼과 [약속장소 정하기] 문구 작게 보여주기  =====> Next Step
  */
-
 class MeetPage extends StatefulWidget {
   const MeetPage({super.key});
 
@@ -28,9 +29,11 @@ class MeetPage extends StatefulWidget {
 class _MeetPageState extends State<MeetPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: '우리 어디서 만날까?'),
-      body: EmptyMeetScreen(),
+    return ProviderScope(
+      child: Scaffold(
+        appBar: MainAppbar(title: '우리 어디서 만날까?'),
+        body: EmptyMeetScreen(),
+      ),
     );
   }
 }

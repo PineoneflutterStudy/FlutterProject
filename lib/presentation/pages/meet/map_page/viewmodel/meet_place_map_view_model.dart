@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
-import '../../../../domain/model/display/meet/address_model.dart';
-import '../../../../domain/repository/meet/start_address_repository.dart';
+import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/repository/meet/start_address_repository.dart';
 
 /**
  * 약속 중간지점 구하기 Screen ViewModel
