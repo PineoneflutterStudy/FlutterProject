@@ -1,18 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../../core/utils/logger.dart';
-import '../../../../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
-import '../../../../../../domain/model/display/meet/address_model.dart';
-import '../../../../../../main.dart';
 import '../../../common/select_move_step_widget.dart';
 import '../../../common/text_content_area_widget.dart';
 import '../../../common/title_text_area_widget.dart';
 import '../../../map_page/screens/meet_place_map_screen.dart';
-import '../../notifier/address_info_notifier.dart';
-import '../../notifier/address_info_state.dart';
+import '../../viewmodel/address_input_view_model.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,43 +21,11 @@ const double dialogBgRadius = 30;
 const double textSize_title = 30;
 const double textSize_content = 25;
 
-final Logger _logger = CustomLogger.logger;
+List<Widget> addressFields = [];
 
-// ============================================================
-// Dialog page
-// ============================================================
-class StartAddressInputDialog extends StatelessWidget {
-  const StartAddressInputDialog({super.key});
-
+class StartAddressInputDialog extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return ProviderScope(child: AddressDialogView());
-  }
-}
-
-// ============================================================
-// Dialog View
-// ============================================================
-class AddressDialogView extends ConsumerStatefulWidget {
-  const AddressDialogView({super.key});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AddressDialogView();
-}
-
-class _AddressDialogView extends ConsumerState<AddressDialogView> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(addressInfoStateProvider.notifier).fetchAddressInfo();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
+  Widget build(BuildContext context, WidgetRef ref) {
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -89,47 +52,12 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
             height: 10,
           ),
           // 주소 검색 Api 사용
-          status == AddressInfoStatus.initial
-              ? const Center(child: CircularProgressIndicator(),)
-              : const _ContentView(),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================
-// content
-// ============================================================
-class _ContentView extends ConsumerStatefulWidget {
-  const _ContentView({super.key});
-
-  @override
-  ConsumerState<_ContentView> createState() => __ContentViewState();
-}
-
-class __ContentViewState extends ConsumerState<_ContentView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5),
-      child: Consumer(
-        builder: (context, ref, child) {
-          final state = ref.watch(addressInfoStateProvider);
-          return Column(
+          Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
-                  Expanded(child: makeStartAddressList(context, state)),
+                  Expanded(child: makeStartAddressList(context, viewModel)),
                 ],
               ),
               SizedBox(
@@ -138,12 +66,9 @@ class __ContentViewState extends ConsumerState<_ContentView> {
               Container(
                 child: IconButton(
                   onPressed: () {
-                    _logger.i('Is Max Address Input box? => ${state.isMaxInput}');
-                    if (state.isMaxInput) {
-                      ref.read(addressInfoStateProvider.notifier).addEmptyAddress(state.addressList.length);
-                    } else {
-                      showToast('최대 4명까지 입력 가능합니다!');
-                    }
+                    viewModel.isMaxAddAddress();
+                    if (viewModel.toastMessage.isNotEmpty)
+                      showToast('${viewModel.toastMessage}');
                   },
                   icon: Icon(
                     Icons.add_circle_sharp,
@@ -160,43 +85,45 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     nextText: '중간지점 찾기!',
                     onBackPress: () {
                       Navigator.of(context).pop();
-                      // 현재 데이터 초기화 시점은 -> Dialog 에서 취소 버튼 입력 시 되도록 적용...
-                      ref.read(addressInfoStateProvider.notifier).resetAddress();
                     },
                     onNextPress: () {
-                      List<String> indices = state.addressList.map((address) => address.address).toList();
-                      _logger.i('Confirm Current AddressList Info -> $indices}');
-                      if (indices.contains('')) {
-                        // 빈값이 존재한다면? => 넘어가기 X
-                        showToast('비어있는 출발지가 있습니다!');
-                      } else {
+                      viewModel.isEmptyAddress();
+                      if (!viewModel.emptyAddress) {
                         // 주소가 모두 입력
                         Navigator.of(context).pop();
+                        viewModel.saveAddressInfo();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MeetPlaceMapScreen(),
+                            builder: (context) => MeetPlaceMapScreen(
+                              addressList: viewModel.addressList,
+                            ),
                             fullscreenDialog: true,
                           ),
                         );
+                      } else {
+                        // 하나라도 비어있는 주소가 존재한다...
+                        showToast('비어있는 출발지가 있습니다!');
                       }
                     },
                   ),
                 ),
               ),
             ],
-          );
-        },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
       ),
     );
   }
 
-  /**
-   * 출발지 입력 리스트뷰
-   */
-  ListView makeStartAddressList(BuildContext context, AddressInfoState state) {
+  // 출발지 입력 ListView
+  ListView makeStartAddressList(
+      BuildContext context, AddressInputViewModel viewModel) {
     return ListView.builder(
-      itemCount: state.addressList.length,
+      itemCount: viewModel.addressSize,
       itemBuilder: (context, index) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -210,30 +137,28 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                       // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
                       onTap: () {
                         // 주소 입력 화면 이동
-                        addressApi(context, index, ref);
+                        addressApi(context, index, viewModel);
                       },
                       child: index < 2
                           ? AddressInputBasicItemWidget(
                               indexNum: index + 1,
-                              address: state.addressList[index].address,
+                              address: viewModel.addressList[index].address,
                               onDeleteBtnPress: () {
-                                _logger.i('Default Line Delete Address Info');
-                                // Default 2 Line 입력 주소 제거
-                                ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                                // 입력 주소 제거
+                                viewModel.deleteAddress(index);
                               },
                             )
                           : AddressInputAddItemWidget(
                               indexNum: index + 1,
-                              address: state.addressList[index].address,
+                              address: viewModel.addressList[index].address,
                               onDeleteBtnPress: () {
-                                _logger.i('Add Line Delete Address Info');
-                                // 추가 Line 입력 주소 제거( - )
-                                ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                                // 입력 주소 제거
+                                viewModel.deleteAddress(index);
                               },
                               onRemoveBtnPress: () {
-                                _logger.i('Add Line Delete..!');
-                                // Input List 제거 ( x )
-                                ref.read(addressInfoStateProvider.notifier).deleteAddressInput(index);
+                                // 입력할 수 있는 항목 제거
+                                viewModel.removeAddress(index);
+                                viewModel.decAddressSize();
                               },
                             )),
                 ),
@@ -252,19 +177,15 @@ class __ContentViewState extends ConsumerState<_ContentView> {
   /**
    * 주소검색 APi 실행 후 결과값 저장
    */
-  void addressApi(BuildContext context, int listIndex, WidgetRef ref) async {
+  void addressApi(BuildContext context, int listIndex,
+      AddressInputViewModel viewModel) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
           builder: (_) => KpostalView(
                 callback: (Kpostal result) {
-                  ref.read(addressInfoStateProvider.notifier).addAddressInput(
-                        AddressModel(
-                            index: listIndex,
-                            address: result.address,
-                            latitude: result.latitude!,
-                            longitude: result.longitude!),
-                      );
+                  viewModel.updateAddress(listIndex, result.address,
+                      result.latitude!, result.longitude!);
                 },
               )),
     );

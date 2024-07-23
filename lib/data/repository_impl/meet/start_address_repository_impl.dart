@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import '../../../../domain/model/display/meet/address_model.dart';
 import '../../../../domain/repository/meet/start_address_repository.dart';
-import '../../data_source/local_storage/meet/local_prefs_storage.dart';
+import '../../../data_source/local_storage/meet/local_prefs_storage.dart';
 
 class StartAddressRepositoryImpl implements StartAddressRepository {
+
+  final List<AddressModel> _addressModel = [];
   final LocalPrefsStorage _localPrefsStorage;
 
   StartAddressRepositoryImpl({
@@ -25,22 +25,22 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   }
 
   @override
-  Future<bool> updateAddress(AddressModel addressModel) async {
-    return await _localPrefsStorage.updateAddress(addressModel);
+  Future<void> updateAddress(AddressModel addressModel) async {
+    /*_addressModel[index] = AddressModel(index: index, address: newAddress, latitude: latitude, longitude: longitude);*/
+    await _localPrefsStorage.updateAddress(addressModel);
   }
 
   @override
-  Future<void> deleteAddress(AddressModel addressModel) async {
-    await _localPrefsStorage.deleteAddress(addressModel);
+  Future<void> deleteAddress(int index) async {
+    //_addressModel[index] = AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0);
+    await _localPrefsStorage.deleteAddress(index);
   }
 
   @override
-  Future<bool> deleteAddressInput(int index) async {
-    return await _localPrefsStorage.deleteAddressInput(index);
+  Future<void> removeAddress(int index) async {
+    _addressModel.removeAt(index);
   }
 
-  Future<void> resetAddress() async {
-    await _localPrefsStorage.resetAddress();
-  }
+
 
 }
