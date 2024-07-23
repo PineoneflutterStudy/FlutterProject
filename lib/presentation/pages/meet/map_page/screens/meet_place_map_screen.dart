@@ -1,9 +1,14 @@
+<<<<<<<< HEAD:lib/presentation/pages/meet/screens/meet_place_map_screen.dart
+========
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
+import '../viewmodel/meet_place_map_view_model.dart';
 
 /**
  * 약속장소 정하기 Screen
@@ -17,24 +22,35 @@ import '../../../../../domain/model/display/meet/address_model.dart';
  */
 
 class MeetPlaceMapScreen extends StatelessWidget {
-  const MeetPlaceMapScreen({super.key});
+  final List<AddressModel> addressList;
+
+  const MeetPlaceMapScreen({super.key, required this.addressList});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: false,
-          title: Container(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Text(
-              '약속장소 정하기!',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-          )),
-      body: Container(
-        child: KakaoMap(
-          /*center: LatLng(viewModel.addressList[0].latitude, viewModel.addressList[0].longitude),
-                markers: [],*/
+
+    return ChangeNotifierProvider(
+        create: (context) => MeetPlaceMapViewModel(StartAddressRepositoryImpl()),
+      child: Scaffold(
+        appBar: AppBar(
+            centerTitle: false,
+            title: Container(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              child: Text(
+                '약속장소 정하기!',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+            )),
+        body: Consumer<MeetPlaceMapViewModel> (
+          builder: (context, viewModel, Widget? child) {
+            if (viewModel.addressList.isEmpty) viewModel.setAddressInfo(addressList);
+            return Container(
+              child: KakaoMap(
+                center: LatLng(viewModel.addressList[0].latitude, viewModel.addressList[0].longitude),
+                markers: [],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -51,3 +67,4 @@ void showToast(String message) {
     toastLength: Toast.LENGTH_SHORT,
   );
 }
+>>>>>>>> 15890ae ([김경태][KKULTRIP-60] 중간 지점 찾기 개발):lib/presentation/pages/meet/map_page/screens/meet_place_map_screen.dart
