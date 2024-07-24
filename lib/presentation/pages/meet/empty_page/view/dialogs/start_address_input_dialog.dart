@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../../../core/utils/logger.dart';
+import '../../../../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
+import '../../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../../main.dart';
 import '../../../common/select_move_step_widget.dart';
 import '../../../common/text_content_area_widget.dart';
 import '../../../common/title_text_area_widget.dart';
 import '../../../map_page/screens/meet_place_map_screen.dart';
-import '../../viewmodel/address_input_view_model.dart';
+import '../../notifier/address_info_notifier.dart';
+import '../../notifier/address_info_state.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,11 +26,44 @@ const double dialogBgRadius = 30;
 const double textSize_title = 30;
 const double textSize_content = 25;
 
+final Logger _logger = CustomLogger.logger;
+
 List<Widget> addressFields = [];
 
-class StartAddressInputDialog extends ConsumerWidget {
+// ============================================================
+// Dialog page
+// ============================================================
+class StartAddressInputDialog extends StatelessWidget {
+  const StartAddressInputDialog({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    return ProviderScope(child: AddressDialogView());
+  }
+}
+
+// ============================================================
+// Dialog View
+// ============================================================
+class AddressDialogView extends ConsumerStatefulWidget {
+  const AddressDialogView({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddressDialogView();
+}
+
+class _AddressDialogView extends ConsumerState<AddressDialogView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(addressInfoStateProvider.notifier).fetchAddressInfo();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -52,12 +90,47 @@ class StartAddressInputDialog extends ConsumerWidget {
             height: 10,
           ),
           // 주소 검색 Api 사용
-          Column(
+          const _ContentView(),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============================================================
+// content
+// ============================================================
+class _ContentView extends ConsumerStatefulWidget {
+  const _ContentView({super.key});
+
+  @override
+  ConsumerState<_ContentView> createState() => __ContentViewState();
+}
+
+class __ContentViewState extends ConsumerState<_ContentView> {
+
+  late LocalPrefsStorageImpl localStorage;
+  @override
+  void initState() {
+    super.initState();
+    localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Consumer(
+        builder: (context, ref, child) {
+          final state = ref.watch(addressInfoStateProvider);
+          return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
-                  Expanded(child: makeStartAddressList(context, viewModel)),
+                  Expanded(child: makeStartAddressList(context, state)),
                 ],
               ),
               SizedBox(
@@ -66,9 +139,12 @@ class StartAddressInputDialog extends ConsumerWidget {
               Container(
                 child: IconButton(
                   onPressed: () {
-                    viewModel.isMaxAddAddress();
+                    ref.read(addressInfoStateProvider.notifier).addAddressInput(
+                        AddressModel(index: state.addressList.length, address: '', latitude: 0.0, longitude: 0.0),
+                    );
+                    /*viewModel.isMaxAddAddress();
                     if (viewModel.toastMessage.isNotEmpty)
-                      showToast('${viewModel.toastMessage}');
+                      showToast('${viewModel.toastMessage}');*/
                   },
                   icon: Icon(
                     Icons.add_circle_sharp,
@@ -87,22 +163,20 @@ class StartAddressInputDialog extends ConsumerWidget {
                       Navigator.of(context).pop();
                     },
                     onNextPress: () {
-                      viewModel.isEmptyAddress();
-                      if (!viewModel.emptyAddress) {
+                      if (state.addressList.length > 1) {
                         // 주소가 모두 입력
                         Navigator.of(context).pop();
-                        viewModel.saveAddressInfo();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => MeetPlaceMapScreen(
-                              addressList: viewModel.addressList,
+                              addressList: state.addressList,
                             ),
                             fullscreenDialog: true,
                           ),
                         );
                       } else {
-                        // 하나라도 비어있는 주소가 존재한다...
+                        // 저장된 List의 길이가 2보다 작으므로... 최소 2개의 출발지는 입력 해야합니다...
                         showToast('비어있는 출발지가 있습니다!');
                       }
                     },
@@ -110,20 +184,16 @@ class StartAddressInputDialog extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
   // 출발지 입력 ListView
-  ListView makeStartAddressList(
-      BuildContext context, AddressInputViewModel viewModel) {
+  ListView makeStartAddressList(BuildContext context, AddressInfoState state) {
     return ListView.builder(
-      itemCount: viewModel.addressSize,
+      itemCount: state.addressList.length,
       itemBuilder: (context, index) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -134,33 +204,35 @@ class StartAddressInputDialog extends ConsumerWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
-                      // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
                       onTap: () {
                         // 주소 입력 화면 이동
-                        addressApi(context, index, viewModel);
+                        addressApi(context, index);
                       },
                       child: index < 2
                           ? AddressInputBasicItemWidget(
-                              indexNum: index + 1,
-                              address: viewModel.addressList[index].address,
-                              onDeleteBtnPress: () {
-                                // 입력 주소 제거
-                                viewModel.deleteAddress(index);
-                              },
-                            )
+                        indexNum: index + 1,
+                        address: state.addressList[index].address,
+                        onDeleteBtnPress: () {
+                          // 입력 주소 제거
+                          /*state.deleteAddress(index);*/
+                          //localStorage.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+                        },
+                      )
                           : AddressInputAddItemWidget(
-                              indexNum: index + 1,
-                              address: viewModel.addressList[index].address,
-                              onDeleteBtnPress: () {
-                                // 입력 주소 제거
-                                viewModel.deleteAddress(index);
-                              },
-                              onRemoveBtnPress: () {
-                                // 입력할 수 있는 항목 제거
-                                viewModel.removeAddress(index);
-                                viewModel.decAddressSize();
-                              },
-                            )),
+                        indexNum: index + 1,
+                        address: state.addressList[index].address,
+                        onDeleteBtnPress: () {
+                          // 입력 주소 제거
+                          /*state.deleteAddress(index);*/
+                          /*localStorage.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));*/
+                        },
+                        onRemoveBtnPress: () {
+                          // 입력할 수 있는 항목 제거
+                          /*state.removeAddress(index);*/
+                          /*localStorage.removeAddress(index);*/
+                        },
+                      )),
                 ),
                 SizedBox(
                   height: 10,
@@ -177,15 +249,18 @@ class StartAddressInputDialog extends ConsumerWidget {
   /**
    * 주소검색 APi 실행 후 결과값 저장
    */
-  void addressApi(BuildContext context, int listIndex,
-      AddressInputViewModel viewModel) async {
+  void addressApi(BuildContext context, int listIndex) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (_) => KpostalView(
+          builder: (_) =>
+              KpostalView(
                 callback: (Kpostal result) {
-                  viewModel.updateAddress(listIndex, result.address,
-                      result.latitude!, result.longitude!);
+                  /*localStorage.updateAddress(AddressModel(
+                      index: listIndex,
+                      address: result.address,
+                      latitude: result.latitude!,
+                      longitude: result.longitude!));*/
                 },
               )),
     );

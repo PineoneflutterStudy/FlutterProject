@@ -28,29 +28,20 @@ class MeetPlaceMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return ChangeNotifierProvider(
-        create: (context) => MeetPlaceMapViewModel(StartAddressRepositoryImpl()),
-      child: Scaffold(
-        appBar: AppBar(
-            centerTitle: false,
-            title: Container(
-              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              child: Text(
-                '약속장소 정하기!',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-            )),
-        body: Consumer<MeetPlaceMapViewModel> (
-          builder: (context, viewModel, Widget? child) {
-            if (viewModel.addressList.isEmpty) viewModel.setAddressInfo(addressList);
-            return Container(
-              child: KakaoMap(
-                center: LatLng(viewModel.addressList[0].latitude, viewModel.addressList[0].longitude),
-                markers: [],
-              ),
-            );
-          },
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: false,
+          title: Container(
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            child: Text(
+              '약속장소 정하기!',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+          )),
+      body: Container(
+        child: KakaoMap(
+          /*center: LatLng(viewModel.addressList[0].latitude, viewModel.addressList[0].longitude),
+                markers: [],*/
         ),
       ),
     );

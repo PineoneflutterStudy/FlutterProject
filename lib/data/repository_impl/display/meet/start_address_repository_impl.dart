@@ -31,16 +31,13 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   }
 
   @override
-  Future<void> deleteAddress(int index) async {
+  Future<void> deleteAddress(AddressModel addressModel) async {
     //_addressModel[index] = AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0);
-    await _localPrefsStorage.deleteAddress(index);
+    await _localPrefsStorage.deleteAddress(addressModel);
   }
 
-  @override
-  Future<void> removeAddress(int index) async {
-    _addressModel.removeAt(index);
+  Future<void> resetAddress() async {
+    await _localPrefsStorage.resetAddress();
   }
-
-
 
 }
