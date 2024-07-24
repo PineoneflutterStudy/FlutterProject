@@ -7,6 +7,7 @@ import '../../../../../domain/repository/meet/start_address_repository.dart';
 /**
  * 약속 중간지점 구하기 Screen ViewModel
  */
+/*
 class MeetPlaceMapViewModel extends ChangeNotifier {
   final StartAddressRepository _startAddressRepository;
 
@@ -48,3 +49,4 @@ class MeetPlaceMapViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
+*/

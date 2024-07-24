@@ -10,15 +10,17 @@ final Logger _logger = CustomLogger.logger;
 final String listSaveName = "addressList";
 
 List<AddressModel> defaultAddress = [
+  AddressModel(index: 0, address: '', latitude: 0.0, longitude: 0.0),
   AddressModel(index: 1, address: '', latitude: 0.0, longitude: 0.0),
-  AddressModel(index: 2, address: '', latitude: 0.0, longitude: 0.0),
 ];
 
 abstract class LocalPrefsStorage {
   Future<void> setDefaultAddress();
   Future<List<AddressModel>> getAddressList();
   Future<void> updateAddress(AddressModel addressModel);
-  Future<void> deleteAddress(int Index)
+  Future<void> deleteAddress(AddressModel addressModel);
+  Future<void> resetAddress();
+  Future<void> removeAddress(int index);
 
 }
 
@@ -70,17 +72,22 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
    * Update
    * 출발지 정보 업데이트 ( add / update )
    */
+
   @override
   Future<void> updateAddress(AddressModel addressModel) async {
+    _logger.i('업데이트 전 값 확인 -> ${addressModel.toString()}');
     // 현재 저장되어 있는 출발지 정보 리스트 획득
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
+    List<int> currentIndex = [];
     int updateIndex = addressModel.index; // Update 또는 Add를 진행할 index 정보
-    
-    
+
+    _logger.i('인덱스 값은?? -> ${updateIndex}');
+
     List<String> addressInfoList = []; // 
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
       AddressModel getAddress = AddressModel.fromJson(addressMap);
+      currentIndex.add(getAddress.index);
       if (getAddress.index == updateIndex) {
         // 동일한 index 존재한다면 새로운 Model Update
         addressInfoList.add(jsonEncode(addressModel.toJson()));
@@ -90,19 +97,52 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
     }
     
     // 기존에 있던 정보 업데이트 및 get이 종료 후 없던 index라 추가가 필요할때는...
-    if (addressInfo.length < updateIndex) { // 저장된 model의 길이보다 updateIndex값이 크다면 => 신규 정보 update
+    if (!currentIndex.contains(updateIndex)) { // 저장된 model의 길이보다 updateIndex값이 크다면 => 신규 정보 update
+      _logger.i('인덱스 값은?? -> ${updateIndex} 포함된게 없으니까 여기 들어왔겠찌?');
       addressInfoList.add(jsonEncode(addressModel.toJson()));
     }  
     
     // 모든 업데이트 동작이 완료 되었다면 값 저장
     await _sharedPref.setStringList(listSaveName, addressInfoList); // index
-    _logger.i('저장 성공');
+    _logger.i('update Address Success -> ${addressInfoList.toString()}');
+  }
+
+  /**
+   * Delete
+   * x 버튼 입력으로 주소 지우기
+   */
+  @override
+  Future<void> deleteAddress(AddressModel addressModel) async {
+    List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
+    int targetIndex = addressModel.index;
+
+    List<String> addressInfoList = []; //
+    for(int i = 0; i < addressInfo.length; i++) {
+      var addressMap = jsonDecode(addressInfo[i]);
+      AddressModel getAddress = AddressModel.fromJson(addressMap);
+      if (getAddress.index == targetIndex) {
+        // 동일한 index 존재한다면 해당 값 초기화 후 저장
+        addressInfoList.add(jsonEncode(addressModel.toJson()));
+      } else {
+        addressInfoList.add(jsonEncode(getAddress.toJson()));
+      }
+    }
+
+    await _sharedPref.setStringList(listSaveName, addressInfoList); // index
+    _logger.i('delete Address Success');
+
+  }
+
+  /**
+   * Shared Preference 데이터 초기화
+   */
+  @override
+  Future<void> resetAddress() async {
+    await _sharedPref.remove(listSaveName);
   }
 
   @override
-  Future<void> deleteAddress(int Index) {
-    // TODO: implement deleteAddress
-    throw UnimplementedError();
-  }
+  Future<void> removeAddress(int index) async {
 
+  }
 }
