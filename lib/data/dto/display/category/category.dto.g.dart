@@ -8,7 +8,7 @@ part of 'category.dto.dart';
 
 _$CategoryDtoImpl _$$CategoryDtoImplFromJson(Map<String, dynamic> json) =>
     _$CategoryDtoImpl(
-      ctgrId: (json['ctgrId'] as num?)?.toInt() ?? -1,
+      ctgrId: json['ctgrId'] as String? ?? '',
       ctgrName: json['ctgrName'] as String? ?? '',
     );
 

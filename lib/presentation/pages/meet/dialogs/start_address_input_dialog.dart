@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
+import '../../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
 import '../screens/meet_place_map_screen.dart';

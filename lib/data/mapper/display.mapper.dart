@@ -4,7 +4,7 @@ import '../dto/display/category/category.dto.dart';
 extension CategoryX on CategoryDto{
   Category toModel() {
     return Category(
-      ctgrId: ctgrId ?? -1,
+      ctgrId: ctgrId ?? '',
       ctgrName: ctgrName ?? '',
     );
   }

@@ -7,7 +7,7 @@ part 'category.dto.g.dart';
 @freezed
 class CategoryDto with _$CategoryDto {
   const factory CategoryDto({
-    @Default(-1) int ctgrId,
+    @Default('') String ctgrId,
     @Default('') String ctgrName,
   }) = _CategoryDto;
 

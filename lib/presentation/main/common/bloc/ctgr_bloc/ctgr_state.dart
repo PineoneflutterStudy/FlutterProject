@@ -6,6 +6,7 @@ class CtgrState with _$CtgrState {
     @Default(Status.initial) Status status,
     @Default(MenuType.home) MenuType menuType,
     @Default(<Category>[]) List<Category> ctgrs,
+    Category? selectedCategory,
     ErrorResponse? error,
   }) = _CtgrState;
 }

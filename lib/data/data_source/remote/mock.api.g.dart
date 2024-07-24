@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kkultrip.api.dart';
+part of 'mock.api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'kkultrip.api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _KkulTripApi implements KkulTripApi {
-  _KkulTripApi(
+class _MockApi implements MockApi {
+  _MockApi(
     this._dio, {
     this.baseUrl,
   });

@@ -31,7 +31,13 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # Firebase 의존성 추가
+  pod 'Firebase/Storage', '10.28.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database', '10.28.0'  # Firebase/Database 버전 명시
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
   target 'RunnerTests' do
     inherit! :search_paths
   end

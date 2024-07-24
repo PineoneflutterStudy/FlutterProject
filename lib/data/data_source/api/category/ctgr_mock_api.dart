@@ -1,11 +1,11 @@
 import 'dart:convert';
 import '../../../../core/utils/constant.dart';
-import '../../../../presentation/main/common/response_wrapper/response_wrapper.dart';
 import '../../../dto/display/category/category.dto.dart';
-import '../../remote/kkultrip.api.dart';
+import '../../remote/mock.api.dart';
+import '../../response_wrapper/response_wrapper.dart';
 import 'ctgr_mock_data.dart';
 
-class CtgrMockApi implements KkulTripApi{
+class CtgrMockApi implements MockApi{
   @override
   Future<ResponseWrapper<List<CategoryDto>>> getCategoryList(MenuType menuType) {
     return Future(() => ResponseWrapper(

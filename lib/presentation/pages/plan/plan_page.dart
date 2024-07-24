@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../main/common/component/widget/appbar.dart';
-import 'screens/planner_page.dart';
-import 'screens/recommended_list_page.dart';
+import 'screens/recommend_list/recommended_list_page.dart';
 import 'widgets/empty_plan_widget.dart';
 
 class PlanPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter_project_team1/core/utils/constant.dart';
 import 'package:flutter_project_team1/core/utils/error/error_response.dart';
-import 'package:flutter_project_team1/data/data_source/remote/kkultrip.api.dart';
+import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
 import 'package:flutter_project_team1/data/repository_impl/display/display_repository_impl.dart';
 import 'package:flutter_project_team1/domain/model/common/result.dart';
 import 'package:flutter_project_team1/domain/model/display/category/category.model.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_project_team1/domain/usecase/display/display.usecase.dar
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockDisplayApi extends Mock implements KkulTripApi{}
+class MockDisplayApi extends Mock implements MockApi{}
 class MockDisplayRepository extends Mock implements DisplayRepository{}
 class MockGetCategoryUsecase extends Mock implements GetCategorysUsecase{}
 void main() {
@@ -19,13 +19,13 @@ void main() {
 
   setUpAll((){
     displayRepository = DisplayRepositoryImpl(MockDisplayApi());
-    displayUsecase = DisplayUsecase(displayRepository);
+    displayUsecase = DisplayUsecase(displayRepository,);
   });
 
   test('의존성 주입 성공', ()=> expect(displayUsecase, isNotNull));
 
   test('카테고리 리스트 불러오기 성공', () async{
-    final result = Result.Success([Category(ctgrId: -1, ctgrName: '카테고리 테스트')]);
+    final result = Result.Success([Category(ctgrId: 'FD6', ctgrName: '카테고리 테스트')]);
     final usecase = MockGetCategoryUsecase();
 
     when(()=>usecase.menuType).thenThrow(MenuType.plan);

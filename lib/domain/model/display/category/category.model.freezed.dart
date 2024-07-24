@@ -20,7 +20,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Category {
-  int get ctgrId => throw _privateConstructorUsedError;
+  String get ctgrId => throw _privateConstructorUsedError;
   String get ctgrName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int ctgrId, String ctgrName});
+  $Res call({String ctgrId, String ctgrName});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
       ctgrId: null == ctgrId
           ? _value.ctgrId
           : ctgrId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       ctgrName: null == ctgrName
           ? _value.ctgrName
           : ctgrName // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,7 @@ abstract class _$$CategoryImplCopyWith<$Res>
       __$$CategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int ctgrId, String ctgrName});
+  $Res call({String ctgrId, String ctgrName});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$CategoryImplCopyWithImpl<$Res>
       ctgrId: null == ctgrId
           ? _value.ctgrId
           : ctgrId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       ctgrName: null == ctgrName
           ? _value.ctgrName
           : ctgrName // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ class _$CategoryImpl with DiagnosticableTreeMixin implements _Category {
       _$$CategoryImplFromJson(json);
 
   @override
-  final int ctgrId;
+  final String ctgrId;
   @override
   final String ctgrName;
 
@@ -161,14 +161,14 @@ class _$CategoryImpl with DiagnosticableTreeMixin implements _Category {
 
 abstract class _Category implements Category {
   const factory _Category(
-      {required final int ctgrId,
+      {required final String ctgrId,
       required final String ctgrName}) = _$CategoryImpl;
 
   factory _Category.fromJson(Map<String, dynamic> json) =
       _$CategoryImpl.fromJson;
 
   @override
-  int get ctgrId;
+  String get ctgrId;
   @override
   String get ctgrName;
   @override

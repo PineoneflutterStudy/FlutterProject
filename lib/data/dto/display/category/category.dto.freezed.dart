@@ -20,7 +20,7 @@ CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CategoryDto {
-  int get ctgrId => throw _privateConstructorUsedError;
+  String get ctgrId => throw _privateConstructorUsedError;
   String get ctgrName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $CategoryDtoCopyWith<$Res> {
           CategoryDto value, $Res Function(CategoryDto) then) =
       _$CategoryDtoCopyWithImpl<$Res, CategoryDto>;
   @useResult
-  $Res call({int ctgrId, String ctgrName});
+  $Res call({String ctgrId, String ctgrName});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
       ctgrId: null == ctgrId
           ? _value.ctgrId
           : ctgrId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       ctgrName: null == ctgrName
           ? _value.ctgrName
           : ctgrName // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,7 @@ abstract class _$$CategoryDtoImplCopyWith<$Res>
       __$$CategoryDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int ctgrId, String ctgrName});
+  $Res call({String ctgrId, String ctgrName});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
       ctgrId: null == ctgrId
           ? _value.ctgrId
           : ctgrId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       ctgrName: null == ctgrName
           ? _value.ctgrName
           : ctgrName // ignore: cast_nullable_to_non_nullable
@@ -108,14 +108,14 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryDtoImpl with DiagnosticableTreeMixin implements _CategoryDto {
-  const _$CategoryDtoImpl({this.ctgrId = -1, this.ctgrName = ''});
+  const _$CategoryDtoImpl({this.ctgrId = '', this.ctgrName = ''});
 
   factory _$CategoryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryDtoImplFromJson(json);
 
   @override
   @JsonKey()
-  final int ctgrId;
+  final String ctgrId;
   @override
   @JsonKey()
   final String ctgrName;
@@ -163,14 +163,14 @@ class _$CategoryDtoImpl with DiagnosticableTreeMixin implements _CategoryDto {
 }
 
 abstract class _CategoryDto implements CategoryDto {
-  const factory _CategoryDto({final int ctgrId, final String ctgrName}) =
+  const factory _CategoryDto({final String ctgrId, final String ctgrName}) =
       _$CategoryDtoImpl;
 
   factory _CategoryDto.fromJson(Map<String, dynamic> json) =
       _$CategoryDtoImpl.fromJson;
 
   @override
-  int get ctgrId;
+  String get ctgrId;
   @override
   String get ctgrName;
   @override

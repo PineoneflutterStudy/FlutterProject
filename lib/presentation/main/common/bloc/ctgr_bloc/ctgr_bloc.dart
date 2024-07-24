@@ -20,6 +20,7 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
 
   CtgrBloc(this._displayUsecase) : super(CtgrState()){
     on<CtgrInitialized>(_onCtgrInitialized);
+    on<CtgrCategorySelected>(_onCtgrCategorySelected);
   }
 
   Future<void> _onCtgrInitialized(
@@ -33,13 +34,20 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
     try {
       final response = await _fetch(menuType);
       response.when(Success: (categorys) {
-        emit(state.copyWith(status: Status.success, ctgrs: categorys, menuType: menuType));
+        emit(state.copyWith(status: Status.success, ctgrs: categorys, menuType: menuType, selectedCategory: categorys.isNotEmpty ? categorys[0] : null));
       }, failure: (error) {
         emit(state.copyWith(status: Status.error, error: error));
       });
     } catch (error) {
       emit(state.copyWith(status: Status.error, error: CommonException.setError(error)));
     }
+  }
+
+  Future<void> _onCtgrCategorySelected(
+      CtgrCategorySelected event,
+      Emitter<CtgrState> emit,
+      ) async {
+    emit(state.copyWith(selectedCategory: event.selectedCategory));
   }
 
   Future<Result<List<Category>>> _fetch(MenuType menuType) async {

@@ -1,6 +1,6 @@
 import 'package:flutter_project_team1/core/utils/constant.dart';
-import 'package:flutter_project_team1/data/data_source/mock/category/ctgr_mock_api.dart';
-import 'package:flutter_project_team1/data/data_source/remote/kkultrip.api.dart';
+import 'package:flutter_project_team1/data/data_source/api/category/ctgr_mock_api.dart';
+import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
 import 'package:flutter_project_team1/data/mapper/common.mapper.dart';
 import 'package:flutter_project_team1/data/mapper/display.mapper.dart';
 import 'package:flutter_project_team1/data/repository_impl/display/display_repository_impl.dart';
@@ -9,15 +9,15 @@ import 'package:flutter_project_team1/domain/repository/display.repository.dart'
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockDisplayApi extends Mock implements KkulTripApi{}
+class MockDisplayApi extends Mock implements MockApi{}
 
 void main(){
   late DisplayRepository displayRepository;
-  late KkulTripApi kkulTripApi;
+  late MockApi mockApi;
 
   setUpAll((){
-    kkulTripApi = MockDisplayApi();
-    displayRepository = DisplayRepositoryImpl(kkulTripApi);
+    mockApi = MockDisplayApi();
+    displayRepository = DisplayRepositoryImpl(mockApi);
   });
 
   test('의존성 주입 및 객체 생성 완료', ()=> expect(displayRepository, isNotNull));
@@ -28,13 +28,13 @@ void main(){
       try{
         await displayRepository.getCategoryList(menuType: MenuType.plan);
       }catch(_){}
-      verify(()=>kkulTripApi.getCategoryList(any())).called(1); //한번만 호출이 되었는지 확인
+      verify(()=>mockApi.getCategoryList(any())).called(1); //한번만 호출이 되었는지 확인
     });
 
     //api 호출 실패
     test('api 호출 실패',() async{
       final exception = Exception('error');
-      when(()=>kkulTripApi.getCategoryList(any())).thenThrow(exception);
+      when(()=>mockApi.getCategoryList(any())).thenThrow(exception);
       expect(()=>displayRepository.getCategoryList(menuType: MenuType.plan), throwsA(exception));
     });
 
@@ -42,7 +42,7 @@ void main(){
       final menuType = MenuType.plan;
       final mockingData = await CtgrMockApi().getCategoryList(menuType);
 
-      when(()=>kkulTripApi.getCategoryList(any())).thenAnswer((_) async => mockingData);
+      when(()=>mockApi.getCategoryList(any())).thenAnswer((_) async => mockingData);
 
       final actual = await displayRepository.getCategoryList(menuType: menuType);
 

@@ -19,6 +19,7 @@ mixin _$CtgrState {
   Status get status => throw _privateConstructorUsedError;
   MenuType get menuType => throw _privateConstructorUsedError;
   List<Category> get ctgrs => throw _privateConstructorUsedError;
+  Category? get selectedCategory => throw _privateConstructorUsedError;
   ErrorResponse? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,7 +36,10 @@ abstract class $CtgrStateCopyWith<$Res> {
       {Status status,
       MenuType menuType,
       List<Category> ctgrs,
+      Category? selectedCategory,
       ErrorResponse? error});
+
+  $CategoryCopyWith<$Res>? get selectedCategory;
 }
 
 /// @nodoc
@@ -54,6 +58,7 @@ class _$CtgrStateCopyWithImpl<$Res, $Val extends CtgrState>
     Object? status = null,
     Object? menuType = null,
     Object? ctgrs = null,
+    Object? selectedCategory = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -69,11 +74,27 @@ class _$CtgrStateCopyWithImpl<$Res, $Val extends CtgrState>
           ? _value.ctgrs
           : ctgrs // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      selectedCategory: freezed == selectedCategory
+          ? _value.selectedCategory
+          : selectedCategory // ignore: cast_nullable_to_non_nullable
+              as Category?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as ErrorResponse?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryCopyWith<$Res>? get selectedCategory {
+    if (_value.selectedCategory == null) {
+      return null;
+    }
+
+    return $CategoryCopyWith<$Res>(_value.selectedCategory!, (value) {
+      return _then(_value.copyWith(selectedCategory: value) as $Val);
+    });
   }
 }
 
@@ -89,7 +110,11 @@ abstract class _$$CtgrStateImplCopyWith<$Res>
       {Status status,
       MenuType menuType,
       List<Category> ctgrs,
+      Category? selectedCategory,
       ErrorResponse? error});
+
+  @override
+  $CategoryCopyWith<$Res>? get selectedCategory;
 }
 
 /// @nodoc
@@ -106,6 +131,7 @@ class __$$CtgrStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? menuType = null,
     Object? ctgrs = null,
+    Object? selectedCategory = freezed,
     Object? error = freezed,
   }) {
     return _then(_$CtgrStateImpl(
@@ -121,6 +147,10 @@ class __$$CtgrStateImplCopyWithImpl<$Res>
           ? _value._ctgrs
           : ctgrs // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      selectedCategory: freezed == selectedCategory
+          ? _value.selectedCategory
+          : selectedCategory // ignore: cast_nullable_to_non_nullable
+              as Category?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -136,6 +166,7 @@ class _$CtgrStateImpl implements _CtgrState {
       {this.status = Status.initial,
       this.menuType = MenuType.home,
       final List<Category> ctgrs = const <Category>[],
+      this.selectedCategory,
       this.error})
       : _ctgrs = ctgrs;
 
@@ -155,11 +186,13 @@ class _$CtgrStateImpl implements _CtgrState {
   }
 
   @override
+  final Category? selectedCategory;
+  @override
   final ErrorResponse? error;
 
   @override
   String toString() {
-    return 'CtgrState(status: $status, menuType: $menuType, ctgrs: $ctgrs, error: $error)';
+    return 'CtgrState(status: $status, menuType: $menuType, ctgrs: $ctgrs, selectedCategory: $selectedCategory, error: $error)';
   }
 
   @override
@@ -171,12 +204,14 @@ class _$CtgrStateImpl implements _CtgrState {
             (identical(other.menuType, menuType) ||
                 other.menuType == menuType) &&
             const DeepCollectionEquality().equals(other._ctgrs, _ctgrs) &&
+            (identical(other.selectedCategory, selectedCategory) ||
+                other.selectedCategory == selectedCategory) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, status, menuType,
-      const DeepCollectionEquality().hash(_ctgrs), error);
+      const DeepCollectionEquality().hash(_ctgrs), selectedCategory, error);
 
   @JsonKey(ignore: true)
   @override
@@ -190,6 +225,7 @@ abstract class _CtgrState implements CtgrState {
       {final Status status,
       final MenuType menuType,
       final List<Category> ctgrs,
+      final Category? selectedCategory,
       final ErrorResponse? error}) = _$CtgrStateImpl;
 
   @override
@@ -198,6 +234,8 @@ abstract class _CtgrState implements CtgrState {
   MenuType get menuType;
   @override
   List<Category> get ctgrs;
+  @override
+  Category? get selectedCategory;
   @override
   ErrorResponse? get error;
   @override

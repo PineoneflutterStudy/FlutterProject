@@ -8,3 +8,9 @@ class CtgrInitialized extends CtgrEvent{
   final MenuType menuType;
   CtgrInitialized(this.menuType);
 }
+
+class CtgrCategorySelected extends CtgrEvent {
+  final Category selectedCategory;
+
+  CtgrCategorySelected(this.selectedCategory);
+}
