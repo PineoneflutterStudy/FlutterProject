@@ -6,7 +6,7 @@ class AddressInfoState extends Equatable {
 
   const AddressInfoState ({
     this.addressList = const [],
-    this.isMaxInput = false,
+    this.isMaxInput = true,
 });
 
   final List<AddressModel> addressList;
