@@ -18,14 +18,10 @@ class PlaceListView extends StatelessWidget {
   const PlaceListView(this.category, this.isSelected, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    if (!isSelected) {
-      return Container();
-    }
-
+    Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => PlaceBloc(locator<PlannerUsecase>())
-        ..add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 20000, 1, 'distance')),
+        ..add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 10000, 1, 'distance')),
       child: PlaceListPageView(category),
     );
   }
@@ -45,13 +41,20 @@ class PlaceListPageView extends StatelessWidget {
           case Status.loading:
             return const Center(child: CircularProgressIndicator());
           case Status.success:
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: state.places.length,
-              itemBuilder: (context, index) {
-                return PlaceItemView(state.places[index]);
-              },
-            );
+            if(state.places.isEmpty){
+              return Container(
+                alignment: Alignment.center,
+                child: Text('반경 10km 등록된 ${category.ctgrName}이 없습니다.',style: TextStyle(fontSize: 20),),
+              );
+            }else{
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: state.places.length,
+                itemBuilder: (context, index) {
+                  return PlaceItemView(state.places[index]);
+                },
+              );
+            }
           case Status.error:
             return Center(child: Text('error'));
         }
@@ -63,7 +66,7 @@ class PlaceListPageView extends StatelessWidget {
               (await CommonDialog.errorDialog(context, state.error) ?? false);
           if (result) {
             // [다시 시도] 버튼 클릭 - 서버 재호출
-            context.read<PlaceBloc>().add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 20000, 1, 'distance'));
+            context.read<PlaceBloc>().add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 10000, 1, 'distance'));
           }
         }
       },

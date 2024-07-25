@@ -17,7 +17,7 @@ class CategoryItemView extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 13.0), // 텍스트 주변 내부 여백
-        margin: EdgeInsets.fromLTRB(10, 0, 0, 20),
+        margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? AppColors.secondary : Colors.transparent,

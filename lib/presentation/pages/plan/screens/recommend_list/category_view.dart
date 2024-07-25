@@ -22,7 +22,7 @@ class _CategoryViewState extends State<CategoryView> {
         return Padding(
           padding: const EdgeInsets.only(left: 10.0),
           child: SizedBox(
-            height: 50.0, // Adjust height as needed
+            height: 40.0, // Adjust height as needed
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: widget.categorys.length,
