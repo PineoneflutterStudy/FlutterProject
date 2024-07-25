@@ -20,7 +20,7 @@ class CategoryItemView extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.secondary : Colors.transparent,
+          color: isSelected ? AppColors.secondary : AppColors.onPrimary,
           borderRadius: BorderRadius.circular(30.0),
           border: Border.all(color: AppColors.surfaceVariant, width: 0.5), // Thin black border),
         ),
