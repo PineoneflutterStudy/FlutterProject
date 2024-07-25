@@ -112,12 +112,11 @@ class _ContentView extends ConsumerStatefulWidget {
 
 class __ContentViewState extends ConsumerState<_ContentView> {
 
-  late LocalPrefsStorageImpl localStorage;
   @override
   void initState() {
     super.initState();
-    localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -130,7 +129,59 @@ class __ContentViewState extends ConsumerState<_ContentView> {
             children: [
               Row(
                 children: [
-                  Expanded(child: makeStartAddressList(context, state)),
+                  Expanded(
+                      child: ListView.builder(
+                    itemCount: state.addressList.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: GestureDetector(
+                                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+                                    onTap: () {
+                                      // 주소 입력 화면 이동
+                                      addressApi(context, index, ref);
+                                    },
+                                    child: index < 2
+                                        ? AddressInputBasicItemWidget(
+                                            indexNum: index + 1,
+                                            address: state.addressList[index].address,
+                                            onDeleteBtnPress: () {
+                                              _logger.i('이건 기본 제공 라인 index? => $index');
+                                              // Default 2 Line 입력 주소 제거
+                                              ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                                            },
+                                          )
+                                        : AddressInputAddItemWidget(
+                                            indexNum: index + 1,
+                                            address: state.addressList[index].address,
+                                            onDeleteBtnPress: () {
+                                              _logger.i('이건 추가 제공 라인 index? => $index');
+                                              // 추가 Line 입력 주소 제거( - )
+                                              ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                                            },
+                                            onRemoveBtnPress: () {
+                                              _logger.i('이건 추가 제공 라인 삭제 index? => $index');
+                                              // Input List 제거 ( x )
+                                              ref.read(addressInfoStateProvider.notifier).deleteAddressInput(index);
+                                            },
+                                          )),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                    shrinkWrap: true,
+                  )),
                 ],
               ),
               SizedBox(
@@ -139,12 +190,12 @@ class __ContentViewState extends ConsumerState<_ContentView> {
               Container(
                 child: IconButton(
                   onPressed: () {
-                    ref.read(addressInfoStateProvider.notifier).addAddressInput(
-                        AddressModel(index: state.addressList.length, address: '', latitude: 0.0, longitude: 0.0),
-                    );
-                    /*viewModel.isMaxAddAddress();
-                    if (viewModel.toastMessage.isNotEmpty)
-                      showToast('${viewModel.toastMessage}');*/
+                    _logger.i('Is Max Address Input box? => ${state.isMaxInput}');
+                    if (state.isMaxInput) {
+                      ref.read(addressInfoStateProvider.notifier).addEmptyAddress(state.addressList.length);
+                    } else {
+                      showToast('최대 4명까지 입력 가능합니다!');
+                    }
                   },
                   icon: Icon(
                     Icons.add_circle_sharp,
@@ -161,23 +212,24 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     nextText: '중간지점 찾기!',
                     onBackPress: () {
                       Navigator.of(context).pop();
+                      // 현재 데이터 초기화 시점은 -> Dialog 에서 취소 버튼 입력 시 되도록 적용...
+                      ref.read(addressInfoStateProvider.notifier).resetAddress();
                     },
                     onNextPress: () {
-                      if (state.addressList.length > 1) {
+                      List<String> indices = state.addressList.map((address) => address.address).toList();
+                      if (indices.contains('')) {
+                        // 빈값이 존재한다면? => 넘어가기 X
+                        showToast('비어있는 출발지가 있습니다!');
+                      } else {
                         // 주소가 모두 입력
                         Navigator.of(context).pop();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MeetPlaceMapScreen(
-                              addressList: state.addressList,
-                            ),
+                            builder: (context) => MeetPlaceMapScreen(),
                             fullscreenDialog: true,
                           ),
                         );
-                      } else {
-                        // 저장된 List의 길이가 2보다 작으므로... 최소 2개의 출발지는 입력 해야합니다...
-                        showToast('비어있는 출발지가 있습니다!');
                       }
                     },
                   ),
@@ -190,77 +242,22 @@ class __ContentViewState extends ConsumerState<_ContentView> {
     );
   }
 
-  // 출발지 입력 ListView
-  ListView makeStartAddressList(BuildContext context, AddressInfoState state) {
-    return ListView.builder(
-      itemCount: state.addressList.length,
-      itemBuilder: (context, index) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: GestureDetector(
-                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
-                      onTap: () {
-                        // 주소 입력 화면 이동
-                        addressApi(context, index);
-                      },
-                      child: index < 2
-                          ? AddressInputBasicItemWidget(
-                        indexNum: index + 1,
-                        address: state.addressList[index].address,
-                        onDeleteBtnPress: () {
-                          // 입력 주소 제거
-                          /*state.deleteAddress(index);*/
-                          //localStorage.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
-                        },
-                      )
-                          : AddressInputAddItemWidget(
-                        indexNum: index + 1,
-                        address: state.addressList[index].address,
-                        onDeleteBtnPress: () {
-                          // 입력 주소 제거
-                          /*state.deleteAddress(index);*/
-                          /*localStorage.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));*/
-                        },
-                        onRemoveBtnPress: () {
-                          // 입력할 수 있는 항목 제거
-                          /*state.removeAddress(index);*/
-                          /*localStorage.removeAddress(index);*/
-                        },
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
-          ],
-        );
-      },
-      shrinkWrap: true,
-    );
-  }
-
   /**
    * 주소검색 APi 실행 후 결과값 저장
    */
-  void addressApi(BuildContext context, int listIndex) async {
+  void addressApi(BuildContext context, int listIndex, WidgetRef ref) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (_) =>
-              KpostalView(
+          builder: (_) => KpostalView(
                 callback: (Kpostal result) {
-                  /*localStorage.updateAddress(AddressModel(
-                      index: listIndex,
-                      address: result.address,
-                      latitude: result.latitude!,
-                      longitude: result.longitude!));*/
+                  ref.read(addressInfoStateProvider.notifier).addAddressInput(
+                    AddressModel(
+                        index: listIndex,
+                        address: result.address,
+                        latitude: result.latitude!,
+                        longitude: result.longitude!),
+                  );
                 },
               )),
     );
