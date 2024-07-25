@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../../core/utils/logger.dart';
-import '../../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/repository/meet/start_address_repository.dart';
 import '../../../../../domain/usecase/meet/get_all_address.dart';
@@ -35,6 +34,9 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
   final GetAllAddress _getAllAddress;
   final StartAddressRepository _repo;
 
+  /**
+   * Fetch Address Update
+   */
   Future<void> fetchAddressInfo() async {
       final list = await _getAllAddress();
       state = state.copyWith(
@@ -42,17 +44,49 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
       );
   }
 
+  /**
+   * Update Address Input Line
+   */
   Future<void> addAddressInput(AddressModel addressModel) async {
-    if (state.addressList.length >= 4) {
-      // 입력하고자 하는 출발지가 4이상이라면 -> 4이상으로는 생성이 불가능하다.
-      state = state.copyWith(
-        isMaxInput: true,
-      );
-    } else {
-      // 아직 최대치 도달 x -> 출발지 입력 칸 생성이 가능하다.
-      _repo.updateAddress(addressModel);
-    }
+    bool isAddAddress = await _repo.updateAddress(addressModel);
+
     final list = await _getAllAddress();
-    _logger.i('여기가 제일 문제인데... 확인 -> ${list}');
+    state = state.copyWith(
+      addresses: List.from(list),
+      isMaxInput: isAddAddress,
+    );
+  }
+
+  Future<void> addEmptyAddress(int index) async {
+    bool isAddAddress = await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+
+    final list = await _getAllAddress();
+    state = state.copyWith(
+      addresses: List.from(list),
+      isMaxInput: isAddAddress,
+    );
+  }
+
+  Future<void> deleteAddress(int index) async {
+    await _repo.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+
+    final list = await _getAllAddress();
+    state = state.copyWith(
+      addresses: List.from(list),
+    );
+  }
+
+  Future<void> deleteAddressInput(int index) async {
+    bool isDeleteAddress = await _repo.deleteAddressInput(index);
+
+    final list = await _getAllAddress();
+    state = state.copyWith(
+      addresses: List.from(list),
+      isMaxInput: isDeleteAddress,
+    );
+  }
+
+  Future<void> resetAddress() async {
+    await _repo.resetAddress();
   }
 }

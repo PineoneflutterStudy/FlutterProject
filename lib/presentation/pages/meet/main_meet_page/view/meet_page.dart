@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
-import '../../../../../data/repository_impl/display/meet/start_address_repository_impl.dart';
+import '../../../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../../../../../domain/usecase/meet/get_all_address.dart';
 import '../../../../../main.dart';
 import '../../../../main/common/component/widget/appbar.dart';
@@ -36,8 +35,7 @@ class _MeetPageState extends State<MeetPage> {
     final localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
     final repo = StartAddressRepositoryImpl(localPrefsStorage: localStorage);
 
-    localStorage.resetAddress();
-    /*_getAllAddress = GetAllAddress(repository: repo);*/
+    _getAllAddress = GetAllAddress(repository: repo);
 
   }
 
