@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
@@ -22,15 +23,12 @@ import '../../../domain/model/display/login/auth_type.dart';
 final String _tag = '[Login]';
 final Logger _logger = CustomLogger.logger;
 
-final List<AuthType> authTypeList = <AuthType>[
-  AuthType.google,
-  AuthType.naver,
-  AuthType.kakao
-];
+final List<AuthType> authTypeList = <AuthType>[AuthType.google, AuthType.naver, AuthType.kakao];
 
 //==============================================================================
 //  Fields
 //==============================================================================
+GoogleSignIn _googleSignIn = GoogleSignIn();
 String _accessToken = '';
 
 class LoginPage extends StatefulWidget {
@@ -41,6 +39,28 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    _googleSignIn.onCurrentUserChanged.listen((account) async {
+      if(account == null) {
+        _logger.e('$_tag Google Login Failed, account == NULL');
+        return;
+      }
+
+      // 웹인 경우 scope 접근 확인 필요
+      // if (kIsWeb) {
+      //   isAuthorized = await _googleSignIn.canAccessScopes(scopes);
+      // }
+
+      GoogleSignInAuthentication result = await account.authentication;
+      _accessToken = result.accessToken ?? '';
+      _logger.i('$_tag Google Login Successed');
+      _logger.d('$_tag accessToken = $_accessToken');
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
@@ -77,8 +97,7 @@ class _LoginPageState extends State<LoginPage> {
           '${authType.name} 로그인',
           style: TextStyle(fontSize: 36, color: authType.fontColor),
         ),
-        style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(authType.bgColor)),
+        style: ButtonStyle(backgroundColor: WidgetStateProperty.all(authType.bgColor)),
         onPressed: () => onPressedAuthListItem(authType),
       );
 
@@ -86,7 +105,6 @@ class _LoginPageState extends State<LoginPage> {
 //  Methods
 //==============================================================================
   void onPressedAuthListItem(AuthType authType) {
-    _logger.i('$_tag onPressedAuthListItem()');
     switch (authType) {
       case AuthType.google:
         launchGoogleLogin();
@@ -97,28 +115,32 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void launchGoogleLogin() {
-    _logger.i('$_tag launchGoogleLogin()');
+  Future<void> launchGoogleLogin() async {
+    try {
+       await _googleSignIn.signIn();
+    } catch (error) {
+      _logger.e('$_tag Google Login Failed, error = $error');
+    }
   }
 
   Future<void> launchNaverLogin() async {
-    await FlutterNaverLogin.logIn().then(
-      (value) async {
-        switch (value.status) {
-          case NaverLoginStatus.loggedIn:
-            NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
-            _accessToken = result.accessToken;
-            _logger.i('$_tag Naver Login Successed');
-            _logger.d('$_tag accessToken = $_accessToken');
+    await FlutterNaverLogin.logIn().then((value) async {
+      switch (value.status) {
+        case NaverLoginStatus.loggedIn:
+          NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
+          _accessToken = result.accessToken;
+          _logger.i('$_tag Naver Login Successed');
+          _logger.d('$_tag accessToken = $_accessToken');
 
-          case NaverLoginStatus.cancelledByUser:
-            _logger.i('$_tag Naver Login Canceled');
+        case NaverLoginStatus.cancelledByUser:
+          _logger.i('$_tag Naver Login Canceled');
 
-          case NaverLoginStatus.error:
-            _logger.e('$_tag Naver Login Failed, error = ${value.errorMessage}');
-        }
-      },
-    );
+        case NaverLoginStatus.error:
+          _logger.e('$_tag Naver Login Failed, error = ${value.errorMessage}');
+      }
+    }).catchError((error) {
+      _logger.e('$_tag Naver Login Failed, error = $error');
+    });
   }
 
   Future<void> launchKakaoLogin() async {
