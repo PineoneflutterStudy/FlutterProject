@@ -28,7 +28,7 @@ final List<AuthType> authTypeList = <AuthType>[AuthType.google, AuthType.naver, 
 //==============================================================================
 //  Fields
 //==============================================================================
-GoogleSignIn _googleSignIn = GoogleSignIn();
+GoogleSignIn _googleSignIn = GoogleSignIn(clientId: FlutterConfig.get('GOOGLE_CLIENT_ID'));
 String _accessToken = '';
 
 class LoginPage extends StatefulWidget {
