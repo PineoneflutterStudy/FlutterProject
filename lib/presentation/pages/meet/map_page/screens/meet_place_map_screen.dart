@@ -83,6 +83,7 @@ class _ContentMapView extends ConsumerStatefulWidget {
 class __ContentMapViewState extends ConsumerState<_ContentMapView> {
 
   Set<Marker> markers = {};
+  late KakaoMapController mapController;
   @override
   void initState() {
     super.initState();
@@ -95,18 +96,24 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
       body: Consumer(
         builder: (context, ref, child) {
           final state = ref.watch(addressInfoStateProvider);
+
           return KakaoMap(
             onMapCreated: ((controller) async { // 맵 생성 Callback
+              mapController = controller;
+              List<LatLng> latLngs = [];
+
               for (int i = 0; i < state.addressList.length; i++) {
                 markers.add(Marker(
                   markerId: UniqueKey().toString(),
                   latLng: await LatLng(state.addressList[i].latitude, state.addressList[i].longitude),
                 ));
+                latLngs.add(LatLng(state.addressList[i].latitude, state.addressList[i].longitude));
               }
-              setState(() {});
+              setState(() {
+                mapController.fitBounds(latLngs);
+              });
             }),
             markers: markers.toList(),
-            center : LatLng(state.addressList[0].latitude, state.addressList[0].longitude),
           );
         },
       ),
