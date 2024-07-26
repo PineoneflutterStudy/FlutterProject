@@ -24,9 +24,9 @@ final GoRouter router = GoRouter(routes: [
       name: 'home',
       builder: (context, state) => const HomePage()),
   GoRoute(
-      path: RoutePath.plan,
-      name: 'plan',
-      builder: (context, state) => const PlanPage()),
+    path: RoutePath.plan,
+    name: 'plan',
+    builder: (context, state) => PlanPage(location: state.uri.queryParameters['location'])),
   GoRoute(
       path: RoutePath.like,
       name: 'like',

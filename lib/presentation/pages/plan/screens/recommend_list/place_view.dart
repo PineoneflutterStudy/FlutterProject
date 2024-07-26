@@ -19,8 +19,7 @@ class PlaceView extends StatelessWidget {
           index: selectedIndex,
           children: List.generate(categoryList.length, (index)
           {
-              final isSelected = index == selectedIndex;
-              return PlaceListView(categoryList[index], isSelected);
+              return PlaceListView(categoryList[index]);
           }),
           );
       },

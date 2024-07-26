@@ -13,9 +13,7 @@ import '../../bloc/place_bloc/place_bloc.dart';
 
 class PlaceListView extends StatelessWidget {
   final Category category;
-  final bool isSelected;
-
-  const PlaceListView(this.category, this.isSelected, {super.key});
+  const PlaceListView(this.category, {super.key});
 
   @override
     Widget build(BuildContext context) {

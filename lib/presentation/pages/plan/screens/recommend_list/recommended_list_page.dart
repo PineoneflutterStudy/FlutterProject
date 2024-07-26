@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'place_app_bar_view.dart';
 
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/logger.dart';
@@ -11,14 +12,18 @@ import 'category_view.dart';
 import 'place_view.dart';
 
 class RecommendedListPage extends StatelessWidget {
-  const RecommendedListPage({super.key});
+  final String location;
+
+  RecommendedListPage(this.location, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CtgrBloc(locator<DisplayUsecase>())
         ..add(CtgrInitialized(MenuType.plan)),
-      child: const RecommendedListPageView(),
+      child: Scaffold(
+          appBar: PlaceAppBarView(location: location),
+          body: RecommendedListPageView()),
     );
   }
 }

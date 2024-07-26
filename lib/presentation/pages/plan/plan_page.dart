@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'screens/planner/planner_page.dart';
 
-import '../../main/common/component/widget/appbar.dart';
 import 'screens/recommend_list/recommended_list_page.dart';
 import 'widgets/empty_plan_widget.dart';
 
 class PlanPage extends StatefulWidget {
-  const PlanPage({super.key});
+  final String? location;
+  const PlanPage({this.location, super.key});
 
   @override
   State<PlanPage> createState() => _PlanPageState();
@@ -19,12 +20,18 @@ class _PlanPageState extends State<PlanPage> {
     super.initState();
     _CheckLoginState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: '나만의 여행플래너'),
-      body: _isLogin? RecommendedListPage() : EmptyPlanWidget(),
-    );
+    if(widget.location == null){
+      if (_isLogin) {
+        return PlannerPage();
+      } else {
+        return EmptyPlanWidget();
+      }
+    }else{
+      return RecommendedListPage(widget.location!);
+    }
   }
 
   void _CheckLoginState() {
@@ -35,6 +42,5 @@ class _PlanPageState extends State<PlanPage> {
     setState(() {
       _isLogin = isLogin;
     });
-
   }
 }
