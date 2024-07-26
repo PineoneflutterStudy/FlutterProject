@@ -11,9 +11,9 @@ import 'address_info_state.dart';
 final addressInfoStateProvider =
 StateNotifierProvider<AddressInfoNotifier, AddressInfoState>(
         (ref) => AddressInfoNotifier(
-            getAllAddress: ref.read(getAllAddressProvider),
-          repo: ref.read(addressRepositoryProvider),
-        )
+      getAllAddress: ref.read(getAllAddressProvider),
+      repo: ref.read(addressRepositoryProvider),
+    )
 );
 
 final Logger _logger = CustomLogger.logger;
@@ -40,11 +40,11 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
   Future<void> fetchAddressInfo() async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
-      final list = await _getAllAddress();
-      state = state.copyWith(
-        status: AddressInfoStatus.success,
-          addresses: List.of(state.addressList)..addAll(list),
-      );
+    final list = await _getAllAddress();
+    state = state.copyWith(
+      status: AddressInfoStatus.success,
+      addresses: List.of(state.addressList)..addAll(list),
+    );
   }
 
   /**
