@@ -38,8 +38,11 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
    * Fetch Address Update
    */
   Future<void> fetchAddressInfo() async {
+    state = state.copyWith(status: AddressInfoStatus.loading);
+
       final list = await _getAllAddress();
       state = state.copyWith(
+        status: AddressInfoStatus.success,
           addresses: List.of(state.addressList)..addAll(list),
       );
   }
@@ -48,39 +51,51 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
    * Update Address Input Line
    */
   Future<void> addAddressInput(AddressModel addressModel) async {
+    state = state.copyWith(status: AddressInfoStatus.loading);
+
     bool isAddAddress = await _repo.updateAddress(addressModel);
 
     final list = await _getAllAddress();
     state = state.copyWith(
+      status: AddressInfoStatus.success,
       addresses: List.from(list),
       isMaxInput: isAddAddress,
     );
   }
 
   Future<void> addEmptyAddress(int index) async {
+    state = state.copyWith(status: AddressInfoStatus.loading);
+
     bool isAddAddress = await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
     final list = await _getAllAddress();
     state = state.copyWith(
+      status: AddressInfoStatus.success,
       addresses: List.from(list),
       isMaxInput: isAddAddress,
     );
   }
 
   Future<void> deleteAddress(int index) async {
+    state = state.copyWith(status: AddressInfoStatus.loading);
+
     await _repo.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
     final list = await _getAllAddress();
     state = state.copyWith(
+      status: AddressInfoStatus.success,
       addresses: List.from(list),
     );
   }
 
   Future<void> deleteAddressInput(int index) async {
+    state = state.copyWith(status: AddressInfoStatus.loading);
+
     bool isDeleteAddress = await _repo.deleteAddressInput(index);
 
     final list = await _getAllAddress();
     state = state.copyWith(
+      status: AddressInfoStatus.success,
       addresses: List.from(list),
       isMaxInput: isDeleteAddress,
     );

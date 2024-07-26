@@ -28,8 +28,6 @@ const double textSize_content = 25;
 
 final Logger _logger = CustomLogger.logger;
 
-List<Widget> addressFields = [];
-
 // ============================================================
 // Dialog page
 // ============================================================
@@ -64,6 +62,7 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
 
   @override
   Widget build(BuildContext context) {
+    final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -90,7 +89,9 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
             height: 10,
           ),
           // 주소 검색 Api 사용
-          const _ContentView(),
+          status == AddressInfoStatus.initial
+              ? const Center(child: CircularProgressIndicator(),)
+              : const _ContentView(),
           SizedBox(
             height: 20,
           ),
@@ -111,7 +112,6 @@ class _ContentView extends ConsumerStatefulWidget {
 }
 
 class __ContentViewState extends ConsumerState<_ContentView> {
-
   @override
   void initState() {
     super.initState();
@@ -129,59 +129,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
             children: [
               Row(
                 children: [
-                  Expanded(
-                      child: ListView.builder(
-                    itemCount: state.addressList.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: GestureDetector(
-                                    // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
-                                    onTap: () {
-                                      // 주소 입력 화면 이동
-                                      addressApi(context, index, ref);
-                                    },
-                                    child: index < 2
-                                        ? AddressInputBasicItemWidget(
-                                            indexNum: index + 1,
-                                            address: state.addressList[index].address,
-                                            onDeleteBtnPress: () {
-                                              _logger.i('이건 기본 제공 라인 index? => $index');
-                                              // Default 2 Line 입력 주소 제거
-                                              ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
-                                            },
-                                          )
-                                        : AddressInputAddItemWidget(
-                                            indexNum: index + 1,
-                                            address: state.addressList[index].address,
-                                            onDeleteBtnPress: () {
-                                              _logger.i('이건 추가 제공 라인 index? => $index');
-                                              // 추가 Line 입력 주소 제거( - )
-                                              ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
-                                            },
-                                            onRemoveBtnPress: () {
-                                              _logger.i('이건 추가 제공 라인 삭제 index? => $index');
-                                              // Input List 제거 ( x )
-                                              ref.read(addressInfoStateProvider.notifier).deleteAddressInput(index);
-                                            },
-                                          )),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              )
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                    shrinkWrap: true,
-                  )),
+                  Expanded(child: makeStartAddressList(context, state)),
                 ],
               ),
               SizedBox(
@@ -217,6 +165,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     },
                     onNextPress: () {
                       List<String> indices = state.addressList.map((address) => address.address).toList();
+                      _logger.i('Confirm Current AddressList Info -> $indices}');
                       if (indices.contains('')) {
                         // 빈값이 존재한다면? => 넘어가기 X
                         showToast('비어있는 출발지가 있습니다!');
@@ -243,6 +192,64 @@ class __ContentViewState extends ConsumerState<_ContentView> {
   }
 
   /**
+   * 출발지 입력 리스트뷰
+   */
+  ListView makeStartAddressList(BuildContext context, AddressInfoState state) {
+    return ListView.builder(
+      itemCount: state.addressList.length,
+      itemBuilder: (context, index) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: GestureDetector(
+                      // 취소 버튼을 제외한 주소 입력 나머지 영역 탭 시
+                      onTap: () {
+                        // 주소 입력 화면 이동
+                        addressApi(context, index, ref);
+                      },
+                      child: index < 2
+                          ? AddressInputBasicItemWidget(
+                              indexNum: index + 1,
+                              address: state.addressList[index].address,
+                              onDeleteBtnPress: () {
+                                _logger.i('Default Line Delete Address Info');
+                                // Default 2 Line 입력 주소 제거
+                                ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                              },
+                            )
+                          : AddressInputAddItemWidget(
+                              indexNum: index + 1,
+                              address: state.addressList[index].address,
+                              onDeleteBtnPress: () {
+                                _logger.i('Add Line Delete Address Info');
+                                // 추가 Line 입력 주소 제거( - )
+                                ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                              },
+                              onRemoveBtnPress: () {
+                                _logger.i('Add Line Delete..!');
+                                // Input List 제거 ( x )
+                                ref.read(addressInfoStateProvider.notifier).deleteAddressInput(index);
+                              },
+                            )),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ],
+        );
+      },
+      shrinkWrap: true,
+    );
+  }
+
+  /**
    * 주소검색 APi 실행 후 결과값 저장
    */
   void addressApi(BuildContext context, int listIndex, WidgetRef ref) async {
@@ -252,12 +259,12 @@ class __ContentViewState extends ConsumerState<_ContentView> {
           builder: (_) => KpostalView(
                 callback: (Kpostal result) {
                   ref.read(addressInfoStateProvider.notifier).addAddressInput(
-                    AddressModel(
-                        index: listIndex,
-                        address: result.address,
-                        latitude: result.latitude!,
-                        longitude: result.longitude!),
-                  );
+                        AddressModel(
+                            index: listIndex,
+                            address: result.address,
+                            latitude: result.latitude!,
+                            longitude: result.longitude!),
+                      );
                 },
               )),
     );
