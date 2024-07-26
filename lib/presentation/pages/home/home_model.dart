@@ -19,7 +19,6 @@ class HomeModel {
         locationList = crawling(json, Groups.location);
 
   static List<String> crawling(dynamic json, Groups groups) {
-    CustomLogger.logger.i('[json]: $json');
     List<String> result = [];
     var pageProps = json['pageProps'];
     var webScreen = pageProps['webScreen'];
