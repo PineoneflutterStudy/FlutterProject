@@ -16,8 +16,7 @@ const String _tag = '[Login]';
 /// ## 로그인 옵션 목록
 /// 구글, 네이버, 카카오, 이메일 로그인을 지원한다.
 ///
-///  * @author Eogeum@naver.com
-///  * @since 2024-07-26
+/// author [Eogeum@naver.com]
 class LoginOptionList extends StatelessWidget {
   final GoogleSignIn googleSignIn;
 

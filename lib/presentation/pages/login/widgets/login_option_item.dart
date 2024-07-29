@@ -11,8 +11,7 @@ const String _tag = '[Login]';
 
 /// ## 로그인 옵션 목록에 노출 될 아이템
 ///
-///  * @author Eogeum@naver.com
-///  * @since 2024-07-26
+/// author [Eogeum@naver.com]
 class LoginOptionItem extends StatelessWidget {
   final AuthType authType;
 

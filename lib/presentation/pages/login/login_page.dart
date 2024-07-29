@@ -14,8 +14,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(clientId: FlutterConfig.get('GOO
 
 /// ## 로그인 화면
 ///
-/// * @author Eogeum@naver.com
-/// * @since 2024-07-02
+/// author [Eogeum@naver.com]
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
