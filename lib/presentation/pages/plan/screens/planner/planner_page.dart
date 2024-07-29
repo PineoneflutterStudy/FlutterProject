@@ -30,7 +30,7 @@ class _PlannerPageState extends State<PlannerPage> {
             GestureDetector(
               onTap: () {
                 //todo recommended_list_page에 장소 정보 보내기 구현
-                final location = '해운대';
+                final location = '부산해운대';
                 context.pushNamed('plan', queryParameters: {'location' : location});
               },
               child: Icon(

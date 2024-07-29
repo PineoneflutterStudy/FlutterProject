@@ -1,11 +1,12 @@
 import '../../data/data_source/response_wrapper/response_wrapper.dart';
+import '../model/display/place/address.model.dart';
 import '../model/display/place/place.model.dart';
 import 'repository.dart';
 
 /**
  * Plan 메뉴 Repository
  */
-abstract class PlannerRepository extends Repository{
+abstract class PlannerRepository extends Repository {
   Future<ResponseWrapper<List<Place>>> getPlaceList({
     required String query,
     required String category,
@@ -15,4 +16,6 @@ abstract class PlannerRepository extends Repository{
     required int page,
     required String sort,
   });
+
+  Future<ResponseWrapper<Address>> getAddressInfo({required String query});
 }

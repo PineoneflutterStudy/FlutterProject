@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../dto/display/address/address.dto.dart';
 import '../../dto/display/place/place.dto.dart';
 import '../response_wrapper/kakao_response_wrapper.dart';
 
@@ -20,5 +21,10 @@ abstract class KakaoApi {
     @Query('radius') int radius,
     @Query('page') int page,
     @Query('sort') String sort,
+  );
+
+  @GET('/address.json?')
+  Future<KakaoResponseWrapper<AddressDto>> getAddressInfo(
+    @Query('query') String query,
   );
 }

@@ -64,6 +64,36 @@ class _KakaoApi implements KakaoApi {
     return _value;
   }
 
+  @override
+  Future<KakaoResponseWrapper<AddressDto>> getAddressInfo(String query) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'query': query};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/address.json?',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = KakaoResponseWrapper<AddressDto>.fromJson(
+      _result.data!,
+      (json) => AddressDto.fromJson(json as Map<String, dynamic>),
+    );
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

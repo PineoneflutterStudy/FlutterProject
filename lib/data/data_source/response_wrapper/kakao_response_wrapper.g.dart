@@ -27,7 +27,9 @@ Map<String, dynamic> _$$KakaoResponseWrapperImplToJson<T>(
 _$MetaImpl _$$MetaImplFromJson(Map<String, dynamic> json) => _$MetaImpl(
       is_end: json['is_end'] as bool,
       pageable_count: (json['pageable_count'] as num).toInt(),
-      same_name: SameName.fromJson(json['same_name'] as Map<String, dynamic>),
+      same_name: json['same_name'] == null
+          ? null
+          : SameName.fromJson(json['same_name'] as Map<String, dynamic>),
       total_count: (json['total_count'] as num).toInt(),
     );
 

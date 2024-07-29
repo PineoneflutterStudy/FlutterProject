@@ -16,7 +16,6 @@ part 'place_bloc.freezed.dart';
 
 class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
   final PlannerUsecase _plannerUsecase;
-
   PlaceBloc(this._plannerUsecase) : super(PlaceState()){
     on<PlaceInitialized>(_onPlaceInitialized);
   }

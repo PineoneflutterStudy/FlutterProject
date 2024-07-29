@@ -205,7 +205,7 @@ Meta _$MetaFromJson(Map<String, dynamic> json) {
 mixin _$Meta {
   bool get is_end => throw _privateConstructorUsedError;
   int get pageable_count => throw _privateConstructorUsedError;
-  SameName get same_name => throw _privateConstructorUsedError;
+  SameName? get same_name => throw _privateConstructorUsedError;
   int get total_count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -219,9 +219,9 @@ abstract class $MetaCopyWith<$Res> {
       _$MetaCopyWithImpl<$Res, Meta>;
   @useResult
   $Res call(
-      {bool is_end, int pageable_count, SameName same_name, int total_count});
+      {bool is_end, int pageable_count, SameName? same_name, int total_count});
 
-  $SameNameCopyWith<$Res> get same_name;
+  $SameNameCopyWith<$Res>? get same_name;
 }
 
 /// @nodoc
@@ -239,7 +239,7 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
   $Res call({
     Object? is_end = null,
     Object? pageable_count = null,
-    Object? same_name = null,
+    Object? same_name = freezed,
     Object? total_count = null,
   }) {
     return _then(_value.copyWith(
@@ -251,10 +251,10 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
           ? _value.pageable_count
           : pageable_count // ignore: cast_nullable_to_non_nullable
               as int,
-      same_name: null == same_name
+      same_name: freezed == same_name
           ? _value.same_name
           : same_name // ignore: cast_nullable_to_non_nullable
-              as SameName,
+              as SameName?,
       total_count: null == total_count
           ? _value.total_count
           : total_count // ignore: cast_nullable_to_non_nullable
@@ -264,8 +264,12 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
 
   @override
   @pragma('vm:prefer-inline')
-  $SameNameCopyWith<$Res> get same_name {
-    return $SameNameCopyWith<$Res>(_value.same_name, (value) {
+  $SameNameCopyWith<$Res>? get same_name {
+    if (_value.same_name == null) {
+      return null;
+    }
+
+    return $SameNameCopyWith<$Res>(_value.same_name!, (value) {
       return _then(_value.copyWith(same_name: value) as $Val);
     });
   }
@@ -279,10 +283,10 @@ abstract class _$$MetaImplCopyWith<$Res> implements $MetaCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {bool is_end, int pageable_count, SameName same_name, int total_count});
+      {bool is_end, int pageable_count, SameName? same_name, int total_count});
 
   @override
-  $SameNameCopyWith<$Res> get same_name;
+  $SameNameCopyWith<$Res>? get same_name;
 }
 
 /// @nodoc
@@ -297,7 +301,7 @@ class __$$MetaImplCopyWithImpl<$Res>
   $Res call({
     Object? is_end = null,
     Object? pageable_count = null,
-    Object? same_name = null,
+    Object? same_name = freezed,
     Object? total_count = null,
   }) {
     return _then(_$MetaImpl(
@@ -309,10 +313,10 @@ class __$$MetaImplCopyWithImpl<$Res>
           ? _value.pageable_count
           : pageable_count // ignore: cast_nullable_to_non_nullable
               as int,
-      same_name: null == same_name
+      same_name: freezed == same_name
           ? _value.same_name
           : same_name // ignore: cast_nullable_to_non_nullable
-              as SameName,
+              as SameName?,
       total_count: null == total_count
           ? _value.total_count
           : total_count // ignore: cast_nullable_to_non_nullable
@@ -338,7 +342,7 @@ class _$MetaImpl implements _Meta {
   @override
   final int pageable_count;
   @override
-  final SameName same_name;
+  final SameName? same_name;
   @override
   final int total_count;
 
@@ -384,7 +388,7 @@ abstract class _Meta implements Meta {
   const factory _Meta(
       {required final bool is_end,
       required final int pageable_count,
-      required final SameName same_name,
+      required final SameName? same_name,
       required final int total_count}) = _$MetaImpl;
 
   factory _Meta.fromJson(Map<String, dynamic> json) = _$MetaImpl.fromJson;
@@ -394,7 +398,7 @@ abstract class _Meta implements Meta {
   @override
   int get pageable_count;
   @override
-  SameName get same_name;
+  SameName? get same_name;
   @override
   int get total_count;
   @override

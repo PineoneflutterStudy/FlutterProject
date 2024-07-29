@@ -20,7 +20,7 @@ class Meta with _$Meta {
   const factory Meta({
     required bool is_end,
     required int pageable_count,
-    required SameName same_name,
+    required SameName? same_name,
     required int total_count,
   }) = _Meta;
 

@@ -29,8 +29,6 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
   ) async {
     final menuType = event.menuType;
     emit(state.copyWith(status: Status.loading));
-    // loading image test
-    // await Future.delayed(Duration(seconds: 2));
     try {
       final response = await _fetch(menuType);
       response.when(Success: (categorys) {

@@ -1,7 +1,9 @@
+import '../../../domain/model/display/place/address.model.dart';
 import '../../../domain/model/display/place/place.model.dart';
 import '../../../domain/repository/planner.repository.dart';
 import '../../data_source/remote/kakao.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
+import '../../mapper/address.mapper.dart';
 import '../../mapper/place.mapper.dart';
 
 /**
@@ -37,6 +39,27 @@ class PlannerRepositoryImpl implements PlannerRepository {
         code: '9999',
         message: e.toString(),
         data: [],
+      );
+    }
+  }
+
+  @override
+  Future<ResponseWrapper<Address>> getAddressInfo({required String query}) async {
+    try {
+      final response = await _kakaoApi.getAddressInfo(query);
+      final addressInfo = response.documents.map((item) => item.toModel()).toList();
+      return ResponseWrapper<Address>(
+        status: 'success',
+        code: '0000',
+        message: '',
+        data: addressInfo.isNotEmpty ? addressInfo[0] : Address(addressName: '', x: '', y: ''),
+      );
+    } catch (e) {
+      return ResponseWrapper<Address>(
+        status: 'error',
+        code: '9999',
+        message: e.toString(),
+        data: null,
       );
     }
   }
