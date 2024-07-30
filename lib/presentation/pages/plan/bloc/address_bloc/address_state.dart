@@ -4,7 +4,7 @@ part of 'address_bloc.dart';
 class AddressState with _$AddressState {
   factory AddressState({
     @Default(Status.initial) Status status,
-    Address? addressInfo,
+    @Default(Address(addressName: '', x: '', y: '')) Address addressInfo,
     ErrorResponse? error,
   }) = _AddressState;
 }

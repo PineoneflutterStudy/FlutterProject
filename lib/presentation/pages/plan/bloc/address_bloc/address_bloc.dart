@@ -27,7 +27,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       final response = await _fetch(location);
       response.when(Success: (address) {
-        emit(state.copyWith(status: Status.success, addressInfo: address));
+        if(address == null){
+          emit(state.copyWith(status: Status.error, error: ErrorResponse(status: '1',code: '9999',message: '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.')));
+        }else{
+          emit(state.copyWith(status: Status.success, addressInfo: address));
+        }
       }, failure: (error) {
         emit(state.copyWith(status: Status.error, error: error));
       });
@@ -36,7 +40,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
   }
 
-  Future<Result<Address>> _fetch(String location) async {
+  Future<Result<Address?>> _fetch(String location) async {
     return await _plannerUsecase.execute(
         usecase: GetAddressInfoUsecase(location)
     );

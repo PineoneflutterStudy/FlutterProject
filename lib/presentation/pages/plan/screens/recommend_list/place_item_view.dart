@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
 
 class PlaceItemView extends StatelessWidget {
@@ -20,7 +20,7 @@ class PlaceItemView extends StatelessWidget {
         if((place.placeUrl ?? '').isNotEmpty){
           _gotoDetailPage(context)
         }else{
-          _showToastMsg('등록된 상세페이지가 없습니다.')
+          Utils.showToastMsg('등록된 상세페이지가 없습니다.')
         }
       },
       child: Card(
@@ -93,12 +93,7 @@ class PlaceItemView extends StatelessWidget {
       await launchUrl(uri);
     } else {
       CustomLogger.logger.e('Could not launch $uri');
-      _showToastMsg('상세페이지 이동 실패\n다시 시도해주세요.');
+      Utils.showToastMsg('상세페이지 이동 실패\n다시 시도해주세요.');
     }
-  }
-
-  void _showToastMsg(String msg) {
-    Fluttertoast.showToast(msg: msg,toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM, backgroundColor: AppColors.secondary, textColor: AppColors.contentTertiary, fontSize: 16.0);
   }
 }

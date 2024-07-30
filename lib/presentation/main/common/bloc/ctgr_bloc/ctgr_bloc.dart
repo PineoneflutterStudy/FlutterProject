@@ -15,6 +15,9 @@ part 'ctgr_state.dart';
 
 part 'ctgr_bloc.freezed.dart';
 
+/**
+ * home, plan, like 사용
+ */
 class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
   final DisplayUsecase _displayUsecase;
 

@@ -27,19 +27,9 @@ class PlannerRepositoryImpl implements PlannerRepository {
       final response = await _kakaoApi.getPlaceList(query, category, x, y, radius, page, sort);
       final places = response.documents.map((item) => item.toModel()).toList();
 
-      return ResponseWrapper<List<Place>>(
-        status: 'success',
-        code: '0000',
-        message: '',
-        data: places,
-      );
+      return ResponseWrapper<List<Place>>(status: 'success', code: '0000', message: '', data: places);
     } catch (e) {
-      return ResponseWrapper<List<Place>>(
-        status: 'error',
-        code: '9999',
-        message: e.toString(),
-        data: [],
-      );
+      return ResponseWrapper<List<Place>>(status: 'error', code: '9999', message: e.toString(), data: []);
     }
   }
 
@@ -48,19 +38,13 @@ class PlannerRepositoryImpl implements PlannerRepository {
     try {
       final response = await _kakaoApi.getAddressInfo(query);
       final addressInfo = response.documents.map((item) => item.toModel()).toList();
-      return ResponseWrapper<Address>(
-        status: 'success',
-        code: '0000',
-        message: '',
-        data: addressInfo.isNotEmpty ? addressInfo[0] : Address(addressName: '', x: '', y: ''),
-      );
+      if(addressInfo.isEmpty){
+        return ResponseWrapper<Address>(status: 'success', code: '2222', message: 'addressInfo is Empty', data: null);
+      }else{
+        return ResponseWrapper<Address>(status: 'success', code: '0000', message: '', data: addressInfo[0]);
+      }
     } catch (e) {
-      return ResponseWrapper<Address>(
-        status: 'error',
-        code: '9999',
-        message: e.toString(),
-        data: null,
-      );
+      return ResponseWrapper<Address>(status: 'error', code: '9999', message: e.toString(), data: null);
     }
   }
 }

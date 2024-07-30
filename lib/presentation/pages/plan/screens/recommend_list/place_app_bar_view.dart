@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
   final String location;
   final double appbar_height = 70;
+  final ValueChanged<String> onLocationChanged;
 
-  PlaceAppBarView({required this.location});
+  PlaceAppBarView({required this.location, required this.onLocationChanged});
 
   @override
   State<PlaceAppBarView> createState() => _PlaceAppBarViewState();
@@ -13,14 +14,13 @@ class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _PlaceAppBarViewState extends State<PlaceAppBarView> {
+  late TextEditingController _controller;
   late final FocusNode _focusNode;
-  late String _location;
-
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController(text: widget.location);
     _focusNode = FocusNode();
-    _location = widget.location;
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -28,12 +28,21 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
 
   @override
   void dispose() {
+    _controller.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
   void _handleButtonPress() {
     FocusScope.of(context).unfocus(); // 포커스 해제
+  }
+
+  void _handleSearch() {
+    _handleButtonPress();
+    String newLocation = _controller.text;
+    if (newLocation != widget.location) {
+      widget.onLocationChanged(newLocation);
+    }
   }
 
   @override
@@ -70,10 +79,11 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextField(
+                          controller: _controller,
                           focusNode: _focusNode,
                           showCursor: _focusNode.hasFocus,
                           decoration: InputDecoration(
-                              hintText: _location,
+                              hintText: 'Enter location',
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.fromLTRB(10,0,10,7)),
                           style: TextStyle(color: Colors.black),
@@ -82,11 +92,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                     ),
                     IconButton(
                       icon: Icon(Icons.search, color: Colors.black),
-                      onPressed: () {
-                        _handleButtonPress();
-                        // todo 검색창 문구 갱신
-                        // todo 주소 api 호출 및 하단 목록 호출
-                      },
+                      onPressed: () => _handleSearch(),
                     ),
                   ],
                 ),

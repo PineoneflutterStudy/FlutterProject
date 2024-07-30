@@ -4,7 +4,6 @@ import '../error/error_response.dart';
 
 class CommonException {
   const CommonException();
-
   static ErrorResponse setError(error) {
     if (error is Exception) {
       if (error.runtimeType == DioException) {

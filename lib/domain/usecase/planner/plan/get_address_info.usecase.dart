@@ -15,7 +15,7 @@ class GetAddressInfoUsecase extends RemoteUsecase<PlannerRepository> {
   Future call(PlannerRepository repository) async {
     final result = await repository.getAddressInfo(query: query);
     return (result.status == 'success')
-        ? Result.Success(result.data!)
-        : Result.failure(ErrorResponse(status: result.status, code: result.code, message: result.message,));
+        ? Result.Success(result.data)
+        : Result.failure(ErrorResponse(status: result.status, code: result.code, message: result.message));
   }
 }

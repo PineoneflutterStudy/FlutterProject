@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../domain/model/display/place/address.model.dart';
 import 'place_item_view.dart';
 
 import '../../../../../core/utils/constant.dart';
@@ -13,21 +14,23 @@ import '../../bloc/place_bloc/place_bloc.dart';
 
 class PlaceListView extends StatelessWidget {
   final Category category;
-  const PlaceListView(this.category, {super.key});
+  final Address address;
+  const PlaceListView(this.category, this.address, {super.key});
 
   @override
     Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => PlaceBloc(locator<PlannerUsecase>())
-        ..add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 10000, 1, 'distance')),
-      child: PlaceListPageView(category),
+        ..add(PlaceInitialized(address.addressName, category.ctgrId, address.x, address.y, 10000, 1, 'distance')),
+      child: PlaceListPageView(category, address),
     );
   }
 }
 
 class PlaceListPageView extends StatelessWidget {
   final Category category;
-  const PlaceListPageView(this.category, {super.key});
+  final Address address;
+  const PlaceListPageView(this.category, this.address, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +63,10 @@ class PlaceListPageView extends StatelessWidget {
       listener: (context, state) async {
         if (state.status == Status.error) {
           CustomLogger.logger.e(state.error);
-          final bool result =
-              (await CommonDialog.errorDialog(context, state.error) ?? false);
+          final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
           if (result) {
             // [다시 시도] 버튼 클릭 - 서버 재호출
-            context.read<PlaceBloc>().add(PlaceInitialized('해운대', category.ctgrId, '129.191227477106', '35.2255058507253', 10000, 1, 'distance'));
+            context.read<PlaceBloc>().add(PlaceInitialized(address.addressName, category.ctgrId, address.x, address.y, 10000, 1, 'distance'));
           }
         }
       },

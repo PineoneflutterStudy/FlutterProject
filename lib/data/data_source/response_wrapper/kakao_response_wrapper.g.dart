@@ -11,7 +11,9 @@ _$KakaoResponseWrapperImpl<T> _$$KakaoResponseWrapperImplFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     _$KakaoResponseWrapperImpl<T>(
-      documents: (json['documents'] as List<dynamic>).map(fromJsonT).toList(),
+      documents:
+          (json['documents'] as List<dynamic>?)?.map(fromJsonT).toList() ??
+              const [],
       meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 

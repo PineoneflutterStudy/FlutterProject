@@ -7,7 +7,7 @@ part 'kakao_response_wrapper.g.dart';
 @Freezed(genericArgumentFactories: true)
 class KakaoResponseWrapper<T> with _$KakaoResponseWrapper<T> {
   const factory KakaoResponseWrapper({
-    required List<T> documents,
+    @Default([]) List<T> documents,
     required Meta meta,
   }) = _KakaoResponseWrapper<T>;
 
@@ -20,7 +20,7 @@ class Meta with _$Meta {
   const factory Meta({
     required bool is_end,
     required int pageable_count,
-    required SameName? same_name,
+    SameName? same_name,
     required int total_count,
   }) = _Meta;
 

@@ -127,7 +127,7 @@ class __$$KakaoResponseWrapperImplCopyWithImpl<T, $Res>
 @JsonSerializable(genericArgumentFactories: true)
 class _$KakaoResponseWrapperImpl<T> implements _KakaoResponseWrapper<T> {
   const _$KakaoResponseWrapperImpl(
-      {required final List<T> documents, required this.meta})
+      {final List<T> documents = const [], required this.meta})
       : _documents = documents;
 
   factory _$KakaoResponseWrapperImpl.fromJson(
@@ -136,6 +136,7 @@ class _$KakaoResponseWrapperImpl<T> implements _KakaoResponseWrapper<T> {
 
   final List<T> _documents;
   @override
+  @JsonKey()
   List<T> get documents {
     if (_documents is EqualUnmodifiableListView) return _documents;
     // ignore: implicit_dynamic_type
@@ -180,7 +181,7 @@ class _$KakaoResponseWrapperImpl<T> implements _KakaoResponseWrapper<T> {
 
 abstract class _KakaoResponseWrapper<T> implements KakaoResponseWrapper<T> {
   const factory _KakaoResponseWrapper(
-      {required final List<T> documents,
+      {final List<T> documents,
       required final Meta meta}) = _$KakaoResponseWrapperImpl<T>;
 
   factory _KakaoResponseWrapper.fromJson(
@@ -331,7 +332,7 @@ class _$MetaImpl implements _Meta {
   const _$MetaImpl(
       {required this.is_end,
       required this.pageable_count,
-      required this.same_name,
+      this.same_name,
       required this.total_count});
 
   factory _$MetaImpl.fromJson(Map<String, dynamic> json) =>
@@ -388,7 +389,7 @@ abstract class _Meta implements Meta {
   const factory _Meta(
       {required final bool is_end,
       required final int pageable_count,
-      required final SameName? same_name,
+      final SameName? same_name,
       required final int total_count}) = _$MetaImpl;
 
   factory _Meta.fromJson(Map<String, dynamic> json) = _$MetaImpl.fromJson;

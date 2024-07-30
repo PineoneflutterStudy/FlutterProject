@@ -8,7 +8,7 @@ import '../../../../main/common/bloc/ctgr_bloc/ctgr_bloc.dart';
 
 class PlaceView extends StatelessWidget {
   final List<Category> categoryList;
-  final Address? address;
+  final Address address;
   const PlaceView(this.categoryList, this.address, {super.key});
 
   @override
@@ -21,7 +21,7 @@ class PlaceView extends StatelessWidget {
           index: selectedIndex,
           children: List.generate(categoryList.length, (index)
           {
-              return PlaceListView(categoryList[index]);
+              return PlaceListView(categoryList[index], address);
           }),
           );
       },

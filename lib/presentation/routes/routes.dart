@@ -6,6 +6,7 @@ import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
 import '../pages/meet/main_meet_page/view/meet_page.dart';
 import '../pages/plan/plan_page.dart';
+import '../pages/plan/screens/recommend_list/recommended_list_page.dart';
 import '../pages/splash/splash_page.dart';
 import '../pages/user/user_page.dart';
 import 'route_path.dart';
@@ -26,7 +27,11 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: RoutePath.plan,
     name: 'plan',
-    builder: (context, state) => PlanPage(location: state.uri.queryParameters['location'])),
+    builder: (context, state) => PlanPage()),
+  GoRoute(
+      path: RoutePath.rcmn,
+      name: 'rcmn',
+      builder: (context, state) => RecommendedListPage(location: state.uri.queryParameters['location'] ?? '')),
   GoRoute(
       path: RoutePath.like,
       name: 'like',

@@ -31,7 +31,7 @@ class _PlannerPageState extends State<PlannerPage> {
               onTap: () {
                 //todo recommended_list_page에 장소 정보 보내기 구현
                 final location = '부산해운대';
-                context.pushNamed('plan', queryParameters: {'location' : location});
+                context.pushNamed('rcmn', queryParameters: {'location' : location});
               },
               child: Icon(
                 Icons.add_circle_sharp,

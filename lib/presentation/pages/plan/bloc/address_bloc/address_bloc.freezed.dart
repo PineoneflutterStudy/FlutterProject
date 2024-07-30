@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddressState {
   Status get status => throw _privateConstructorUsedError;
-  Address? get addressInfo => throw _privateConstructorUsedError;
+  Address get addressInfo => throw _privateConstructorUsedError;
   ErrorResponse? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,9 +31,9 @@ abstract class $AddressStateCopyWith<$Res> {
           AddressState value, $Res Function(AddressState) then) =
       _$AddressStateCopyWithImpl<$Res, AddressState>;
   @useResult
-  $Res call({Status status, Address? addressInfo, ErrorResponse? error});
+  $Res call({Status status, Address addressInfo, ErrorResponse? error});
 
-  $AddressCopyWith<$Res>? get addressInfo;
+  $AddressCopyWith<$Res> get addressInfo;
 }
 
 /// @nodoc
@@ -50,7 +50,7 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
   @override
   $Res call({
     Object? status = null,
-    Object? addressInfo = freezed,
+    Object? addressInfo = null,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -58,10 +58,10 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      addressInfo: freezed == addressInfo
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
-              as Address?,
+              as Address,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -71,12 +71,8 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res>? get addressInfo {
-    if (_value.addressInfo == null) {
-      return null;
-    }
-
-    return $AddressCopyWith<$Res>(_value.addressInfo!, (value) {
+  $AddressCopyWith<$Res> get addressInfo {
+    return $AddressCopyWith<$Res>(_value.addressInfo, (value) {
       return _then(_value.copyWith(addressInfo: value) as $Val);
     });
   }
@@ -90,10 +86,10 @@ abstract class _$$AddressStateImplCopyWith<$Res>
       __$$AddressStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, Address? addressInfo, ErrorResponse? error});
+  $Res call({Status status, Address addressInfo, ErrorResponse? error});
 
   @override
-  $AddressCopyWith<$Res>? get addressInfo;
+  $AddressCopyWith<$Res> get addressInfo;
 }
 
 /// @nodoc
@@ -108,7 +104,7 @@ class __$$AddressStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? addressInfo = freezed,
+    Object? addressInfo = null,
     Object? error = freezed,
   }) {
     return _then(_$AddressStateImpl(
@@ -116,10 +112,10 @@ class __$$AddressStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      addressInfo: freezed == addressInfo
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
-              as Address?,
+              as Address,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -132,13 +128,16 @@ class __$$AddressStateImplCopyWithImpl<$Res>
 
 class _$AddressStateImpl implements _AddressState {
   _$AddressStateImpl(
-      {this.status = Status.initial, this.addressInfo, this.error});
+      {this.status = Status.initial,
+      this.addressInfo = const Address(addressName: '', x: '', y: ''),
+      this.error});
 
   @override
   @JsonKey()
   final Status status;
   @override
-  final Address? addressInfo;
+  @JsonKey()
+  final Address addressInfo;
   @override
   final ErrorResponse? error;
 
@@ -171,13 +170,13 @@ class _$AddressStateImpl implements _AddressState {
 abstract class _AddressState implements AddressState {
   factory _AddressState(
       {final Status status,
-      final Address? addressInfo,
+      final Address addressInfo,
       final ErrorResponse? error}) = _$AddressStateImpl;
 
   @override
   Status get status;
   @override
-  Address? get addressInfo;
+  Address get addressInfo;
   @override
   ErrorResponse? get error;
   @override
