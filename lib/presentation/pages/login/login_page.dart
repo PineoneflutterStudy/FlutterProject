@@ -10,7 +10,7 @@ import 'widgets/login_option_list.dart';
 //==============================================================================
 const String _tag = '[Login]';
 
-final GoogleSignIn _googleSignIn = GoogleSignIn(clientId: FlutterConfig.get('GOOGLE_CLIENT_ID'));
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 /// ## 로그인 화면
 ///
