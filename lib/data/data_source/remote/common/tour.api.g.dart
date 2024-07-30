@@ -60,7 +60,7 @@ class _TourApi implements TourApi {
     )
             .compose(
               _dio.options,
-              '/keyword.json?',
+              'http://apis.data.go.kr/B551011/KorService1/locationBasedList1?',
               queryParameters: queryParameters,
               data: _data,
             )

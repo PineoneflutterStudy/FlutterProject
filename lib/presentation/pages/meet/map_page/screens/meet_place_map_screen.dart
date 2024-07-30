@@ -102,15 +102,35 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
               mapController = controller;
               List<LatLng> latLngs = [];
 
+              double latitudes = 0.0;
+              double longitudes = 0.0;
+
+              // 출발지 좌표 마커 생성
               for (int i = 0; i < state.addressList.length; i++) {
+                latitudes += state.addressList[i].latitude;
+                longitudes += state.addressList[i].longitude;
+
                 markers.add(Marker(
                   markerId: UniqueKey().toString(),
                   latLng: await LatLng(state.addressList[i].latitude, state.addressList[i].longitude),
                 ));
                 latLngs.add(LatLng(state.addressList[i].latitude, state.addressList[i].longitude));
               }
+
+              // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
+              markers.add(Marker(
+                markerId: '10',
+                latLng: await LatLng(latitudes/3, longitudes/3),
+              ));
+
+
+
               setState(() {
+                // 마커가 보이도록 지도 재설정하기
                 mapController.fitBounds(latLngs);
+
+                _logger.i('값 확인 1 -> ${latitudes/3}');
+                _logger.i('값 확인 2 -> ${longitudes/3}');
               });
             }),
             markers: markers.toList(),

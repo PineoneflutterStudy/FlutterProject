@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/data_source/api/common/tour_guide_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
@@ -27,3 +28,6 @@ final getAllAddressProvider = Provider(
 final localStorageProvider = Provider<LocalPrefsStorage>(
     (ref) => LocalPrefsStorageImpl(sharedPreferences: sharedPref),
 );
+
+// 관광정보 서비스 api 사용 provider
+final apiProvider = Provider<TourGuideApi>((ref) => TourGuideApiImpl());
