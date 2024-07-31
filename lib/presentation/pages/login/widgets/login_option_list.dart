@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
@@ -18,30 +19,7 @@ const String _tag = '[Login]';
 ///
 /// author [Eogeum@naver.com]
 class LoginOptionList extends StatelessWidget {
-  final GoogleSignIn googleSignIn;
-
-  /// 인자로 [GoogleSignIn] 받아 구글 로그인 처리하며 결과는 각 위젯에서 처리한다.
-  /// ```dart
-  ///  void initState() {
-  ///    ...
-  ///    _googleSignIn.onCurrentUserChanged.listen((account) async {
-  ///      if (account == null) {
-  ///        CustomLogger.logger.e('$_tag Google Login Failed, account == NULL');
-  ///        return;
-  ///      }
-  ///
-  ///      // 웹인 경우 scope 접근 확인 필요
-  ///      // if (kIsWeb) {
-  ///      //   isAuthorized = await _googleSignIn.canAccessScopes(scopes);
-  ///      // }
-  ///
-  ///      GoogleSignInAuthentication result = await account.authentication;
-  ///      CustomLogger.logger.i('$_tag Google Login Successed - result = $result');
-  ///    });
-  ///    ...
-  ///  }
-  /// ```
-  const LoginOptionList(this.googleSignIn);
+  const LoginOptionList();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +47,7 @@ class LoginOptionList extends StatelessWidget {
 //==============================================================================
 //  Methods
 //==============================================================================
+  /// 인증 타입 별로 로그인 시도하고 파이어베이스에 등록
   void onPressedOptionItem(AuthType authType) {
     switch (authType) {
       case AuthType.google:
@@ -84,7 +63,28 @@ class LoginOptionList extends StatelessWidget {
 
   Future<void> launchGoogleLogin() async {
     try {
-      await googleSignIn.signIn();
+      GoogleSignInAccount? account = await GoogleSignIn().signIn();
+
+      if (account == null) {
+        CustomLogger.logger.e('$_tag Google Login Failed, account == NULL');
+        return;
+      }
+
+      // 웹인 경우 scope 접근 확인 필요
+      // if (kIsWeb) {
+      //   isAuthorized = await _googleSignIn.canAccessScopes(scopes);
+      // }
+
+      // 구글 인증 정보 가져오기
+      final authentication = await account.authentication;
+      CustomLogger.logger.d('$_tag Google Login Successed - authentication = $authentication');
+
+      // 인증 정보로 인증서 생성
+      final credential = GoogleAuthProvider.credential(
+          idToken: authentication.idToken, accessToken: authentication.accessToken);
+
+      // 인증서로 파이어베이스 로그인
+      FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
       CustomLogger.logger.e('$_tag Google Login Failed, error = $error');
     }
