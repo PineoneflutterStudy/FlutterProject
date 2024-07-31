@@ -95,7 +95,7 @@ class LoginOptionList extends StatelessWidget {
       switch (value.status) {
         case NaverLoginStatus.loggedIn:
           NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
-          CustomLogger.logger.i('$_tag Naver Login Successed - result = $result');
+          CustomLogger.logger.d('$_tag Naver Login Successed - result = $result');
 
         case NaverLoginStatus.cancelledByUser:
           CustomLogger.logger.i('$_tag Naver Login Canceled');
@@ -114,11 +114,12 @@ class LoginOptionList extends StatelessWidget {
     if (await isKakaoTalkInstalled()) {
       try {
         OAuthToken result = await UserApi.instance.loginWithKakaoTalk();
-        CustomLogger.logger.i('$_tag KakaoTalk Login Successed - result = $result');
+        CustomLogger.logger.d('$_tag KakaoTalk Login Successed - result = $result');
       } catch (error) {
         // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
         // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
-        if (error is PlatformException && (error.code == 'CANCELED' || error.code == 'access_denied')) {
+        if (error is PlatformException &&
+            (error.code == 'CANCELED' || error.code == 'access_denied')) {
           CustomLogger.logger.i('$_tag KakaoTalk Login Canceled');
           return;
         }
@@ -135,7 +136,7 @@ class LoginOptionList extends StatelessWidget {
   Future<void> loginWithKakaoAccount() async {
     try {
       OAuthToken result = await UserApi.instance.loginWithKakaoAccount();
-      CustomLogger.logger.i('$_tag KakaoAccount Login Successed - result = $result');
+      CustomLogger.logger.d('$_tag KakaoAccount Login Successed - result = $result');
     } catch (error) {
       CustomLogger.logger.e('$_tag KakaoAccount Login Failed, error = $error');
     }
