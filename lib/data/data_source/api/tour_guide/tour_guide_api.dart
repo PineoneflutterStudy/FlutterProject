@@ -3,9 +3,9 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/common/tour_guide/festival_info_list_model.dart';
-import '../../../../domain/model/common/tour_guide/image_info_list_model.dart';
-import '../../../../domain/model/common/tour_guide/location_list_model.dart';
+import '../../../../domain/model/display/home/festival_info_list_model.dart';
+import '../../../../domain/model/display/home/image_info_list_model.dart';
+import '../../../../domain/model/display/home/location_list_model.dart';
 import '../../../dto/display/common/festival/tourFestivalInfo.dto.dart';
 import '../../../dto/display/common/image/tourImageInfo.dto.dart';
 import '../../../dto/display/common/location/tourLocation.dto.dart';
@@ -39,26 +39,31 @@ class TourGuideApiImpl implements TourGuideApi {
    */
   @override
   Future<List<TourLocationDto>> loadTourLocationList(LocationListModel model) async {
-    FlutterConfig.loadEnvVariables();
     try {
       String makeUrl = '';
 
-      String getApiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
       List<String> requestList = requestTourApiData.locationParamList;
       String requestType = requestTourApiData.apiUrlList[0];
-      // https://apis.data.go.kr/B551011/KorService1/locationBasedList1?serviceKey=[Api Key]
-      makeUrl = baseUrl + requestType + requestList[0] + getApiKey;  // Default Url Setting
+      // https://apis.data.go.kr/B551011/KorService1/locationBasedList1
+      makeUrl = baseUrl + requestType;  // Default Url Setting
 
-      for (int i = 1; i < requestList.length; i++) {
+      for (int i = 0; i < requestList.length; i++) {
         if (model.paramValues[i].isNotEmpty) {
           makeUrl += '${requestTourApiData.locationParamList[i] + model.paramValues[i]}';
         }
       }
+      _logger.i('Confirm Tour Location List Url -> $makeUrl');
 
-      _logger.i('주소 확인 -> $makeUrl');
+      final Response<Map<String, dynamic>> response = await dio
+          .get(makeUrl);
 
-      /*final Response<Map<String, dynamic>> response = await dio
-          .get('$baseUrl/$requestType?serviceKey=$getApiKey}');*/
+      // Api 통신 성공시...
+      if (response.statusCode == 200) {
+        _logger.i('Confirm Response Data.. -> ${response}');
+      } else {
+        _logger.e('Server Error... Code is -> ${response.statusCode}');
+      }
+
     } on DioException catch (e) {
       _logger.e(e);
     }
@@ -70,13 +75,31 @@ class TourGuideApiImpl implements TourGuideApi {
    */
   @override
   Future<List<TourImageInfoDto>> loadTourImageInfoList(ImageInfoListModel model) async {
-    FlutterConfig.loadEnvVariables();
     try {
-      String getApiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
+      String makeUrl = '';
+
+      List<String> requestList = requestTourApiData.imageInfoParamList;
       String requestType = requestTourApiData.apiUrlList[2];
+      // https://apis.data.go.kr/B551011/KorService1/detailImage1
+      makeUrl = baseUrl + requestType;  // Default Url Setting
+
+      for (int i = 0; i < requestList.length; i++) {
+        if (model.paramValues[i].isNotEmpty) {
+          makeUrl += '${requestTourApiData.imageInfoParamList[i] + model.paramValues[i]}';
+        }
+      }
+      _logger.i('Confirm Tour Location List Url -> $makeUrl');
 
       final Response<Map<String, dynamic>> response = await dio
-          .get('$baseUrl/$requestType?serviceKey=$getApiKey}');
+          .get(makeUrl);
+
+      // Api 통신 성공시...
+      if (response.statusCode == 200) {
+        _logger.i('Confirm Response Data.. -> ${response}');
+      } else {
+        _logger.e('Server Error... Code is -> ${response.statusCode}');
+      }
+
     } on DioException catch (e) {
       _logger.e(e);
     }
@@ -88,17 +111,36 @@ class TourGuideApiImpl implements TourGuideApi {
    */
   @override
   Future<List<TourFestivalInfoDto>> loadTourFestivalInfoList(FestivalInfoListModel model) async {
-    FlutterConfig.loadEnvVariables();
     try {
-      String getApiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
+      String makeUrl = '';
+
+      List<String> requestList = requestTourApiData.festivalParamList;
       String requestType = requestTourApiData.apiUrlList[1];
+      // https://apis.data.go.kr/B551011/KorService1/searchFestival1
+      makeUrl = baseUrl + requestType; // Default Url Setting
+
+      for (int i = 0; i < requestList.length; i++) {
+        if (model.paramValues[i].isNotEmpty) {
+          makeUrl +=
+          '${requestTourApiData.festivalParamList[i] + model.paramValues[i]}';
+        }
+      }
+      _logger.i('Confirm Tour Location List Url -> $makeUrl');
 
       final Response<Map<String, dynamic>> response = await dio
-          .get('$baseUrl/$requestType?serviceKey=$getApiKey}');
+          .get(makeUrl);
+      _logger.i('Confirm Response Data.. -> ${response}');
+
+      // Api 통신 성공시...
+      if (response.statusCode == 200) {
+        _logger.i('Confirm Response Data.. -> ${response}');
+      } else {
+        _logger.e('Server Error... Code is -> ${response.statusCode}');
+      }
+
     } on DioException catch (e) {
       _logger.e(e);
     }
     return [];
   }
-
 }

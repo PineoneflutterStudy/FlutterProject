@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../../core/utils/logger.dart';
+import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
+import '../../../../../domain/model/display/home/location_list_model.dart';
 import '../../empty_page/notifier/address_info_notifier.dart';
+import '../notifier/meet_place_map_notifier.dart';
 
 /**
  * 약속장소 정하기 Screen
@@ -20,6 +26,7 @@ import '../../empty_page/notifier/address_info_notifier.dart';
  */
 
 final Logger _logger = CustomLogger.logger;
+late String apiKey = '';
 
 // ======================================================================
 // Kakao Map Page
@@ -47,6 +54,8 @@ class _MapView extends ConsumerState<MapView> {
   @override
   void initState() {
     super.initState();
+    FlutterConfig.loadEnvVariables();
+    apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(addressInfoStateProvider.notifier).fetchAddressInfo();
@@ -84,6 +93,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
 
   Set<Marker> markers = {};
   late KakaoMapController mapController;
+
   @override
   void initState() {
     super.initState();
@@ -92,10 +102,12 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
   @override
   Widget build(BuildContext context) {
     final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
+    final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
           final state = ref.watch(addressInfoStateProvider);
+          final apiState = ref.watch(meetPlaceStateProvider);
 
           return KakaoMap(
             onMapCreated: ((controller) async { // 맵 생성 Callback
@@ -112,25 +124,38 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
 
                 markers.add(Marker(
                   markerId: UniqueKey().toString(),
-                  latLng: await LatLng(state.addressList[i].latitude, state.addressList[i].longitude),
+                  latLng: await LatLng(state.addressList[i].latitude,
+                      state.addressList[i].longitude),
                 ));
-                latLngs.add(LatLng(state.addressList[i].latitude, state.addressList[i].longitude));
+                latLngs.add(LatLng(state.addressList[i].latitude,
+                    state.addressList[i].longitude));
               }
 
               // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
               markers.add(Marker(
                 markerId: '10',
-                latLng: await LatLng(latitudes/3, longitudes/3),
+                latLng: await LatLng(latitudes / state.addressList.length, longitudes / state.addressList.length),
               ));
 
+              ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(
+                  LocationListModel(serviceKey: apiKey,
+                      numOfRows: TourApiRequestData().emptyIntData,
+                      pageNo: TourApiRequestData().emptyIntData,
+                      MobileOS: Platform.isAndroid ? TourApiRequestData().osList[0] : TourApiRequestData().osList[1],
+                      MobileApp: TourApiRequestData().appName,
+                      type: TourApiRequestData().responseType,
+                      listYN: TourApiRequestData().emptyData,
+                      arrange: TourApiRequestData().arrangeList[1],
+                      mapX: '${longitudes / state.addressList.length}',
+                      mapY: '${latitudes / state.addressList.length}',
+                      radius: TourApiRequestData().radiusList[0],
+                      contentTypeId: TourApiRequestData().contentTypes[7],
+                      modifiedtime: TourApiRequestData().emptyData));
 
 
               setState(() {
                 // 마커가 보이도록 지도 재설정하기
                 mapController.fitBounds(latLngs);
-
-                _logger.i('값 확인 1 -> ${latitudes/3}');
-                _logger.i('값 확인 2 -> ${longitudes/3}');
               });
             }),
             markers: markers.toList(),

@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/data_source/api/common/tour_guide_api.dart';
+import '../../../data/data_source/api/tour_guide/tour_guide_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
+import '../../../data/repository_impl/home/tour_guide_repository_impl.dart';
 import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
+import '../../../domain/repository/home/tour_guide_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/usecase/meet/get_all_address.dart';
 import '../../../main.dart';
@@ -21,6 +23,11 @@ final getAllAddressProvider = Provider(
         repository: ref.read(addressRepositoryProvider),
     )
 );
+
+final tourGuideApiRepositoryProvider = Provider<TourGuideRepository>(
+    (ref) => TourGuideRepositoryImpl(
+        api: ref.read(apiProvider),
+    ));
 
 // ======================================================================
 // Data
