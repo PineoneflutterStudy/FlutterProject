@@ -129,7 +129,8 @@ class __$$AddressStateImplCopyWithImpl<$Res>
 class _$AddressStateImpl implements _AddressState {
   _$AddressStateImpl(
       {this.status = Status.initial,
-      this.addressInfo = const Address(addressName: '', x: '', y: ''),
+      this.addressInfo = const Address(
+          addressName: '', x: '', y: '', radius: 10000, sort: 'distance'),
       this.error});
 
   @override

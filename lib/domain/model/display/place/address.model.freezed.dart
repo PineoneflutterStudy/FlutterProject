@@ -23,6 +23,8 @@ mixin _$Address {
   String get addressName => throw _privateConstructorUsedError;
   String get x => throw _privateConstructorUsedError;
   String get y => throw _privateConstructorUsedError;
+  int? get radius => throw _privateConstructorUsedError;
+  String? get sort => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,8 @@ abstract class $AddressCopyWith<$Res> {
   factory $AddressCopyWith(Address value, $Res Function(Address) then) =
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
-  $Res call({String addressName, String x, String y});
+  $Res call(
+      {String addressName, String x, String y, int? radius, String? sort});
 }
 
 /// @nodoc
@@ -53,6 +56,8 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? addressName = null,
     Object? x = null,
     Object? y = null,
+    Object? radius = freezed,
+    Object? sort = freezed,
   }) {
     return _then(_value.copyWith(
       addressName: null == addressName
@@ -67,6 +72,14 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as String,
+      radius: freezed == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sort: freezed == sort
+          ? _value.sort
+          : sort // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -78,7 +91,8 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
       __$$AddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String addressName, String x, String y});
+  $Res call(
+      {String addressName, String x, String y, int? radius, String? sort});
 }
 
 /// @nodoc
@@ -95,6 +109,8 @@ class __$$AddressImplCopyWithImpl<$Res>
     Object? addressName = null,
     Object? x = null,
     Object? y = null,
+    Object? radius = freezed,
+    Object? sort = freezed,
   }) {
     return _then(_$AddressImpl(
       addressName: null == addressName
@@ -109,6 +125,14 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as String,
+      radius: freezed == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sort: freezed == sort
+          ? _value.sort
+          : sort // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -117,7 +141,11 @@ class __$$AddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressImpl implements _Address {
   const _$AddressImpl(
-      {required this.addressName, required this.x, required this.y});
+      {required this.addressName,
+      required this.x,
+      required this.y,
+      this.radius,
+      this.sort});
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);
@@ -128,10 +156,14 @@ class _$AddressImpl implements _Address {
   final String x;
   @override
   final String y;
+  @override
+  final int? radius;
+  @override
+  final String? sort;
 
   @override
   String toString() {
-    return 'Address(addressName: $addressName, x: $x, y: $y)';
+    return 'Address(addressName: $addressName, x: $x, y: $y, radius: $radius, sort: $sort)';
   }
 
   @override
@@ -142,12 +174,14 @@ class _$AddressImpl implements _Address {
             (identical(other.addressName, addressName) ||
                 other.addressName == addressName) &&
             (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y));
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.radius, radius) || other.radius == radius) &&
+            (identical(other.sort, sort) || other.sort == sort));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, addressName, x, y);
+  int get hashCode => Object.hash(runtimeType, addressName, x, y, radius, sort);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +201,9 @@ abstract class _Address implements Address {
   const factory _Address(
       {required final String addressName,
       required final String x,
-      required final String y}) = _$AddressImpl;
+      required final String y,
+      final int? radius,
+      final String? sort}) = _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
@@ -177,6 +213,10 @@ abstract class _Address implements Address {
   String get x;
   @override
   String get y;
+  @override
+  int? get radius;
+  @override
+  String? get sort;
   @override
   @JsonKey(ignore: true)
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>

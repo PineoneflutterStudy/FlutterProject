@@ -8,3 +8,14 @@ class AddressInitialized extends AddressEvent{
   final String location;
   AddressInitialized(this.location);
 }
+
+class AddressUpdated extends AddressEvent{
+  final String location;
+  AddressUpdated(this.location);
+}
+
+class FilterUpdated extends AddressEvent {
+  final int radius;
+  final String sort;
+  const FilterUpdated(this.radius, this.sort);
+}

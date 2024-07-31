@@ -9,6 +9,8 @@ class Address with _$Address {
     required String addressName,
     required String x,
     required String y,
+    int? radius,
+    String? sort,
   }) = _Address;
 
 

@@ -47,6 +47,8 @@ class RecommendedListPageView extends StatefulWidget {
 
 class _RecommendedListPageViewState extends State<RecommendedListPageView> {
   late String _location;
+  int radius = 10000;
+  String sort = 'distance';
 
   @override
   void initState() {
@@ -54,17 +56,10 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
     _location = widget.location;
   }
 
-  void _updateAddressInfo(String newLocation) {
-    setState(() {
-      _location = newLocation;
-    });
-    context.read<AddressBloc>().add(AddressInitialized(newLocation));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PlaceAppBarView(location: _location, onLocationChanged:_updateAddressInfo),
+        appBar: PlaceAppBarView(location: _location,radius: radius,sort: sort, onLocationChanged:_updateAddressInfo, onFilterChanged: _updateFilter),
         body: BlocConsumer<CtgrBloc, CtgrState>(
           builder: (_, ctgrState) {
             switch (ctgrState.status) {
@@ -120,4 +115,21 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
         ),
     );
   }
+
+  void _updateAddressInfo(String newLocation) {
+    setState(() {
+      _location = newLocation;
+    });
+    context.read<AddressBloc>().add(AddressUpdated(newLocation));
+  }
+
+  void _updateFilter(int newRadius, String newSort) {
+    print('radius : $newRadius, sort : $newSort');
+    setState(() {
+      radius = newRadius;
+      sort = newSort;
+    });
+    context.read<AddressBloc>().add(FilterUpdated(newRadius, newSort));
+  }
+
 }
