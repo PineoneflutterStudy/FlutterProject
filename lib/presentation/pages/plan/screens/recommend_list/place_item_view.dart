@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -9,70 +11,89 @@ import '../../../../../domain/model/display/place/place.model.dart';
 
 class PlaceItemView extends StatelessWidget {
   final Place place;
-  //todo 상세페이지 크롤링 > 이미지, 리뷰, 후기 정보 받아오기
 
   const PlaceItemView(this.place, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    double distance = double.parse(place.distance ?? '0');
+
+    String formattedDistance;
+    if (distance >= 1000) {
+      // 1000 이상일 경우 km 단위로 변환
+      double distanceInKm = distance / 1000;
+      formattedDistance = NumberFormat('#,##0.00').format(distanceInKm) + ' km';
+    } else {
+      // 1000 이하일 경우 m 단위로 표기
+      formattedDistance = distance.toStringAsFixed(0) + ' m';
+    }
+
     return InkWell(
       onTap: () => {
-        if((place.placeUrl ?? '').isNotEmpty){
-          _gotoDetailPage(context)
-        }else{
-          Utils.showToastMsg('등록된 상세페이지가 없습니다.')
-        }
+        //todo 여행 계획 추가 팝업
       },
       child: Card(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
         color: AppColors.onPrimary,
         borderOnForeground: true,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(25,15,20,15),
+          child: Row(
+            children: [
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(place.placeName ?? '', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Text(place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(child: Text(getLastTwoCategories(place.categoryName ?? ''), style: TextStyle(color: AppColors.contentTertiary),overflow: TextOverflow.ellipsis, maxLines: 1)),
+                        Expanded(child: Text(getLastTwoCategories(place.categoryName ?? ''), style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
-                    if ((place.addressName??'').isNotEmpty)
-                      Text('주소 : ${place.addressName ?? ''}', style: TextStyle(fontSize: 16),overflow: TextOverflow.ellipsis, maxLines: 1),
-                    if ((place.phone??'').isNotEmpty)
-                      Text('전화 : ${place.phone ?? ''}' , style: TextStyle(fontSize: 16, color: AppColors.blue),overflow: TextOverflow.ellipsis, maxLines: 1),
-                    Text.rich(TextSpan(
+                    Row(
+                      children: [
+                        Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
+                        Padding(padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
+                          child: Text(formattedDistance, style: TextStyle(color: AppColors.error)),
+                        ),
+                        if ((place.addressName ?? '').isNotEmpty)
+                          Padding(padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                            child: Text('${place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          ),
+                      ],
+                    ),
+                    if ((place.phone ?? '').isNotEmpty)
+                      Row(
                         children: [
-                          TextSpan(text: '이전 목적지와 ', style: TextStyle(color: AppColors.contentTertiary)),
-                          TextSpan(text: '${place.distance ?? ''}m', style: TextStyle(color: AppColors.error)),
-                          TextSpan(text: ' 거리', style: TextStyle(color: AppColors.contentTertiary)),
+                          Image.asset(AppIcons.iconTelecomBlue, width: 10, height: 10),
+                          Padding(padding: const EdgeInsets.fromLTRB(3, 2, 0, 0),
+                            child: Text(': ${place.phone ?? ''}', style: TextStyle(fontSize: 18, color: AppColors.blue), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          ),
                         ],
-                    ),),
+                      ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              width: 100,
-              height: 100,
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.contentFourth), borderRadius: BorderRadius.circular(6),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6), // 모서리 둥글게
-                child: Image.asset(AppIcons.ImgBeeLove, width: 100, height: 100, fit: BoxFit.cover),
-              ),
-            ),
-          ],
+              Column(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.more_horiz_sharp),
+                    onPressed: () => (place.placeUrl ?? '').isNotEmpty ? _gotoDetailPage(context) : Utils.showToastMsg('등록된 상세페이지가 없습니다.'),
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(AppIcons.navLike, width: 20, height: 20),
+                    onPressed: () {
+                      //todo 좋아요 버튼
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

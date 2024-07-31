@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
+import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/utils.dart';
 
 class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
@@ -55,7 +56,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back_ios_rounded),
           onPressed: () {
             _handleButtonPress();
             Navigator.pop(context);
@@ -103,15 +104,16 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                 ),
               ),
             ),
+            SizedBox(width: 20),
             IconButton(
-              icon: Icon(Icons.map),
+              icon: Icon(Icons.place_sharp),
               onPressed: () {
                 _handleButtonPress();
                 // todo 한눈에 보기 기능 추가 (지도 좌표 표시)
               },
             ),
             IconButton(
-              icon: Icon(Icons.filter_list),
+              icon: Image.asset(AppIcons.iconFilter , width: 18, height: 18),
               onPressed: () {
                 _handleButtonPress();
                 _showFilterPopup(context);
