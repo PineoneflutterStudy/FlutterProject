@@ -173,7 +173,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MeetPlaceMapScreen(),
+                            builder: (context) => MeetPlaceMapScreen(addresses: state.addressList),
                             fullscreenDialog: true,
                           ),
                         );

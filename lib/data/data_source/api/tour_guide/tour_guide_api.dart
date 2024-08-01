@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../core/utils/logger.dart';
@@ -60,14 +59,27 @@ class TourGuideApiImpl implements TourGuideApi {
       // Api 통신 성공시...
       if (response.statusCode == 200) {
         _logger.i('Confirm Response Data.. -> ${response}');
+
+        final bodyData = response.data?['response']['body']['totalCount'];
+
+        _logger.i('데이터 확인.. -> ${bodyData}'); // api 결과 개수
+
+        final itemJson = response.data?['response']['body']['items']['item'] as List;
+        final transDto = (itemJson)
+            .map((e) => TourLocationDto.fromMap(e))
+            .toList();
+
+        _logger.i('DTO 확인!!! -> $transDto');
+        return transDto;
       } else {
         _logger.e('Server Error... Code is -> ${response.statusCode}');
+        return [];
       }
 
     } on DioException catch (e) {
       _logger.e(e);
+      return [];
     }
-    return [];
   }
 
   /**

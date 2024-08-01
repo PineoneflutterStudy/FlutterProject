@@ -39,6 +39,7 @@ class AppIcons {
   static const String ImgNonSelectSubway = '$assetImagePath/non_select_subway.png';
   static const String ImgSelectWalk = '$assetImagePath/select_walk.png';
   static const String ImgNonSelectWalk = '$assetImagePath/non_select_walk.png';
+  static const String ImgBeePoint = '$assetImagePath/location_point_bee.png';
 
   // image - login
   static const String imgLoginLogoGoogle = '$assetImagePath/login_logo_google.png';

@@ -37,4 +37,28 @@ class TourLocationDto with _$TourLocationDto {
 
   factory TourLocationDto.fromJson(Map<String, dynamic> json) =>
       _$TourLocationDtoFromJson(json);
+
+  factory TourLocationDto.fromMap(Map<String, dynamic> json) => TourLocationDto(
+      addr1: json['addr1'],
+      addr2: json['addr2'],
+      areacode: json['areacode'],
+      booktour: json['booktour'],
+      cat1: json['cat1'],
+      cat2: json['cat2'],
+      cat3: json['cat3'],
+      contentid: json['contentid'],
+      contenttypeid: json['contenttypeid'],
+      createdtime: json['createdtime'],
+      dist: json['dist'],
+      firstimage: json['firstimage'],
+      firstimage2: json['firstimage2'],
+      cpyrhtDivCd: json['cpyrhtDivCd'],
+      mapx: json['mapx'],
+      mapy: json['mapy'],
+      mlevel: json['mlevel'],
+      modifiedtime: json['modifiedtime'],
+      sigungucode: json['sigungucode'],
+      tel: json['tel'],
+      title: json['title']
+  );
 }

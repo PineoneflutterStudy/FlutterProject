@@ -4,36 +4,36 @@ import '../../../data/data_source/api/tour_guide/tour_guide_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../data/repository_impl/home/tour_guide_repository_impl.dart';
 import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
+import '../../../domain/model/display/home/location_list_model.dart';
 import '../../../domain/repository/home/tour_guide_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/usecase/meet/get_all_address.dart';
+import '../../../domain/usecase/meet/get_tour_location.dart';
 import '../../../main.dart';
 
 // ======================================================================
 // Domain
 // ======================================================================
-final addressRepositoryProvider = Provider<StartAddressRepository>(
-    (ref) => StartAddressRepositoryImpl(
-      localPrefsStorage: ref.read(localStorageProvider),
-    ));
+final addressRepositoryProvider =
+    Provider<StartAddressRepository>((ref) => StartAddressRepositoryImpl(
+          localPrefsStorage: ref.read(localStorageProvider),
+        ));
 
 // 모든 출발지 정보
-final getAllAddressProvider = Provider(
-    (ref) => GetAllAddress(
-        repository: ref.read(addressRepositoryProvider),
-    )
-);
+final getAllAddressProvider = Provider((ref) => GetAllAddress(
+      repository: ref.read(addressRepositoryProvider),
+    ));
 
-final tourGuideApiRepositoryProvider = Provider<TourGuideRepository>(
-    (ref) => TourGuideRepositoryImpl(
-        api: ref.read(apiProvider),
+final tourGuideApiRepositoryProvider =
+    Provider<TourGuideRepository>((ref) => TourGuideRepositoryImpl(
+          api: ref.read(apiProvider),
     ));
 
 // ======================================================================
 // Data
 // ======================================================================
 final localStorageProvider = Provider<LocalPrefsStorage>(
-    (ref) => LocalPrefsStorageImpl(sharedPreferences: sharedPref),
+  (ref) => LocalPrefsStorageImpl(sharedPreferences: sharedPref),
 );
 
 // 관광정보 서비스 api 사용 provider

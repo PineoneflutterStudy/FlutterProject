@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'tourFestivalInfo.dto.freezed.dart';
+
 part 'tourFestivalInfo.dto.g.dart';
 
 @freezed
@@ -29,9 +30,33 @@ class TourFestivalInfoDto with _$TourFestivalInfoDto {
     required String tel, // 전화번호
     required String title, // 제목 : 콘텐츠 제목
   }) = _TourFestivalInfoDto;
-  
-  
 
   factory TourFestivalInfoDto.fromJson(Map<String, dynamic> json) =>
       _$TourFestivalInfoDtoFromJson(json);
+
+  factory TourFestivalInfoDto.fromMap(Map<String, dynamic> json) =>
+      TourFestivalInfoDto(
+          addr1: json['addr1'],
+          addr2: json['addr2'],
+          areacode: json['areacode'],
+          booktour: json['booktour'],
+          cat1: json['cat1'],
+          cat2: json['cat2'],
+          cat3: json['cat3'],
+          contentid: json['contentid'],
+          contenttypeid: json['contenttypeid'],
+          createdtime: json['createdtime'],
+          eventstartdate: json['eventstartdate'],
+          eventenddate: json['eventenddate'],
+          firstimage: json['firstimage'],
+          firstimage2: json['firstimage2'],
+          cpyrhtDivCd: json['cpyrhtDivCd'],
+          mapx: json['mapx'],
+          mapy: json['mapy'],
+          mlevel: json['mlevel'],
+          modifiedtime: json['modifiedtime'],
+          sigungucode: json['sigungucode'],
+          tel: json['tel'],
+          title: json['title']
+      );
 }

@@ -13,8 +13,7 @@ final Logger _logger = CustomLogger.logger;
 final meetPlaceStateProvider =
     StateNotifierProvider<MeetPlaceMapNotifier, MeetPlaceMapState>(
         (ref) => MeetPlaceMapNotifier(
-              repo: ref.read(tourGuideApiRepositoryProvider),
-            ));
+            repo: ref.read(tourGuideApiRepositoryProvider),));
 
 class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
   MeetPlaceMapNotifier({
@@ -24,7 +23,13 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
 
   final TourGuideRepository _repo;
 
-  Future<List<TourLocationDto>> getTourLocationInfo(LocationListModel model) async {
-    return await _repo.getLocationData(model);
+  Future<void> getTourLocationInfo(LocationListModel model) async {
+    state = state.copyWith(status: MeetPlaceMapStatus.loading);
+    final dto = await _repo.getLocationData(model);
+
+    state = state.copyWith(
+      status: MeetPlaceMapStatus.success,
+      dto: List.from(dto),
+    );
   }
 }

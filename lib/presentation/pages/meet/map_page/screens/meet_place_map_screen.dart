@@ -11,8 +11,10 @@ import 'package:logger/logger.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
 import '../../../../../domain/model/display/home/location_list_model.dart';
+import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../empty_page/notifier/address_info_notifier.dart';
 import '../notifier/meet_place_map_notifier.dart';
+import '../notifier/meet_place_map_state.dart';
 
 /**
  * 약속장소 정하기 Screen
@@ -27,15 +29,19 @@ import '../notifier/meet_place_map_notifier.dart';
 
 final Logger _logger = CustomLogger.logger;
 late String apiKey = '';
+late List<AddressModel> addressList;
 
 // ======================================================================
 // Kakao Map Page
 // ======================================================================
 class MeetPlaceMapScreen extends StatelessWidget {
-  const MeetPlaceMapScreen({super.key});
+  const MeetPlaceMapScreen({required this.addresses, super.key});
+
+  final List<AddressModel> addresses;
 
   @override
   Widget build(BuildContext context) {
+    addressList = addresses;
     return ProviderScope(child: MapView());
   }
 }
@@ -57,9 +63,11 @@ class _MapView extends ConsumerState<MapView> {
     FlutterConfig.loadEnvVariables();
     apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(addressInfoStateProvider.notifier).fetchAddressInfo();
-    });
+    /*ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel());*/
+
+    /*WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(model);
+    });*/
   }
 
   @override
@@ -90,80 +98,90 @@ class _ContentMapView extends ConsumerStatefulWidget {
 }
 
 class __ContentMapViewState extends ConsumerState<_ContentMapView> {
-
   Set<Marker> markers = {};
   late KakaoMapController mapController;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
-    final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
-          final state = ref.watch(addressInfoStateProvider);
           final apiState = ref.watch(meetPlaceStateProvider);
 
-          return KakaoMap(
-            onMapCreated: ((controller) async { // 맵 생성 Callback
-              mapController = controller;
-              List<LatLng> latLngs = [];
+          return apiState.status == MeetPlaceMapStatus.loading
+              ? const Center(child: CircularProgressIndicator())
+              : KakaoMap(
+                  onMapCreated: ((controller) async {
+                    // 맵 생성 Callback
+                    mapController = controller;
+                    List<LatLng> latLngs = [];
 
-              double latitudes = 0.0;
-              double longitudes = 0.0;
+                    // 출발지 좌표 마커 생성
+                    for (int i = 0; i < addressList.length; i++) {
+                      markers.add(Marker(
+                        markerId: UniqueKey().toString(),
+                        latLng: await LatLng(
+                            addressList[i].latitude, addressList[i].longitude),
+                      ));
 
-              // 출발지 좌표 마커 생성
-              for (int i = 0; i < state.addressList.length; i++) {
-                latitudes += state.addressList[i].latitude;
-                longitudes += state.addressList[i].longitude;
+                      latLngs.add(LatLng(
+                          addressList[i].latitude, addressList[i].longitude));
+                    }
 
-                markers.add(Marker(
-                  markerId: UniqueKey().toString(),
-                  latLng: await LatLng(state.addressList[i].latitude,
-                      state.addressList[i].longitude),
-                ));
-                latLngs.add(LatLng(state.addressList[i].latitude,
-                    state.addressList[i].longitude));
-              }
+                    // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
+                    markers.add(Marker(
+                      markerId: '-1',
+                      latLng: await LatLng(
+                          double.parse(apiState.tourDto[0].mapy),
+                          double.parse(apiState.tourDto[0].mapx)),
+                    ));
 
-              // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
-              markers.add(Marker(
-                markerId: '10',
-                latLng: await LatLng(latitudes / state.addressList.length, longitudes / state.addressList.length),
-              ));
-
-              ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(
-                  LocationListModel(serviceKey: apiKey,
-                      numOfRows: TourApiRequestData().emptyIntData,
-                      pageNo: TourApiRequestData().emptyIntData,
-                      MobileOS: Platform.isAndroid ? TourApiRequestData().osList[0] : TourApiRequestData().osList[1],
-                      MobileApp: TourApiRequestData().appName,
-                      type: TourApiRequestData().responseType,
-                      listYN: TourApiRequestData().emptyData,
-                      arrange: TourApiRequestData().arrangeList[1],
-                      mapX: '${longitudes / state.addressList.length}',
-                      mapY: '${latitudes / state.addressList.length}',
-                      radius: TourApiRequestData().radiusList[0],
-                      contentTypeId: TourApiRequestData().contentTypes[7],
-                      modifiedtime: TourApiRequestData().emptyData));
-
-
-              setState(() {
-                // 마커가 보이도록 지도 재설정하기
-                mapController.fitBounds(latLngs);
-              });
-            }),
-            markers: markers.toList(),
-          );
+                    setState(() {
+                      // 마커가 보이도록 지도 재설정하기
+                      mapController.fitBounds(latLngs);
+                    });
+                  }),
+                  markers: markers.toList(),
+                );
         },
       ),
     );
   }
+}
+
+LocationListModel makeRequestModel() {
+  double latitudes = 0.0;
+  double longitudes = 0.0;
+
+  for (int i = 0; i < addressList.length; i++) {
+    latitudes += addressList[i].latitude;
+    longitudes += addressList[i].longitude;
+  }
+
+  return LocationListModel(
+      serviceKey: apiKey,
+      numOfRows: TourApiRequestData().emptyIntData,
+      pageNo: TourApiRequestData().emptyIntData,
+      MobileOS: Platform.isAndroid
+          ? TourApiRequestData().osList[0]
+          : TourApiRequestData().osList[1],
+      MobileApp: TourApiRequestData().appName,
+      type: TourApiRequestData().responseType,
+      listYN: TourApiRequestData().emptyData,
+      arrange: TourApiRequestData().arrangeList[1],
+      mapX: '${longitudes / addressList.length}',
+      mapY: '${latitudes / addressList.length}',
+      radius: TourApiRequestData().radiusList[6],
+      contentTypeId: TourApiRequestData().contentTypes[7],
+      modifiedtime: TourApiRequestData().emptyData);
 }
 
 void showToast(String message) {

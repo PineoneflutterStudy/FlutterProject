@@ -17,8 +17,15 @@ class TourImageInfoDto with _$TourImageInfoDto {
     required String smallimageurl, // 썸네일 이미지 ( 약 160 * 100 Size )
   }) = _TourImageInfoDto;
 
-
-
   factory TourImageInfoDto.fromJson(Map<String, dynamic> json) =>
       _$TourImageInfoDtoFromJson(json);
+
+  factory TourImageInfoDto.fromMap(Map<String, dynamic> json) => TourImageInfoDto(
+      contentid: json['contentid'],
+      imgname: json['imgname'],
+      originimgurl: json['originimgurl'],
+      serialnum: json['serialnum'],
+      cpyrhtDivCd: json['cpyrhtDivCd'],
+      smallimageurl: json['smallimageurl']
+  );
 }

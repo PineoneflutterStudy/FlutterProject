@@ -37,6 +37,7 @@ class TourApiRequestData {
   ];
 
   final List<String> radiusList = [
+    '500',
     '1000',
     '1500',
     '2000',
