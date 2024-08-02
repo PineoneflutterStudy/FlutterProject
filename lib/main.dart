@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -5,6 +6,7 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/theme_data.dart';
+import 'firebase_options.dart';
 import 'presentation/routes/routes.dart';
 import 'service_locator.dart';
 
@@ -18,6 +20,10 @@ void main() async {
   await FlutterConfig.loadEnvVariables();
   AuthRepository.initialize(appKey: FlutterConfig.get('KAKAO_JAVA_SCRIPT_KEY') ?? '');
   KakaoSdk.init(nativeAppKey: FlutterConfig.get('KAKAO_NATIVE_APP_KEY'));
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   setLocator();
   runApp(const MainApp());
