@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'screens/planner/planner_page.dart';
 
 import 'widgets/empty_plan_widget.dart';
 
+/// ### Plan 메뉴 MainActivity
 class PlanPage extends StatefulWidget {
   const PlanPage({super.key});
 
@@ -29,12 +31,8 @@ class _PlanPageState extends State<PlanPage> {
   }
 
   void _CheckLoginState() {
-    var isLogin = true;
-    //todo login check 로직
-    //todo user 정보 불러오기
-
     setState(() {
-      _isLogin = isLogin;
+      _isLogin = (FirebaseAuth.instance.currentUser != null);
     });
   }
 }

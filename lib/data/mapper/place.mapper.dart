@@ -4,6 +4,7 @@ import '../dto/display/place/place.dto.dart';
 extension PlaceX on PlaceDto {
   Place toModel() {
     return Place(
+      placeId: id ?? '',
       placeName: place_name ?? '',
       categoryName: category_name ?? '',
       phone: phone ?? '',

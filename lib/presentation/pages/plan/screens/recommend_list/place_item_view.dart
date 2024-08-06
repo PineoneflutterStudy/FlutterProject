@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -5,18 +7,58 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
+import '../../../../../core/utils/DBkey.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
+import '../../dialog/login_popup.dart';
 
-class PlaceItemView extends StatelessWidget {
+/// 추천 장소 Item View
+class PlaceItemView extends StatefulWidget {
   final Place place;
 
   const PlaceItemView(this.place, {super.key});
 
   @override
+  State<PlaceItemView> createState() => _PlaceItemViewState();
+}
+
+class _PlaceItemViewState extends State<PlaceItemView> {
+  bool isLiked = false;
+  DocumentReference? placeDocRef;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeFirestore();
+  }
+
+  Future<void> _initializeFirestore() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      placeDocRef = FirebaseFirestore.instance
+          .collection(DBKey.DB_USERS)
+          .doc(user.uid)
+          .collection(DBKey.DB_LIKES)
+          .doc(widget.place.placeId);
+      try {
+        final documentSnapshot = await placeDocRef!.get();
+        setState(() {
+          isLiked = documentSnapshot.exists;
+        });
+      } catch (error) {
+        CustomLogger.logger.e("Error getting document: $error");
+      }
+    } else {
+      CustomLogger.logger.e("User not logged in");
+      showDialog(context: context, builder: (context) => LoginPopup());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double distance = double.parse(place.distance ?? '0');
+    double distance = double.parse(widget.place.distance ?? '0');
 
     String formattedDistance;
     if (distance >= 1000) {
@@ -49,9 +91,9 @@ class PlaceItemView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(child: Text(getLastTwoCategories(place.categoryName ?? ''), style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
+                        Expanded(child: Text(getLastTwoCategories(widget.place.categoryName ?? ''), style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
                     Row(
@@ -60,18 +102,18 @@ class PlaceItemView extends StatelessWidget {
                         Padding(padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
                           child: Text(formattedDistance, style: TextStyle(color: AppColors.error)),
                         ),
-                        if ((place.addressName ?? '').isNotEmpty)
+                        if ((widget.place.addressName ?? '').isNotEmpty)
                           Padding(padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text('${place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
+                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                       ],
                     ),
-                    if ((place.phone ?? '').isNotEmpty)
+                    if ((widget.place.phone ?? '').isNotEmpty)
                       Row(
                         children: [
                           Image.asset(AppIcons.iconTelecomBlue, width: 10, height: 10),
                           Padding(padding: const EdgeInsets.fromLTRB(3, 2, 0, 0),
-                            child: Text(': ${place.phone ?? ''}', style: TextStyle(fontSize: 18, color: AppColors.blue), overflow: TextOverflow.ellipsis, maxLines: 1),
+                            child: Text(': ${widget.place.phone ?? ''}', style: TextStyle(fontSize: 18, color: AppColors.blue), overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                         ],
                       ),
@@ -82,12 +124,21 @@ class PlaceItemView extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(Icons.more_horiz_sharp),
-                    onPressed: () => (place.placeUrl ?? '').isNotEmpty ? _gotoDetailPage(context) : Utils.showToastMsg('등록된 상세페이지가 없습니다.'),
+                    onPressed: () => (widget.place.placeUrl ?? '').isNotEmpty ? _gotoDetailPage(context) : Utils.showToastMsg('등록된 상세페이지가 없습니다.'),
                   ),
                   IconButton(
-                    icon: SvgPicture.asset(AppIcons.navLike, width: 20, height: 20),
+                    icon: Image.asset(isLiked? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
                     onPressed: () {
-                      //todo 좋아요 버튼
+                      if(isLiked){
+                        placeDocRef!.delete().then((_) => print('successfully deleted!'))
+                            .catchError((error) => print('Error deleting document: $error'));
+                      }else{
+                        placeDocRef!.set(widget.place.toJson()).then((_) => print('successfully set!'))
+                            .catchError((error) => print('Error setting document: $error'));
+                      }
+                      setState(() {
+                        isLiked = !isLiked;
+                      });
                     },
                   ),
                 ],
@@ -109,7 +160,7 @@ class PlaceItemView extends StatelessWidget {
   }
 
   Future<void> _gotoDetailPage(BuildContext context) async {
-    final Uri uri = Uri.parse(place.placeUrl);
+    final Uri uri = Uri.parse(widget.place.placeUrl);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {

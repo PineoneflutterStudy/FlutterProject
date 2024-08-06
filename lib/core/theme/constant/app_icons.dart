@@ -26,6 +26,9 @@ class AppIcons {
   static const String iconFilter = '$assetIconPath/icon_filter.png';
   static const String iconMapRed = '$assetIconPath/icon_map_red.png';
   static const String iconTelecomBlue = '$assetIconPath/icon_telecom_blue.png';
+  static const String iconEmptyHeart = '$assetIconPath/icon_empty_heart.png';
+  static const String iconFullHeart = '$assetIconPath/icon_full_heart.png';
+
   //image
   static const String assetImagePath = 'assets/images';
   static const String ImgBeeLaugh = '$assetImagePath/img_bee_laugh.png';

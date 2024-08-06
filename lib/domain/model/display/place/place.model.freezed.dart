@@ -20,6 +20,7 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Place {
+  String get placeId => throw _privateConstructorUsedError;
   String get placeName => throw _privateConstructorUsedError;
   String get categoryName => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ abstract class $PlaceCopyWith<$Res> {
       _$PlaceCopyWithImpl<$Res, Place>;
   @useResult
   $Res call(
-      {String placeName,
+      {String placeId,
+      String placeName,
       String categoryName,
       String phone,
       String addressName,
@@ -65,6 +67,7 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? placeId = null,
     Object? placeName = null,
     Object? categoryName = null,
     Object? phone = null,
@@ -76,6 +79,10 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
     Object? distance = null,
   }) {
     return _then(_value.copyWith(
+      placeId: null == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as String,
       placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
@@ -124,7 +131,8 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String placeName,
+      {String placeId,
+      String placeName,
       String categoryName,
       String phone,
       String addressName,
@@ -146,6 +154,7 @@ class __$$PlaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? placeId = null,
     Object? placeName = null,
     Object? categoryName = null,
     Object? phone = null,
@@ -157,6 +166,10 @@ class __$$PlaceImplCopyWithImpl<$Res>
     Object? distance = null,
   }) {
     return _then(_$PlaceImpl(
+      placeId: null == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as String,
       placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
@@ -201,7 +214,8 @@ class __$$PlaceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
   const _$PlaceImpl(
-      {required this.placeName,
+      {required this.placeId,
+      required this.placeName,
       required this.categoryName,
       required this.phone,
       required this.addressName,
@@ -214,6 +228,8 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
   factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlaceImplFromJson(json);
 
+  @override
+  final String placeId;
   @override
   final String placeName;
   @override
@@ -235,7 +251,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Place(placeName: $placeName, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance)';
+    return 'Place(placeId: $placeId, placeName: $placeName, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance)';
   }
 
   @override
@@ -243,6 +259,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Place'))
+      ..add(DiagnosticsProperty('placeId', placeId))
       ..add(DiagnosticsProperty('placeName', placeName))
       ..add(DiagnosticsProperty('categoryName', categoryName))
       ..add(DiagnosticsProperty('phone', phone))
@@ -259,6 +276,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlaceImpl &&
+            (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.placeName, placeName) ||
                 other.placeName == placeName) &&
             (identical(other.categoryName, categoryName) ||
@@ -278,8 +296,8 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, placeName, categoryName, phone,
-      addressName, roadAddressName, x, y, placeUrl, distance);
+  int get hashCode => Object.hash(runtimeType, placeId, placeName, categoryName,
+      phone, addressName, roadAddressName, x, y, placeUrl, distance);
 
   @JsonKey(ignore: true)
   @override
@@ -297,7 +315,8 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
 
 abstract class _Place implements Place {
   const factory _Place(
-      {required final String placeName,
+      {required final String placeId,
+      required final String placeName,
       required final String categoryName,
       required final String phone,
       required final String addressName,
@@ -309,6 +328,8 @@ abstract class _Place implements Place {
 
   factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
+  @override
+  String get placeId;
   @override
   String get placeName;
   @override

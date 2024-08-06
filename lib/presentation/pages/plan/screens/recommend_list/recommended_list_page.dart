@@ -14,6 +14,7 @@ import '../../../../main/common/component/dialog/common_dialog.dart';
 import 'category_view.dart';
 import 'place_view.dart';
 
+/// ### Plan 메뉴 > 추천 장소 목록 화면
 class RecommendedListPage extends StatelessWidget {
   final String location;
 

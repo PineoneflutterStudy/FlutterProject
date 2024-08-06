@@ -4,6 +4,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/utils.dart';
 
+/// Plan 메뉴 > 추천 목록 장소 화면 > 상단 AppBar
 class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
   final String location;
   final int radius;

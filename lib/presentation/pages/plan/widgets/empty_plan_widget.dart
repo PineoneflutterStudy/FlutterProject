@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../main/common/component/widget/appbar.dart';
 import '../dialog/login_popup.dart';
 
+/// ### Plan메뉴 비로그인 시 첫화면
 class EmptyPlanWidget extends StatelessWidget {
   const EmptyPlanWidget({super.key});
 

@@ -4,11 +4,9 @@ import '../../../data/data_source/api/tour_guide/tour_guide_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../data/repository_impl/home/tour_guide_repository_impl.dart';
 import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
-import '../../../domain/model/display/home/location_list_model.dart';
 import '../../../domain/repository/home/tour_guide_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/usecase/meet/get_all_address.dart';
-import '../../../domain/usecase/meet/get_tour_location.dart';
 import '../../../main.dart';
 
 // ======================================================================

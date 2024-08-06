@@ -4,6 +4,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
 import '../../../../../domain/model/display/category/category.model.dart';
 
+/// 상단 카테고리 Item View
 class CategoryItemView extends StatelessWidget {
   final Category category;
   final bool isSelected;

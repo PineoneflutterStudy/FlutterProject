@@ -4,9 +4,7 @@ import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../main/common/bloc/ctgr_bloc/ctgr_bloc.dart';
 import 'category_item_view.dart';
 
-/**
- * 상단 카테고리 형 NavBar
- */
+/// 상단 카테고리 형 NavBar
 class CategoryView extends StatefulWidget {
   const CategoryView(this.categorys, {super.key});
   final List<Category> categorys;

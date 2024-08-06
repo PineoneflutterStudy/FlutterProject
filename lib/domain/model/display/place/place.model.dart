@@ -7,6 +7,7 @@ part 'place.model.g.dart';
 @freezed
 class Place with _$Place {
   const factory Place({
+    required String placeId,
     required String placeName,
     required String categoryName,
     required String phone,
@@ -20,4 +21,5 @@ class Place with _$Place {
 
   factory Place.fromJson(Map<String, dynamic> json) =>
       _$PlaceFromJson(json);
+
 }

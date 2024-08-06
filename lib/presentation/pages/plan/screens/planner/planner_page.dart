@@ -3,9 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../main/common/component/widget/appbar.dart';
 
-/**
- * 여행플랜 짜기 화면
- */
+/// ### Plan 메뉴 로그인 시 화면
+/// ##### 여행플랜 짜기 화면
 class PlannerPage extends StatefulWidget {
   const PlannerPage({super.key});
 
