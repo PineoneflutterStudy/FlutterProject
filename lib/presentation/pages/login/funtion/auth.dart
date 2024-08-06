@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:app_links/app_links.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/utils/logger.dart';
 
@@ -10,7 +16,7 @@ const String _tag = '[Login]';
 
 Future<void> launchGoogleLogin() async {
   try {
-    GoogleSignInAccount? account = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? account = await GoogleSignIn().signIn();
 
     if (account == null) {
       CustomLogger.logger.e('$_tag Google Login Failed, account == NULL');
@@ -23,11 +29,11 @@ Future<void> launchGoogleLogin() async {
     // }
 
     // 구글 인증 정보 가져오기
-    final authentication = await account.authentication;
-    CustomLogger.logger.d('$_tag Google Login Successed - authentication = $authentication');
+    final GoogleSignInAuthentication authentication = await account.authentication;
+    CustomLogger.logger.i('$_tag Google Login Successed');
 
     // 인증 정보로 인증서 생성
-    final credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: authentication.idToken, accessToken: authentication.accessToken);
 
     // 인증서로 파이어베이스 로그인
@@ -37,22 +43,55 @@ Future<void> launchGoogleLogin() async {
   }
 }
 
-Future<void> launchNaverLogin() async {
-  await FlutterNaverLogin.logIn().then((value) async {
-    switch (value.status) {
-      case NaverLoginStatus.loggedIn:
-        NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
-        CustomLogger.logger.d('$_tag Naver Login Successed - result = $result');
+/// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
+/// [launchNaverLogin]의 결과를 받기 위해선 반드시 호출하는 위젯의 [StatefulWidget.initState]에서 호출이 필요하다.
+Future<void> initAppLinks() async {
+  final AppLinks appLinks = AppLinks();
+  final Uri? initialLink = await appLinks.getInitialLink();
+  if (initialLink != null) {
+    _onReceiveAppLinks(initialLink);
+  }
 
-      case NaverLoginStatus.cancelledByUser:
-        CustomLogger.logger.i('$_tag Naver Login Canceled');
-
-      case NaverLoginStatus.error:
-        CustomLogger.logger.e('$_tag Naver Login Failed, error = ${value.errorMessage}');
-    }
-  }).catchError((error) {
-    CustomLogger.logger.e('$_tag Naver Login Failed, error = $error');
+  appLinks.uriLinkStream.listen((uri) {
+    _onReceiveAppLinks(uri);
+  }, onError: (a, b) {
+    CustomLogger.logger.e('$_tag Naver Login Failed - $a\n$b');
   });
+}
+
+Future<void> _onReceiveAppLinks(Uri uri) async {
+  CustomLogger.logger.i('$_tag App Link Received - uri = ${uri.toString()}');
+
+  if (uri.authority == 'login-callback') {
+    final firebaseToken = uri.queryParameters['firebaseToken'];
+    final String? name = uri.queryParameters['name'];
+    final String? profileImage = uri.queryParameters['profileImage'];
+
+    CustomLogger.logger.i('$_tag Naver Login Successed');
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCustomToken(firebaseToken!);
+
+    CustomLogger.logger.i('$_tag user = ${userCredential.user}');
+    CustomLogger.logger.i('$_tag name = ${name}');
+    CustomLogger.logger.i('$_tag profileImage = ${profileImage}');
+
+    // userCredential.user!.updateDisplayName(name);
+    // userCredential.user!.updatePhotoURL(profileImage);
+  }
+}
+
+Future<void> launchNaverLogin() async {
+  CustomLogger.logger.i('$_tag Naver Login Launched');
+
+  final String clientId = FlutterConfig.get('NAVER_CLIENT_ID');
+  final String redirectUri =
+      'https://us-central1-gaekkul-project.cloudfunctions.net/naverLoginCallback';
+  // state is random nonce used for security
+  final String state = base64Url.encode(List<int>.generate(16, (_) => Random().nextInt(255)));
+
+  final Uri url = Uri.parse(
+      'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=$clientId&redirect_uri=$redirectUri&state=$state');
+  await launchUrl(url);
 }
 
 Future<void> launchKakaoLogin() async {
@@ -60,8 +99,8 @@ Future<void> launchKakaoLogin() async {
   // 카카오톡 실행이 가능하면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
   if (await isKakaoTalkInstalled()) {
     try {
-      OAuthToken authToken = await UserApi.instance.loginWithKakaoTalk();
-      CustomLogger.logger.d('$_tag KakaoTalk Login Successed - authToken = $authToken');
+      final OAuthToken authToken = await UserApi.instance.loginWithKakaoTalk();
+      CustomLogger.logger.i('$_tag KakaoTalk Login Successed');
       onKakaoLoginSuccessed(authToken);
     } catch (error) {
       // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
@@ -83,8 +122,8 @@ Future<void> launchKakaoLogin() async {
 
 Future<void> loginWithKakaoAccount() async {
   try {
-    OAuthToken authToken = await UserApi.instance.loginWithKakaoAccount();
-    CustomLogger.logger.d('$_tag KakaoAccount Login Successed - authToken = $authToken');
+    final OAuthToken authToken = await UserApi.instance.loginWithKakaoAccount();
+    CustomLogger.logger.i('$_tag KakaoAccount Login Successed');
     onKakaoLoginSuccessed(authToken);
   } catch (error) {
     CustomLogger.logger.e('$_tag KakaoAccount Login Failed, error = $error');
@@ -94,8 +133,8 @@ Future<void> loginWithKakaoAccount() async {
 /// 카카오 로그인 성공 후 파이어베이스 로그인
 void onKakaoLoginSuccessed(OAuthToken authToken) {
   // 인증 정보로 인증서 생성
-  final provider = OAuthProvider('oidc.kakao');
-  final credential =
+  final OAuthProvider provider = OAuthProvider('oidc.kakao');
+  final OAuthCredential credential =
       provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
 
   // 인증서로 파이어베이스 로그인
