@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/data_source/api/kakao_mobility/kakao_mobility_api.dart';
 import '../../../data/data_source/api/tour_guide/tour_guide_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../data/repository_impl/home/tour_guide_repository_impl.dart';
@@ -17,7 +18,7 @@ final addressRepositoryProvider =
           localPrefsStorage: ref.read(localStorageProvider),
         ));
 
-// 모든 출발지 정보
+/// # 모든 출발지 정보
 final getAllAddressProvider = Provider((ref) => GetAllAddress(
       repository: ref.read(addressRepositoryProvider),
     ));
@@ -25,7 +26,8 @@ final getAllAddressProvider = Provider((ref) => GetAllAddress(
 final tourGuideApiRepositoryProvider =
     Provider<TourGuideRepository>((ref) => TourGuideRepositoryImpl(
           api: ref.read(apiProvider),
-    ));
+          mobilityApi: ref.read(kakaoMobilityApiProvider),
+        ));
 
 // ======================================================================
 // Data
@@ -34,5 +36,9 @@ final localStorageProvider = Provider<LocalPrefsStorage>(
   (ref) => LocalPrefsStorageImpl(sharedPreferences: sharedPref),
 );
 
-// 관광정보 서비스 api 사용 provider
+/// # 관광정보 서비스 api 사용 provider
 final apiProvider = Provider<TourGuideApi>((ref) => TourGuideApiImpl());
+
+/// # 카카오 모빌리티 - 자동차 길찾기 api 사용 provider
+final kakaoMobilityApiProvider =
+    Provider<KakaoMobilityApi>((ref) => KakaoMobilityApiImpl());

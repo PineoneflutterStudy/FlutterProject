@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,8 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
 import '../../../../../domain/model/display/home/location_list_model.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/coordinates_model.dart';
+import '../../../login/funtion/auth.dart';
 import '../../empty_page/notifier/address_info_notifier.dart';
 import '../notifier/meet_place_map_notifier.dart';
 import '../notifier/meet_place_map_state.dart';
@@ -62,12 +65,6 @@ class _MapView extends ConsumerState<MapView> {
     super.initState();
     FlutterConfig.loadEnvVariables();
     apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
-
-    /*ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel());*/
-
-    /*WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(model);
-    });*/
   }
 
   @override
@@ -99,13 +96,15 @@ class _ContentMapView extends ConsumerStatefulWidget {
 
 class __ContentMapViewState extends ConsumerState<_ContentMapView> {
   Set<Marker> markers = {};
+  Set<Polyline> polyLines = {};
   late KakaoMapController mapController;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel());
+      ref.read(meetPlaceStateProvider.notifier).getMapInfo(addressList);
+      //ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel()); // 중간 지점 근처 관광지 검색 실행
     });
   }
 
@@ -119,38 +118,78 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
           return apiState.status == MeetPlaceMapStatus.loading
               ? const Center(child: CircularProgressIndicator())
               : KakaoMap(
-                  onMapCreated: ((controller) async {
-                    // 맵 생성 Callback
-                    mapController = controller;
-                    List<LatLng> latLngs = [];
+            onMapCreated: ((controller) async {
+              // 맵 생성 Callback
+              mapController = controller;
+              List<LatLng> latLngs = [];
+              List<LatLng> polyLatLngs = [];
 
-                    // 출발지 좌표 마커 생성
-                    for (int i = 0; i < addressList.length; i++) {
-                      markers.add(Marker(
-                        markerId: UniqueKey().toString(),
-                        latLng: await LatLng(
-                            addressList[i].latitude, addressList[i].longitude),
-                      ));
+              /// TODO Firebase Storage에 접근하여 이미지 가져오도록 변경...
+              // 출발지 좌표 마커 생성
+              for (int i = 0; i < addressList.length; i++) {
+                // 마커 생성
+                markers.add(Marker(
+                  markerId: UniqueKey().toString(),
+                  latLng: await LatLng(
+                      addressList[i].latitude, addressList[i].longitude),
+                  markerImageSrc:
+                  'https://firebasestorage.googleapis.com/v0/b/gaekkul-project.appspot.com/o/mapMarker%2Flocation_point_bee.png?alt=media&token=48b3efbb-3518-4ce7-9276-4d64d603f828',
+                  width: 40,
+                  height: 40,
+                ));
 
-                      latLngs.add(LatLng(
-                          addressList[i].latitude, addressList[i].longitude));
-                    }
+                latLngs.add(LatLng(
+                    addressList[i].latitude, addressList[i].longitude));
 
-                    // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
-                    markers.add(Marker(
-                      markerId: '-1',
-                      latLng: await LatLng(
-                          double.parse(apiState.tourDto[0].mapy),
-                          double.parse(apiState.tourDto[0].mapx)),
-                    ));
+                var latitudeList = jsonDecode(apiState.directionsDto[i].latitudePaths);
+                var longitudeList = jsonDecode(apiState.directionsDto[i].longitudePaths);
 
-                    setState(() {
-                      // 마커가 보이도록 지도 재설정하기
-                      mapController.fitBounds(latLngs);
-                    });
-                  }),
-                  markers: markers.toList(),
+                // DirectionDto의 경도 리스트 길이만큼 실행...
+                for (int j = 0; j < latitudeList.length; j++) {
+                  if (j % 2 == 0) { // index 가 짝수 일때만 추가..
+                    polyLatLngs.add(
+                        LatLng(double.tryParse(latitudeList[j].toString())!,
+                        double.tryParse(longitudeList[j].toString())!));
+                  } else if (j == latitudeList.length - 1) {
+                    polyLatLngs.add(
+                        LatLng(double.tryParse(latitudeList[j].toString())!,
+                            double.tryParse(longitudeList[j].toString())!));
+                  }
+                }
+
+                // 폴리라인 생성
+                polyLines.add(
+                  Polyline(
+                    polylineId: UniqueKey().toString(),
+                    points: polyLatLngs,
+                    strokeColor: Colors.amberAccent,
+                    strokeOpacity: 0.9,
+                    strokeWidth: 7,
+                    strokeStyle: StrokeStyle.solid,
+                  ),
                 );
+              }
+
+              // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
+              markers.add(Marker(
+                markerId: '-1',
+                latLng: await LatLng(
+                    double.parse(apiState.tourDto[0].mapy),
+                    double.parse(apiState.tourDto[0].mapx)),
+                markerImageSrc:
+                'https://firebasestorage.googleapis.com/v0/b/gaekkul-project.appspot.com/o/mapMarker%2Flocation_honey_case.png?alt=media&token=1e30b277-ee7c-4cd9-a3d0-d84687fddec7',
+                width: 40,
+                height: 50,
+              ));
+
+              setState(() {
+                // 마커가 보이도록 지도 재설정하기
+                mapController.fitBounds(latLngs);
+              });
+            }),
+            markers: markers.toList(),
+            polylines: polyLines.toList(),
+          );
         },
       ),
     );

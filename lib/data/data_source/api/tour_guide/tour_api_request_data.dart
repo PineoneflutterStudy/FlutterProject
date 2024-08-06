@@ -1,5 +1,8 @@
-class TourApiRequestData {
+import 'dart:io';
 
+import '../../../../domain/model/display/home/location_list_model.dart';
+
+class TourApiRequestData {
   final String appName = '개꿀트립';
   final String emptyData = '';
   final int emptyIntData = -1;
@@ -92,4 +95,28 @@ class TourApiRequestData {
     '&numOfRows=',
     '&pageNo=',
   ];
+
+  /// # 위치 기반 관광 장소 검색 Request Model 생성
+  /// ### 필수!
+  /// * apiKey
+  /// * 위도
+  /// * 경도
+  /// * 검색 범위
+  /// * 장소 타입
+  LocationListModel getLocationListModel(String apiKey, String longitude, String latitude, String radius, String contentType) {
+    return LocationListModel(
+        serviceKey: apiKey,
+        numOfRows: emptyIntData,
+        pageNo: emptyIntData,
+        MobileOS: Platform.isAndroid ? osList[0] : osList[1],
+        MobileApp: appName,
+        type: responseType,
+        listYN: emptyData,
+        arrange: arrangeList[1],
+        mapX: longitude,
+        mapY: latitude,
+        radius: radius,
+        contentTypeId: contentType,
+        modifiedtime: emptyData);
+  }
 }

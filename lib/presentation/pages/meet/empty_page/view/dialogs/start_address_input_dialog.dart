@@ -29,6 +29,7 @@ final Logger _logger = CustomLogger.logger;
 // ============================================================
 // Dialog page
 // ============================================================
+/// # 출발지 입력 Dialog
 class StartAddressInputDialog extends StatelessWidget {
   const StartAddressInputDialog({super.key});
 
@@ -227,6 +228,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                           _logger.i('Add Line Delete Address Info');
                           // 추가 Line 입력 주소 제거( - )
                           ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+
                         },
                         onRemoveBtnPress: () {
                           _logger.i('Add Line Delete..!');
