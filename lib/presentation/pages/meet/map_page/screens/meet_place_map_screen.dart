@@ -28,6 +28,13 @@ import '../notifier/meet_place_map_state.dart';
 final Logger _logger = CustomLogger.logger;
 late String apiKey = '';
 late List<AddressModel> addressList;
+// 라인 컬러 리스트
+final List<Color> lineColors = [
+  Colors.green,
+  Colors.red,
+  Colors.blue,
+  Colors.black,
+];
 
 // ======================================================================
 // Kakao Map Page
@@ -171,8 +178,8 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                   Polyline(
                     polylineId: UniqueKey().toString(),
                     points: polyLatLngs,
-                    strokeColor: Colors.amberAccent,
-                    strokeOpacity: 0.9,
+                    strokeColor: lineColors[i],
+                    strokeOpacity: 0.8,
                     strokeWidth: 7,
                     strokeStyle: StrokeStyle.solid,
                   ),
