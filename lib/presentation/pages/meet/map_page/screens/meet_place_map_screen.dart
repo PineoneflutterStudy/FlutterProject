@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -10,12 +10,8 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../../core/utils/logger.dart';
-import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
-import '../../../../../domain/model/display/home/location_list_model.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
-import '../../../../../domain/model/display/meet/coordinates_model.dart';
-import '../../../login/funtion/auth.dart';
-import '../../empty_page/notifier/address_info_notifier.dart';
+import '../../common/map_loading_widget.dart';
 import '../notifier/meet_place_map_notifier.dart';
 import '../notifier/meet_place_map_state.dart';
 
@@ -95,8 +91,10 @@ class _ContentMapView extends ConsumerStatefulWidget {
 }
 
 class __ContentMapViewState extends ConsumerState<_ContentMapView> {
-  Set<Marker> markers = {};
-  Set<Polyline> polyLines = {};
+  Set<Marker> markers = {}; // 맵 마커..
+  Set<Polyline> polyLines = {}; // 길찾기 검색 결과 Line
+  List<CustomOverlay> customOverlays = []; // 맵 마커 상단 텍스트..
+
   late KakaoMapController mapController;
 
   @override
@@ -104,7 +102,6 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(meetPlaceStateProvider.notifier).getMapInfo(addressList);
-      //ref.read(meetPlaceStateProvider.notifier).getTourLocationInfo(makeRequestModel()); // 중간 지점 근처 관광지 검색 실행
     });
   }
 
@@ -116,7 +113,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
           final apiState = ref.watch(meetPlaceStateProvider);
 
           return apiState.status == MeetPlaceMapStatus.loading
-              ? const Center(child: CircularProgressIndicator())
+              ? MapLoadingWidget()
               : KakaoMap(
             onMapCreated: ((controller) async {
               // 맵 생성 Callback
@@ -127,20 +124,33 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
               /// TODO Firebase Storage에 접근하여 이미지 가져오도록 변경...
               // 출발지 좌표 마커 생성
               for (int i = 0; i < addressList.length; i++) {
-                // 마커 생성
+                // ==================== Markers ====================
                 markers.add(Marker(
                   markerId: UniqueKey().toString(),
                   latLng: await LatLng(
                       addressList[i].latitude, addressList[i].longitude),
                   markerImageSrc:
-                  'https://firebasestorage.googleapis.com/v0/b/gaekkul-project.appspot.com/o/mapMarker%2Flocation_point_bee.png?alt=media&token=48b3efbb-3518-4ce7-9276-4d64d603f828',
+                  '${apiState.startingPointImg}',
                   width: 40,
                   height: 40,
                 ));
 
-                latLngs.add(LatLng(
-                    addressList[i].latitude, addressList[i].longitude));
+                latLngs.add(LatLng(addressList[i].latitude, addressList[i].longitude));
 
+                // ==================== CustomOverLay ( 마커 위 텍스트 ) ====================
+                final customOverlay = CustomOverlay(
+                  customOverlayId: UniqueKey().toString(),
+                  latLng: LatLng(addressList[i].latitude, addressList[i].longitude),
+                  content:
+                  '<p style="background-color: white; padding: 8px; border-radius: 8px;">${i + 1}번</p>',
+                  xAnchor: 0.4,
+                  yAnchor: 0.1,
+                  zIndex: 0,
+                );
+
+                customOverlays.add(customOverlay);
+
+                // ==================== PolyLine ====================
                 var latitudeList = jsonDecode(apiState.directionsDto[i].latitudePaths);
                 var longitudeList = jsonDecode(apiState.directionsDto[i].longitudePaths);
 
@@ -170,6 +180,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                 );
               }
 
+              // ==================== Last Marker ( 목적지 ) ====================
               // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
               markers.add(Marker(
                 markerId: '-1',
@@ -177,50 +188,26 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                     double.parse(apiState.tourDto[0].mapy),
                     double.parse(apiState.tourDto[0].mapx)),
                 markerImageSrc:
-                'https://firebasestorage.googleapis.com/v0/b/gaekkul-project.appspot.com/o/mapMarker%2Flocation_honey_case.png?alt=media&token=1e30b277-ee7c-4cd9-a3d0-d84687fddec7',
+                '${apiState.destinationImg}',
                 width: 40,
                 height: 50,
               ));
 
+              // ==================== Update Map ====================
               setState(() {
                 // 마커가 보이도록 지도 재설정하기
                 mapController.fitBounds(latLngs);
               });
             }),
+
             markers: markers.toList(),
             polylines: polyLines.toList(),
+            customOverlays: customOverlays,
           );
         },
       ),
     );
   }
-}
-
-LocationListModel makeRequestModel() {
-  double latitudes = 0.0;
-  double longitudes = 0.0;
-
-  for (int i = 0; i < addressList.length; i++) {
-    latitudes += addressList[i].latitude;
-    longitudes += addressList[i].longitude;
-  }
-
-  return LocationListModel(
-      serviceKey: apiKey,
-      numOfRows: TourApiRequestData().emptyIntData,
-      pageNo: TourApiRequestData().emptyIntData,
-      MobileOS: Platform.isAndroid
-          ? TourApiRequestData().osList[0]
-          : TourApiRequestData().osList[1],
-      MobileApp: TourApiRequestData().appName,
-      type: TourApiRequestData().responseType,
-      listYN: TourApiRequestData().emptyData,
-      arrange: TourApiRequestData().arrangeList[1],
-      mapX: '${longitudes / addressList.length}',
-      mapY: '${latitudes / addressList.length}',
-      radius: TourApiRequestData().radiusList[6],
-      contentTypeId: TourApiRequestData().contentTypes[7],
-      modifiedtime: TourApiRequestData().emptyData);
 }
 
 void showToast(String message) {

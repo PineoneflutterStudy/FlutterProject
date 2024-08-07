@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
@@ -28,11 +29,14 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
   final TourGuideRepository _repo;
 
   /// # 맵에 필요한 정보 Fetch
-  /// ### 중앙지점을 이용한
+  /// ### 중앙지점을 이용한 목적지 및 경로 구하기...
+  /// ### 덤으로 사용할 이미지까지...
   Future<void> getMapInfo(List<AddressModel> addressList) async {
     // 내가 state 반영해 줘야 하는 정보들은
     // 1. 중앙 마커 찍을 관광지 정보 좌표값
     state = state.copyWith(status: MeetPlaceMapStatus.loading); // 로딩...
+
+    FirebaseStorage storage = FirebaseStorage.instance; // 파이어베이스 스토리지 사용
 
     // 중앙 좌표값을 이용한 위치기반 관광 정보 Data Get
     final centerValue = getCenter(addressList);
@@ -56,6 +60,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
       routes.add(routeDto);
     }
 
+    var destinationImgUrl = await storage.ref().child("mapMarker/location_honey_case.png").getDownloadURL(); //  목적지 이미지
+    var startingPointImgUrl = await storage.ref().child("mapMarker/location_point_bee.png").getDownloadURL(); //  출발지 이미지
 
     /// 내가 state 반영해 줘야 하는 정보들은
     /// 1. 중앙 마커 찍을 관광지 정보 좌표값
@@ -66,6 +72,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
       status: MeetPlaceMapStatus.success,
       dto: List.from(dto),
       directionsDto: routes,
+      destinationImg: destinationImgUrl.toString(),
+      startingPointImg: startingPointImgUrl.toString(),
     );
   }
 
