@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -119,11 +118,11 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
               // 맵 생성 Callback
               mapController = controller;
               List<LatLng> latLngs = [];
-              List<LatLng> polyLatLngs = [];
 
               /// TODO Firebase Storage에 접근하여 이미지 가져오도록 변경...
               // 출발지 좌표 마커 생성
               for (int i = 0; i < addressList.length; i++) {
+                List<LatLng> polyLatLngs = [];
                 // ==================== Markers ====================
                 markers.add(Marker(
                   markerId: UniqueKey().toString(),

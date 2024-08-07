@@ -3,10 +3,12 @@ import 'package:logger/logger.dart';
 
 import '../logger.dart';
 
-/// # Use Firebase Storage
-
 final imgType = ['.png', '.jpg'];
 final Logger _logger = CustomLogger.logger;
+
+/// # Use Firebase Storage
+/// ## Firebase Storage 경로를 전달해주세요. ( 확장자명 제외 )
+/// * '디렉토리/파일명'
 
 class FirebaseStorageUtil {
   FirebaseStorage storage = FirebaseStorage.instance;
