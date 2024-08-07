@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/utils/common_utils.dart';
 
 /// Plan 메뉴 > 추천 목록 장소 화면 > 상단 AppBar
 class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
@@ -161,7 +161,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () => setState(() => _selectedSortOption = 'distance'),
-                        style: Utils.getYellowButtonStyle(_selectedSortOption == 'distance'),
+                        style: CommonUtils.getYellowButtonStyle(_selectedSortOption == 'distance'),
                         child: Text('거리순', style: TextStyle(fontSize: 18)),
                       ),
                     ),
@@ -169,7 +169,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () => setState(() => _selectedSortOption = 'accuracy'),
-                        style: Utils.getYellowButtonStyle(_selectedSortOption == 'accuracy'),
+                        style: CommonUtils.getYellowButtonStyle(_selectedSortOption == 'accuracy'),
                         child: Text('정확도순', style: TextStyle(fontSize: 18)),
                       ),
                     ),

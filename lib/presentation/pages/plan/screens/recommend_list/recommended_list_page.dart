@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/usecase/planner/planner.usecase.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import 'place_app_bar_view.dart';
@@ -91,7 +91,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                         listener: (_, state) async {
                           if (state.status == Status.error) {
                             CustomLogger.logger.e(state.error);
-                            Utils.showToastMsg('도착지를 다시 입력해주세요.');
+                            CommonUtils.showToastMsg('도착지를 다시 입력해주세요.');
                           }
                         },
                         listenWhen: (prev, curr) => prev.status != curr.status,

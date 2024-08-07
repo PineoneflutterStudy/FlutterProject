@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/DBkey.dart';
+import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
 import '../../dialog/login_popup.dart';
 
@@ -25,23 +24,25 @@ class PlaceItemView extends StatefulWidget {
 
 class _PlaceItemViewState extends State<PlaceItemView> {
   bool isLiked = false;
+  final firestore = FirebaseFirestoreUtil();
   DocumentReference? placeDocRef;
-
   @override
   void initState() {
     super.initState();
-    _initializeFirestore();
+    _initializePlaceDocRef();
   }
 
-  Future<void> _initializeFirestore() async {
-    final user = FirebaseAuth.instance.currentUser;
+  Future<void> _initializePlaceDocRef() async {
+    placeDocRef = await firestore.getFirestoreDocRef(DBKey.DB_LIKES, widget.place.placeId);
+    if (placeDocRef != null) {
+      _checkLikedPlace();
+    } else {
+      showDialog(context: context, builder: (context) => LoginPopup());
+    }
+  }
 
-    if (user != null) {
-      placeDocRef = FirebaseFirestore.instance
-          .collection(DBKey.DB_USERS)
-          .doc(user.uid)
-          .collection(DBKey.DB_LIKES)
-          .doc(widget.place.placeId);
+  Future<void> _checkLikedPlace() async {
+    if (placeDocRef != null) {
       try {
         final documentSnapshot = await placeDocRef!.get();
         setState(() {
@@ -50,9 +51,6 @@ class _PlaceItemViewState extends State<PlaceItemView> {
       } catch (error) {
         CustomLogger.logger.e("Error getting document: $error");
       }
-    } else {
-      CustomLogger.logger.e("User not logged in");
-      showDialog(context: context, builder: (context) => LoginPopup());
     }
   }
 
@@ -79,9 +77,10 @@ class _PlaceItemViewState extends State<PlaceItemView> {
         color: AppColors.onPrimary,
         borderOnForeground: true,
         elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         child: Container(
-          padding: EdgeInsets.fromLTRB(25,15,20,15),
+          padding: EdgeInsets.fromLTRB(25, 15, 20, 15),
           child: Row(
             children: [
               Expanded(
@@ -91,20 +90,28 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Text(widget.place.placeName ?? '',
+                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(child: Text(getLastTwoCategories(widget.place.categoryName ?? ''), style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
+                        Expanded(
+                            child: Text(getLastTwoCategories(widget.place.categoryName ?? ''),
+                                style: TextStyle(color: AppColors.contentTertiary),
+                                overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
                     Row(
                       children: [
                         Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
-                        Padding(padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
                           child: Text(formattedDistance, style: TextStyle(color: AppColors.error)),
                         ),
                         if ((widget.place.addressName ?? '').isNotEmpty)
-                          Padding(padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18),
+                                overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                       ],
                     ),
@@ -112,8 +119,11 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                       Row(
                         children: [
                           Image.asset(AppIcons.iconTelecomBlue, width: 10, height: 10),
-                          Padding(padding: const EdgeInsets.fromLTRB(3, 2, 0, 0),
-                            child: Text(': ${widget.place.phone ?? ''}', style: TextStyle(fontSize: 18, color: AppColors.blue), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(3, 2, 0, 0),
+                            child: Text(': ${widget.place.phone ?? ''}',
+                                style: TextStyle(fontSize: 18, color: AppColors.blue),
+                                overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                         ],
                       ),
@@ -124,17 +134,17 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.more_horiz_sharp),
-                    onPressed: () => (widget.place.placeUrl ?? '').isNotEmpty ? _gotoDetailPage(context) : Utils.showToastMsg('등록된 상세페이지가 없습니다.'),
+                    onPressed: () => (widget.place.placeUrl ?? '').isNotEmpty
+                        ? _gotoDetailPage(context)
+                        : CommonUtils.showToastMsg('등록된 상세페이지가 없습니다.'),
                   ),
                   IconButton(
-                    icon: Image.asset(isLiked? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
+                    icon: Image.asset(isLiked ? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
                     onPressed: () {
-                      if(isLiked){
-                        placeDocRef!.delete().then((_) => print('successfully deleted!'))
-                            .catchError((error) => print('Error deleting document: $error'));
-                      }else{
-                        placeDocRef!.set(widget.place.toJson()).then((_) => print('successfully set!'))
-                            .catchError((error) => print('Error setting document: $error'));
+                      if (isLiked) {
+                        firestore.deleteDocument(placeDocRef!);
+                      } else {
+                        firestore.setDocument(placeDocRef!, widget.place.toJson());
                       }
                       setState(() {
                         isLiked = !isLiked;
@@ -165,7 +175,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
       await launchUrl(uri);
     } else {
       CustomLogger.logger.e('Could not launch $uri');
-      Utils.showToastMsg('상세페이지 이동 실패\n다시 시도해주세요.');
+      CommonUtils.showToastMsg('상세페이지 이동 실패\n다시 시도해주세요.');
     }
   }
 }
