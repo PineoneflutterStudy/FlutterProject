@@ -19,7 +19,7 @@ Future<void> launchGoogleLogin() async {
     final GoogleSignInAccount? account = await GoogleSignIn().signIn();
 
     if (account == null) {
-      CustomLogger.logger.e('$_tag Google Login Failed, account == NULL');
+      CustomLogger.logger.e('$_tag Error - Google login failed. account == NULL');
       return;
     }
 
@@ -30,7 +30,7 @@ Future<void> launchGoogleLogin() async {
 
     // 구글 인증 정보 가져오기
     final GoogleSignInAuthentication authentication = await account.authentication;
-    CustomLogger.logger.i('$_tag Google Login Successed');
+    CustomLogger.logger.i('$_tag Google login successed.');
 
     // 인증 정보로 인증서 생성
     final OAuthCredential credential = GoogleAuthProvider.credential(
@@ -39,7 +39,7 @@ Future<void> launchGoogleLogin() async {
     // 인증서로 파이어베이스 로그인
     FirebaseAuth.instance.signInWithCredential(credential);
   } catch (error) {
-    CustomLogger.logger.e('$_tag Google Login Failed, error = $error');
+    CustomLogger.logger.e('$_tag Google login failed. error = $error');
   }
 }
 
@@ -55,22 +55,22 @@ Future<void> initAppLinks() async {
   appLinks.uriLinkStream.listen((uri) {
     _onReceiveAppLinks(uri);
   }, onError: (a, b) {
-    CustomLogger.logger.e('$_tag Naver Login Failed - $a\n$b');
+    CustomLogger.logger.e('$_tag Error - Naver login failed. cause = $a / $b');
   });
 }
 
 Future<void> _onReceiveAppLinks(Uri uri) async {
-  CustomLogger.logger.i('$_tag App Link Received - uri = ${uri.toString()}');
+  CustomLogger.logger.i('$_tag App links received. uri = ${uri.toString()}');
 
   if (uri.authority == 'login-callback') {
     // 구글 클라우드에서 생성한 커스텀 토큰 가져오기
     final String firebaseToken = uri.queryParameters['firebaseToken'] ?? '';
     if (firebaseToken.isEmpty) {
-      CustomLogger.logger.e('$_tag Naver Login Failed, firebaseToken.isEmpty == TRUE');
+      CustomLogger.logger.e('$_tag Error - Naver login failed. firebaseToken.isEmpty == TRUE');
       return;
     }
 
-    CustomLogger.logger.i('$_tag Naver Login Successed');
+    CustomLogger.logger.i('$_tag Naver login successed.');
 
     // 커스텀 토큰으로 파이어베이스 로그인
     await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
@@ -78,7 +78,7 @@ Future<void> _onReceiveAppLinks(Uri uri) async {
 }
 
 Future<void> launchNaverLogin() async {
-  CustomLogger.logger.i('$_tag Naver Login Launched');
+  CustomLogger.logger.i('$_tag launchNaverLogin()');
 
   final String clientId = FlutterConfig.get('NAVER_CLIENT_ID');
   final String redirectUri =
@@ -97,19 +97,19 @@ Future<void> launchKakaoLogin() async {
   if (await isKakaoTalkInstalled()) {
     try {
       final OAuthToken authToken = await UserApi.instance.loginWithKakaoTalk();
-      CustomLogger.logger.i('$_tag KakaoTalk Login Successed');
+      CustomLogger.logger.i('$_tag KakaoTalk login successed.');
       onKakaoLoginSuccessed(authToken);
     } catch (error) {
       // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
       // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
       if (error is PlatformException &&
           (error.code == 'CANCELED' || error.code == 'access_denied')) {
-        CustomLogger.logger.i('$_tag KakaoTalk Login Canceled');
+        CustomLogger.logger.i('$_tag KakaoTalk login canceled.');
         return;
       }
 
       // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
-      CustomLogger.logger.e('$_tag KakaoTalk Login Failed, error = $error');
+      CustomLogger.logger.e('$_tag Error - KakaoTalk login failed. error = $error');
       await loginWithKakaoAccount();
     }
   } else {
@@ -120,10 +120,10 @@ Future<void> launchKakaoLogin() async {
 Future<void> loginWithKakaoAccount() async {
   try {
     final OAuthToken authToken = await UserApi.instance.loginWithKakaoAccount();
-    CustomLogger.logger.i('$_tag KakaoAccount Login Successed');
+    CustomLogger.logger.i('$_tag KakaoAccount login successed.');
     onKakaoLoginSuccessed(authToken);
   } catch (error) {
-    CustomLogger.logger.e('$_tag KakaoAccount Login Failed, error = $error');
+    CustomLogger.logger.e('$_tag KakaoAccount login failed. error = $error');
   }
 }
 
