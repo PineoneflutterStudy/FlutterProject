@@ -63,20 +63,17 @@ Future<void> _onReceiveAppLinks(Uri uri) async {
   CustomLogger.logger.i('$_tag App Link Received - uri = ${uri.toString()}');
 
   if (uri.authority == 'login-callback') {
-    final firebaseToken = uri.queryParameters['firebaseToken'];
-    final String? name = uri.queryParameters['name'];
-    final String? profileImage = uri.queryParameters['profileImage'];
+    // 구글 클라우드에서 생성한 커스텀 토큰 가져오기
+    final String firebaseToken = uri.queryParameters['firebaseToken'] ?? '';
+    if (firebaseToken.isEmpty) {
+      CustomLogger.logger.e('$_tag Naver Login Failed, firebaseToken.isEmpty == TRUE');
+      return;
+    }
 
     CustomLogger.logger.i('$_tag Naver Login Successed');
-    final UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCustomToken(firebaseToken!);
 
-    CustomLogger.logger.i('$_tag user = ${userCredential.user}');
-    CustomLogger.logger.i('$_tag name = ${name}');
-    CustomLogger.logger.i('$_tag profileImage = ${profileImage}');
-
-    // userCredential.user!.updateDisplayName(name);
-    // userCredential.user!.updatePhotoURL(profileImage);
+    // 커스텀 토큰으로 파이어베이스 로그인
+    await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
   }
 }
 
