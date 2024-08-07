@@ -1,30 +1,42 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 
 import '../DBkey.dart';
 import '../logger.dart';
+import 'firebase_auth_util.dart';
 
+/// # Use Firebase Firestore
 class FirebaseFirestoreUtil {
 
-  Future<User?> _getCurrentUser() async => FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore firestore;
+  final FirebaseAuthUtil auth;
+  final Logger _logger;
+
+  FirebaseFirestoreUtil({
+    FirebaseFirestore? firestore,
+    FirebaseAuthUtil? auth,
+    Logger? logger,
+  })  : firestore = firestore ?? FirebaseFirestore.instance,
+        auth = auth ?? FirebaseAuthUtil(),
+        _logger = logger ?? CustomLogger.logger;
 
   /// User > uid
   Future<DocumentReference?> getUserDocRef() async {
-    final user = await _getCurrentUser();
+    final user = auth.getCurrentUser();
     if (user == null) {
-      CustomLogger.logger.e("User not logged in");
+      _logger.e("User not logged in");
       return null;
     }
-    return FirebaseFirestore.instance.collection(DBKey.DB_USERS).doc(user.uid);
+    return firestore.collection(DBKey.DB_USERS).doc(user.uid);
   }
 
   /// User > uid > collectionPath > docId
   Future<DocumentReference?> getFirestoreDocRef(String collectionPath, String docId) async {
     final userDocRef = await getUserDocRef();
     if (userDocRef == null) {
-      CustomLogger.logger.e("userDocRef is null");
+      _logger.e("User document reference is null");
       return null;
     }
     return userDocRef.collection(collectionPath).doc(docId);
@@ -33,18 +45,18 @@ class FirebaseFirestoreUtil {
   Future<void> setDocument(DocumentReference docRef, Map<String, dynamic> data) async {
     try {
       await docRef.set(data);
-      print('Document successfully set!');
+      _logger.d('Document successfully set!');
     } catch (error) {
-      print('Error setting document: $error');
+      _logger.e('Error setting document: $error');
     }
   }
 
   Future<void> deleteDocument(DocumentReference docRef) async{
     try {
       await docRef.delete();
-      print('Document successfully deleted!');
+      _logger.d('Document successfully deleted!');
     } catch (error) {
-      print('Error deleting document: $error');
+      _logger.e('Error deleting document: $error');
     }
   }
 

@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../../core/utils/firebase/firebase_auth_util.dart';
 import 'screens/planner/planner_page.dart';
 
 import 'widgets/empty_plan_widget.dart';
@@ -13,8 +13,8 @@ class PlanPage extends StatefulWidget {
 }
 
 class _PlanPageState extends State<PlanPage> {
+  final auth = FirebaseAuthUtil();
   bool _isLogin = false;
-
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _PlanPageState extends State<PlanPage> {
 
   void _CheckLoginState() {
     setState(() {
-      _isLogin = (FirebaseAuth.instance.currentUser != null);
+      _isLogin = (auth.getCurrentUser() != null);
     });
   }
 }
