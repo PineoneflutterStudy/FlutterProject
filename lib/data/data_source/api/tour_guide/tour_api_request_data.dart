@@ -7,6 +7,7 @@ class TourApiRequestData {
   final String emptyData = '';
   final int emptyIntData = -1;
   final String responseType = 'json';
+  final int defaultRadius = 500;
   final List<String> osList = [
     'AND', // OS - Android
     'IOS', // OS - IPhone
@@ -37,19 +38,6 @@ class TourApiRequestData {
     'locationBasedList1', // 위치기반 관광정보 조회
     'searchFestival1', // 행사 정보 조회
     'detailImage1', // 이미지 정보 조회
-  ];
-
-  final List<String> radiusList = [
-    '500',
-    '1000',
-    '1500',
-    '2000',
-    '2500',
-    '3000',
-    '3500',
-    '4000',
-    '4500',
-    '5000',
   ];
 
   final List<String> locationParamList = [

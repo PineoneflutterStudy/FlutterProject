@@ -26,7 +26,7 @@ final String baseUrl = 'https://apis.data.go.kr/B551011/KorService1/';
 
 abstract class TourGuideApi {
   Future<List<TourLocationDto>> loadTourLocationList(
-      String longitude, String latitude);
+      String longitude, String latitude, String radius);
 
   Future<List<TourImageInfoDto>> loadTourImageInfoList(
       ImageInfoListModel model);
@@ -44,7 +44,7 @@ class TourGuideApiImpl implements TourGuideApi {
    */
   @override
   Future<List<TourLocationDto>> loadTourLocationList(
-      String longitude, String latitude) async {
+      String longitude, String latitude, String radius) async {
     try {
       String makeUrl = '';
       FlutterConfig.loadEnvVariables();
@@ -59,7 +59,7 @@ class TourGuideApiImpl implements TourGuideApi {
           apiKey,
           longitude,
           latitude,
-          TourApiRequestData().radiusList[9],
+          radius, // 500 부터...
           TourApiRequestData().contentTypes[7]);
 
       for (int i = 0; i < requestList.length; i++) {
@@ -80,6 +80,9 @@ class TourGuideApiImpl implements TourGuideApi {
 
         _logger.i('Check Total Count -> ${bodyData}'); // api 결과 개수
 
+        if (bodyData == 0) { // 검색 결과가 없으므로 빈값 return
+          return [];
+        }  
         final itemJson =
             response.data?['response']['body']['items']['item'] as List;
         final transDto =

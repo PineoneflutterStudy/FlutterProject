@@ -7,7 +7,7 @@ import '../../model/display/home/image_info_list_model.dart';
 import '../../model/display/home/location_list_model.dart';
 
 abstract class TourGuideRepository {
-  Future<List<TourLocationDto>> getLocationData(String longitude, String latitude);
+  Future<List<TourLocationDto>> getLocationData(String longitude, String latitude, String radius);
   Future<List<TourImageInfoDto>> getImageInfoData(ImageInfoListModel model);
   Future<List<TourFestivalInfoDto>> getFestivalData(FestivalInfoListModel model);
   Future<MobilityDto> getGoalRoute(String startLongitude, String startLatitude, String endLongitude, String endLatitude);

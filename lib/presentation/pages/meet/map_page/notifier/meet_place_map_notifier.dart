@@ -3,6 +3,8 @@ import 'package:logger/logger.dart';
 
 import '../../../../../core/utils/firebase/firebase_storage_util.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
+import '../../../../../data/dto/display/common/location/tourLocation.dto.dart';
 import '../../../../../data/dto/display/meet/mobility.dto.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/repository/home/tour_guide_repository.dart';
@@ -35,13 +37,11 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     state = state.copyWith(status: MeetPlaceMapStatus.loading); // 로딩...
 
     // 중앙 좌표값을 이용한 위치기반 관광 정보 Data Get
-    final centerValue = getCenter(addressList);
-    final dto = await _repo.getLocationData(
-        centerValue[0].toString(), centerValue[1].toString());
+    var resultDto = await getDtoData(addressList);
 
     // 관광 정보로 가져온 좌표값
-    final resultLongitude = dto[0].mapx;
-    final resultLatitude = dto[0].mapy;
+    final resultLongitude = resultDto[0].mapx;
+    final resultLatitude = resultDto[0].mapy;
 
     final List<MobilityDto> routes = [];
     // 출발지 개수 만큼 구하기
@@ -68,7 +68,7 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
 
     state = state.copyWith(
       status: MeetPlaceMapStatus.success,
-      dto: List.from(dto),
+      dto: List.from(resultDto),
       directionsDto: routes,
       destinationImg: destinationImgUrl.toString(),
       startingPointImg: startingPointImgUrl.toString(),
@@ -91,5 +91,24 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     centers.add(latitudes / addressList.length);
 
     return centers;
+  }
+
+  Future<List<TourLocationDto>> getDtoData(List<AddressModel> addressList) async {
+    final centerValue = getCenter(addressList);
+
+    var dto = await _repo.getLocationData(
+        centerValue[0].toString(), centerValue[1].toString(), '${TourApiRequestData().defaultRadius}');
+
+    _logger.i('Confirm getLocationData ( Dto ) -> ${dto}');
+    if (dto.isEmpty) {
+      for (int i = 1; i < 100; i++) {
+        dto = await _repo.getLocationData(centerValue[0].toString(), centerValue[1].toString(), '${TourApiRequestData().defaultRadius + (250 * i)}');
+        _logger.i('Radius Value ( ${TourApiRequestData().defaultRadius + (250 * i)} ) Start Tour Location Api.. -> result : ${dto}');
+        if (dto.isNotEmpty) {
+          return dto;
+        }
+      }
+    }
+    return dto;
   }
 }

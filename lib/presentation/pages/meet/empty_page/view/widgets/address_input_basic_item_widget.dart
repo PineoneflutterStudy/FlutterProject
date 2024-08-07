@@ -33,12 +33,17 @@ class AddressInputBasicItemWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Text(
-              address.isEmpty ? '$indexNum. 출발지를 입력해주세요!' : '$indexNum. $address',
-              style: TextStyle(fontSize: 20),
+          Expanded(
+            child: Container(
+              child: Text(
+                address.isEmpty
+                    ? '$indexNum. 출발지를 입력해주세요!'
+                    : '$indexNum. $address',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+              ),
+              margin: EdgeInsets.only(left: 15),
             ),
-            margin: EdgeInsets.only(left: 15),
           ),
           Visibility(
             visible: address.isEmpty ? false : true,

@@ -20,8 +20,8 @@ class TourGuideRepositoryImpl extends TourGuideRepository {
         _mobilityApi = mobilityApi;
 
   @override
-  Future<List<TourLocationDto>> getLocationData(String longitude, String latitude) {
-    return _api.loadTourLocationList(longitude, latitude);
+  Future<List<TourLocationDto>> getLocationData(String longitude, String latitude, String radius) {
+    return _api.loadTourLocationList(longitude, latitude, radius);
   }
 
   @override
