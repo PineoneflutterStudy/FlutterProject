@@ -2,17 +2,16 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../../core/utils/firebase/firebase_storage_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/dto/display/meet/mobility.dto.dart';
-import '../../../../../domain/model/display/home/location_list_model.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/repository/home/tour_guide_repository.dart';
-import '../../empty_page/notifier/address_info_notifier.dart';
 import '../../providers.dart';
-import '../screens/meet_place_map_screen.dart';
 import 'meet_place_map_state.dart';
 
 final Logger _logger = CustomLogger.logger;
+final FirebaseStorageUtil _storage = FirebaseStorageUtil();
 
 final meetPlaceStateProvider =
     StateNotifierProvider<MeetPlaceMapNotifier, MeetPlaceMapState>(
@@ -36,8 +35,6 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     // 1. 중앙 마커 찍을 관광지 정보 좌표값
     state = state.copyWith(status: MeetPlaceMapStatus.loading); // 로딩...
 
-    FirebaseStorage storage = FirebaseStorage.instance; // 파이어베이스 스토리지 사용
-
     // 중앙 좌표값을 이용한 위치기반 관광 정보 Data Get
     final centerValue = getCenter(addressList);
     final dto = await _repo.getLocationData(
@@ -60,8 +57,10 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
       routes.add(routeDto);
     }
 
-    var destinationImgUrl = await storage.ref().child("mapMarker/location_honey_case.png").getDownloadURL(); //  목적지 이미지
-    var startingPointImgUrl = await storage.ref().child("mapMarker/location_point_bee.png").getDownloadURL(); //  출발지 이미지
+    var destinationImgUrl = await _storage.getPngImageUrl('mapMarker/location_honey_case'); //  목적지 이미지
+    var startingPointImgUrl = await _storage.getPngImageUrl('mapMarker/location_point_bee'); //  출발지 이미지
+
+    _logger.i('이미지 확인 -> ');
 
     /// 내가 state 반영해 줘야 하는 정보들은
     /// 1. 중앙 마커 찍을 관광지 정보 좌표값

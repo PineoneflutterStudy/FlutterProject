@@ -137,8 +137,8 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
 
                 latLngs.add(LatLng(addressList[i].latitude, addressList[i].longitude));
 
-                // ==================== CustomOverLay ( 마커 위 텍스트 ) ====================
-                final customOverlay = CustomOverlay(
+                // ==================== CustomOverLay ( 마커 위 텍스트 : 출발지 ) ====================
+                final startCustomOverlay = CustomOverlay(
                   customOverlayId: UniqueKey().toString(),
                   latLng: LatLng(addressList[i].latitude, addressList[i].longitude),
                   content:
@@ -148,7 +148,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                   zIndex: 0,
                 );
 
-                customOverlays.add(customOverlay);
+                customOverlays.add(startCustomOverlay);
 
                 // ==================== PolyLine ====================
                 var latitudeList = jsonDecode(apiState.directionsDto[i].latitudePaths);
@@ -192,6 +192,21 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                 width: 40,
                 height: 50,
               ));
+
+              // ==================== CustomOverLay ( 마커 위 텍스트 : 목적지 ) ====================
+              final destinationCustomOverlay = CustomOverlay(
+                customOverlayId: UniqueKey().toString(),
+                latLng: LatLng(
+                    double.parse(apiState.tourDto[0].mapy),
+                    double.parse(apiState.tourDto[0].mapx)),
+                content:
+                '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
+                xAnchor: 0.4,
+                yAnchor: 1.3,
+                zIndex: 0,
+              );
+
+              customOverlays.add(destinationCustomOverlay);
 
               // ==================== Update Map ====================
               setState(() {
