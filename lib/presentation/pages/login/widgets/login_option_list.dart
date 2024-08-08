@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
-import '../funtion/auth.dart';
 import 'login_option_item.dart';
 
 //==============================================================================
@@ -43,28 +41,4 @@ class LoginOptionList extends StatelessWidget {
 //==============================================================================
 //  Methods
 //==============================================================================
-  /// 인증 타입 별로 로그인 시도하고 파이어베이스에 등록
-  void onPressedOptionItem(AuthType authType) {
-    switch (authType) {
-      case AuthType.google:
-        launchGoogleLogin();
-      case AuthType.naver:
-        launchNaverLogin();
-      case AuthType.kakao:
-        launchKakaoLogin();
-      case AuthType.email:
-        launchSignInPage();
-    }
-  }
-
-  void launchSignInPage() {
-    CustomLogger.logger.i('$_tag launchSignInPage()');
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => SignInPage(),
-    //     fullscreenDialog: true,
-    //   ),
-    // );
-  }
 }

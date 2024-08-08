@@ -19,6 +19,7 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
     required TResult Function() loginSucceeded,
@@ -27,6 +28,7 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
     TResult? Function()? loginSucceeded,
@@ -35,6 +37,7 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
     TResult Function()? loginSucceeded,
@@ -44,6 +47,8 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_LogginSucceeded value) loginSucceeded,
@@ -52,6 +57,7 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_LogginSucceeded value)? loginSucceeded,
@@ -60,6 +66,7 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_LogginSucceeded value)? loginSucceeded,
@@ -125,6 +132,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
     required TResult Function() loginSucceeded,
@@ -136,6 +144,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
     TResult? Function()? loginSucceeded,
@@ -147,6 +156,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
     TResult Function()? loginSucceeded,
@@ -162,6 +172,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_LogginSucceeded value) loginSucceeded,
@@ -173,6 +185,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_LogginSucceeded value)? loginSucceeded,
@@ -184,6 +197,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_LogginSucceeded value)? loginSucceeded,
@@ -198,6 +212,163 @@ class _$StartedImpl implements _Started {
 
 abstract class _Started implements LoginEvent {
   const factory _Started() = _$StartedImpl;
+}
+
+/// @nodoc
+abstract class _$$LoginOptionItemPressedImplCopyWith<$Res> {
+  factory _$$LoginOptionItemPressedImplCopyWith(
+          _$LoginOptionItemPressedImpl value,
+          $Res Function(_$LoginOptionItemPressedImpl) then) =
+      __$$LoginOptionItemPressedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AuthType authType});
+}
+
+/// @nodoc
+class __$$LoginOptionItemPressedImplCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$LoginOptionItemPressedImpl>
+    implements _$$LoginOptionItemPressedImplCopyWith<$Res> {
+  __$$LoginOptionItemPressedImplCopyWithImpl(
+      _$LoginOptionItemPressedImpl _value,
+      $Res Function(_$LoginOptionItemPressedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authType = null,
+  }) {
+    return _then(_$LoginOptionItemPressedImpl(
+      null == authType
+          ? _value.authType
+          : authType // ignore: cast_nullable_to_non_nullable
+              as AuthType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
+  const _$LoginOptionItemPressedImpl(this.authType);
+
+  @override
+  final AuthType authType;
+
+  @override
+  String toString() {
+    return 'LoginEvent.loginOptionItemPressed(authType: $authType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoginOptionItemPressedImpl &&
+            (identical(other.authType, authType) ||
+                other.authType == authType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginOptionItemPressedImplCopyWith<_$LoginOptionItemPressedImpl>
+      get copyWith => __$$LoginOptionItemPressedImplCopyWithImpl<
+          _$LoginOptionItemPressedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(User? user) userChanged,
+    required TResult Function() userInfoMissing,
+    required TResult Function() loginSucceeded,
+  }) {
+    return loginOptionItemPressed(authType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(User? user)? userChanged,
+    TResult? Function()? userInfoMissing,
+    TResult? Function()? loginSucceeded,
+  }) {
+    return loginOptionItemPressed?.call(authType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(User? user)? userChanged,
+    TResult Function()? userInfoMissing,
+    TResult Function()? loginSucceeded,
+    required TResult orElse(),
+  }) {
+    if (loginOptionItemPressed != null) {
+      return loginOptionItemPressed(authType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
+    required TResult Function(_UserChanged value) userChanged,
+    required TResult Function(_UserInfoMissing value) userInfoMissing,
+    required TResult Function(_LogginSucceeded value) loginSucceeded,
+  }) {
+    return loginOptionItemPressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_UserChanged value)? userChanged,
+    TResult? Function(_UserInfoMissing value)? userInfoMissing,
+    TResult? Function(_LogginSucceeded value)? loginSucceeded,
+  }) {
+    return loginOptionItemPressed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_UserChanged value)? userChanged,
+    TResult Function(_UserInfoMissing value)? userInfoMissing,
+    TResult Function(_LogginSucceeded value)? loginSucceeded,
+    required TResult orElse(),
+  }) {
+    if (loginOptionItemPressed != null) {
+      return loginOptionItemPressed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoginOptionItemPressed implements LoginEvent {
+  const factory _LoginOptionItemPressed(final AuthType authType) =
+      _$LoginOptionItemPressedImpl;
+
+  AuthType get authType;
+  @JsonKey(ignore: true)
+  _$$LoginOptionItemPressedImplCopyWith<_$LoginOptionItemPressedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -265,6 +436,7 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
     required TResult Function() loginSucceeded,
@@ -276,6 +448,7 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
     TResult? Function()? loginSucceeded,
@@ -287,6 +460,7 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
     TResult Function()? loginSucceeded,
@@ -302,6 +476,8 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_LogginSucceeded value) loginSucceeded,
@@ -313,6 +489,7 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_LogginSucceeded value)? loginSucceeded,
@@ -324,6 +501,7 @@ class _$UserChangedImpl implements _UserChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_LogginSucceeded value)? loginSucceeded,
@@ -384,6 +562,7 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
     required TResult Function() loginSucceeded,
@@ -395,6 +574,7 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
     TResult? Function()? loginSucceeded,
@@ -406,6 +586,7 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
     TResult Function()? loginSucceeded,
@@ -421,6 +602,8 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_LogginSucceeded value) loginSucceeded,
@@ -432,6 +615,7 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_LogginSucceeded value)? loginSucceeded,
@@ -443,6 +627,7 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_LogginSucceeded value)? loginSucceeded,
@@ -498,6 +683,7 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
     required TResult Function() loginSucceeded,
@@ -509,6 +695,7 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
     TResult? Function()? loginSucceeded,
@@ -520,6 +707,7 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
     TResult Function()? loginSucceeded,
@@ -535,6 +723,8 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_LogginSucceeded value) loginSucceeded,
@@ -546,6 +736,7 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_LogginSucceeded value)? loginSucceeded,
@@ -557,6 +748,7 @@ class _$LogginSucceededImpl implements _LogginSucceeded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_LogginSucceeded value)? loginSucceeded,

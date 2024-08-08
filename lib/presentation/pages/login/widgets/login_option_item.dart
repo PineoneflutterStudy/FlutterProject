@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
-import 'login_option_list.dart';
+import '../bloc/login_bloc.dart';
 
 //==============================================================================
 //  Fields
@@ -31,7 +31,7 @@ class LoginOptionItem extends StatelessWidget {
           style: TextStyle(fontSize: 36, color: authType.fontColor),
         ),
         style: ButtonStyle(backgroundColor: WidgetStateProperty.all(authType.bgColor)),
-        onPressed: () => _onPressedOptionItem(context, authType),
+        onPressed: () => _onItemPressed(context, authType),
       );
 
   /// 아이콘 있는 경우 노출할 아이콘과 텍스트로 구성된 아이템
@@ -46,20 +46,13 @@ class LoginOptionItem extends StatelessWidget {
           style: TextStyle(fontSize: 36, color: authType.fontColor),
         ),
         style: ButtonStyle(backgroundColor: WidgetStateProperty.all(authType.bgColor)),
-        onPressed: () => _onPressedOptionItem(context, authType),
+        onPressed: () => _onItemPressed(context, authType),
       );
 
 //==============================================================================
 //  Methods
 //==============================================================================
-  /// 상위 위젯에 [LoginOptionList] 존재 한다면 [LoginOptionList.onPressedOptionItem]실행
-  void _onPressedOptionItem(BuildContext context, AuthType authType) {
-    LoginOptionList? loginOptionList = context.findAncestorWidgetOfExactType<LoginOptionList>();
-    if (loginOptionList == null) {
-      CustomLogger.logger.e('$_tag Error - loginOptionList == NULL');
-      return;
-    }
-
-    loginOptionList.onPressedOptionItem(authType);
+  void _onItemPressed(BuildContext context, AuthType authType) {
+    BlocProvider.of<LoginBloc>(context).add(LoginEvent.loginOptionItemPressed(authType));
   }
 }
