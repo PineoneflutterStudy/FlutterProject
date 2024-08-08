@@ -30,9 +30,10 @@ class _PlanPageState extends State<PlanPage> {
     }
   }
 
-  void _CheckLoginState() {
-    setState(() async {
-      _isLogin = await auth.isLoggedIn();
+  void _CheckLoginState() async {
+    bool isLoggedIn = await auth.isLoggedIn();
+    setState(() {
+      _isLogin = isLoggedIn;
     });
   }
 }
