@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../core/utils/logger.dart';
 import '../funtion/auth.dart';
 
@@ -11,6 +12,9 @@ part 'login_state.dart';
 
 const String _tag = '[Login]';
 
+/// ## 로그인 화면 Bloc
+///
+/// author [Eogeum@naver.com]
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState.initial()) {
     on<LoginEvent>((event, emit) {
@@ -24,7 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onStarted(Emitter<LoginState> emit) {
     // 로그인 여부 확인
-    if (FirebaseAuth.instance.currentUser != null) {
+    if (FirebaseAuthUtil().auth.currentUser != null) {
       CustomLogger.logger.w('$_tag Already logged in. Exiting the login page.');
       emit(LoginState.alreadyLoggedIn());
       return;
@@ -34,8 +38,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     initAppLinks();
 
     // 파이어베이스 유저 변경 구독
-    FirebaseAuth.instance.userChanges().listen(
-      (user) {
+    FirebaseAuthUtil().auth.userChanges().listen(
+          (user) {
         // 이메일 존재 여부 확인
         final String email = user?.email ?? '';
         if (email.isEmpty) {

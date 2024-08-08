@@ -1,5 +1,8 @@
 part of 'login_bloc.dart';
 
+/// ## 로그인 화면 event
+///
+/// author [Eogeum@naver.com]
 @freezed
 class LoginEvent with _$LoginEvent {
   const factory LoginEvent.started() = _Started;

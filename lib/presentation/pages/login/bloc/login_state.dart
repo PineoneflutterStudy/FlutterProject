@@ -1,5 +1,8 @@
 part of 'login_bloc.dart';
 
+/// ## 로그인 화면 state
+///
+/// author [Eogeum@naver.com]
 @freezed
 class LoginState with _$LoginState {
   const factory LoginState.initial() = _Initial;
