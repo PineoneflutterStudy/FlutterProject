@@ -13,12 +13,7 @@ class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
   final ValueChanged<String> onLocationChanged;
   final Function(int, String) onFilterChanged;
 
-  PlaceAppBarView(
-      {required this.location,
-      required this.radius,
-      required this.sort,
-      required this.onLocationChanged,
-      required this.onFilterChanged});
+  PlaceAppBarView({required this.location, required this.radius, required this.sort, required this.onLocationChanged, required this.onFilterChanged});
 
   @override
   State<PlaceAppBarView> createState() => _PlaceAppBarViewState();

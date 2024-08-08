@@ -31,8 +31,8 @@ class _PlanPageState extends State<PlanPage> {
   }
 
   void _CheckLoginState() {
-    setState(() {
-      _isLogin = (auth.getCurrentUser() != null);
+    setState(() async {
+      _isLogin = await auth.isLoggedIn();
     });
   }
 }

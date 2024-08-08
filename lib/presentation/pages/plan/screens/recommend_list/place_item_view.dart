@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -10,7 +9,7 @@ import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
-import '../../dialog/login_popup.dart';
+import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
 class PlaceItemView extends StatefulWidget {
@@ -25,6 +24,7 @@ class PlaceItemView extends StatefulWidget {
 class _PlaceItemViewState extends State<PlaceItemView> {
   bool isLiked = false;
   final firestore = FirebaseFirestoreUtil();
+  final planUtil = PlanUtil();
   DocumentReference? placeDocRef;
   @override
   void initState() {
@@ -33,41 +33,19 @@ class _PlaceItemViewState extends State<PlaceItemView> {
   }
 
   Future<void> _initializePlaceDocRef() async {
-    placeDocRef = await firestore.getFirestoreDocRef(DBKey.DB_LIKES, widget.place.placeId);
+    placeDocRef = await firestore.getCollectionDocRef(DBKey.DB_LIKES, widget.place.placeId);
     if (placeDocRef != null) {
-      _checkLikedPlace();
+      bool documentExists = await firestore.checkDocumentExistsFromRef(placeDocRef!);
+      setState(() {
+        isLiked = documentExists;
+      });
     } else {
-      showDialog(context: context, builder: (context) => LoginPopup());
-    }
-  }
-
-  Future<void> _checkLikedPlace() async {
-    if (placeDocRef != null) {
-      try {
-        final documentSnapshot = await placeDocRef!.get();
-        setState(() {
-          isLiked = documentSnapshot.exists;
-        });
-      } catch (error) {
-        CustomLogger.logger.e("Error getting document: $error");
-      }
+      CustomLogger.logger.e("placeDocRef is null : ${widget.place.placeId}");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    double distance = double.parse(widget.place.distance ?? '0');
-
-    String formattedDistance;
-    if (distance >= 1000) {
-      // 1000 이상일 경우 km 단위로 변환
-      double distanceInKm = distance / 1000;
-      formattedDistance = NumberFormat('#,##0.00').format(distanceInKm) + ' km';
-    } else {
-      // 1000 이하일 경우 m 단위로 표기
-      formattedDistance = distance.toStringAsFixed(0) + ' m';
-    }
-
     return InkWell(
       onTap: () => {
         //todo 여행 계획 추가 팝업
@@ -77,8 +55,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
         color: AppColors.onPrimary,
         borderOnForeground: true,
         elevation: 4,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         child: Container(
           padding: EdgeInsets.fromLTRB(25, 15, 20, 15),
           child: Row(
@@ -95,7 +72,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                             overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
                         Expanded(
-                            child: Text(getLastTwoCategories(widget.place.categoryName ?? ''),
+                            child: Text(planUtil.getLastTwoCategories(widget.place.categoryName ?? ''),
                                 style: TextStyle(color: AppColors.contentTertiary),
                                 overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
@@ -105,7 +82,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                         Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
-                          child: Text(formattedDistance, style: TextStyle(color: AppColors.error)),
+                          child: Text(planUtil.formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
                         ),
                         if ((widget.place.addressName ?? '').isNotEmpty)
                           Padding(
@@ -158,15 +135,6 @@ class _PlaceItemViewState extends State<PlaceItemView> {
         ),
       ),
     );
-  }
-
-  String getLastTwoCategories(String categoryName) {
-    List<String> categories = categoryName.split(' > ');
-    if (categories.length > 1) {
-      return categories.sublist(categories.length - 2).join(' > ');
-    } else {
-      return categoryName;
-    }
   }
 
   Future<void> _gotoDetailPage(BuildContext context) async {

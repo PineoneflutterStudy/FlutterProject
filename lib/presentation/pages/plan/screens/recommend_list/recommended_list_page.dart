@@ -89,7 +89,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                           }
                         },
                         listener: (_, state) async {
-                          if (state.status == Status.error) {
+                          if (state.status == Status.error) { // address bloc error
                             CustomLogger.logger.e(state.error);
                             CommonUtils.showToastMsg('도착지를 다시 입력해주세요.');
                           }
@@ -104,7 +104,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
             }
           },
           listener: (context, state) async {
-            if (state.status == Status.error) {
+            if (state.status == Status.error) { // category bloc error
               CustomLogger.logger.e(state.error);
               final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
               if (result) {

@@ -28,6 +28,7 @@ class _PlannerPageState extends State<PlannerPage> {
           children: [
             GestureDetector(
               onTap: () {
+                //todo 여행계획짜기 팝업
                 //todo recommended_list_page에 장소 정보 보내기 구현
                 final location = '부산해운대';
                 context.pushNamed('rcmn', queryParameters: {'location' : location});

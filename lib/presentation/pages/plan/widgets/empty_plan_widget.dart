@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../main/common/component/widget/appbar.dart';
-import '../dialog/login_popup.dart';
+import '../../../main/common/component/dialog/login_popup.dart';
 
 /// ### Plan메뉴 비로그인 시 첫화면
 class EmptyPlanWidget extends StatelessWidget {
@@ -18,11 +18,7 @@ class EmptyPlanWidget extends StatelessWidget {
             onTap: () {
               showDialog(context: context, builder: (context) => LoginPopup());
             },
-            child: Icon(
-              Icons.add_circle_sharp,
-              color: Colors.amberAccent,
-              size: 40,
-            ),
+            child: Icon(Icons.add_circle_sharp, color: Colors.amberAccent, size: 40,),
           ),
           SizedBox(
             height: 10,
@@ -31,14 +27,8 @@ class EmptyPlanWidget extends StatelessWidget {
               child: Text.rich(
             TextSpan(
               children: [
-                TextSpan(
-                  text: '개꿀트립',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                TextSpan(
-                  text: ' 과 함께 \n여행계획 세우러 떠나 볼까요~?',
-                  style: TextStyle(fontSize: 25),
-                ),
+                TextSpan(text: '개꿀트립', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                TextSpan(text: ' 과 함께 \n여행계획 세우러 떠나 볼까요~?', style: TextStyle(fontSize: 25)),
               ],
             ),
           )),

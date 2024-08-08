@@ -23,9 +23,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     on<FilterUpdated>(_onFilterUpdated);
   }
 
-  /**
-   * 처음 지역 정보 불러오기
-   */
+  /// 처음 지역 정보 불러오기
   Future<void> _onAddressInitialized(AddressInitialized event, Emitter<AddressState> emit) async {
     final location = event.location;
     emit(state.copyWith(status: Status.loading));
@@ -46,9 +44,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
   }
 
-  /**
-   * 검색 시 장소 정보만 변경 (지역, 좌표(x,y))
-   */
+  /// 검색 시 장소 정보만 변경 (지역, 좌표(x,y))
   Future<void> _onAddressUpdated(AddressUpdated event, Emitter<AddressState> emit) async {
     final location = event.location;
     emit(state.copyWith(status: Status.loading));
@@ -69,9 +65,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
   }
 
-  /**
-   * 필터 정보 변경시 필터 정보만 수정 (radius, sort)
-   */
+  /// 필터 정보 변경시 필터 정보만 수정 (radius, sort)
   void _onFilterUpdated(FilterUpdated event, Emitter<AddressState> emit) {
     final updatedAddress = state.addressInfo.copyWith(radius: event.radius, sort: event.sort);
     emit(state.copyWith(status: Status.success, addressInfo: updatedAddress));
