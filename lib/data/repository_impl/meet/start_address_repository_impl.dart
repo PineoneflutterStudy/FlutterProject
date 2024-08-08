@@ -23,8 +23,8 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   }
 
   @override
-  Future<bool> updateAddress(AddressModel addressModel) async {
-    return await _localPrefsStorage.updateAddress(addressModel);
+  Future<void> updateAddress(AddressModel addressModel) async {
+    await _localPrefsStorage.updateAddress(addressModel);
   }
 
   @override
@@ -33,8 +33,8 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   }
 
   @override
-  Future<bool> deleteAddressInput(int index) async {
-    return await _localPrefsStorage.deleteAddressInput(index);
+  Future<void> deleteAddressInput(int index) async {
+    await _localPrefsStorage.deleteAddressInput(index);
   }
 
   Future<void> resetAddress() async {

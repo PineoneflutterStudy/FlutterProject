@@ -59,8 +59,6 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     var destinationImgUrl = await _storage.getPngImageUrl('mapMarker/location_honey_case'); //  목적지 이미지
     var startingPointImgUrl = await _storage.getPngImageUrl('mapMarker/location_point_bee'); //  출발지 이미지
 
-    _logger.i('이미지 확인 -> ');
-
     /// 내가 state 반영해 줘야 하는 정보들은
     /// 1. 중앙 마커 찍을 관광지 정보 좌표값
     /// 2. 각각의 출발지에서 선에 필요한 경로 검색 결과 좌표들

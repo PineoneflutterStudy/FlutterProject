@@ -17,11 +17,10 @@ List<AddressModel> defaultAddress = [
 abstract class LocalPrefsStorage {
   Future<void> setDefaultAddress();
   Future<List<AddressModel>> getAddressList();
-  Future<bool> updateAddress(AddressModel addressModel);
+  Future<void> updateAddress(AddressModel addressModel);
   Future<void> deleteAddress(AddressModel addressModel);
-  Future<bool> deleteAddressInput(int index);
+  Future<void> deleteAddressInput(int index);
   Future<void> resetAddress();
-
 }
 
 class LocalPrefsStorageImpl implements LocalPrefsStorage {
@@ -74,7 +73,7 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
    */
 
   @override
-  Future<bool> updateAddress(AddressModel addressModel) async {
+  Future<void> updateAddress(AddressModel addressModel) async {
     _logger.i('Confirm Date(Before Update..) -> ${addressModel.toString()}');
     // 현재 저장되어 있는 출발지 정보 리스트 획득
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
@@ -102,8 +101,6 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
     // 모든 업데이트 동작이 완료 되었다면 값 저장
     await _sharedPref.setStringList(listSaveName, addressInfoList); // index
     _logger.i('update Address Success -> ${addressInfoList.toString()}');
-
-    return addressInfoList.length >= 4 ? false : true;
   }
 
   /**
@@ -133,8 +130,8 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
   }
 
   @override
-  Future<bool> deleteAddressInput(int index) async {
-     // 기존 데이터 가져온 후 -> 해당 index 정보 삭제 -> index 재구성 -> 새로 저장
+  Future<void> deleteAddressInput(int index) async {
+    // 기존 데이터 가져온 후 -> 해당 index 정보 삭제 -> index 재구성 -> 새로 저장
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
     int updateIndexNum = 0;
 
@@ -152,8 +149,6 @@ class LocalPrefsStorageImpl implements LocalPrefsStorage {
 
     await _sharedPref.setStringList(listSaveName, addressInfoList); // index
     _logger.i('delete Address Success');
-
-    return addressInfoList.length >= 4 ? false : true;
   }
 
   /**

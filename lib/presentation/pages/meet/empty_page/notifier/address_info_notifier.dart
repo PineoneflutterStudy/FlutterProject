@@ -44,6 +44,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     state = state.copyWith(
       status: AddressInfoStatus.success,
       addresses: List.of(state.addressList)..addAll(list),
+      isMaxInput: list.length < 4
     );
   }
 
@@ -53,26 +54,26 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
   Future<void> addAddressInput(AddressModel addressModel) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
-    bool isAddAddress = await _repo.updateAddress(addressModel);
+    await _repo.updateAddress(addressModel);
 
     final list = await _getAllAddress();
     state = state.copyWith(
       status: AddressInfoStatus.success,
       addresses: List.from(list),
-      isMaxInput: isAddAddress,
+      isMaxInput: list.length < 4,
     );
   }
 
   Future<void> addEmptyAddress(int index) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
-    bool isAddAddress = await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+    await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
     final list = await _getAllAddress();
     state = state.copyWith(
       status: AddressInfoStatus.success,
       addresses: List.from(list),
-      isMaxInput: isAddAddress,
+      isMaxInput: list.length < 4,
     );
   }
 
@@ -91,13 +92,13 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
   Future<void> deleteAddressInput(int index) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
-    bool isDeleteAddress = await _repo.deleteAddressInput(index);
+    await _repo.deleteAddressInput(index);
 
     final list = await _getAllAddress();
     state = state.copyWith(
       status: AddressInfoStatus.success,
       addresses: List.from(list),
-      isMaxInput: isDeleteAddress,
+      isMaxInput: list.length < 4,
     );
   }
 

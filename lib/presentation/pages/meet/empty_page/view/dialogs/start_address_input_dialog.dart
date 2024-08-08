@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../../../core/utils/common_utils.dart';
 import '../../../../../../core/utils/logger.dart';
 import '../../../../../../domain/model/display/meet/address_model.dart';
 import '../../../common/select_move_step_widget.dart';
@@ -141,7 +142,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     if (state.isMaxInput) {
                       ref.read(addressInfoStateProvider.notifier).addEmptyAddress(state.addressList.length);
                     } else {
-                      showToast('최대 4명까지 입력 가능합니다!');
+                      CommonUtils.showToastMsg('최대 4명까지 입력 가능합니다!');
                     }
                   },
                   icon: Icon(
