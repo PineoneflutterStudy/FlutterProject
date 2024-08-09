@@ -19,6 +19,7 @@ class LoginPopup extends StatelessWidget {
           TextButton(
             onPressed: () {
               context.pushNamed('login');
+              context.pop();
             },
             child: Text('확인'),
           )

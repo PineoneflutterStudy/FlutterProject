@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../main/common/component/widget/appbar.dart';
 import '../../../main/common/component/dialog/login_popup.dart';
+import '../screens/planner/planner_page.dart';
 
 /// ### Plan메뉴 비로그인 시 첫화면
 class EmptyPlanWidget extends StatelessWidget {
@@ -9,6 +11,8 @@ class EmptyPlanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = FirebaseAuthUtil();
+
     return Scaffold(
       appBar: MainAppbar(title: '나만의 여행플래너'),
       body: Column(
@@ -16,7 +20,11 @@ class EmptyPlanWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              showDialog(context: context, builder: (context) => LoginPopup());
+              if(_auth.isLoggedIn()){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PlannerPage()));
+              }else{
+                showDialog(context: context, builder: (context) => LoginPopup());
+              }
             },
             child: Icon(Icons.add_circle_sharp, color: Colors.amberAccent, size: 40,),
           ),

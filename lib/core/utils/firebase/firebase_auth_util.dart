@@ -9,5 +9,5 @@ class FirebaseAuthUtil {
 
   String? getUserId() => getCurrentUser()?.uid;
 
-  Future<bool> isLoggedIn() async => (getCurrentUser() != null);
+  bool isLoggedIn() => (getCurrentUser() != null);
 }

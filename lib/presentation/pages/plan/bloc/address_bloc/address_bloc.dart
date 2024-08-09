@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/exception/common_exception.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/common/result.dart';
 import '../../../../../domain/model/display/place/address.model.dart';
 import '../../../../../domain/usecase/planner/plan/get_address_info.usecase.dart';
@@ -29,6 +30,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     emit(state.copyWith(status: Status.loading));
     try {
       final response = await _fetch(location);
+      CustomLogger.logger.d('response : $response');
       response.when(Success: (address) {
         if(address == null){
           emit(state.copyWith(status: Status.error, error: ErrorResponse(status: '1',code: '9999',message: '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.')));
