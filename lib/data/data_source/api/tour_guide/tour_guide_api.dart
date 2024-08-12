@@ -5,15 +5,9 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/display/home/festival_info_list_model.dart';
-import '../../../../domain/model/display/home/image_info_list_model.dart';
-import '../../../../domain/model/display/home/location_list_model.dart';
-import '../../../dto/display/common/festival/tourFestivalInfo.dto.dart';
-import '../../../dto/display/common/image/tourImageInfo.dto.dart';
-import '../../../dto/display/common/location/tourLocation.dto.dart';
 import 'tour_api_request_data.dart';
 
-final Logger _logger = CustomLogger.logger;
+/*final Logger _logger = CustomLogger.logger;
 
 // https://apis.data.go.kr/B551011/KorService1/[ apiUrlList ]?  request Url
 final String baseUrl = 'https://apis.data.go.kr/B551011/KorService1/';
@@ -39,15 +33,14 @@ class TourGuideApiImpl implements TourGuideApi {
   final dio = Dio();
   final requestTourApiData = TourApiRequestData();
 
-  /**
+  *
    * 위치기반 관광정보 조회
-   */
+
   @override
   Future<List<TourLocationDto>> loadTourLocationList(
       String longitude, String latitude, String radius) async {
     try {
       String makeUrl = '';
-      FlutterConfig.loadEnvVariables();
       String apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
 
       List<String> requestList = requestTourApiData.locationParamList;
@@ -55,7 +48,7 @@ class TourGuideApiImpl implements TourGuideApi {
       // https://apis.data.go.kr/B551011/KorService1/locationBasedList1
       makeUrl = baseUrl + requestType; // Default Url Setting
 
-      LocationListModel model = requestTourApiData.getLocationListModel(
+      TourLocationDto model = requestTourApiData.getLocationListModel(
           apiKey,
           longitude,
           latitude,
@@ -82,7 +75,7 @@ class TourGuideApiImpl implements TourGuideApi {
 
         if (bodyData == 0) { // 검색 결과가 없으므로 빈값 return
           return [];
-        }  
+        }
         final itemJson =
             response.data?['response']['body']['items']['item'] as List;
         final transDto =
@@ -103,9 +96,9 @@ class TourGuideApiImpl implements TourGuideApi {
     }
   }
 
-  /**
+  *
    * 이미지 정보 조회
-   */
+
   @override
   Future<List<TourImageInfoDto>> loadTourImageInfoList(
       ImageInfoListModel model) async {
@@ -139,9 +132,9 @@ class TourGuideApiImpl implements TourGuideApi {
     return [];
   }
 
-  /**
+  *
    * 행사 정보 조회
-   */
+
   @override
   Future<List<TourFestivalInfoDto>> loadTourFestivalInfoList(
       FestivalInfoListModel model) async {
@@ -175,4 +168,4 @@ class TourGuideApiImpl implements TourGuideApi {
     }
     return [];
   }
-}
+}*/

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../data/dto/display/common/location/tourLocation.dto.dart';
 import '../../../../../data/dto/display/meet/mobility.dto.dart';
+import '../../../../../domain/model/display/meet/tour_location.model.dart';
 enum MeetPlaceMapStatus { initial, loading, success, failure }
 
 class MeetPlaceMapState extends Equatable {
@@ -15,14 +15,14 @@ class MeetPlaceMapState extends Equatable {
 });
 
   final MeetPlaceMapStatus status;
-  final List<TourLocationDto> tourDto; // 위치 기반 장소 검색 결과
+  final List<TourLocationModel> tourDto; // 위치 기반 장소 검색 결과
   final List<MobilityDto> directionsDto; // 자동차 길찾기 검색 경로
   final String destinationImg; // 목적지 이미지 Url
   final String startingPointImg; // 출발지 이미지 Url
 
   MeetPlaceMapState copyWith({
     MeetPlaceMapStatus? status,
-    List<TourLocationDto>? dto,
+    List<TourLocationModel>? dto,
     List<MobilityDto>? directionsDto,
     String? destinationImg,
     String? startingPointImg,

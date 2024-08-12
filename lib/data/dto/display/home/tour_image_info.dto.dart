@@ -1,11 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tourImageInfo.dto.freezed.dart';
-part 'tourImageInfo.dto.g.dart';
+part 'tour_image_info.dto.freezed.dart';
+part 'tour_image_info.dto.g.dart';
 
-/**
- * 이미지 정보 조회 Dto
- */
+/// ## 관광정보 서비스 - 이미지 정보 Dto
 @freezed
 class TourImageInfoDto with _$TourImageInfoDto {
   const factory TourImageInfoDto({
@@ -17,15 +15,8 @@ class TourImageInfoDto with _$TourImageInfoDto {
     required String smallimageurl, // 썸네일 이미지 ( 약 160 * 100 Size )
   }) = _TourImageInfoDto;
 
+
+
   factory TourImageInfoDto.fromJson(Map<String, dynamic> json) =>
       _$TourImageInfoDtoFromJson(json);
-
-  factory TourImageInfoDto.fromMap(Map<String, dynamic> json) => TourImageInfoDto(
-      contentid: json['contentid'],
-      imgname: json['imgname'],
-      originimgurl: json['originimgurl'],
-      serialnum: json['serialnum'],
-      cpyrhtDivCd: json['cpyrhtDivCd'],
-      smallimageurl: json['smallimageurl']
-  );
 }

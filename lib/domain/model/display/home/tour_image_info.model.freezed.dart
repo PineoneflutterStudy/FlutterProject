@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tourImageInfo.dto.dart';
+part of 'tour_image_info.model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TourImageInfoDto _$TourImageInfoDtoFromJson(Map<String, dynamic> json) {
-  return _TourImageInfoDto.fromJson(json);
+TourImageInfoModel _$TourImageInfoModelFromJson(Map<String, dynamic> json) {
+  return _TourImageInfoModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TourImageInfoDto {
+mixin _$TourImageInfoModel {
   String get contentid => throw _privateConstructorUsedError; // 콘텐츠 ID
   String get imgname => throw _privateConstructorUsedError; // 이미지명
   String get originimgurl =>
@@ -31,15 +31,15 @@ mixin _$TourImageInfoDto {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TourImageInfoDtoCopyWith<TourImageInfoDto> get copyWith =>
+  $TourImageInfoModelCopyWith<TourImageInfoModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TourImageInfoDtoCopyWith<$Res> {
-  factory $TourImageInfoDtoCopyWith(
-          TourImageInfoDto value, $Res Function(TourImageInfoDto) then) =
-      _$TourImageInfoDtoCopyWithImpl<$Res, TourImageInfoDto>;
+abstract class $TourImageInfoModelCopyWith<$Res> {
+  factory $TourImageInfoModelCopyWith(
+          TourImageInfoModel value, $Res Function(TourImageInfoModel) then) =
+      _$TourImageInfoModelCopyWithImpl<$Res, TourImageInfoModel>;
   @useResult
   $Res call(
       {String contentid,
@@ -51,9 +51,9 @@ abstract class $TourImageInfoDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TourImageInfoDtoCopyWithImpl<$Res, $Val extends TourImageInfoDto>
-    implements $TourImageInfoDtoCopyWith<$Res> {
-  _$TourImageInfoDtoCopyWithImpl(this._value, this._then);
+class _$TourImageInfoModelCopyWithImpl<$Res, $Val extends TourImageInfoModel>
+    implements $TourImageInfoModelCopyWith<$Res> {
+  _$TourImageInfoModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -100,11 +100,11 @@ class _$TourImageInfoDtoCopyWithImpl<$Res, $Val extends TourImageInfoDto>
 }
 
 /// @nodoc
-abstract class _$$TourImageInfoDtoImplCopyWith<$Res>
-    implements $TourImageInfoDtoCopyWith<$Res> {
-  factory _$$TourImageInfoDtoImplCopyWith(_$TourImageInfoDtoImpl value,
-          $Res Function(_$TourImageInfoDtoImpl) then) =
-      __$$TourImageInfoDtoImplCopyWithImpl<$Res>;
+abstract class _$$TourImageInfoModelImplCopyWith<$Res>
+    implements $TourImageInfoModelCopyWith<$Res> {
+  factory _$$TourImageInfoModelImplCopyWith(_$TourImageInfoModelImpl value,
+          $Res Function(_$TourImageInfoModelImpl) then) =
+      __$$TourImageInfoModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -117,11 +117,11 @@ abstract class _$$TourImageInfoDtoImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TourImageInfoDtoImplCopyWithImpl<$Res>
-    extends _$TourImageInfoDtoCopyWithImpl<$Res, _$TourImageInfoDtoImpl>
-    implements _$$TourImageInfoDtoImplCopyWith<$Res> {
-  __$$TourImageInfoDtoImplCopyWithImpl(_$TourImageInfoDtoImpl _value,
-      $Res Function(_$TourImageInfoDtoImpl) _then)
+class __$$TourImageInfoModelImplCopyWithImpl<$Res>
+    extends _$TourImageInfoModelCopyWithImpl<$Res, _$TourImageInfoModelImpl>
+    implements _$$TourImageInfoModelImplCopyWith<$Res> {
+  __$$TourImageInfoModelImplCopyWithImpl(_$TourImageInfoModelImpl _value,
+      $Res Function(_$TourImageInfoModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,7 +134,7 @@ class __$$TourImageInfoDtoImplCopyWithImpl<$Res>
     Object? cpyrhtDivCd = null,
     Object? smallimageurl = null,
   }) {
-    return _then(_$TourImageInfoDtoImpl(
+    return _then(_$TourImageInfoModelImpl(
       contentid: null == contentid
           ? _value.contentid
           : contentid // ignore: cast_nullable_to_non_nullable
@@ -165,8 +165,8 @@ class __$$TourImageInfoDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TourImageInfoDtoImpl implements _TourImageInfoDto {
-  const _$TourImageInfoDtoImpl(
+class _$TourImageInfoModelImpl implements _TourImageInfoModel {
+  const _$TourImageInfoModelImpl(
       {required this.contentid,
       required this.imgname,
       required this.originimgurl,
@@ -174,8 +174,8 @@ class _$TourImageInfoDtoImpl implements _TourImageInfoDto {
       required this.cpyrhtDivCd,
       required this.smallimageurl});
 
-  factory _$TourImageInfoDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TourImageInfoDtoImplFromJson(json);
+  factory _$TourImageInfoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TourImageInfoModelImplFromJson(json);
 
   @override
   final String contentid;
@@ -197,14 +197,14 @@ class _$TourImageInfoDtoImpl implements _TourImageInfoDto {
 
   @override
   String toString() {
-    return 'TourImageInfoDto(contentid: $contentid, imgname: $imgname, originimgurl: $originimgurl, serialnum: $serialnum, cpyrhtDivCd: $cpyrhtDivCd, smallimageurl: $smallimageurl)';
+    return 'TourImageInfoModel(contentid: $contentid, imgname: $imgname, originimgurl: $originimgurl, serialnum: $serialnum, cpyrhtDivCd: $cpyrhtDivCd, smallimageurl: $smallimageurl)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TourImageInfoDtoImpl &&
+            other is _$TourImageInfoModelImpl &&
             (identical(other.contentid, contentid) ||
                 other.contentid == contentid) &&
             (identical(other.imgname, imgname) || other.imgname == imgname) &&
@@ -226,29 +226,29 @@ class _$TourImageInfoDtoImpl implements _TourImageInfoDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TourImageInfoDtoImplCopyWith<_$TourImageInfoDtoImpl> get copyWith =>
-      __$$TourImageInfoDtoImplCopyWithImpl<_$TourImageInfoDtoImpl>(
+  _$$TourImageInfoModelImplCopyWith<_$TourImageInfoModelImpl> get copyWith =>
+      __$$TourImageInfoModelImplCopyWithImpl<_$TourImageInfoModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TourImageInfoDtoImplToJson(
+    return _$$TourImageInfoModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _TourImageInfoDto implements TourImageInfoDto {
-  const factory _TourImageInfoDto(
+abstract class _TourImageInfoModel implements TourImageInfoModel {
+  const factory _TourImageInfoModel(
       {required final String contentid,
       required final String imgname,
       required final String originimgurl,
       required final String serialnum,
       required final String cpyrhtDivCd,
-      required final String smallimageurl}) = _$TourImageInfoDtoImpl;
+      required final String smallimageurl}) = _$TourImageInfoModelImpl;
 
-  factory _TourImageInfoDto.fromJson(Map<String, dynamic> json) =
-      _$TourImageInfoDtoImpl.fromJson;
+  factory _TourImageInfoModel.fromJson(Map<String, dynamic> json) =
+      _$TourImageInfoModelImpl.fromJson;
 
   @override
   String get contentid;
@@ -264,6 +264,6 @@ abstract class _TourImageInfoDto implements TourImageInfoDto {
   String get smallimageurl;
   @override
   @JsonKey(ignore: true)
-  _$$TourImageInfoDtoImplCopyWith<_$TourImageInfoDtoImpl> get copyWith =>
+  _$$TourImageInfoModelImplCopyWith<_$TourImageInfoModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tourFestivalInfo.dto.dart';
+part of 'tour_festival_info.dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

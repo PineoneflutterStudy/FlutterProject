@@ -1,12 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tourFestivalInfo.dto.freezed.dart';
+part 'tour_festival_info.model.freezed.dart';
+part 'tour_festival_info.model.g.dart';
 
-part 'tourFestivalInfo.dto.g.dart';
+/// ## 관광정보 서비스 - 행사 정보 Model
 
 @freezed
-class TourFestivalInfoDto with _$TourFestivalInfoDto {
-  const factory TourFestivalInfoDto({
+class TourFestivalInfoModel with _$TourFestivalInfoModel {
+  const factory TourFestivalInfoModel({
     required String addr1, // 주소 : 서울특별시 중구 명동길 26
     required String addr2, // 상세주소 : (명동2가)
     required String areacode, // 지역코드
@@ -29,34 +30,10 @@ class TourFestivalInfoDto with _$TourFestivalInfoDto {
     required String sigungucode, // 시군구코드
     required String tel, // 전화번호
     required String title, // 제목 : 콘텐츠 제목
-  }) = _TourFestivalInfoDto;
+  }) = _TourFestivalInfoModel;
 
-  factory TourFestivalInfoDto.fromJson(Map<String, dynamic> json) =>
-      _$TourFestivalInfoDtoFromJson(json);
 
-  factory TourFestivalInfoDto.fromMap(Map<String, dynamic> json) =>
-      TourFestivalInfoDto(
-          addr1: json['addr1'],
-          addr2: json['addr2'],
-          areacode: json['areacode'],
-          booktour: json['booktour'],
-          cat1: json['cat1'],
-          cat2: json['cat2'],
-          cat3: json['cat3'],
-          contentid: json['contentid'],
-          contenttypeid: json['contenttypeid'],
-          createdtime: json['createdtime'],
-          eventstartdate: json['eventstartdate'],
-          eventenddate: json['eventenddate'],
-          firstimage: json['firstimage'],
-          firstimage2: json['firstimage2'],
-          cpyrhtDivCd: json['cpyrhtDivCd'],
-          mapx: json['mapx'],
-          mapy: json['mapy'],
-          mlevel: json['mlevel'],
-          modifiedtime: json['modifiedtime'],
-          sigungucode: json['sigungucode'],
-          tel: json['tel'],
-          title: json['title']
-      );
+
+  factory TourFestivalInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$TourFestivalInfoModelFromJson(json);
 }

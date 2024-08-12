@@ -63,41 +63,57 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
   @override
   Widget build(BuildContext context) {
     final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(dialogBgRadius),
-            ),
+    switch(status) {
+      case AddressInfoStatus.initial:
+      case AddressInfoStatus.loading:
+      {
+        _logger.i('Current AddressInfo Status is ... -> $status');
+        return CircularProgressIndicator();
+      }
+      case AddressInfoStatus.failure:
+        {
+          _logger.e('Current AddressInfo Status is ... -> $status');
+          return CircularProgressIndicator();
+        }
+      case AddressInfoStatus.success:
+        _logger.i('Success Status..!');
+        return Dialog(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(dialogBgRadius),
+                ),
+              ),
+              TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: TextContentAreaWidget(
+                  content: '먼저 출발지를 입력해주세요.',
+                  contentSize: textSize_content,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              // 주소 검색 Api 사용
+              status == AddressInfoStatus.initial
+                  ? const Center(child: CircularProgressIndicator(),)
+                  : const _ContentView(),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
-          TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextContentAreaWidget(
-              content: '먼저 출발지를 입력해주세요.',
-              contentSize: textSize_content,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          // 주소 검색 Api 사용
-          status == AddressInfoStatus.initial
-              ? const Center(child: CircularProgressIndicator(),)
-              : const _ContentView(),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    );
+        );
+    }
+
   }
 }
 

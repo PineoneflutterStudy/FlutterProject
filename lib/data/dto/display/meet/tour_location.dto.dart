@@ -1,12 +1,10 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tourLocation.dto.freezed.dart';
-part 'tourLocation.dto.g.dart';
+part 'tour_location.dto.freezed.dart';
+part 'tour_location.dto.g.dart';
 
-/**
- * 위치기반 관광정보 조회 Dto
- */
+/// ## 관광정보 서비스 - 위치기반 관광정보 Dto
+/// * https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578#/
 @freezed
 class TourLocationDto with _$TourLocationDto {
   const factory TourLocationDto({
@@ -30,35 +28,10 @@ class TourLocationDto with _$TourLocationDto {
     required String modifiedtime, // 수정일 : 콘텐츠 수정일
     required String sigungucode, // 시군구코드
     required String tel, // 전화번호
-    required String title, // 제목 : 콘텐츠 제목
+    required String title,
   }) = _TourLocationDto;
-
 
 
   factory TourLocationDto.fromJson(Map<String, dynamic> json) =>
       _$TourLocationDtoFromJson(json);
-
-  factory TourLocationDto.fromMap(Map<String, dynamic> json) => TourLocationDto(
-      addr1: json['addr1'],
-      addr2: json['addr2'],
-      areacode: json['areacode'],
-      booktour: json['booktour'],
-      cat1: json['cat1'],
-      cat2: json['cat2'],
-      cat3: json['cat3'],
-      contentid: json['contentid'],
-      contenttypeid: json['contenttypeid'],
-      createdtime: json['createdtime'],
-      dist: json['dist'],
-      firstimage: json['firstimage'],
-      firstimage2: json['firstimage2'],
-      cpyrhtDivCd: json['cpyrhtDivCd'],
-      mapx: json['mapx'],
-      mapy: json['mapy'],
-      mlevel: json['mlevel'],
-      modifiedtime: json['modifiedtime'],
-      sigungucode: json['sigungucode'],
-      tel: json['tel'],
-      title: json['title']
-  );
 }
