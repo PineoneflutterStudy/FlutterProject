@@ -12,4 +12,6 @@ class LoginState with _$LoginState {
   const factory LoginState.requireMoreUserInfo() = _RequireMoreUserInfo;
 
   const factory LoginState.loggedIn() = _LoggedIn;
+
+  const factory LoginState.loggedOut() = _LoggedOut;
 }

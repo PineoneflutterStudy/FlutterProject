@@ -773,6 +773,7 @@ mixin _$LoginState {
     required TResult Function() alreadyLoggedIn,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -781,6 +782,7 @@ mixin _$LoginState {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -789,6 +791,7 @@ mixin _$LoginState {
     TResult Function()? alreadyLoggedIn,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -798,6 +801,7 @@ mixin _$LoginState {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -806,6 +810,7 @@ mixin _$LoginState {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -814,6 +819,7 @@ mixin _$LoginState {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -879,6 +885,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() alreadyLoggedIn,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
   }) {
     return initial();
   }
@@ -890,6 +897,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
   }) {
     return initial?.call();
   }
@@ -901,6 +909,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? alreadyLoggedIn,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -916,6 +925,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
   }) {
     return initial(this);
   }
@@ -927,6 +937,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
   }) {
     return initial?.call(this);
   }
@@ -938,6 +949,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -993,6 +1005,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     required TResult Function() alreadyLoggedIn,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
   }) {
     return alreadyLoggedIn();
   }
@@ -1004,6 +1017,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
   }) {
     return alreadyLoggedIn?.call();
   }
@@ -1015,6 +1029,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult Function()? alreadyLoggedIn,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (alreadyLoggedIn != null) {
@@ -1030,6 +1045,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
   }) {
     return alreadyLoggedIn(this);
   }
@@ -1041,6 +1057,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
   }) {
     return alreadyLoggedIn?.call(this);
   }
@@ -1052,6 +1069,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (alreadyLoggedIn != null) {
@@ -1108,6 +1126,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     required TResult Function() alreadyLoggedIn,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
   }) {
     return requireMoreUserInfo();
   }
@@ -1119,6 +1138,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
   }) {
     return requireMoreUserInfo?.call();
   }
@@ -1130,6 +1150,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult Function()? alreadyLoggedIn,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (requireMoreUserInfo != null) {
@@ -1145,6 +1166,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
   }) {
     return requireMoreUserInfo(this);
   }
@@ -1156,6 +1178,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
   }) {
     return requireMoreUserInfo?.call(this);
   }
@@ -1167,6 +1190,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (requireMoreUserInfo != null) {
@@ -1222,6 +1246,7 @@ class _$LoggedInImpl implements _LoggedIn {
     required TResult Function() alreadyLoggedIn,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
   }) {
     return loggedIn();
   }
@@ -1233,6 +1258,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
   }) {
     return loggedIn?.call();
   }
@@ -1244,6 +1270,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult Function()? alreadyLoggedIn,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
@@ -1259,6 +1286,7 @@ class _$LoggedInImpl implements _LoggedIn {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
   }) {
     return loggedIn(this);
   }
@@ -1270,6 +1298,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
   }) {
     return loggedIn?.call(this);
   }
@@ -1281,6 +1310,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
@@ -1292,4 +1322,124 @@ class _$LoggedInImpl implements _LoggedIn {
 
 abstract class _LoggedIn implements LoginState {
   const factory _LoggedIn() = _$LoggedInImpl;
+}
+
+/// @nodoc
+abstract class _$$LoggedOutImplCopyWith<$Res> {
+  factory _$$LoggedOutImplCopyWith(
+          _$LoggedOutImpl value, $Res Function(_$LoggedOutImpl) then) =
+      __$$LoggedOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoggedOutImplCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$LoggedOutImpl>
+    implements _$$LoggedOutImplCopyWith<$Res> {
+  __$$LoggedOutImplCopyWithImpl(
+      _$LoggedOutImpl _value, $Res Function(_$LoggedOutImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoggedOutImpl implements _LoggedOut {
+  const _$LoggedOutImpl();
+
+  @override
+  String toString() {
+    return 'LoginState.loggedOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoggedOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() alreadyLoggedIn,
+    required TResult Function() requireMoreUserInfo,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
+  }) {
+    return loggedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? alreadyLoggedIn,
+    TResult? Function()? requireMoreUserInfo,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
+  }) {
+    return loggedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? alreadyLoggedIn,
+    TResult Function()? requireMoreUserInfo,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
+    required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
+  }) {
+    return loggedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
+    TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
+  }) {
+    return loggedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoggedOut implements LoginState {
+  const factory _LoggedOut() = _$LoggedOutImpl;
 }

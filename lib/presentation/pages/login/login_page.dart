@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/common_utils.dart';
+import '../../../core/utils/logger.dart';
 import 'bloc/login_bloc.dart';
 import 'widgets/login_option_list.dart';
 
@@ -47,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   alreadyLoggedIn: () => _onAlreadyLoggedIn(),
                   requireMoreUserInfo: () => _onRequireMoreUserInfo(),
                   loggedIn: () => _onLoggedIn(),
+                  loggedOut: () => _onLoggedOut(),
                   orElse: () => null),
             )),
       );
@@ -68,5 +70,10 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoggedIn() {
     // 로그인 성공한 경우 이전 화면으로 복귀
     Navigator.pop(context);
+  }
+
+  void _onLoggedOut() {
+    // 오류 토스트 노출
+    CommonUtils.showToastMsg('알 수 없는 오류로 로그아웃되었습니다.\n다시 로그인해 주세요.');
   }
 }

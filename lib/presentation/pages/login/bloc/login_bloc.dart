@@ -48,20 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     _initAppLinks();
 
     // 파이어베이스 유저 변경 구독
-    FirebaseAuthUtil().auth.userChanges().listen(
-      (user) {
-        // 이메일 존재 여부 확인
-        final String email = user?.email ?? '';
-        if (email.isEmpty) {
-          // 이메일 없는 경우 추가로 받아야 한다.
-          // ex) 비즈앱 심사 전 카카오 로그인
-          add(LoginEvent.userInfoMissing());
-        } else {
-          // 이메일 있는 경우 파이어스토어에 저장하고 종료
-          add(LoginEvent.userChanged(user));
-        }
-      },
-    );
+    FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
   }
 
   void _onLoginOptionItemPressed(Emitter<LoginState> emit, AuthType authType) {
@@ -78,6 +65,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _onUserChanged(Emitter<LoginState> emit, User? user) {
+    // user 가 null 이라는 건 로그인 된 상태에서 로그아웃 되었다는 건데
+    // 정상적인 상황은 아니므로 로그아웃하고 토스트 노출
+    if (user == null) {
+      CustomLogger.logger.e('$_tag Error - User changed but is null.');
+      FirebaseAuthUtil().auth.signOut();
+      emit(LoginState.loggedOut());
+      return;
+    }
+
     add(LoginEvent.loginSucceeded());
   }
 
