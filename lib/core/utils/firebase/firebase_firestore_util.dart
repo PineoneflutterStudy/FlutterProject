@@ -155,4 +155,37 @@ class FirebaseFirestoreUtil {
     }
     return await action(userDocRef);
   }
+
+  Future<Map<String, dynamic>> getUserDocumentByEmail(String email) async {
+    final QuerySnapshot snapshot =
+        await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
+    if (snapshot.size != 1) {
+      final String _tag = '[Login]';
+      CustomLogger.logger.e('$_tag Error - querySnapshot.size != 1');
+      if (!CustomLogger.isDebugLogHidden) {
+        snapshot.docs.forEach(
+          (element) => CustomLogger.logger.d('$_tag element = ${toDynamicMap(element)}'),
+        );
+      }
+    }
+    return toDynamicMap(snapshot.docs.first);
+  }
+
+  Future<bool> isSameEmailUserExist(String email) async {
+    final Map<String, dynamic> userDocMap = await getUserDocumentByEmail(email);
+    return userDocMap.isNotEmpty;
+  }
+
+  Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?> snapshot) {
+    try {
+      final data = snapshot.data();
+      if (data is Map<String, dynamic>) {
+        return data;
+      } else {
+        return {}; // 데이터가 null이거나 Map으로 캐스팅할 수 없는 경우 빈 맵 반환
+      }
+    } catch (e) {
+      return {}; // 캐스팅 오류 발생 시 빈 맵 반환
+    }
+  }
 }
