@@ -29,7 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) {
       event.when(
           started: () => _onStarted(emit),
-          loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(authType),
+          loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
           userChanged: (user) => _onUserChanged(emit, user),
           userInfoMissing: () => _onUserInfoMissing(emit),
           loginSucceeded: () => _onLoginSucceeded(emit));
@@ -45,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     // 네이버 로그인 결과를 받기 위한 앱 링크 초기화
-    initAppLinks();
+    _initAppLinks();
 
     // 파이어베이스 유저 변경 구독
     FirebaseAuthUtil().auth.userChanges().listen(
@@ -64,7 +64,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  void _onLoginOptionItemPressed(AuthType authType) {
+  void _onLoginOptionItemPressed(Emitter<LoginState> emit, AuthType authType) {
     switch (authType) {
       case AuthType.google:
         _launchGoogleLogin();
@@ -120,7 +120,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   /// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
   /// [launchNaverLogin]의 결과를 받기 위해선 반드시 호출하는 위젯의 [StatefulWidget.initState]에서 호출이 필요하다.
-  Future<void> initAppLinks() async {
+  Future<void> _initAppLinks() async {
     final AppLinks appLinks = AppLinks();
     final Uri? initialLink = await appLinks.getInitialLink();
     if (initialLink != null) {
@@ -173,7 +173,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoTalk();
         CustomLogger.logger.i('$_tag KakaoTalk login successed.');
-        onKakaoLoginSuccessed(authToken);
+        _onKakaoLoginSuccessed(authToken);
       } catch (error) {
         // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
         // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
@@ -196,21 +196,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoAccount();
       CustomLogger.logger.i('$_tag KakaoAccount login successed.');
-      onKakaoLoginSuccessed(authToken);
+      _onKakaoLoginSuccessed(authToken);
     } catch (error) {
       CustomLogger.logger.e('$_tag KakaoAccount login failed. error = $error');
     }
   }
 
-  /// 카카오 로그인 성공 후 파이어베이스 로그인
-  void onKakaoLoginSuccessed(kakao.OAuthToken authToken) {
-    // 인증 정보로 인증서 생성
-    final OAuthProvider provider = OAuthProvider('oidc.kakao');
-    final OAuthCredential credential =
-        provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
+  /// 카카오 비즈앱 심사를 통과해야 카카오 계정 이메일 가져올 수 있다.
+  final bool isKakaoBizApp = false; // fixme 비즈앱 심사 통과 시 변경
 
-    // 인증서로 파이어베이스 로그인
-    FirebaseAuth.instance.signInWithCredential(credential);
+  /// 카카오 로그인 성공 후 파이어베이스 로그인
+  void _onKakaoLoginSuccessed(kakao.OAuthToken authToken) {
+    if(isKakaoBizApp) {
+      // 인증 정보로 인증서 생성
+      final OAuthProvider provider = OAuthProvider('oidc.kakao');
+      final OAuthCredential credential =
+      provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
+
+      // 인증서로 파이어베이스 로그인
+      FirebaseAuth.instance.signInWithCredential(credential);
+    } else {
+      // 비즈앱 심사를 통과하지 않아 이메일을 가져올 수 없으므로
+      //eff 이메일 가입 화면으로 이동하는 등 시나리오 필요
+      // add(LoginEvent.userInfoMissing());
+    }
   }
 
   void _launchSignInPage() {
