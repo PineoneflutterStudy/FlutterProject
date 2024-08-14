@@ -6,6 +6,7 @@ class RoutePath{
   //menu
   static const String home = '/home';
   static const String plan = '/plan';
+  static const String planner = '/planner';
   static const String rcmn = '/rcmn';
   static const String like = '/like';
   static const String meet = '/meet';

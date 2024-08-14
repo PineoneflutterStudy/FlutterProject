@@ -11,15 +11,13 @@ class LoginPopup extends StatelessWidget {
         content: Text('서비스이용을 위해 로그인이 필요합니다.\n로그인 하시겠습니까?'),
         actions: [
           TextButton(
-            onPressed: () {
-              context.pop();
-            },
+            onPressed: () => context.pop(),
             child: Text('취소'),
           ),
           TextButton(
-            onPressed: () {
-              context.pushNamed('login');
+            onPressed: () async {
               context.pop();
+              await context.pushNamed('login');
             },
             child: Text('확인'),
           )

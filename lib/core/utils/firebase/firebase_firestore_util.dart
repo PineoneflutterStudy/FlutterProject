@@ -63,7 +63,7 @@ class FirebaseFirestoreUtil {
         return querySnapshot.docs.map((doc) => doc.data()).toList();
       } catch (e) {
         _logger.e("Error getting collection documents: $e");
-        return [];
+        return null;
       }
     });
   }

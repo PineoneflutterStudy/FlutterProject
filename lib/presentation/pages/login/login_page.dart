@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
     //ett 로그아웃하고 다른 계정으로 로그인할 건지 팝업을 띄울수도?
     // 이미 로그인 된 경우 토스트 노출 후 이전 화면으로 복귀
     CommonUtils.showToastMsg('이미 로그인되어 있습니다.');
-    Navigator.pop(context);
+    Navigator.pop(context,true);
   }
 
   void _onRequireMoreUserInfo() {
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onLoggedIn() {
     // 로그인 성공한 경우 이전 화면으로 복귀
-    Navigator.pop(context);
+    Navigator.pop(context,true);
   }
 
   void _onLoggedOut() {

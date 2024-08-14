@@ -946,6 +946,8 @@ PODS:
     - abseil/meta/type_traits
     - abseil/xcprivacy
   - abseil/xcprivacy (1.20240116.2)
+  - app_links (0.0.1):
+    - Flutter
   - AppAuth (1.7.5):
     - AppAuth/Core (= 1.7.5)
     - AppAuth/ExternalUserAgent (= 1.7.5)
@@ -1117,9 +1119,6 @@ PODS:
   - flutter_inappwebview/Core (0.0.1):
     - Flutter
     - OrderedSet (~> 5.0)
-  - flutter_naver_login (0.0.1):
-    - Flutter
-    - naveridlogin-sdk-ios (~> 4.1.0)
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -1296,7 +1295,6 @@ PODS:
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
-  - naveridlogin-sdk-ios (4.1.6)
   - OrderedSet (5.0.0)
   - path_provider_foundation (0.0.1):
     - Flutter
@@ -1323,6 +1321,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - app_links (from `.symlinks/plugins/app_links/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Firebase/Core
@@ -1336,7 +1335,6 @@ DEPENDENCIES:
   - flutter_config (from `.symlinks/plugins/flutter_config/ios`)
   - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
-  - flutter_naver_login (from `.symlinks/plugins/flutter_naver_login/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
@@ -1381,7 +1379,6 @@ SPEC REPOS:
     - libwebp
     - Mantle
     - nanopb
-    - naveridlogin-sdk-ios
     - OrderedSet
     - PromisesObjC
     - RecaptchaInterop
@@ -1391,6 +1388,8 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
+  app_links:
+    :path: ".symlinks/plugins/app_links/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   file_picker:
@@ -1411,8 +1410,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_image_compress_common/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
-  flutter_naver_login:
-    :path: ".symlinks/plugins/flutter_naver_login/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   geocoding_ios:
@@ -1438,6 +1435,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
+  app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
   cloud_firestore: 71f0ffec97ce23c51587ec906f4cc470c518bc70
@@ -1466,7 +1464,6 @@ SPEC CHECKSUMS:
   flutter_config: f48f0d47a284f1791aacce2687eabb3309ba7a41
   flutter_image_compress_common: ec1d45c362c9d30a3f6a0426c297f47c52007e3e
   flutter_inappwebview: 3d32228f1304635e7c028b0d4252937730bbc6cf
-  flutter_naver_login: 1dbf6d21aae5235cdf76a28ac79cf6871899282f
   fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
   geocoding_ios: a389ea40f6f548de6e63006a2e31bf66ff80769a
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
@@ -1484,7 +1481,6 @@ SPEC CHECKSUMS:
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
-  naveridlogin-sdk-ios: cdd34e3585a3d5aaf37c1d84c1f41faba4a25d1a
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47

@@ -7,7 +7,8 @@ import '../../../../core/utils/constant.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
 class GoPlanPopup extends StatefulWidget {
-  const GoPlanPopup({super.key});
+  final AddressBloc addressBloc;
+  const GoPlanPopup({required this.addressBloc, super.key});
 
   @override
   State<GoPlanPopup> createState() => _GoPlanPopupState();
@@ -25,100 +26,122 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
   }
 
   Future<void> _onConfirm() async {
-    final location = destinationController.text ?? '';
-    if (location.isEmpty) {
-      CommonUtils.showToastMsg('여행지를 입력해주세요.');
-      return;
-    }
-    final addressBloc = context.read<AddressBloc>();
-    addressBloc.add(AddressInitialized(location));
+    final location = destinationController.text;
 
-    // AddressBloc 상태를 감지하여 처리
-    addressBloc.stream.listen((state) {
-      print('state : $state');
-      if (state.status == Status.success) {
-        Navigator.of(context).pop({'destination': location, 'arrivalTime': selectedTime.format(context)});
-      } else if (state.status == Status.error) {
-        CommonUtils.showToastMsg('여행지를 다시 입력해주세요.');
-      }
-    });
+    if (location.isEmpty) {
+      CommonUtils.showToastMsg("여행지를 입력해주세요.");
+    } else {
+      widget.addressBloc.add(AddressInitialized(location));
+    }
+    return;
   }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('개꿀트립과 함께\n여행 계획 세우러 떠나볼까요~?', style: TextStyle(fontSize: 25)),
-      content: Scrollbar(
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          child: ListBody(
-            children: [
-              Text('먼저, 여행지와 도착예정시간을 입력해주세요.', style: TextStyle(fontSize: 17, color: AppColors.primary),),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text('여행지   :  ', style: TextStyle(fontSize: 20),),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      controller: destinationController,
-                      decoration: InputDecoration(border: UnderlineInputBorder()),
+    return BlocListener<AddressBloc, AddressState>(
+      bloc: widget.addressBloc,
+      listener: (context, state) {
+        if (state.status == Status.success) {
+          FocusScope.of(context).unfocus(); // 키보드 닫기
+          Navigator.of(context).pop({
+            "destination": destinationController.text,
+            "arrivalTime": selectedTime.format(context),
+          });
+        } else if (state.status == Status.error) {
+          CommonUtils.showToastMsg("여행지를 다시 입력해주세요.");
+        }
+      },
+      child: AlertDialog(
+        title:
+            Text("개꿀트립과 함께\n여행 계획 세우러 떠나볼까요~?", style: TextStyle(fontSize: 25)),
+        content: Scrollbar(
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text(
+                  "먼저, 여행지와 도착예정시간을 입력해주세요.",
+                  style: TextStyle(fontSize: 17, color: AppColors.primary),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text(
+                      "여행지   :  ",
+                      style: TextStyle(fontSize: 20),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text('도착시간', style: TextStyle(fontSize: 20)),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: DropdownButtonFormField<int>(
-                      value: selectedTime.hour,
-                      decoration: InputDecoration(border: OutlineInputBorder()),
-                      items: List.generate(25, (index) => index).map((int value) {
-                        return DropdownMenuItem<int>(value: value, child: Text(value.toString().padLeft(2, '0')),);
-                      }).toList(),
-                      onChanged: (newValue) => setState(() => selectedTime = TimeOfDay(hour: newValue ?? 10, minute: selectedTime.minute)),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: destinationController,
+                        decoration:
+                            InputDecoration(border: UnderlineInputBorder()),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Text(':'),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: DropdownButtonFormField<int>(
-                      value: selectedTime.minute,
-                      decoration: InputDecoration(border: OutlineInputBorder()),
-                      items: [0, 30].map((int value) {
-                        return DropdownMenuItem<int>(value: value, child: Text(value.toString().padLeft(2, '0')));
-                      }).toList(),
-                      onChanged: (newValue) {
-                        setState(() => selectedTime = TimeOfDay(hour: selectedTime.hour, minute: newValue ?? 0));
-                      },
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text("도착시간", style: TextStyle(fontSize: 20)),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: DropdownButtonFormField<int>(
+                        value: selectedTime.hour,
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
+                        items: List.generate(25, (index) => index)
+                            .map((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString().padLeft(2, "0")),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) => setState(() => selectedTime =
+                            TimeOfDay(
+                                hour: newValue ?? 10,
+                                minute: selectedTime.minute)),
+                      ),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    SizedBox(width: 10),
+                    Text(':'),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: DropdownButtonFormField<int>(
+                        value: selectedTime.minute,
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
+                        items: [0, 30].map((int value) {
+                          return DropdownMenuItem<int>(
+                              value: value,
+                              child: Text(value.toString().padLeft(2, "0")));
+                        }).toList(),
+                        onChanged: (newValue) {
+                          setState(() => selectedTime = TimeOfDay(
+                              hour: selectedTime.hour, minute: newValue ?? 0));
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            FocusScope.of(context).unfocus();
-            Navigator.of(context).pop();
-          },
-          child: Text('No'),
-        ),
-        TextButton(
-          onPressed: (){
-            FocusScope.of(context).unfocus();
-            _onConfirm();
+        actions: [
+          TextButton(
+            onPressed: () {
+              FocusScope.of(context).unfocus(); // 키보드 닫기
+              Navigator.of(context).pop();
             },
-          child: Text('Yes'),
-        ),
-      ],
+            child: Text("No"),
+          ),
+          TextButton(
+            onPressed: () => _onConfirm(),
+            child: Text("Yes"),
+          ),
+        ],
+      ),
     );
   }
 }
