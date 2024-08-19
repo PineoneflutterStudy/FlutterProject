@@ -71,7 +71,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
 
       case AuthType.email:
-        _launchSignInPage();
+      //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
+      // emit(LoginState.loggedOut());
     }
   }
 
@@ -97,7 +98,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   /// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
-  /// [signInWithNaver]의 결과를 받기 위해선 호출이 필요하다.
+  /// [FirebaseAuthUtil.signInWithNaver]의 결과를 받기 위해선 호출이 필요하다.
   Future<void> _initAppLinks() async {
     final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
 
@@ -121,16 +122,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           .e('`Error - Naver sign-in failed: error = $error, stackTrace = $stackTrace');
       //eff 예외처리 필요
     });
-  }
-
-  void _launchSignInPage() {
-    CustomLogger.logger.i('$_tag launchSignInPage()');
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => SignInPage(),
-    //     fullscreenDialog: true,
-    //   ),
-    // );
   }
 }

@@ -76,4 +76,15 @@ class _LoginPageState extends State<LoginPage> {
     // 오류 토스트 노출
     CommonUtils.showToastMsg('알 수 없는 오류로 로그아웃되었습니다.\n다시 로그인해 주세요.');
   }
+
+  void _launchEmailSignInPage() {
+    CustomLogger.logger.i('$_tag launchSignInPage()');
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => SignInPage(),
+    //     fullscreenDialog: true,
+    //   ),
+    // );
+  }
 }

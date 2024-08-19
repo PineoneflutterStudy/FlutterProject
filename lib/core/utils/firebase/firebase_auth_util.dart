@@ -21,7 +21,7 @@ class FirebaseAuthUtil {
 
   bool isLoggedIn() => (getCurrentUser() != null);
 
-  /// ##구글 로그인을 실핸한다.
+  /// ## 구글 로그인을 실행한다.
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? account = await GoogleSignIn().signIn();
@@ -49,7 +49,33 @@ class FirebaseAuthUtil {
     }
   }
 
-  /// ##네이버 로그인을 실핸한다.
+  /// ## 네이버 로그인을 실행한다.
+  ///
+  /// 네이버 로그인 결과를 처리하기 위해서는 아래 코드 예제와 같이
+  /// [handleNaverAppLinks] 호출을 위한 앱 링크 초기화가 필요하다.
+  ///
+  /// ### 코드 예제
+  ///
+  /// ```dart
+  ///   Future<void> _initAppLinks() async {
+  ///     final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
+  ///
+  ///     final AppLinks appLinks = AppLinks();
+  ///     final Uri? initialLink = await appLinks.getInitialLink();
+  ///     if (initialLink != null) {
+  ///       authUtil.handleNaverAppLinks(initialLink);
+  ///     }
+  ///
+  ///     appLinks.uriLinkStream.listen((uri) {
+  ///       try {
+  ///         authUtil.handleNaverAppLinks(uri);
+  ///       } catch (error) {
+  ///         // 예외 처리
+  ///       }
+  ///     });
+  ///   }
+  ///
+  /// ```
   Future<void> signInWithNaver() async {
     final String clientId = FlutterConfig.get('NAVER_CLIENT_ID');
     final String redirectUri =
@@ -62,7 +88,7 @@ class FirebaseAuthUtil {
     await launchUrl(url);
   }
 
-  /// ##네이버 로그인과 관련된 앱 링크를 처리한다.
+  /// ## 네이버 로그인과 관련된 앱 링크를 처리한다.
   Future<void> handleNaverAppLinks(Uri uri) async {
     try {
       if (uri.authority == 'login-callback') {
@@ -80,7 +106,7 @@ class FirebaseAuthUtil {
     }
   }
 
-  /// ##카카오 로그인을 실핸한다.
+  /// ## 카카오 로그인을 실행한다.
   Future<void> signInWithKakao() async {
     if (await kakao.isKakaoTalkInstalled()) {
       // 카카오톡 실행 가능한 경우 카카오톡으로 로그인
@@ -120,7 +146,7 @@ class FirebaseAuthUtil {
   /// 카카오 비즈앱 심사를 통과해야 카카오 계정 이메일 가져올 수 있다.
   final bool isKakaoBizApp = false; // fixme 비즈앱 심사 통과 시 변경
 
-  /// 카카오 로그인 성공 후 파이어베이스 로그인
+  /// ## 카카오 로그인 성공 후 파이어베이스 로그인
   void _onKakaoLoginSucceeded(kakao.OAuthToken authToken) {
     if (isKakaoBizApp) {
       // 인증 정보로 인증서 생성
