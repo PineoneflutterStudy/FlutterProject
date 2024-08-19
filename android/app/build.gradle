@@ -11,7 +11,7 @@ def keystoreProperties = new Properties()
 def keystorePropertiesFile = file("${System.getenv('ProjectCommon')}/FlutterStudy/key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-    println "Info - load keystorePropertiesFile successed."
+    println "Info - load keystorePropertiesFile succeeded."
 } else {
     println "Error - load keystorePropertiesFile failed."
 }
