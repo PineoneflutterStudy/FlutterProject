@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../domain/model/display/place/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 import '../dialog/go_plan_popup.dart';
 
@@ -32,12 +33,12 @@ class PlanUtil {
   }
 
   // 여행지 입력 팝업
-  Future<Map<String, String>?> showGoPlanPopup({
+  Future<Map<String, Planner>?> showGoPlanPopup({
     required BuildContext context,
-    required AddressBloc addressBloc,
+    required AddressBloc addressBloc
   }) async {
     // 팝업을 띄우고 결과를 반환
-    final result = await showDialog<Map<String, String>>(
+    final result = await showDialog<Map<String, Planner>>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {

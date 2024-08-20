@@ -1,0 +1,621 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'planner.model.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+Planner _$PlannerFromJson(Map<String, dynamic> json) {
+  return _Planner.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Planner {
+  String get planner_id => throw _privateConstructorUsedError;
+  String get planner_title => throw _privateConstructorUsedError;
+  List<PlannerItem> get planner_item_list => throw _privateConstructorUsedError;
+  Address? get destination => throw _privateConstructorUsedError;
+  String get arrivalTime => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PlannerCopyWith<Planner> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PlannerCopyWith<$Res> {
+  factory $PlannerCopyWith(Planner value, $Res Function(Planner) then) =
+      _$PlannerCopyWithImpl<$Res, Planner>;
+  @useResult
+  $Res call(
+      {String planner_id,
+      String planner_title,
+      List<PlannerItem> planner_item_list,
+      Address? destination,
+      String arrivalTime});
+
+  $AddressCopyWith<$Res>? get destination;
+}
+
+/// @nodoc
+class _$PlannerCopyWithImpl<$Res, $Val extends Planner>
+    implements $PlannerCopyWith<$Res> {
+  _$PlannerCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? planner_id = null,
+    Object? planner_title = null,
+    Object? planner_item_list = null,
+    Object? destination = freezed,
+    Object? arrivalTime = null,
+  }) {
+    return _then(_value.copyWith(
+      planner_id: null == planner_id
+          ? _value.planner_id
+          : planner_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      planner_title: null == planner_title
+          ? _value.planner_title
+          : planner_title // ignore: cast_nullable_to_non_nullable
+              as String,
+      planner_item_list: null == planner_item_list
+          ? _value.planner_item_list
+          : planner_item_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerItem>,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res>? get destination {
+    if (_value.destination == null) {
+      return null;
+    }
+
+    return $AddressCopyWith<$Res>(_value.destination!, (value) {
+      return _then(_value.copyWith(destination: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$PlannerImplCopyWith<$Res> implements $PlannerCopyWith<$Res> {
+  factory _$$PlannerImplCopyWith(
+          _$PlannerImpl value, $Res Function(_$PlannerImpl) then) =
+      __$$PlannerImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String planner_id,
+      String planner_title,
+      List<PlannerItem> planner_item_list,
+      Address? destination,
+      String arrivalTime});
+
+  @override
+  $AddressCopyWith<$Res>? get destination;
+}
+
+/// @nodoc
+class __$$PlannerImplCopyWithImpl<$Res>
+    extends _$PlannerCopyWithImpl<$Res, _$PlannerImpl>
+    implements _$$PlannerImplCopyWith<$Res> {
+  __$$PlannerImplCopyWithImpl(
+      _$PlannerImpl _value, $Res Function(_$PlannerImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? planner_id = null,
+    Object? planner_title = null,
+    Object? planner_item_list = null,
+    Object? destination = freezed,
+    Object? arrivalTime = null,
+  }) {
+    return _then(_$PlannerImpl(
+      planner_id: null == planner_id
+          ? _value.planner_id
+          : planner_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      planner_title: null == planner_title
+          ? _value.planner_title
+          : planner_title // ignore: cast_nullable_to_non_nullable
+              as String,
+      planner_item_list: null == planner_item_list
+          ? _value._planner_item_list
+          : planner_item_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerItem>,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
+  const _$PlannerImpl(
+      {required this.planner_id,
+      this.planner_title = 'plan',
+      final List<PlannerItem> planner_item_list = const [],
+      this.destination,
+      this.arrivalTime = '10:00'})
+      : _planner_item_list = planner_item_list;
+
+  factory _$PlannerImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlannerImplFromJson(json);
+
+  @override
+  final String planner_id;
+  @override
+  @JsonKey()
+  final String planner_title;
+  final List<PlannerItem> _planner_item_list;
+  @override
+  @JsonKey()
+  List<PlannerItem> get planner_item_list {
+    if (_planner_item_list is EqualUnmodifiableListView)
+      return _planner_item_list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_planner_item_list);
+  }
+
+  @override
+  final Address? destination;
+  @override
+  @JsonKey()
+  final String arrivalTime;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Planner(planner_id: $planner_id, planner_title: $planner_title, planner_item_list: $planner_item_list, destination: $destination, arrivalTime: $arrivalTime)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Planner'))
+      ..add(DiagnosticsProperty('planner_id', planner_id))
+      ..add(DiagnosticsProperty('planner_title', planner_title))
+      ..add(DiagnosticsProperty('planner_item_list', planner_item_list))
+      ..add(DiagnosticsProperty('destination', destination))
+      ..add(DiagnosticsProperty('arrivalTime', arrivalTime));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlannerImpl &&
+            (identical(other.planner_id, planner_id) ||
+                other.planner_id == planner_id) &&
+            (identical(other.planner_title, planner_title) ||
+                other.planner_title == planner_title) &&
+            const DeepCollectionEquality()
+                .equals(other._planner_item_list, _planner_item_list) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.arrivalTime, arrivalTime) ||
+                other.arrivalTime == arrivalTime));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      planner_id,
+      planner_title,
+      const DeepCollectionEquality().hash(_planner_item_list),
+      destination,
+      arrivalTime);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlannerImplCopyWith<_$PlannerImpl> get copyWith =>
+      __$$PlannerImplCopyWithImpl<_$PlannerImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PlannerImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Planner implements Planner {
+  const factory _Planner(
+      {required final String planner_id,
+      final String planner_title,
+      final List<PlannerItem> planner_item_list,
+      final Address? destination,
+      final String arrivalTime}) = _$PlannerImpl;
+
+  factory _Planner.fromJson(Map<String, dynamic> json) = _$PlannerImpl.fromJson;
+
+  @override
+  String get planner_id;
+  @override
+  String get planner_title;
+  @override
+  List<PlannerItem> get planner_item_list;
+  @override
+  Address? get destination;
+  @override
+  String get arrivalTime;
+  @override
+  @JsonKey(ignore: true)
+  _$$PlannerImplCopyWith<_$PlannerImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PlannerItem _$PlannerItemFromJson(Map<String, dynamic> json) {
+  return _PlannerItem.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PlannerItem {
+  String get place_name => throw _privateConstructorUsedError;
+  String get place_id => throw _privateConstructorUsedError;
+  String get prev_place_id => throw _privateConstructorUsedError;
+  String get stay_time => throw _privateConstructorUsedError; // 머무는 시간
+  String get start_time => throw _privateConstructorUsedError;
+  String get end_time => throw _privateConstructorUsedError;
+  String get distance => throw _privateConstructorUsedError; // 이전장소와의 거리
+  String get transportation => throw _privateConstructorUsedError; //이동수단
+  String get travel_time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PlannerItemCopyWith<PlannerItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PlannerItemCopyWith<$Res> {
+  factory $PlannerItemCopyWith(
+          PlannerItem value, $Res Function(PlannerItem) then) =
+      _$PlannerItemCopyWithImpl<$Res, PlannerItem>;
+  @useResult
+  $Res call(
+      {String place_name,
+      String place_id,
+      String prev_place_id,
+      String stay_time,
+      String start_time,
+      String end_time,
+      String distance,
+      String transportation,
+      String travel_time});
+}
+
+/// @nodoc
+class _$PlannerItemCopyWithImpl<$Res, $Val extends PlannerItem>
+    implements $PlannerItemCopyWith<$Res> {
+  _$PlannerItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? place_name = null,
+    Object? place_id = null,
+    Object? prev_place_id = null,
+    Object? stay_time = null,
+    Object? start_time = null,
+    Object? end_time = null,
+    Object? distance = null,
+    Object? transportation = null,
+    Object? travel_time = null,
+  }) {
+    return _then(_value.copyWith(
+      place_name: null == place_name
+          ? _value.place_name
+          : place_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      place_id: null == place_id
+          ? _value.place_id
+          : place_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      prev_place_id: null == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      stay_time: null == stay_time
+          ? _value.stay_time
+          : stay_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      start_time: null == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      end_time: null == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as String,
+      transportation: null == transportation
+          ? _value.transportation
+          : transportation // ignore: cast_nullable_to_non_nullable
+              as String,
+      travel_time: null == travel_time
+          ? _value.travel_time
+          : travel_time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PlannerItemImplCopyWith<$Res>
+    implements $PlannerItemCopyWith<$Res> {
+  factory _$$PlannerItemImplCopyWith(
+          _$PlannerItemImpl value, $Res Function(_$PlannerItemImpl) then) =
+      __$$PlannerItemImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String place_name,
+      String place_id,
+      String prev_place_id,
+      String stay_time,
+      String start_time,
+      String end_time,
+      String distance,
+      String transportation,
+      String travel_time});
+}
+
+/// @nodoc
+class __$$PlannerItemImplCopyWithImpl<$Res>
+    extends _$PlannerItemCopyWithImpl<$Res, _$PlannerItemImpl>
+    implements _$$PlannerItemImplCopyWith<$Res> {
+  __$$PlannerItemImplCopyWithImpl(
+      _$PlannerItemImpl _value, $Res Function(_$PlannerItemImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? place_name = null,
+    Object? place_id = null,
+    Object? prev_place_id = null,
+    Object? stay_time = null,
+    Object? start_time = null,
+    Object? end_time = null,
+    Object? distance = null,
+    Object? transportation = null,
+    Object? travel_time = null,
+  }) {
+    return _then(_$PlannerItemImpl(
+      place_name: null == place_name
+          ? _value.place_name
+          : place_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      place_id: null == place_id
+          ? _value.place_id
+          : place_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      prev_place_id: null == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String,
+      stay_time: null == stay_time
+          ? _value.stay_time
+          : stay_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      start_time: null == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      end_time: null == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as String,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as String,
+      transportation: null == transportation
+          ? _value.transportation
+          : transportation // ignore: cast_nullable_to_non_nullable
+              as String,
+      travel_time: null == travel_time
+          ? _value.travel_time
+          : travel_time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
+  const _$PlannerItemImpl(
+      {required this.place_name,
+      required this.place_id,
+      required this.prev_place_id,
+      required this.stay_time,
+      required this.start_time,
+      required this.end_time,
+      required this.distance,
+      required this.transportation,
+      required this.travel_time});
+
+  factory _$PlannerItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlannerItemImplFromJson(json);
+
+  @override
+  final String place_name;
+  @override
+  final String place_id;
+  @override
+  final String prev_place_id;
+  @override
+  final String stay_time;
+// 머무는 시간
+  @override
+  final String start_time;
+  @override
+  final String end_time;
+  @override
+  final String distance;
+// 이전장소와의 거리
+  @override
+  final String transportation;
+//이동수단
+  @override
+  final String travel_time;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlannerItem(place_name: $place_name, place_id: $place_id, prev_place_id: $prev_place_id, stay_time: $stay_time, start_time: $start_time, end_time: $end_time, distance: $distance, transportation: $transportation, travel_time: $travel_time)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlannerItem'))
+      ..add(DiagnosticsProperty('place_name', place_name))
+      ..add(DiagnosticsProperty('place_id', place_id))
+      ..add(DiagnosticsProperty('prev_place_id', prev_place_id))
+      ..add(DiagnosticsProperty('stay_time', stay_time))
+      ..add(DiagnosticsProperty('start_time', start_time))
+      ..add(DiagnosticsProperty('end_time', end_time))
+      ..add(DiagnosticsProperty('distance', distance))
+      ..add(DiagnosticsProperty('transportation', transportation))
+      ..add(DiagnosticsProperty('travel_time', travel_time));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlannerItemImpl &&
+            (identical(other.place_name, place_name) ||
+                other.place_name == place_name) &&
+            (identical(other.place_id, place_id) ||
+                other.place_id == place_id) &&
+            (identical(other.prev_place_id, prev_place_id) ||
+                other.prev_place_id == prev_place_id) &&
+            (identical(other.stay_time, stay_time) ||
+                other.stay_time == stay_time) &&
+            (identical(other.start_time, start_time) ||
+                other.start_time == start_time) &&
+            (identical(other.end_time, end_time) ||
+                other.end_time == end_time) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
+            (identical(other.transportation, transportation) ||
+                other.transportation == transportation) &&
+            (identical(other.travel_time, travel_time) ||
+                other.travel_time == travel_time));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      place_name,
+      place_id,
+      prev_place_id,
+      stay_time,
+      start_time,
+      end_time,
+      distance,
+      transportation,
+      travel_time);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlannerItemImplCopyWith<_$PlannerItemImpl> get copyWith =>
+      __$$PlannerItemImplCopyWithImpl<_$PlannerItemImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PlannerItemImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PlannerItem implements PlannerItem {
+  const factory _PlannerItem(
+      {required final String place_name,
+      required final String place_id,
+      required final String prev_place_id,
+      required final String stay_time,
+      required final String start_time,
+      required final String end_time,
+      required final String distance,
+      required final String transportation,
+      required final String travel_time}) = _$PlannerItemImpl;
+
+  factory _PlannerItem.fromJson(Map<String, dynamic> json) =
+      _$PlannerItemImpl.fromJson;
+
+  @override
+  String get place_name;
+  @override
+  String get place_id;
+  @override
+  String get prev_place_id;
+  @override
+  String get stay_time;
+  @override // 머무는 시간
+  String get start_time;
+  @override
+  String get end_time;
+  @override
+  String get distance;
+  @override // 이전장소와의 거리
+  String get transportation;
+  @override //이동수단
+  String get travel_time;
+  @override
+  @JsonKey(ignore: true)
+  _$$PlannerItemImplCopyWith<_$PlannerItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

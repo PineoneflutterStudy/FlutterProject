@@ -49,7 +49,7 @@ class RecommendedListPageView extends StatefulWidget {
 class _RecommendedListPageViewState extends State<RecommendedListPageView> {
   late String _location;
   int radius = 10000;
-  String sort = 'distance';
+  String sort = "distance";
 
   @override
   void initState() {
@@ -69,38 +69,42 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
               case Status.loading:
                 return Center(child: CircularProgressIndicator());
               case Status.success:
-                CustomLogger.logger.i('카테고리 목록 : ${ctgrState.ctgrs}');
+                CustomLogger.logger.i("카테고리 목록 : ${ctgrState.ctgrs}");
                 return Column(
                   children: [
                     CategoryView(ctgrState.ctgrs),
                     Expanded(
                       child: BlocConsumer<AddressBloc, AddressState>(
                         builder: (_, state) {
-                          switch (state.status) {
-                            case Status.initial:
-                              return Center(child: CircularProgressIndicator());
-                            case Status.loading:
-                              return Center(child: CircularProgressIndicator());
-                            case Status.success:
-                              CustomLogger.logger.i('현재 중심 위치 : ${state.addressInfo}');
-                              return PlaceView(ctgrState.ctgrs, state.addressInfo);
-                            case Status.error:
-                              return Center(child: Text('${state.error?.message ?? '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.'}',textAlign: TextAlign.center));
-                          }
+                          return state.when(
+                            loading: () => Center(child: CircularProgressIndicator()),
+                            success: (addressInfo) {
+                              CustomLogger.logger.i("현재 중심 위치 : $addressInfo");
+                              return PlaceView(ctgrState.ctgrs, addressInfo);
+                            },
+                            error: (error) {
+                              return Center(
+                                child: Text(error.message ?? '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.', textAlign: TextAlign.center),
+                              );
+                            },
+                          );
                         },
                         listener: (_, state) async {
-                          if (state.status == Status.error) { // address bloc error
-                            CustomLogger.logger.e(state.error);
-                            CommonUtils.showToastMsg('도착지를 다시 입력해주세요.');
-                          }
+                          state.maybeWhen(
+                            error: (error) {
+                              CustomLogger.logger.e(error);
+                              CommonUtils.showToastMsg("도착지를 다시 입력해주세요.");
+                            },
+                            orElse: () {},
+                          );
                         },
-                        listenWhen: (prev, curr) => prev.status != curr.status,
+                        listenWhen: (prev, curr) => prev.runtimeType != curr.runtimeType,
                       ),
                     ),
                   ],
                 );
               case Status.error:
-                return Center(child: Text('목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.',textAlign: TextAlign.center));
+                return Center(child: Text("목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.",textAlign: TextAlign.center));
             }
           },
           listener: (context, state) async {

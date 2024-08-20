@@ -68,6 +68,22 @@ class FirebaseFirestoreUtil {
     });
   }
 
+  /// User > 특정 컬렉션에서 문서들을 가져오는 함수, json 형식의 데이터 T형식으로 mapping
+  Future<List<T>?> getDocumentsFromCollectionMapperData<T>(String collectionPath, T Function(Map<String, dynamic>) fromJson) async {
+    return await _executeWithUserDocRef<List<T>>((userDocRef) async {
+      try {
+        final querySnapshot = await userDocRef.collection(collectionPath).get();
+        return querySnapshot.docs
+            .map((doc) => fromJson(doc.data()))
+            .toList();
+      } catch (e) {
+        _logger.e("Error getting collection documents: $e");
+        return null;
+      }
+    });
+  }
+
+
   /// 특정 문서에서 데이터를 가져오는 함수
   Future<Map<String, dynamic>?> getUserDocumentData() async {
     return await _executeWithUserDocRef<Map<String, dynamic>?>((userDocRef) async {
@@ -188,4 +204,5 @@ class FirebaseFirestoreUtil {
       return {}; // 캐스팅 오류 발생 시 빈 맵 반환
     }
   }
+
 }

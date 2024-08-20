@@ -2,9 +2,7 @@ part of 'address_bloc.dart';
 
 @freezed
 class AddressState with _$AddressState {
-  factory AddressState({
-    @Default(Status.initial) Status status,
-    @Default(Address(addressName: '', x: '', y: '',radius: 10000,sort: 'distance')) Address addressInfo,
-    ErrorResponse? error,
-  }) = _AddressState;
+  const factory AddressState.loading() = _Loading;
+  const factory AddressState.success(Address addressInfo) = _Success;
+  const factory AddressState.error(ErrorResponse error) = _Error;
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/common_utils.dart';
-import '../../../../core/utils/constant.dart';
+import '../../../../domain/model/display/place/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
 class GoPlanPopup extends StatefulWidget {
@@ -38,44 +39,45 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
 
   @override
   Widget build(BuildContext context) {
+    var uuid = Uuid();
     return BlocListener<AddressBloc, AddressState>(
       bloc: widget.addressBloc,
       listener: (context, state) {
-        if (state.status == Status.success) {
-          FocusScope.of(context).unfocus(); // 키보드 닫기
-          Navigator.of(context).pop({
-            "destination": destinationController.text,
-            "arrivalTime": selectedTime.format(context),
-          });
-        } else if (state.status == Status.error) {
-          CommonUtils.showToastMsg("여행지를 다시 입력해주세요.");
-        }
+        state.maybeWhen(
+          success: (addressInfo) {
+            FocusScope.of(context).unfocus(); // 키보드 닫기
+            final destination = destinationController.text ?? '';
+            final arrivalTime = selectedTime.format(context);
+            final planner = Planner(
+              planner_id: uuid.v1(),
+              planner_title: "$destination 여행",
+              destination: addressInfo,
+              arrivalTime: arrivalTime,
+              planner_item_list: [],
+            );
+            print('planner.toJson() : ${planner.toJson()}');
+            Navigator.of(context).pop({"planner": planner});
+          },
+          orElse: () => CommonUtils.showToastMsg("여행지를 다시 입력해주세요."),
+        );
       },
       child: AlertDialog(
-        title:
-            Text("개꿀트립과 함께\n여행 계획 세우러 떠나볼까요~?", style: TextStyle(fontSize: 25)),
+        title: Text("개꿀트립과 함께\n여행 계획 세우러 떠나볼까요~?", style: TextStyle(fontSize: 25)),
         content: Scrollbar(
           thumbVisibility: true,
           child: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text(
-                  "먼저, 여행지와 도착예정시간을 입력해주세요.",
-                  style: TextStyle(fontSize: 17, color: AppColors.primary),
-                ),
+                Text("먼저, 여행지와 도착예정시간을 입력해주세요.", style: TextStyle(fontSize: 17, color: AppColors.primary),),
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    Text(
-                      "여행지   :  ",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    Text("여행지   :  ", style: TextStyle(fontSize: 20)),
                     SizedBox(width: 10),
                     Expanded(
                       child: TextField(
                         controller: destinationController,
-                        decoration:
-                            InputDecoration(border: UnderlineInputBorder()),
+                        decoration: InputDecoration(border: UnderlineInputBorder()),
                       ),
                     ),
                   ],
@@ -88,19 +90,14 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
                     Expanded(
                       child: DropdownButtonFormField<int>(
                         value: selectedTime.hour,
-                        decoration:
-                            InputDecoration(border: OutlineInputBorder()),
-                        items: List.generate(25, (index) => index)
-                            .map((int value) {
+                        decoration: InputDecoration(border: OutlineInputBorder()),
+                        items: List.generate(25, (index) => index).map((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString().padLeft(2, "0")),
                           );
                         }).toList(),
-                        onChanged: (newValue) => setState(() => selectedTime =
-                            TimeOfDay(
-                                hour: newValue ?? 10,
-                                minute: selectedTime.minute)),
+                        onChanged: (newValue) => setState(() => selectedTime = TimeOfDay(hour: newValue ?? 10, minute: selectedTime.minute)),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -109,16 +106,14 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
                     Expanded(
                       child: DropdownButtonFormField<int>(
                         value: selectedTime.minute,
-                        decoration:
-                            InputDecoration(border: OutlineInputBorder()),
+                        decoration: InputDecoration(border: OutlineInputBorder()),
                         items: [0, 30].map((int value) {
                           return DropdownMenuItem<int>(
                               value: value,
                               child: Text(value.toString().padLeft(2, "0")));
                         }).toList(),
                         onChanged: (newValue) {
-                          setState(() => selectedTime = TimeOfDay(
-                              hour: selectedTime.hour, minute: newValue ?? 0));
+                          setState(() => selectedTime = TimeOfDay(hour: selectedTime.hour, minute: newValue ?? 0));
                         },
                       ),
                     )
