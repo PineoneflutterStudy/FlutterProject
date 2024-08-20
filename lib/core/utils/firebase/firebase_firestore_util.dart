@@ -177,7 +177,7 @@ class FirebaseFirestoreUtil {
         await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
     if (snapshot.size != 1) {
       final String _tag = '[Login]';
-      CustomLogger.logger.e('$_tag Error - querySnapshot.size != 1');
+      CustomLogger.logger.e('$_tag `Error - querySnapshot.size != 1');
       if (!CustomLogger.isDebugLogHidden) {
         snapshot.docs.forEach(
           (element) => CustomLogger.logger.d('$_tag element = ${toDynamicMap(element)}'),
@@ -185,11 +185,6 @@ class FirebaseFirestoreUtil {
       }
     }
     return toDynamicMap(snapshot.docs.first);
-  }
-
-  Future<bool> isSameEmailUserExist(String email) async {
-    final Map<String, dynamic> userDocMap = await getUserDocumentByEmail(email);
-    return userDocMap.isNotEmpty;
   }
 
   Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?> snapshot) {

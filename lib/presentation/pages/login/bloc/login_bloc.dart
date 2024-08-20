@@ -8,9 +8,7 @@ import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
 
 part 'login_bloc.freezed.dart';
-
 part 'login_event.dart';
-
 part 'login_state.dart';
 
 const String _tag = '[Login]';

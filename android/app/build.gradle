@@ -13,7 +13,7 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
     println "Info - load keystorePropertiesFile succeeded."
 } else {
-    println "Error - load keystorePropertiesFile failed."
+    println "`Error - load keystorePropertiesFile failed."
 }
 
 def localProperties = new Properties()
