@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../pages/like/dialog/like_setting_dialog.dart';
-import '../../../../pages/like/features/filter/region/presentation/bloc/region_filter_bloc.dart';
 import '../../../../pages/like/features/filter/region/presentation/widget/region_filter_widget.dart';
 
 /**
@@ -36,15 +33,6 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: Text(title, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
           )),
-    );
-  }
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return LikeSettingDialog();
-      },
     );
   }
 
