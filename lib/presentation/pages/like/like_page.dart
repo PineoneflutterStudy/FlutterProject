@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../main/common/component/widget/like_appbar.dart';
+
 class LikePage extends StatefulWidget {
   const LikePage({super.key});
 
@@ -10,6 +12,8 @@ class LikePage extends StatefulWidget {
 class _LikePageState extends State<LikePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: LikeAppbar(title: '찜목록'),
+    );
   }
 }

@@ -61,6 +61,7 @@ dependencies:
   # 로그인 관련
   kakao_flutter_sdk_user: ^1.9.3 # 카카오 로그인 API 패키지
   app_links: ^6.1.4 # 네이버 로그인 결과를 받기 위한 앱 링크
+  either_dart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
