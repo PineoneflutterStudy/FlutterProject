@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 
 import '../DBkey.dart';
@@ -9,7 +10,6 @@ import 'firebase_auth_util.dart';
 
 /// # Use Firebase Firestore
 class FirebaseFirestoreUtil {
-
   final FirebaseFirestore _firestore;
   final FirebaseAuthUtil _auth;
   final Logger _logger;
@@ -21,6 +21,20 @@ class FirebaseFirestoreUtil {
   })  : _firestore = firestore ?? FirebaseFirestore.instance,
         _auth = auth ?? FirebaseAuthUtil(),
         _logger = logger ?? CustomLogger.logger;
+
+  /// ## 신규 유저 정보를 파이어스토어에 저장한다.
+  Future<void> setUserDoc(User user) async {
+    try {
+      await _firestore.collection(DBKey.DB_USERS).doc(user.uid).set({
+        UsersField.UID: user.uid,
+        UsersField.EMAIL: user.email,
+        UsersField.PROVIDERS: user.providerData,
+        // 'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   /// User > uid
   Future<DocumentReference?> getUserDocRef() async {
@@ -199,5 +213,4 @@ class FirebaseFirestoreUtil {
       return {}; // 캐스팅 오류 발생 시 빈 맵 반환
     }
   }
-
 }

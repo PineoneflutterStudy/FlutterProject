@@ -1,10 +1,12 @@
 import 'package:app_links/app_links.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/utils/exception/email_duplicate_exception.dart';
 import '../../../../core/utils/firebase/firebase_auth_util.dart';
+import '../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
 
@@ -74,17 +76,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  void _onUserChanged(Emitter<LoginState> emit, User? user) {
-    // user 가 null 이라는 건 로그인 된 상태에서 로그아웃 되었다는 건데
-    // 정상적인 상황은 아니므로 로그아웃하고 토스트 노출
+  Future<void> _onUserChanged(Emitter<LoginState> emit, User? user) async {
     if (user == null) {
-      CustomLogger.logger.e('$_tag `Error - User changed but is null.');
-      FirebaseAuthUtil().auth.signOut();
-      emit(LoginState.loggedOut());
+      CustomLogger.logger.w('$_tag User changed but is null.');
       return;
     }
 
-    //eff db 저장 로직 수행해야함
+    final FirebaseFirestoreUtil firestoreUtil = FirebaseFirestoreUtil();
+    final DocumentReference? userDocRef = await firestoreUtil.getUserDocRef();
+    if (userDocRef == null) {
+      // 파이어스토어에 없는 신규 유저인 경우 파이어스토어에 저장
+      firestoreUtil.setUserDoc(user);
+    } else {
+      // final Map<String, dynamic> userDocMap = firestoreUtil.toDynamicMap(await userDocRef.get());
+      //ett 로그인 시 변경된 정보 있는지 확인하고 최신화
+      // userDocMap.update(key, update)
+      // firestoreUtil.updateDocument(currentUserDocRef, userDocMap);
+    }
 
     emit(LoginState.loggedIn());
   }
