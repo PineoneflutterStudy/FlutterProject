@@ -8,9 +8,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../DBkey.dart';
+import '../exception/email_duplicate_exception.dart';
 import '../logger.dart';
+import 'firebase_firestore_util.dart';
 
 class FirebaseAuthUtil {
+  static const String _ERROR_EMAIL_DUPLICATED = 'ERROR_EMAIL_DUPLICATED';
+
   final FirebaseAuth auth;
 
   FirebaseAuthUtil({FirebaseAuth? auth}) : auth = auth ?? FirebaseAuth.instance;
@@ -34,6 +39,9 @@ class FirebaseAuthUtil {
       // if (kIsWeb) {
       //   isAuthorized = await _googleSignIn.canAccessScopes(scopes);
       // }
+
+      // 동일한 이메일로 가입된 계정 존재 여부 확인
+      await checkEmailDuplicate(account.email);
 
       // 구글 인증 정보 가져오기
       final GoogleSignInAuthentication authentication = await account.authentication;
@@ -160,6 +168,16 @@ class FirebaseAuthUtil {
       // 비즈앱 심사를 통과하지 않아 이메일을 가져올 수 없으므로
       //eff 이메일 가입 화면으로 이동하는 등 시나리오 필요
       // add(LoginEvent.userInfoMissing());
+    }
+  }
+
+  /// ## 전달받은 이메일로 가입된 정보가 있는지 확인하고 존재하는 경우 [EmailDuplicateException] 발생
+  Future<void> checkEmailDuplicate(String email) async {
+    final FirebaseFirestoreUtil firestoreUtil = FirebaseFirestoreUtil();
+    final Map<String, dynamic> userDocMap = await firestoreUtil.getUserDocumentByEmail(email);
+    if (userDocMap.isNotEmpty) {
+      final String providers = userDocMap[UsersField.PROVIDERS];
+      throw EmailDuplicateException(email, providers);
     }
   }
 }

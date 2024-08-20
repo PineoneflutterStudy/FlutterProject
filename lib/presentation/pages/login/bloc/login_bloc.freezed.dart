@@ -20,27 +20,27 @@ mixin _$LoginEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,27 +49,27 @@ mixin _$LoginEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_LoginOptionItemPressed value)
         loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -133,9 +133,9 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
   }) {
     return started();
   }
@@ -145,9 +145,9 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
   }) {
     return started?.call();
   }
@@ -157,9 +157,9 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -174,9 +174,9 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_LoginOptionItemPressed value)
         loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
   }) {
     return started(this);
   }
@@ -186,9 +186,9 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
   }) {
     return started?.call(this);
   }
@@ -198,9 +198,9 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -284,9 +284,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
   }) {
     return loginOptionItemPressed(authType);
   }
@@ -296,9 +296,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
   }) {
     return loginOptionItemPressed?.call(authType);
   }
@@ -308,9 +308,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
     required TResult orElse(),
   }) {
     if (loginOptionItemPressed != null) {
@@ -325,9 +325,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     required TResult Function(_Started value) started,
     required TResult Function(_LoginOptionItemPressed value)
         loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
   }) {
     return loginOptionItemPressed(this);
   }
@@ -337,9 +337,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
   }) {
     return loginOptionItemPressed?.call(this);
   }
@@ -349,9 +349,9 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
     required TResult orElse(),
   }) {
     if (loginOptionItemPressed != null) {
@@ -369,6 +369,170 @@ abstract class _LoginOptionItemPressed implements LoginEvent {
   @JsonKey(ignore: true)
   _$$LoginOptionItemPressedImplCopyWith<_$LoginOptionItemPressedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EmailDuplicatedImplCopyWith<$Res> {
+  factory _$$EmailDuplicatedImplCopyWith(_$EmailDuplicatedImpl value,
+          $Res Function(_$EmailDuplicatedImpl) then) =
+      __$$EmailDuplicatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String providers});
+}
+
+/// @nodoc
+class __$$EmailDuplicatedImplCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$EmailDuplicatedImpl>
+    implements _$$EmailDuplicatedImplCopyWith<$Res> {
+  __$$EmailDuplicatedImplCopyWithImpl(
+      _$EmailDuplicatedImpl _value, $Res Function(_$EmailDuplicatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? providers = null,
+  }) {
+    return _then(_$EmailDuplicatedImpl(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == providers
+          ? _value.providers
+          : providers // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EmailDuplicatedImpl implements _EmailDuplicated {
+  const _$EmailDuplicatedImpl(this.email, this.providers);
+
+  @override
+  final String email;
+  @override
+  final String providers;
+
+  @override
+  String toString() {
+    return 'LoginEvent.emailDuplicated(email: $email, providers: $providers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EmailDuplicatedImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.providers, providers) ||
+                other.providers == providers));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, providers);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmailDuplicatedImplCopyWith<_$EmailDuplicatedImpl> get copyWith =>
+      __$$EmailDuplicatedImplCopyWithImpl<_$EmailDuplicatedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
+    required TResult Function(User? user) userChanged,
+    required TResult Function() userInfoMissing,
+  }) {
+    return emailDuplicated(email, providers);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
+    TResult? Function(User? user)? userChanged,
+    TResult? Function()? userInfoMissing,
+  }) {
+    return emailDuplicated?.call(email, providers);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
+    TResult Function(User? user)? userChanged,
+    TResult Function()? userInfoMissing,
+    required TResult orElse(),
+  }) {
+    if (emailDuplicated != null) {
+      return emailDuplicated(email, providers);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoginOptionItemPressed value)
+        loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_UserChanged value) userChanged,
+    required TResult Function(_UserInfoMissing value) userInfoMissing,
+  }) {
+    return emailDuplicated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_UserChanged value)? userChanged,
+    TResult? Function(_UserInfoMissing value)? userInfoMissing,
+  }) {
+    return emailDuplicated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_UserChanged value)? userChanged,
+    TResult Function(_UserInfoMissing value)? userInfoMissing,
+    required TResult orElse(),
+  }) {
+    if (emailDuplicated != null) {
+      return emailDuplicated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmailDuplicated implements LoginEvent {
+  const factory _EmailDuplicated(final String email, final String providers) =
+      _$EmailDuplicatedImpl;
+
+  String get email;
+  String get providers;
+  @JsonKey(ignore: true)
+  _$$EmailDuplicatedImplCopyWith<_$EmailDuplicatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -437,9 +601,9 @@ class _$UserChangedImpl implements _UserChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
   }) {
     return userChanged(user);
   }
@@ -449,9 +613,9 @@ class _$UserChangedImpl implements _UserChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
   }) {
     return userChanged?.call(user);
   }
@@ -461,9 +625,9 @@ class _$UserChangedImpl implements _UserChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
     required TResult orElse(),
   }) {
     if (userChanged != null) {
@@ -478,9 +642,9 @@ class _$UserChangedImpl implements _UserChanged {
     required TResult Function(_Started value) started,
     required TResult Function(_LoginOptionItemPressed value)
         loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
   }) {
     return userChanged(this);
   }
@@ -490,9 +654,9 @@ class _$UserChangedImpl implements _UserChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
   }) {
     return userChanged?.call(this);
   }
@@ -502,9 +666,9 @@ class _$UserChangedImpl implements _UserChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
     required TResult orElse(),
   }) {
     if (userChanged != null) {
@@ -563,9 +727,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AuthType authType) loginOptionItemPressed,
+    required TResult Function(String email, String providers) emailDuplicated,
     required TResult Function(User? user) userChanged,
     required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
   }) {
     return userInfoMissing();
   }
@@ -575,9 +739,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AuthType authType)? loginOptionItemPressed,
+    TResult? Function(String email, String providers)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
     TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
   }) {
     return userInfoMissing?.call();
   }
@@ -587,9 +751,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AuthType authType)? loginOptionItemPressed,
+    TResult Function(String email, String providers)? emailDuplicated,
     TResult Function(User? user)? userChanged,
     TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
     required TResult orElse(),
   }) {
     if (userInfoMissing != null) {
@@ -604,9 +768,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
     required TResult Function(_Started value) started,
     required TResult Function(_LoginOptionItemPressed value)
         loginOptionItemPressed,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
     required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
   }) {
     return userInfoMissing(this);
   }
@@ -616,9 +780,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
     TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
   }) {
     return userInfoMissing?.call(this);
   }
@@ -628,9 +792,9 @@ class _$UserInfoMissingImpl implements _UserInfoMissing {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
     TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
     required TResult orElse(),
   }) {
     if (userInfoMissing != null) {
@@ -645,132 +809,13 @@ abstract class _UserInfoMissing implements LoginEvent {
 }
 
 /// @nodoc
-abstract class _$$LogginSucceededImplCopyWith<$Res> {
-  factory _$$LogginSucceededImplCopyWith(_$LogginSucceededImpl value,
-          $Res Function(_$LogginSucceededImpl) then) =
-      __$$LogginSucceededImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LogginSucceededImplCopyWithImpl<$Res>
-    extends _$LoginEventCopyWithImpl<$Res, _$LogginSucceededImpl>
-    implements _$$LogginSucceededImplCopyWith<$Res> {
-  __$$LogginSucceededImplCopyWithImpl(
-      _$LogginSucceededImpl _value, $Res Function(_$LogginSucceededImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LogginSucceededImpl implements _LogginSucceeded {
-  const _$LogginSucceededImpl();
-
-  @override
-  String toString() {
-    return 'LoginEvent.loginSucceeded()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LogginSucceededImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(AuthType authType) loginOptionItemPressed,
-    required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
-    required TResult Function() loginSucceeded,
-  }) {
-    return loginSucceeded();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(AuthType authType)? loginOptionItemPressed,
-    TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
-    TResult? Function()? loginSucceeded,
-  }) {
-    return loginSucceeded?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(AuthType authType)? loginOptionItemPressed,
-    TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
-    TResult Function()? loginSucceeded,
-    required TResult orElse(),
-  }) {
-    if (loginSucceeded != null) {
-      return loginSucceeded();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoginOptionItemPressed value)
-        loginOptionItemPressed,
-    required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_LogginSucceeded value) loginSucceeded,
-  }) {
-    return loginSucceeded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
-    TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_LogginSucceeded value)? loginSucceeded,
-  }) {
-    return loginSucceeded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
-    TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_LogginSucceeded value)? loginSucceeded,
-    required TResult orElse(),
-  }) {
-    if (loginSucceeded != null) {
-      return loginSucceeded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LogginSucceeded implements LoginEvent {
-  const factory _LogginSucceeded() = _$LogginSucceededImpl;
-}
-
-/// @nodoc
 mixin _$LoginState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -780,6 +825,7 @@ mixin _$LoginState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -789,6 +835,7 @@ mixin _$LoginState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -799,6 +846,7 @@ mixin _$LoginState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -808,6 +856,7 @@ mixin _$LoginState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -817,6 +866,7 @@ mixin _$LoginState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
@@ -883,6 +933,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -895,6 +947,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -907,6 +960,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -923,6 +977,7 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -935,6 +990,7 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -947,6 +1003,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
@@ -1003,6 +1060,8 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -1015,6 +1074,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -1027,6 +1087,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -1043,6 +1104,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -1055,6 +1117,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -1067,6 +1130,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
@@ -1081,6 +1145,176 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
 
 abstract class _AlreadyLoggedIn implements LoginState {
   const factory _AlreadyLoggedIn() = _$AlreadyLoggedInImpl;
+}
+
+/// @nodoc
+abstract class _$$EmailDuplicateErrorImplCopyWith<$Res> {
+  factory _$$EmailDuplicateErrorImplCopyWith(_$EmailDuplicateErrorImpl value,
+          $Res Function(_$EmailDuplicateErrorImpl) then) =
+      __$$EmailDuplicateErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String providers});
+}
+
+/// @nodoc
+class __$$EmailDuplicateErrorImplCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$EmailDuplicateErrorImpl>
+    implements _$$EmailDuplicateErrorImplCopyWith<$Res> {
+  __$$EmailDuplicateErrorImplCopyWithImpl(_$EmailDuplicateErrorImpl _value,
+      $Res Function(_$EmailDuplicateErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? providers = null,
+  }) {
+    return _then(_$EmailDuplicateErrorImpl(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == providers
+          ? _value.providers
+          : providers // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
+  const _$EmailDuplicateErrorImpl(this.email, this.providers);
+
+  @override
+  final String email;
+  @override
+  final String providers;
+
+  @override
+  String toString() {
+    return 'LoginState.emailDuplicateError(email: $email, providers: $providers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EmailDuplicateErrorImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.providers, providers) ||
+                other.providers == providers));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, providers);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmailDuplicateErrorImplCopyWith<_$EmailDuplicateErrorImpl> get copyWith =>
+      __$$EmailDuplicateErrorImplCopyWithImpl<_$EmailDuplicateErrorImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
+    required TResult Function() requireMoreUserInfo,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
+  }) {
+    return emailDuplicateError(email, providers);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
+    TResult? Function()? requireMoreUserInfo,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
+  }) {
+    return emailDuplicateError?.call(email, providers);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
+    TResult Function()? requireMoreUserInfo,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (emailDuplicateError != null) {
+      return emailDuplicateError(email, providers);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
+    required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
+    required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
+  }) {
+    return emailDuplicateError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
+    TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
+    TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_LoggedOut value)? loggedOut,
+  }) {
+    return emailDuplicateError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
+    TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (emailDuplicateError != null) {
+      return emailDuplicateError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmailDuplicateError implements LoginState {
+  const factory _EmailDuplicateError(
+      final String email, final String providers) = _$EmailDuplicateErrorImpl;
+
+  String get email;
+  String get providers;
+  @JsonKey(ignore: true)
+  _$$EmailDuplicateErrorImplCopyWith<_$EmailDuplicateErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1124,6 +1358,8 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -1136,6 +1372,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -1148,6 +1385,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -1164,6 +1402,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -1176,6 +1415,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -1188,6 +1428,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
@@ -1244,6 +1485,8 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -1256,6 +1499,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -1268,6 +1512,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -1284,6 +1529,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -1296,6 +1542,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -1308,6 +1555,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
@@ -1364,6 +1612,8 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() alreadyLoggedIn,
+    required TResult Function(String email, String providers)
+        emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
     required TResult Function() loggedIn,
     required TResult Function() loggedOut,
@@ -1376,6 +1626,7 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? alreadyLoggedIn,
+    TResult? Function(String email, String providers)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
     TResult? Function()? loggedIn,
     TResult? Function()? loggedOut,
@@ -1388,6 +1639,7 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? alreadyLoggedIn,
+    TResult Function(String email, String providers)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
     TResult Function()? loggedIn,
     TResult Function()? loggedOut,
@@ -1404,6 +1656,7 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
+    required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
@@ -1416,6 +1669,7 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_LoggedOut value)? loggedOut,
@@ -1428,6 +1682,7 @@ class _$LoggedOutImpl implements _LoggedOut {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
+    TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,

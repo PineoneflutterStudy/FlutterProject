@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/utils/exception/email_duplicate_exception.dart';
 import '../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
@@ -22,9 +23,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       event.when(
           started: () => _onStarted(emit),
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
+          emailDuplicated: (email, providers) => emit(LoginState.emailDuplicateError(email, providers)),
           userChanged: (user) => _onUserChanged(emit, user),
-          userInfoMissing: () => _onUserInfoMissing(emit),
-          loginSucceeded: () => _onLoginSucceeded(emit));
+          userInfoMissing: () => emit(LoginState.requireMoreUserInfo()));
     });
   }
 
@@ -46,31 +47,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _onLoginOptionItemPressed(Emitter<LoginState> emit, AuthType authType) async {
     final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
 
-    switch (authType) {
-      case AuthType.google:
-        try {
+    try {
+      switch (authType) {
+        case AuthType.google:
           await authUtil.signInWithGoogle();
           CustomLogger.logger.i('$_tag Google sign-in succeeded.');
-        } catch (error) {
-          CustomLogger.logger.e('$_tag `Error - $error');
-          //eff 예외처리 필요
-        }
 
-      case AuthType.naver:
-        await authUtil.signInWithNaver();
+        case AuthType.naver:
+          await authUtil.signInWithNaver();
 
-      case AuthType.kakao:
-        try {
+        case AuthType.kakao:
           await authUtil.signInWithKakao();
           CustomLogger.logger.i('$_tag Kakao sign-in succeeded.');
-        } catch (error) {
-          CustomLogger.logger.e('$_tag `Error - $error');
-          //eff 예외처리 필요
-        }
 
-      case AuthType.email:
-      //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
-      // emit(LoginState.loggedOut());
+        case AuthType.email:
+        //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
+        // emit(LoginState.loggedOut());
+      }
+    } catch (error) {
+      CustomLogger.logger.e('$_tag `Error - $error');
+      if (error is EmailDuplicateException) {
+        add(LoginEvent.emailDuplicated(error.email, error.providers));
+      } else {
+        //eff 예외처리 필요
+      }
     }
   }
 
@@ -84,14 +84,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return;
     }
 
-    add(LoginEvent.loginSucceeded());
-  }
+    //eff db 저장 로직 수행해야함
 
-  void _onUserInfoMissing(Emitter<LoginState> emit) {
-    emit(LoginState.requireMoreUserInfo());
-  }
-
-  void _onLoginSucceeded(Emitter<LoginState> emit) {
     emit(LoginState.loggedIn());
   }
 

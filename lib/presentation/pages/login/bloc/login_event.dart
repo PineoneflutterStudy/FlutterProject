@@ -9,9 +9,9 @@ class LoginEvent with _$LoginEvent {
 
   const factory LoginEvent.loginOptionItemPressed(AuthType authType) = _LoginOptionItemPressed;
 
+  const factory LoginEvent.emailDuplicated(String email, String providers) = _EmailDuplicated;
+
   const factory LoginEvent.userChanged(User? user) = _UserChanged;
 
   const factory LoginEvent.userInfoMissing() = _UserInfoMissing;
-
-  const factory LoginEvent.loginSucceeded() = _LogginSucceeded;
 }
