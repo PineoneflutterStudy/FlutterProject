@@ -2,8 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'kakao_response_wrapper.freezed.dart';
 part 'kakao_response_wrapper.g.dart';
-
-
 @Freezed(genericArgumentFactories: true)
 class KakaoResponseWrapper<T> with _$KakaoResponseWrapper<T> {
   const factory KakaoResponseWrapper({

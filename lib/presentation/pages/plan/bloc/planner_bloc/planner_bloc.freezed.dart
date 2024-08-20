@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'address_bloc.dart';
+part of 'planner_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,64 +15,64 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AddressEvent {
+mixin _$PlannerEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String location) initialized,
-    required TResult Function(String location) updated,
-    required TResult Function(int radius, String sort) filterUpdated,
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String location)? initialized,
-    TResult? Function(String location)? updated,
-    TResult? Function(int radius, String sort)? filterUpdated,
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String location)? initialized,
-    TResult Function(String location)? updated,
-    TResult Function(int radius, String sort)? filterUpdated,
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(AddressInitialized value) initialized,
-    required TResult Function(AddressUpdated value) updated,
-    required TResult Function(FilterUpdated value) filterUpdated,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressInitialized value)? initialized,
-    TResult? Function(AddressUpdated value)? updated,
-    TResult? Function(FilterUpdated value)? filterUpdated,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressInitialized value)? initialized,
-    TResult Function(AddressUpdated value)? updated,
-    TResult Function(FilterUpdated value)? filterUpdated,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddressEventCopyWith<$Res> {
-  factory $AddressEventCopyWith(
-          AddressEvent value, $Res Function(AddressEvent) then) =
-      _$AddressEventCopyWithImpl<$Res, AddressEvent>;
+abstract class $PlannerEventCopyWith<$Res> {
+  factory $PlannerEventCopyWith(
+          PlannerEvent value, $Res Function(PlannerEvent) then) =
+      _$PlannerEventCopyWithImpl<$Res, PlannerEvent>;
 }
 
 /// @nodoc
-class _$AddressEventCopyWithImpl<$Res, $Val extends AddressEvent>
-    implements $AddressEventCopyWith<$Res> {
-  _$AddressEventCopyWithImpl(this._value, this._then);
+class _$PlannerEventCopyWithImpl<$Res, $Val extends PlannerEvent>
+    implements $PlannerEventCopyWith<$Res> {
+  _$PlannerEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -81,98 +81,217 @@ class _$AddressEventCopyWithImpl<$Res, $Val extends AddressEvent>
 }
 
 /// @nodoc
-abstract class _$$AddressInitializedImplCopyWith<$Res> {
-  factory _$$AddressInitializedImplCopyWith(_$AddressInitializedImpl value,
-          $Res Function(_$AddressInitializedImpl) then) =
-      __$$AddressInitializedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String location});
+abstract class _$$GetPlannerListEventImplCopyWith<$Res> {
+  factory _$$GetPlannerListEventImplCopyWith(_$GetPlannerListEventImpl value,
+          $Res Function(_$GetPlannerListEventImpl) then) =
+      __$$GetPlannerListEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddressInitializedImplCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res, _$AddressInitializedImpl>
-    implements _$$AddressInitializedImplCopyWith<$Res> {
-  __$$AddressInitializedImplCopyWithImpl(_$AddressInitializedImpl _value,
-      $Res Function(_$AddressInitializedImpl) _then)
+class __$$GetPlannerListEventImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$GetPlannerListEventImpl>
+    implements _$$GetPlannerListEventImplCopyWith<$Res> {
+  __$$GetPlannerListEventImplCopyWithImpl(_$GetPlannerListEventImpl _value,
+      $Res Function(_$GetPlannerListEventImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? location = null,
-  }) {
-    return _then(_$AddressInitializedImpl(
-      null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$AddressInitializedImpl implements AddressInitialized {
-  const _$AddressInitializedImpl(this.location);
-
-  @override
-  final String location;
+class _$GetPlannerListEventImpl implements GetPlannerListEvent {
+  const _$GetPlannerListEventImpl();
 
   @override
   String toString() {
-    return 'AddressEvent.initialized(location: $location)';
+    return 'PlannerEvent.getPlannerList()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddressInitializedImpl &&
-            (identical(other.location, location) ||
-                other.location == location));
+            other is _$GetPlannerListEventImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, location);
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
+  }) {
+    return getPlannerList();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
+  }) {
+    return getPlannerList?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
+    required TResult orElse(),
+  }) {
+    if (getPlannerList != null) {
+      return getPlannerList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
+  }) {
+    return getPlannerList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
+  }) {
+    return getPlannerList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
+    required TResult orElse(),
+  }) {
+    if (getPlannerList != null) {
+      return getPlannerList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetPlannerListEvent implements PlannerEvent {
+  const factory GetPlannerListEvent() = _$GetPlannerListEventImpl;
+}
+
+/// @nodoc
+abstract class _$$AddPlannerEventImplCopyWith<$Res> {
+  factory _$$AddPlannerEventImplCopyWith(_$AddPlannerEventImpl value,
+          $Res Function(_$AddPlannerEventImpl) then) =
+      __$$AddPlannerEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Planner plannerList});
+
+  $PlannerCopyWith<$Res> get plannerList;
+}
+
+/// @nodoc
+class __$$AddPlannerEventImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$AddPlannerEventImpl>
+    implements _$$AddPlannerEventImplCopyWith<$Res> {
+  __$$AddPlannerEventImplCopyWithImpl(
+      _$AddPlannerEventImpl _value, $Res Function(_$AddPlannerEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plannerList = null,
+  }) {
+    return _then(_$AddPlannerEventImpl(
+      null == plannerList
+          ? _value.plannerList
+          : plannerList // ignore: cast_nullable_to_non_nullable
+              as Planner,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PlannerCopyWith<$Res> get plannerList {
+    return $PlannerCopyWith<$Res>(_value.plannerList, (value) {
+      return _then(_value.copyWith(plannerList: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddPlannerEventImpl implements AddPlannerEvent {
+  const _$AddPlannerEventImpl(this.plannerList);
+
+  @override
+  final Planner plannerList;
+
+  @override
+  String toString() {
+    return 'PlannerEvent.addPlanner(plannerList: $plannerList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddPlannerEventImpl &&
+            (identical(other.plannerList, plannerList) ||
+                other.plannerList == plannerList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, plannerList);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddressInitializedImplCopyWith<_$AddressInitializedImpl> get copyWith =>
-      __$$AddressInitializedImplCopyWithImpl<_$AddressInitializedImpl>(
+  _$$AddPlannerEventImplCopyWith<_$AddPlannerEventImpl> get copyWith =>
+      __$$AddPlannerEventImplCopyWithImpl<_$AddPlannerEventImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String location) initialized,
-    required TResult Function(String location) updated,
-    required TResult Function(int radius, String sort) filterUpdated,
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
   }) {
-    return initialized(location);
+    return addPlanner(plannerList);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String location)? initialized,
-    TResult? Function(String location)? updated,
-    TResult? Function(int radius, String sort)? filterUpdated,
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
   }) {
-    return initialized?.call(location);
+    return addPlanner?.call(plannerList);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String location)? initialized,
-    TResult Function(String location)? updated,
-    TResult Function(int radius, String sort)? filterUpdated,
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
     required TResult orElse(),
   }) {
-    if (initialized != null) {
-      return initialized(location);
+    if (addPlanner != null) {
+      return addPlanner(plannerList);
     }
     return orElse();
   }
@@ -180,141 +299,152 @@ class _$AddressInitializedImpl implements AddressInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(AddressInitialized value) initialized,
-    required TResult Function(AddressUpdated value) updated,
-    required TResult Function(FilterUpdated value) filterUpdated,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
   }) {
-    return initialized(this);
+    return addPlanner(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressInitialized value)? initialized,
-    TResult? Function(AddressUpdated value)? updated,
-    TResult? Function(FilterUpdated value)? filterUpdated,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
   }) {
-    return initialized?.call(this);
+    return addPlanner?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressInitialized value)? initialized,
-    TResult Function(AddressUpdated value)? updated,
-    TResult Function(FilterUpdated value)? filterUpdated,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
     required TResult orElse(),
   }) {
-    if (initialized != null) {
-      return initialized(this);
+    if (addPlanner != null) {
+      return addPlanner(this);
     }
     return orElse();
   }
 }
 
-abstract class AddressInitialized implements AddressEvent {
-  const factory AddressInitialized(final String location) =
-      _$AddressInitializedImpl;
+abstract class AddPlannerEvent implements PlannerEvent {
+  const factory AddPlannerEvent(final Planner plannerList) =
+      _$AddPlannerEventImpl;
 
-  String get location;
+  Planner get plannerList;
   @JsonKey(ignore: true)
-  _$$AddressInitializedImplCopyWith<_$AddressInitializedImpl> get copyWith =>
+  _$$AddPlannerEventImplCopyWith<_$AddPlannerEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AddressUpdatedImplCopyWith<$Res> {
-  factory _$$AddressUpdatedImplCopyWith(_$AddressUpdatedImpl value,
-          $Res Function(_$AddressUpdatedImpl) then) =
-      __$$AddressUpdatedImplCopyWithImpl<$Res>;
+abstract class _$$SelectedPlannerEventImplCopyWith<$Res> {
+  factory _$$SelectedPlannerEventImplCopyWith(_$SelectedPlannerEventImpl value,
+          $Res Function(_$SelectedPlannerEventImpl) then) =
+      __$$SelectedPlannerEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String location});
+  $Res call({Planner selectedPlanner});
+
+  $PlannerCopyWith<$Res> get selectedPlanner;
 }
 
 /// @nodoc
-class __$$AddressUpdatedImplCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res, _$AddressUpdatedImpl>
-    implements _$$AddressUpdatedImplCopyWith<$Res> {
-  __$$AddressUpdatedImplCopyWithImpl(
-      _$AddressUpdatedImpl _value, $Res Function(_$AddressUpdatedImpl) _then)
+class __$$SelectedPlannerEventImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$SelectedPlannerEventImpl>
+    implements _$$SelectedPlannerEventImplCopyWith<$Res> {
+  __$$SelectedPlannerEventImplCopyWithImpl(_$SelectedPlannerEventImpl _value,
+      $Res Function(_$SelectedPlannerEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? location = null,
+    Object? selectedPlanner = null,
   }) {
-    return _then(_$AddressUpdatedImpl(
-      null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$SelectedPlannerEventImpl(
+      null == selectedPlanner
+          ? _value.selectedPlanner
+          : selectedPlanner // ignore: cast_nullable_to_non_nullable
+              as Planner,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PlannerCopyWith<$Res> get selectedPlanner {
+    return $PlannerCopyWith<$Res>(_value.selectedPlanner, (value) {
+      return _then(_value.copyWith(selectedPlanner: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$AddressUpdatedImpl implements AddressUpdated {
-  const _$AddressUpdatedImpl(this.location);
+class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
+  const _$SelectedPlannerEventImpl(this.selectedPlanner);
 
   @override
-  final String location;
+  final Planner selectedPlanner;
 
   @override
   String toString() {
-    return 'AddressEvent.updated(location: $location)';
+    return 'PlannerEvent.selected(selectedPlanner: $selectedPlanner)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddressUpdatedImpl &&
-            (identical(other.location, location) ||
-                other.location == location));
+            other is _$SelectedPlannerEventImpl &&
+            (identical(other.selectedPlanner, selectedPlanner) ||
+                other.selectedPlanner == selectedPlanner));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, location);
+  int get hashCode => Object.hash(runtimeType, selectedPlanner);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddressUpdatedImplCopyWith<_$AddressUpdatedImpl> get copyWith =>
-      __$$AddressUpdatedImplCopyWithImpl<_$AddressUpdatedImpl>(
-          this, _$identity);
+  _$$SelectedPlannerEventImplCopyWith<_$SelectedPlannerEventImpl>
+      get copyWith =>
+          __$$SelectedPlannerEventImplCopyWithImpl<_$SelectedPlannerEventImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String location) initialized,
-    required TResult Function(String location) updated,
-    required TResult Function(int radius, String sort) filterUpdated,
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
   }) {
-    return updated(location);
+    return selected(selectedPlanner);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String location)? initialized,
-    TResult? Function(String location)? updated,
-    TResult? Function(int radius, String sort)? filterUpdated,
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
   }) {
-    return updated?.call(location);
+    return selected?.call(selectedPlanner);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String location)? initialized,
-    TResult Function(String location)? updated,
-    TResult Function(int radius, String sort)? filterUpdated,
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
     required TResult orElse(),
   }) {
-    if (updated != null) {
-      return updated(location);
+    if (selected != null) {
+      return selected(selectedPlanner);
     }
     return orElse();
   }
@@ -322,216 +452,72 @@ class _$AddressUpdatedImpl implements AddressUpdated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(AddressInitialized value) initialized,
-    required TResult Function(AddressUpdated value) updated,
-    required TResult Function(FilterUpdated value) filterUpdated,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
   }) {
-    return updated(this);
+    return selected(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressInitialized value)? initialized,
-    TResult? Function(AddressUpdated value)? updated,
-    TResult? Function(FilterUpdated value)? filterUpdated,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
   }) {
-    return updated?.call(this);
+    return selected?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressInitialized value)? initialized,
-    TResult Function(AddressUpdated value)? updated,
-    TResult Function(FilterUpdated value)? filterUpdated,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
     required TResult orElse(),
   }) {
-    if (updated != null) {
-      return updated(this);
+    if (selected != null) {
+      return selected(this);
     }
     return orElse();
   }
 }
 
-abstract class AddressUpdated implements AddressEvent {
-  const factory AddressUpdated(final String location) = _$AddressUpdatedImpl;
+abstract class SelectedPlannerEvent implements PlannerEvent {
+  const factory SelectedPlannerEvent(final Planner selectedPlanner) =
+      _$SelectedPlannerEventImpl;
 
-  String get location;
+  Planner get selectedPlanner;
   @JsonKey(ignore: true)
-  _$$AddressUpdatedImplCopyWith<_$AddressUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SelectedPlannerEventImplCopyWith<_$SelectedPlannerEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FilterUpdatedImplCopyWith<$Res> {
-  factory _$$FilterUpdatedImplCopyWith(
-          _$FilterUpdatedImpl value, $Res Function(_$FilterUpdatedImpl) then) =
-      __$$FilterUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int radius, String sort});
-}
-
-/// @nodoc
-class __$$FilterUpdatedImplCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res, _$FilterUpdatedImpl>
-    implements _$$FilterUpdatedImplCopyWith<$Res> {
-  __$$FilterUpdatedImplCopyWithImpl(
-      _$FilterUpdatedImpl _value, $Res Function(_$FilterUpdatedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? radius = null,
-    Object? sort = null,
-  }) {
-    return _then(_$FilterUpdatedImpl(
-      null == radius
-          ? _value.radius
-          : radius // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == sort
-          ? _value.sort
-          : sort // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$FilterUpdatedImpl implements FilterUpdated {
-  const _$FilterUpdatedImpl(this.radius, this.sort);
-
-  @override
-  final int radius;
-  @override
-  final String sort;
-
-  @override
-  String toString() {
-    return 'AddressEvent.filterUpdated(radius: $radius, sort: $sort)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FilterUpdatedImpl &&
-            (identical(other.radius, radius) || other.radius == radius) &&
-            (identical(other.sort, sort) || other.sort == sort));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, radius, sort);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FilterUpdatedImplCopyWith<_$FilterUpdatedImpl> get copyWith =>
-      __$$FilterUpdatedImplCopyWithImpl<_$FilterUpdatedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String location) initialized,
-    required TResult Function(String location) updated,
-    required TResult Function(int radius, String sort) filterUpdated,
-  }) {
-    return filterUpdated(radius, sort);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String location)? initialized,
-    TResult? Function(String location)? updated,
-    TResult? Function(int radius, String sort)? filterUpdated,
-  }) {
-    return filterUpdated?.call(radius, sort);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String location)? initialized,
-    TResult Function(String location)? updated,
-    TResult Function(int radius, String sort)? filterUpdated,
-    required TResult orElse(),
-  }) {
-    if (filterUpdated != null) {
-      return filterUpdated(radius, sort);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressInitialized value) initialized,
-    required TResult Function(AddressUpdated value) updated,
-    required TResult Function(FilterUpdated value) filterUpdated,
-  }) {
-    return filterUpdated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressInitialized value)? initialized,
-    TResult? Function(AddressUpdated value)? updated,
-    TResult? Function(FilterUpdated value)? filterUpdated,
-  }) {
-    return filterUpdated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressInitialized value)? initialized,
-    TResult Function(AddressUpdated value)? updated,
-    TResult Function(FilterUpdated value)? filterUpdated,
-    required TResult orElse(),
-  }) {
-    if (filterUpdated != null) {
-      return filterUpdated(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FilterUpdated implements AddressEvent {
-  const factory FilterUpdated(final int radius, final String sort) =
-      _$FilterUpdatedImpl;
-
-  int get radius;
-  String get sort;
-  @JsonKey(ignore: true)
-  _$$FilterUpdatedImplCopyWith<_$FilterUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$AddressState {
+mixin _$PlannerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Address addressInfo) success,
+    required TResult Function(
+            List<Planner> plannerList, Planner selectedPlanner)
+        success,
     required TResult Function(ErrorResponse error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Address addressInfo)? success,
+    TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult? Function(ErrorResponse error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Address addressInfo)? success,
+    TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult Function(ErrorResponse error)? error,
     required TResult orElse(),
   }) =>
@@ -561,16 +547,16 @@ mixin _$AddressState {
 }
 
 /// @nodoc
-abstract class $AddressStateCopyWith<$Res> {
-  factory $AddressStateCopyWith(
-          AddressState value, $Res Function(AddressState) then) =
-      _$AddressStateCopyWithImpl<$Res, AddressState>;
+abstract class $PlannerStateCopyWith<$Res> {
+  factory $PlannerStateCopyWith(
+          PlannerState value, $Res Function(PlannerState) then) =
+      _$PlannerStateCopyWithImpl<$Res, PlannerState>;
 }
 
 /// @nodoc
-class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
-    implements $AddressStateCopyWith<$Res> {
-  _$AddressStateCopyWithImpl(this._value, this._then);
+class _$PlannerStateCopyWithImpl<$Res, $Val extends PlannerState>
+    implements $PlannerStateCopyWith<$Res> {
+  _$PlannerStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -587,7 +573,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$PlannerStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -601,7 +587,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'AddressState.loading()';
+    return 'PlannerState.loading()';
   }
 
   @override
@@ -617,7 +603,9 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Address addressInfo) success,
+    required TResult Function(
+            List<Planner> plannerList, Planner selectedPlanner)
+        success,
     required TResult Function(ErrorResponse error) error,
   }) {
     return loading();
@@ -627,7 +615,8 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Address addressInfo)? success,
+    TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult? Function(ErrorResponse error)? error,
   }) {
     return loading?.call();
@@ -637,7 +626,8 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Address addressInfo)? success,
+    TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult Function(ErrorResponse error)? error,
     required TResult orElse(),
   }) {
@@ -682,7 +672,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements AddressState {
+abstract class _Loading implements PlannerState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -692,14 +682,14 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Address addressInfo});
+  $Res call({List<Planner> plannerList, Planner selectedPlanner});
 
-  $AddressCopyWith<$Res> get addressInfo;
+  $PlannerCopyWith<$Res> get selectedPlanner;
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$PlannerStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -708,21 +698,26 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? addressInfo = null,
+    Object? plannerList = null,
+    Object? selectedPlanner = null,
   }) {
     return _then(_$SuccessImpl(
-      null == addressInfo
-          ? _value.addressInfo
-          : addressInfo // ignore: cast_nullable_to_non_nullable
-              as Address,
+      null == plannerList
+          ? _value._plannerList
+          : plannerList // ignore: cast_nullable_to_non_nullable
+              as List<Planner>,
+      null == selectedPlanner
+          ? _value.selectedPlanner
+          : selectedPlanner // ignore: cast_nullable_to_non_nullable
+              as Planner,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get addressInfo {
-    return $AddressCopyWith<$Res>(_value.addressInfo, (value) {
-      return _then(_value.copyWith(addressInfo: value));
+  $PlannerCopyWith<$Res> get selectedPlanner {
+    return $PlannerCopyWith<$Res>(_value.selectedPlanner, (value) {
+      return _then(_value.copyWith(selectedPlanner: value));
     });
   }
 }
@@ -730,14 +725,23 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.addressInfo);
+  const _$SuccessImpl(final List<Planner> plannerList, this.selectedPlanner)
+      : _plannerList = plannerList;
+
+  final List<Planner> _plannerList;
+  @override
+  List<Planner> get plannerList {
+    if (_plannerList is EqualUnmodifiableListView) return _plannerList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_plannerList);
+  }
 
   @override
-  final Address addressInfo;
+  final Planner selectedPlanner;
 
   @override
   String toString() {
-    return 'AddressState.success(addressInfo: $addressInfo)';
+    return 'PlannerState.success(plannerList: $plannerList, selectedPlanner: $selectedPlanner)';
   }
 
   @override
@@ -745,12 +749,15 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.addressInfo, addressInfo) ||
-                other.addressInfo == addressInfo));
+            const DeepCollectionEquality()
+                .equals(other._plannerList, _plannerList) &&
+            (identical(other.selectedPlanner, selectedPlanner) ||
+                other.selectedPlanner == selectedPlanner));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, addressInfo);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_plannerList), selectedPlanner);
 
   @JsonKey(ignore: true)
   @override
@@ -762,32 +769,36 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Address addressInfo) success,
+    required TResult Function(
+            List<Planner> plannerList, Planner selectedPlanner)
+        success,
     required TResult Function(ErrorResponse error) error,
   }) {
-    return success(addressInfo);
+    return success(plannerList, selectedPlanner);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Address addressInfo)? success,
+    TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult? Function(ErrorResponse error)? error,
   }) {
-    return success?.call(addressInfo);
+    return success?.call(plannerList, selectedPlanner);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Address addressInfo)? success,
+    TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult Function(ErrorResponse error)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(addressInfo);
+      return success(plannerList, selectedPlanner);
     }
     return orElse();
   }
@@ -827,10 +838,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements AddressState {
-  const factory _Success(final Address addressInfo) = _$SuccessImpl;
+abstract class _Success implements PlannerState {
+  const factory _Success(
+          final List<Planner> plannerList, final Planner selectedPlanner) =
+      _$SuccessImpl;
 
-  Address get addressInfo;
+  List<Planner> get plannerList;
+  Planner get selectedPlanner;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -847,7 +861,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$PlannerStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -877,7 +891,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'AddressState.error(error: $error)';
+    return 'PlannerState.error(error: $error)';
   }
 
   @override
@@ -901,7 +915,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Address addressInfo) success,
+    required TResult Function(
+            List<Planner> plannerList, Planner selectedPlanner)
+        success,
     required TResult Function(ErrorResponse error) error,
   }) {
     return error(this.error);
@@ -911,7 +927,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Address addressInfo)? success,
+    TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult? Function(ErrorResponse error)? error,
   }) {
     return error?.call(this.error);
@@ -921,7 +938,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Address addressInfo)? success,
+    TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
     TResult Function(ErrorResponse error)? error,
     required TResult orElse(),
   }) {
@@ -966,7 +984,7 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements AddressState {
+abstract class _Error implements PlannerState {
   const factory _Error(final ErrorResponse error) = _$ErrorImpl;
 
   ErrorResponse get error;

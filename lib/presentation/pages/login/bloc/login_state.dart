@@ -9,6 +9,8 @@ class LoginState with _$LoginState {
 
   const factory LoginState.alreadyLoggedIn() = _AlreadyLoggedIn;
 
+  const factory LoginState.emailDuplicateError(String email, String providers) =_EmailDuplicateError;
+
   const factory LoginState.requireMoreUserInfo() = _RequireMoreUserInfo;
 
   const factory LoginState.loggedIn() = _LoggedIn;

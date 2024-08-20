@@ -31,20 +31,6 @@ final GoRouter router = GoRouter(routes: [
       name: 'plan',
       builder: (context, state) => PlanPage()),
   GoRoute(
-    path: RoutePath.planner,
-    name: 'planner',
-    builder: (context, state) {
-      final destination = state.uri.queryParameters['destination'] ?? '';
-      final arrivalTime = state.uri.queryParameters['arrivalTime'] ?? '';
-      final addressBloc = state.extra as AddressBloc; // extra를 통해 전달된 AddressBloc 인스턴스 사용
-      return PlannerPage(
-        destination: destination,
-        arrivalTime: arrivalTime,
-        addressBloc: addressBloc,
-      );
-    },
-  ),
-  GoRoute(
       path: RoutePath.rcmn,
       name: 'rcmn',
       builder: (context, state) => RecommendedListPage(
