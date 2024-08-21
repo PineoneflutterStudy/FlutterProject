@@ -22,9 +22,7 @@ Planner _$PlannerFromJson(Map<String, dynamic> json) {
 mixin _$Planner {
   String get planner_id => throw _privateConstructorUsedError;
   String get planner_title => throw _privateConstructorUsedError;
-  List<PlannerItem> get planner_item_list => throw _privateConstructorUsedError;
-  Address? get destination => throw _privateConstructorUsedError;
-  String get arrivalTime => throw _privateConstructorUsedError;
+  List<PlannerPage> get planner_page_list => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,11 +37,7 @@ abstract class $PlannerCopyWith<$Res> {
   $Res call(
       {String planner_id,
       String planner_title,
-      List<PlannerItem> planner_item_list,
-      Address? destination,
-      String arrivalTime});
-
-  $AddressCopyWith<$Res>? get destination;
+      List<PlannerPage> planner_page_list});
 }
 
 /// @nodoc
@@ -61,9 +55,7 @@ class _$PlannerCopyWithImpl<$Res, $Val extends Planner>
   $Res call({
     Object? planner_id = null,
     Object? planner_title = null,
-    Object? planner_item_list = null,
-    Object? destination = freezed,
-    Object? arrivalTime = null,
+    Object? planner_page_list = null,
   }) {
     return _then(_value.copyWith(
       planner_id: null == planner_id
@@ -74,31 +66,11 @@ class _$PlannerCopyWithImpl<$Res, $Val extends Planner>
           ? _value.planner_title
           : planner_title // ignore: cast_nullable_to_non_nullable
               as String,
-      planner_item_list: null == planner_item_list
-          ? _value.planner_item_list
-          : planner_item_list // ignore: cast_nullable_to_non_nullable
-              as List<PlannerItem>,
-      destination: freezed == destination
-          ? _value.destination
-          : destination // ignore: cast_nullable_to_non_nullable
-              as Address?,
-      arrivalTime: null == arrivalTime
-          ? _value.arrivalTime
-          : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String,
+      planner_page_list: null == planner_page_list
+          ? _value.planner_page_list
+          : planner_page_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerPage>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res>? get destination {
-    if (_value.destination == null) {
-      return null;
-    }
-
-    return $AddressCopyWith<$Res>(_value.destination!, (value) {
-      return _then(_value.copyWith(destination: value) as $Val);
-    });
   }
 }
 
@@ -112,12 +84,7 @@ abstract class _$$PlannerImplCopyWith<$Res> implements $PlannerCopyWith<$Res> {
   $Res call(
       {String planner_id,
       String planner_title,
-      List<PlannerItem> planner_item_list,
-      Address? destination,
-      String arrivalTime});
-
-  @override
-  $AddressCopyWith<$Res>? get destination;
+      List<PlannerPage> planner_page_list});
 }
 
 /// @nodoc
@@ -133,9 +100,7 @@ class __$$PlannerImplCopyWithImpl<$Res>
   $Res call({
     Object? planner_id = null,
     Object? planner_title = null,
-    Object? planner_item_list = null,
-    Object? destination = freezed,
-    Object? arrivalTime = null,
+    Object? planner_page_list = null,
   }) {
     return _then(_$PlannerImpl(
       planner_id: null == planner_id
@@ -146,18 +111,10 @@ class __$$PlannerImplCopyWithImpl<$Res>
           ? _value.planner_title
           : planner_title // ignore: cast_nullable_to_non_nullable
               as String,
-      planner_item_list: null == planner_item_list
-          ? _value._planner_item_list
-          : planner_item_list // ignore: cast_nullable_to_non_nullable
-              as List<PlannerItem>,
-      destination: freezed == destination
-          ? _value.destination
-          : destination // ignore: cast_nullable_to_non_nullable
-              as Address?,
-      arrivalTime: null == arrivalTime
-          ? _value.arrivalTime
-          : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String,
+      planner_page_list: null == planner_page_list
+          ? _value._planner_page_list
+          : planner_page_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerPage>,
     ));
   }
 }
@@ -169,10 +126,8 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
   const _$PlannerImpl(
       {required this.planner_id,
       this.planner_title = 'plan',
-      final List<PlannerItem> planner_item_list = const [],
-      this.destination,
-      this.arrivalTime = '10:00'})
-      : _planner_item_list = planner_item_list;
+      final List<PlannerPage> planner_page_list = const []})
+      : _planner_page_list = planner_page_list;
 
   factory _$PlannerImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlannerImplFromJson(json);
@@ -182,25 +137,19 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
   @override
   @JsonKey()
   final String planner_title;
-  final List<PlannerItem> _planner_item_list;
+  final List<PlannerPage> _planner_page_list;
   @override
   @JsonKey()
-  List<PlannerItem> get planner_item_list {
-    if (_planner_item_list is EqualUnmodifiableListView)
-      return _planner_item_list;
+  List<PlannerPage> get planner_page_list {
+    if (_planner_page_list is EqualUnmodifiableListView)
+      return _planner_page_list;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_planner_item_list);
+    return EqualUnmodifiableListView(_planner_page_list);
   }
 
   @override
-  final Address? destination;
-  @override
-  @JsonKey()
-  final String arrivalTime;
-
-  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Planner(planner_id: $planner_id, planner_title: $planner_title, planner_item_list: $planner_item_list, destination: $destination, arrivalTime: $arrivalTime)';
+    return 'Planner(planner_id: $planner_id, planner_title: $planner_title, planner_page_list: $planner_page_list)';
   }
 
   @override
@@ -210,9 +159,7 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
       ..add(DiagnosticsProperty('type', 'Planner'))
       ..add(DiagnosticsProperty('planner_id', planner_id))
       ..add(DiagnosticsProperty('planner_title', planner_title))
-      ..add(DiagnosticsProperty('planner_item_list', planner_item_list))
-      ..add(DiagnosticsProperty('destination', destination))
-      ..add(DiagnosticsProperty('arrivalTime', arrivalTime));
+      ..add(DiagnosticsProperty('planner_page_list', planner_page_list));
   }
 
   @override
@@ -225,22 +172,13 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
             (identical(other.planner_title, planner_title) ||
                 other.planner_title == planner_title) &&
             const DeepCollectionEquality()
-                .equals(other._planner_item_list, _planner_item_list) &&
-            (identical(other.destination, destination) ||
-                other.destination == destination) &&
-            (identical(other.arrivalTime, arrivalTime) ||
-                other.arrivalTime == arrivalTime));
+                .equals(other._planner_page_list, _planner_page_list));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      planner_id,
-      planner_title,
-      const DeepCollectionEquality().hash(_planner_item_list),
-      destination,
-      arrivalTime);
+  int get hashCode => Object.hash(runtimeType, planner_id, planner_title,
+      const DeepCollectionEquality().hash(_planner_page_list));
 
   @JsonKey(ignore: true)
   @override
@@ -260,9 +198,7 @@ abstract class _Planner implements Planner {
   const factory _Planner(
       {required final String planner_id,
       final String planner_title,
-      final List<PlannerItem> planner_item_list,
-      final Address? destination,
-      final String arrivalTime}) = _$PlannerImpl;
+      final List<PlannerPage> planner_page_list}) = _$PlannerImpl;
 
   factory _Planner.fromJson(Map<String, dynamic> json) = _$PlannerImpl.fromJson;
 
@@ -271,14 +207,187 @@ abstract class _Planner implements Planner {
   @override
   String get planner_title;
   @override
-  List<PlannerItem> get planner_item_list;
-  @override
-  Address? get destination;
-  @override
-  String get arrivalTime;
+  List<PlannerPage> get planner_page_list;
   @override
   @JsonKey(ignore: true)
   _$$PlannerImplCopyWith<_$PlannerImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PlannerPage _$PlannerPageFromJson(Map<String, dynamic> json) {
+  return _PlannerPage.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PlannerPage {
+  String get planner_title => throw _privateConstructorUsedError;
+  List<PlannerItem> get page_item_list => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PlannerPageCopyWith<PlannerPage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PlannerPageCopyWith<$Res> {
+  factory $PlannerPageCopyWith(
+          PlannerPage value, $Res Function(PlannerPage) then) =
+      _$PlannerPageCopyWithImpl<$Res, PlannerPage>;
+  @useResult
+  $Res call({String planner_title, List<PlannerItem> page_item_list});
+}
+
+/// @nodoc
+class _$PlannerPageCopyWithImpl<$Res, $Val extends PlannerPage>
+    implements $PlannerPageCopyWith<$Res> {
+  _$PlannerPageCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? planner_title = null,
+    Object? page_item_list = null,
+  }) {
+    return _then(_value.copyWith(
+      planner_title: null == planner_title
+          ? _value.planner_title
+          : planner_title // ignore: cast_nullable_to_non_nullable
+              as String,
+      page_item_list: null == page_item_list
+          ? _value.page_item_list
+          : page_item_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerItem>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PlannerPageImplCopyWith<$Res>
+    implements $PlannerPageCopyWith<$Res> {
+  factory _$$PlannerPageImplCopyWith(
+          _$PlannerPageImpl value, $Res Function(_$PlannerPageImpl) then) =
+      __$$PlannerPageImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String planner_title, List<PlannerItem> page_item_list});
+}
+
+/// @nodoc
+class __$$PlannerPageImplCopyWithImpl<$Res>
+    extends _$PlannerPageCopyWithImpl<$Res, _$PlannerPageImpl>
+    implements _$$PlannerPageImplCopyWith<$Res> {
+  __$$PlannerPageImplCopyWithImpl(
+      _$PlannerPageImpl _value, $Res Function(_$PlannerPageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? planner_title = null,
+    Object? page_item_list = null,
+  }) {
+    return _then(_$PlannerPageImpl(
+      planner_title: null == planner_title
+          ? _value.planner_title
+          : planner_title // ignore: cast_nullable_to_non_nullable
+              as String,
+      page_item_list: null == page_item_list
+          ? _value._page_item_list
+          : page_item_list // ignore: cast_nullable_to_non_nullable
+              as List<PlannerItem>,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
+  const _$PlannerPageImpl(
+      {this.planner_title = 'plan',
+      final List<PlannerItem> page_item_list = const []})
+      : _page_item_list = page_item_list;
+
+  factory _$PlannerPageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlannerPageImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String planner_title;
+  final List<PlannerItem> _page_item_list;
+  @override
+  @JsonKey()
+  List<PlannerItem> get page_item_list {
+    if (_page_item_list is EqualUnmodifiableListView) return _page_item_list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_page_item_list);
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlannerPage(planner_title: $planner_title, page_item_list: $page_item_list)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlannerPage'))
+      ..add(DiagnosticsProperty('planner_title', planner_title))
+      ..add(DiagnosticsProperty('page_item_list', page_item_list));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlannerPageImpl &&
+            (identical(other.planner_title, planner_title) ||
+                other.planner_title == planner_title) &&
+            const DeepCollectionEquality()
+                .equals(other._page_item_list, _page_item_list));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, planner_title,
+      const DeepCollectionEquality().hash(_page_item_list));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlannerPageImplCopyWith<_$PlannerPageImpl> get copyWith =>
+      __$$PlannerPageImplCopyWithImpl<_$PlannerPageImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PlannerPageImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PlannerPage implements PlannerPage {
+  const factory _PlannerPage(
+      {final String planner_title,
+      final List<PlannerItem> page_item_list}) = _$PlannerPageImpl;
+
+  factory _PlannerPage.fromJson(Map<String, dynamic> json) =
+      _$PlannerPageImpl.fromJson;
+
+  @override
+  String get planner_title;
+  @override
+  List<PlannerItem> get page_item_list;
+  @override
+  @JsonKey(ignore: true)
+  _$$PlannerPageImplCopyWith<_$PlannerPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -288,15 +397,16 @@ PlannerItem _$PlannerItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PlannerItem {
+  Address get cur_address_info => throw _privateConstructorUsedError;
   String get place_name => throw _privateConstructorUsedError;
-  String get place_id => throw _privateConstructorUsedError;
-  String get prev_place_id => throw _privateConstructorUsedError;
-  String get stay_time => throw _privateConstructorUsedError; // 머무는 시간
-  String get start_time => throw _privateConstructorUsedError;
+  String? get start_time => throw _privateConstructorUsedError;
   String get end_time => throw _privateConstructorUsedError;
-  String get distance => throw _privateConstructorUsedError; // 이전장소와의 거리
-  String get transportation => throw _privateConstructorUsedError; //이동수단
-  String get travel_time => throw _privateConstructorUsedError;
+  String? get stay_time => throw _privateConstructorUsedError; // 이용시간
+  Address? get prev_address_info => throw _privateConstructorUsedError;
+  String? get prev_place_id => throw _privateConstructorUsedError;
+  String? get distance => throw _privateConstructorUsedError; // 이전장소와의 거리
+  String? get transportation => throw _privateConstructorUsedError; //이동수단
+  String? get travel_time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -311,15 +421,19 @@ abstract class $PlannerItemCopyWith<$Res> {
       _$PlannerItemCopyWithImpl<$Res, PlannerItem>;
   @useResult
   $Res call(
-      {String place_name,
-      String place_id,
-      String prev_place_id,
-      String stay_time,
-      String start_time,
+      {Address cur_address_info,
+      String place_name,
+      String? start_time,
       String end_time,
-      String distance,
-      String transportation,
-      String travel_time});
+      String? stay_time,
+      Address? prev_address_info,
+      String? prev_place_id,
+      String? distance,
+      String? transportation,
+      String? travel_time});
+
+  $AddressCopyWith<$Res> get cur_address_info;
+  $AddressCopyWith<$Res>? get prev_address_info;
 }
 
 /// @nodoc
@@ -335,54 +449,79 @@ class _$PlannerItemCopyWithImpl<$Res, $Val extends PlannerItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? cur_address_info = null,
     Object? place_name = null,
-    Object? place_id = null,
-    Object? prev_place_id = null,
-    Object? stay_time = null,
-    Object? start_time = null,
+    Object? start_time = freezed,
     Object? end_time = null,
-    Object? distance = null,
-    Object? transportation = null,
-    Object? travel_time = null,
+    Object? stay_time = freezed,
+    Object? prev_address_info = freezed,
+    Object? prev_place_id = freezed,
+    Object? distance = freezed,
+    Object? transportation = freezed,
+    Object? travel_time = freezed,
   }) {
     return _then(_value.copyWith(
+      cur_address_info: null == cur_address_info
+          ? _value.cur_address_info
+          : cur_address_info // ignore: cast_nullable_to_non_nullable
+              as Address,
       place_name: null == place_name
           ? _value.place_name
           : place_name // ignore: cast_nullable_to_non_nullable
               as String,
-      place_id: null == place_id
-          ? _value.place_id
-          : place_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      prev_place_id: null == prev_place_id
-          ? _value.prev_place_id
-          : prev_place_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      stay_time: null == stay_time
-          ? _value.stay_time
-          : stay_time // ignore: cast_nullable_to_non_nullable
-              as String,
-      start_time: null == start_time
+      start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       end_time: null == end_time
           ? _value.end_time
           : end_time // ignore: cast_nullable_to_non_nullable
               as String,
-      distance: null == distance
+      stay_time: freezed == stay_time
+          ? _value.stay_time
+          : stay_time // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prev_address_info: freezed == prev_address_info
+          ? _value.prev_address_info
+          : prev_address_info // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      prev_place_id: freezed == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String,
-      transportation: null == transportation
+              as String?,
+      transportation: freezed == transportation
           ? _value.transportation
           : transportation // ignore: cast_nullable_to_non_nullable
-              as String,
-      travel_time: null == travel_time
+              as String?,
+      travel_time: freezed == travel_time
           ? _value.travel_time
           : travel_time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get cur_address_info {
+    return $AddressCopyWith<$Res>(_value.cur_address_info, (value) {
+      return _then(_value.copyWith(cur_address_info: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res>? get prev_address_info {
+    if (_value.prev_address_info == null) {
+      return null;
+    }
+
+    return $AddressCopyWith<$Res>(_value.prev_address_info!, (value) {
+      return _then(_value.copyWith(prev_address_info: value) as $Val);
+    });
   }
 }
 
@@ -395,15 +534,21 @@ abstract class _$$PlannerItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String place_name,
-      String place_id,
-      String prev_place_id,
-      String stay_time,
-      String start_time,
+      {Address cur_address_info,
+      String place_name,
+      String? start_time,
       String end_time,
-      String distance,
-      String transportation,
-      String travel_time});
+      String? stay_time,
+      Address? prev_address_info,
+      String? prev_place_id,
+      String? distance,
+      String? transportation,
+      String? travel_time});
+
+  @override
+  $AddressCopyWith<$Res> get cur_address_info;
+  @override
+  $AddressCopyWith<$Res>? get prev_address_info;
 }
 
 /// @nodoc
@@ -417,99 +562,108 @@ class __$$PlannerItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? cur_address_info = null,
     Object? place_name = null,
-    Object? place_id = null,
-    Object? prev_place_id = null,
-    Object? stay_time = null,
-    Object? start_time = null,
+    Object? start_time = freezed,
     Object? end_time = null,
-    Object? distance = null,
-    Object? transportation = null,
-    Object? travel_time = null,
+    Object? stay_time = freezed,
+    Object? prev_address_info = freezed,
+    Object? prev_place_id = freezed,
+    Object? distance = freezed,
+    Object? transportation = freezed,
+    Object? travel_time = freezed,
   }) {
     return _then(_$PlannerItemImpl(
+      cur_address_info: null == cur_address_info
+          ? _value.cur_address_info
+          : cur_address_info // ignore: cast_nullable_to_non_nullable
+              as Address,
       place_name: null == place_name
           ? _value.place_name
           : place_name // ignore: cast_nullable_to_non_nullable
               as String,
-      place_id: null == place_id
-          ? _value.place_id
-          : place_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      prev_place_id: null == prev_place_id
-          ? _value.prev_place_id
-          : prev_place_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      stay_time: null == stay_time
-          ? _value.stay_time
-          : stay_time // ignore: cast_nullable_to_non_nullable
-              as String,
-      start_time: null == start_time
+      start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       end_time: null == end_time
           ? _value.end_time
           : end_time // ignore: cast_nullable_to_non_nullable
               as String,
-      distance: null == distance
+      stay_time: freezed == stay_time
+          ? _value.stay_time
+          : stay_time // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prev_address_info: freezed == prev_address_info
+          ? _value.prev_address_info
+          : prev_address_info // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      prev_place_id: freezed == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String,
-      transportation: null == transportation
+              as String?,
+      transportation: freezed == transportation
           ? _value.transportation
           : transportation // ignore: cast_nullable_to_non_nullable
-              as String,
-      travel_time: null == travel_time
+              as String?,
+      travel_time: freezed == travel_time
           ? _value.travel_time
           : travel_time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
   const _$PlannerItemImpl(
-      {required this.place_name,
-      required this.place_id,
-      required this.prev_place_id,
-      required this.stay_time,
-      required this.start_time,
+      {required this.cur_address_info,
+      required this.place_name,
+      this.start_time,
       required this.end_time,
-      required this.distance,
-      required this.transportation,
-      required this.travel_time});
+      this.stay_time,
+      this.prev_address_info,
+      this.prev_place_id,
+      this.distance,
+      this.transportation,
+      this.travel_time});
 
   factory _$PlannerItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlannerItemImplFromJson(json);
 
   @override
+  final Address cur_address_info;
+  @override
   final String place_name;
   @override
-  final String place_id;
-  @override
-  final String prev_place_id;
-  @override
-  final String stay_time;
-// 머무는 시간
-  @override
-  final String start_time;
+  final String? start_time;
   @override
   final String end_time;
   @override
-  final String distance;
+  final String? stay_time;
+// 이용시간
+  @override
+  final Address? prev_address_info;
+  @override
+  final String? prev_place_id;
+  @override
+  final String? distance;
 // 이전장소와의 거리
   @override
-  final String transportation;
+  final String? transportation;
 //이동수단
   @override
-  final String travel_time;
+  final String? travel_time;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlannerItem(place_name: $place_name, place_id: $place_id, prev_place_id: $prev_place_id, stay_time: $stay_time, start_time: $start_time, end_time: $end_time, distance: $distance, transportation: $transportation, travel_time: $travel_time)';
+    return 'PlannerItem(cur_address_info: $cur_address_info, place_name: $place_name, start_time: $start_time, end_time: $end_time, stay_time: $stay_time, prev_address_info: $prev_address_info, prev_place_id: $prev_place_id, distance: $distance, transportation: $transportation, travel_time: $travel_time)';
   }
 
   @override
@@ -517,12 +671,13 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PlannerItem'))
+      ..add(DiagnosticsProperty('cur_address_info', cur_address_info))
       ..add(DiagnosticsProperty('place_name', place_name))
-      ..add(DiagnosticsProperty('place_id', place_id))
-      ..add(DiagnosticsProperty('prev_place_id', prev_place_id))
-      ..add(DiagnosticsProperty('stay_time', stay_time))
       ..add(DiagnosticsProperty('start_time', start_time))
       ..add(DiagnosticsProperty('end_time', end_time))
+      ..add(DiagnosticsProperty('stay_time', stay_time))
+      ..add(DiagnosticsProperty('prev_address_info', prev_address_info))
+      ..add(DiagnosticsProperty('prev_place_id', prev_place_id))
       ..add(DiagnosticsProperty('distance', distance))
       ..add(DiagnosticsProperty('transportation', transportation))
       ..add(DiagnosticsProperty('travel_time', travel_time));
@@ -533,18 +688,20 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlannerItemImpl &&
+            (identical(other.cur_address_info, cur_address_info) ||
+                other.cur_address_info == cur_address_info) &&
             (identical(other.place_name, place_name) ||
                 other.place_name == place_name) &&
-            (identical(other.place_id, place_id) ||
-                other.place_id == place_id) &&
-            (identical(other.prev_place_id, prev_place_id) ||
-                other.prev_place_id == prev_place_id) &&
-            (identical(other.stay_time, stay_time) ||
-                other.stay_time == stay_time) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
                 other.end_time == end_time) &&
+            (identical(other.stay_time, stay_time) ||
+                other.stay_time == stay_time) &&
+            (identical(other.prev_address_info, prev_address_info) ||
+                other.prev_address_info == prev_address_info) &&
+            (identical(other.prev_place_id, prev_place_id) ||
+                other.prev_place_id == prev_place_id) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
             (identical(other.transportation, transportation) ||
@@ -557,12 +714,13 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      cur_address_info,
       place_name,
-      place_id,
-      prev_place_id,
-      stay_time,
       start_time,
       end_time,
+      stay_time,
+      prev_address_info,
+      prev_place_id,
       distance,
       transportation,
       travel_time);
@@ -583,37 +741,40 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
 
 abstract class _PlannerItem implements PlannerItem {
   const factory _PlannerItem(
-      {required final String place_name,
-      required final String place_id,
-      required final String prev_place_id,
-      required final String stay_time,
-      required final String start_time,
+      {required final Address cur_address_info,
+      required final String place_name,
+      final String? start_time,
       required final String end_time,
-      required final String distance,
-      required final String transportation,
-      required final String travel_time}) = _$PlannerItemImpl;
+      final String? stay_time,
+      final Address? prev_address_info,
+      final String? prev_place_id,
+      final String? distance,
+      final String? transportation,
+      final String? travel_time}) = _$PlannerItemImpl;
 
   factory _PlannerItem.fromJson(Map<String, dynamic> json) =
       _$PlannerItemImpl.fromJson;
 
   @override
+  Address get cur_address_info;
+  @override
   String get place_name;
   @override
-  String get place_id;
-  @override
-  String get prev_place_id;
-  @override
-  String get stay_time;
-  @override // 머무는 시간
-  String get start_time;
+  String? get start_time;
   @override
   String get end_time;
   @override
-  String get distance;
+  String? get stay_time;
+  @override // 이용시간
+  Address? get prev_address_info;
+  @override
+  String? get prev_place_id;
+  @override
+  String? get distance;
   @override // 이전장소와의 거리
-  String get transportation;
+  String? get transportation;
   @override //이동수단
-  String get travel_time;
+  String? get travel_time;
   @override
   @JsonKey(ignore: true)
   _$$PlannerItemImplCopyWith<_$PlannerItemImpl> get copyWith =>

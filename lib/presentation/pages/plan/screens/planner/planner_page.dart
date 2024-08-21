@@ -5,7 +5,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
-import 'planner_item_view.dart';
+import 'page_item_view.dart';
 
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
@@ -32,7 +32,6 @@ class PlannerPage extends StatelessWidget {
           return state.when(
             loading: () => Center(child: CircularProgressIndicator()),
             success: (plannerList, selected) {
-
               final categoryWidgets = getCategoryViewList(context, plannerList, selected);
 
               return Column(
@@ -52,11 +51,10 @@ class PlannerPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                     child: SmoothPageIndicator(
-                      controller: _pageController, // PageController 연결
-                      count: selected.planner_item_list.length,
+                      controller: _pageController,
+                      count: selected.planner_page_list.length,
                       axisDirection: Axis.horizontal,
                       effect: JumpingDotEffect(
-                        // 동글동글한 효과를 설정
                         dotColor: Colors.grey,
                         activeDotColor: AppColors.primary,
                         dotHeight: 10,
@@ -71,9 +69,9 @@ class PlannerPage extends StatelessWidget {
                       child: PageView.builder(
                         scrollDirection: Axis.horizontal,
                         controller: _pageController,
-                        itemCount: selected.planner_item_list.length,
+                        itemCount: selected.planner_page_list.length,
                         itemBuilder: (context, index) {
-                          return PlannerItemView(selected, index+1 );
+                          return PageItemView(selected.planner_page_list[index], index+1 );
                         },
                         pageSnapping: true
                       ),
