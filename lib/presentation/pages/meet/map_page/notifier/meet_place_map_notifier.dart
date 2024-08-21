@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -12,7 +11,6 @@ import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dar
 import '../../../../../data/dto/display/meet/mobility.dto.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
-import '../../../../../domain/repository/home/tour_guide_repository.dart';
 import '../../../../../domain/repository/tour_service.repository.dart';
 import '../../providers.dart';
 import 'meet_place_map_state.dart';
@@ -76,7 +74,7 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
 
     state = state.copyWith(
       status: MeetPlaceMapStatus.success,
-      dto: List.from(resultDto),
+      //dto: List.from(resultDto),
       directionsDto: routes,
       //destinationImg: destinationImgUrl.toString(),
       //startingPointImg: startingPointImgUrl.toString(),
@@ -101,16 +99,12 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     return centers;
   }
 
-  Future<List<TourLocationModel>> getDtoData(List<AddressModel> addressList) async {
+  Future<List<TourLocationModel>?> getDtoData(List<AddressModel> addressList) async {
 
-    _logger.i('api 실행전 확인데이터!!!! 1 -> ${addressList}');
     final centerValue = getCenter(addressList);
 
-    /*var model = await _tourServiceRepo.getLocationData(
-        centerValue[0].toString(), centerValue[1].toString(), '${TourApiRequestData().defaultRadius}');*/
-
     var model = await _tourServiceRepo.getTourLocationInfo(
-        serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY'),
+        serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
         numOfRows: TourApiRequestData().emptyIntData,
         pageNo: TourApiRequestData().emptyIntData,
         MobileOS: getOsInfo(),
@@ -120,22 +114,36 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
         arrange: TourApiRequestData().arrangeList[1],
         mapX: centerValue[0].toString(),
         mapY: centerValue[1].toString(),
-        radius: '7000',
+        radius: '${TourApiRequestData().defaultRadius}',
         contentTypeId: TourApiRequestData().contentTypes[7].toString(),
         modifiedtime: TourApiRequestData().emptyData,
     );
 
 
-    _logger.i('Confirm getLocationData ( model ) -> ${model}');
-    /*if (model == null) {
+    _logger.i('Confirm getLocationData ( model ) -> ${model.data}');
+    if (model.data == null) {
       for (int i = 1; i < 100; i++) {
-        model = await _tourServiceRepo.getLocationData(centerValue[0].toString(), centerValue[1].toString(), '${TourApiRequestData().defaultRadius + (250 * i)}');
-        _logger.i('Radius Value ( ${TourApiRequestData().defaultRadius + (250 * i)} ) Start Tour Location Api.. -> result : ${model}');
-        if (model.isNotEmpty) {
-          return model;
+        model = await _tourServiceRepo.getTourLocationInfo(
+        serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
+        numOfRows: TourApiRequestData().emptyIntData,
+        pageNo: TourApiRequestData().emptyIntData,
+        MobileOS: getOsInfo(),
+        MobileApp: TourApiRequestData().appName,
+        type: TourApiRequestData().responseType,
+        listYN: TourApiRequestData().emptyData,
+        arrange: TourApiRequestData().arrangeList[1],
+        mapX: centerValue[0].toString(),
+        mapY: centerValue[1].toString(),
+        radius: '${TourApiRequestData().defaultRadius + (1000 * i)}',
+        contentTypeId: TourApiRequestData().contentTypes[7].toString(),
+        modifiedtime: TourApiRequestData().emptyData,
+        );
+        _logger.i('Radius Value ( ${TourApiRequestData().defaultRadius + (1000 * i)} ) Start Tour Location Api.. -> result : ${model}');
+        if (model.data != null) {
+          return model.data;
         }
       }
-    }*/
+    }
     return List.empty();
   }
 

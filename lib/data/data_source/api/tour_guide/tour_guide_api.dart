@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -70,6 +71,9 @@ class TourGuideApiImpl implements TourGuideApi {
         _logger.i('Confirm Response Data.. -> ${response}');
 
         final bodyData = response.data?['response']['body']['totalCount'];
+
+        final aaaData = response.data?['response'];
+        _logger.i('그럼이건어떄 -> ${aaaData}');
 
         _logger.i('Check Total Count -> ${bodyData}'); // api 결과 개수
 

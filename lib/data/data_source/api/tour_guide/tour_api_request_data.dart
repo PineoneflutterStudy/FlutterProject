@@ -1,11 +1,10 @@
-import 'dart:io';
-
+/// ## 한국관광공사 Api Request 시 기본적으로 사용되는 Data들...
 class TourApiRequestData {
   final String appName = '개꿀트립';
   final String emptyData = '';
   final int emptyIntData = -1;
   final String responseType = 'json';
-  final int defaultRadius = 500;
+  final int defaultRadius = 1000;
   final List<String> osList = [
     'AND', // OS - Android
     'IOS', // OS - IPhone

@@ -1,13 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_config/flutter_config.dart';
-import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import '../../../core/utils/logger.dart';
-import '../../../core/utils/rest_client/rest_client.dart';
 import '../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../domain/repository/tour_service.repository.dart';
-import '../../data_source/api/kakao_mobility/kakao_mobility_api.dart';
 import '../../data_source/remote/tour_service.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
 
@@ -34,26 +30,27 @@ class TourServiceRepositoryImpl extends TourServiceRepository {
     required String modifiedtime}) async {
     try {
       final dio = Dio();
-
-      _logger.i('엥???? 1 -> ${dio}');
-
+      dio.options.baseUrl = 'https://apis.data.go.kr/B551011/KorService1';
+      dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true)); // Api 통신 과정 Logging
       final _api = TourServiceApi(dio);
-
-      _logger.i('엥???? 2 -> ${_api}');
 
       final response = await _api.getTourLocationInfo(
           serviceKey, numOfRows, pageNo, MobileOS, MobileApp, type,
           listYN, arrange, mapX, mapY, radius, contentTypeId, modifiedtime);
 
-      _logger.i('엥???? 33333 -> ${response}');
+      _logger.i('Raw response: $response');
 
-      //final  locations = response.response.map((item) => item.toModel()).toList();
-      final locations = response.toString();
+      final items = response.response?.body?.items?.item;
+      _logger.i('Items: $items');
 
-      _logger.i('여기 일단 확인이요 1 -> ${locations}');
+      final  locations = response.response?.body?.items?.item?.map((item) => item.toModel()).toList();
+      _logger.i('Check Response Data - item : $locations');
 
-      return ResponseWrapper<List<TourLocationModel>>(status: 'success', code: '0000', message: '', data: List.empty());
-    } catch (e) {
+      return ResponseWrapper<List<TourLocationModel>>(status: 'success', code: '0000', message: '', data: locations);
+    } catch (e, stackTrace) {
+      // 에러 확인...
+      _logger.e('Error in getTourLocationInfo: $e');
+      _logger.e('Stack trace: $stackTrace');
       return ResponseWrapper<List<TourLocationModel>>(status: 'error', code: '9999', message: e.toString(), data: []);
     }
   }

@@ -15,16 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TourServiceResponseWrapper<T> _$TourServiceResponseWrapperFromJson<T>(
-    Map<String, dynamic> json, T Function(Object?) fromJsonT) {
-  return _TourServiceResponseWrapper<T>.fromJson(json, fromJsonT);
+    Map<String, dynamic> json) {
+  return _TourServiceResponseWrapper<T>.fromJson(json);
 }
 
 /// @nodoc
 mixin _$TourServiceResponseWrapper<T> {
-  Response get response => throw _privateConstructorUsedError;
+  Response? get response => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
-      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TourServiceResponseWrapperCopyWith<T, TourServiceResponseWrapper<T>>
       get copyWith => throw _privateConstructorUsedError;
@@ -38,9 +37,9 @@ abstract class $TourServiceResponseWrapperCopyWith<T, $Res> {
       _$TourServiceResponseWrapperCopyWithImpl<T, $Res,
           TourServiceResponseWrapper<T>>;
   @useResult
-  $Res call({Response response});
+  $Res call({Response? response});
 
-  $ResponseCopyWith<$Res> get response;
+  $ResponseCopyWith<$Res>? get response;
 }
 
 /// @nodoc
@@ -57,20 +56,24 @@ class _$TourServiceResponseWrapperCopyWithImpl<T, $Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = null,
+    Object? response = freezed,
   }) {
     return _then(_value.copyWith(
-      response: null == response
+      response: freezed == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as Response,
+              as Response?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ResponseCopyWith<$Res> get response {
-    return $ResponseCopyWith<$Res>(_value.response, (value) {
+  $ResponseCopyWith<$Res>? get response {
+    if (_value.response == null) {
+      return null;
+    }
+
+    return $ResponseCopyWith<$Res>(_value.response!, (value) {
       return _then(_value.copyWith(response: value) as $Val);
     });
   }
@@ -85,10 +88,10 @@ abstract class _$$TourServiceResponseWrapperImplCopyWith<T, $Res>
       __$$TourServiceResponseWrapperImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({Response response});
+  $Res call({Response? response});
 
   @override
-  $ResponseCopyWith<$Res> get response;
+  $ResponseCopyWith<$Res>? get response;
 }
 
 /// @nodoc
@@ -104,29 +107,29 @@ class __$$TourServiceResponseWrapperImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = null,
+    Object? response = freezed,
   }) {
     return _then(_$TourServiceResponseWrapperImpl<T>(
-      response: null == response
+      response: freezed == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as Response,
+              as Response?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable(genericArgumentFactories: true)
+@JsonSerializable()
 class _$TourServiceResponseWrapperImpl<T>
     implements _TourServiceResponseWrapper<T> {
-  const _$TourServiceResponseWrapperImpl({required this.response});
+  _$TourServiceResponseWrapperImpl({this.response});
 
   factory _$TourServiceResponseWrapperImpl.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$TourServiceResponseWrapperImplFromJson(json, fromJsonT);
+          Map<String, dynamic> json) =>
+      _$$TourServiceResponseWrapperImplFromJson(json);
 
   @override
-  final Response response;
+  final Response? response;
 
   @override
   String toString() {
@@ -155,22 +158,23 @@ class _$TourServiceResponseWrapperImpl<T>
           _$TourServiceResponseWrapperImpl<T>>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$TourServiceResponseWrapperImplToJson<T>(this, toJsonT);
+  Map<String, dynamic> toJson() {
+    return _$$TourServiceResponseWrapperImplToJson<T>(
+      this,
+    );
   }
 }
 
 abstract class _TourServiceResponseWrapper<T>
     implements TourServiceResponseWrapper<T> {
-  const factory _TourServiceResponseWrapper(
-      {required final Response response}) = _$TourServiceResponseWrapperImpl<T>;
+  factory _TourServiceResponseWrapper({final Response? response}) =
+      _$TourServiceResponseWrapperImpl<T>;
 
-  factory _TourServiceResponseWrapper.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =
+  factory _TourServiceResponseWrapper.fromJson(Map<String, dynamic> json) =
       _$TourServiceResponseWrapperImpl<T>.fromJson;
 
   @override
-  Response get response;
+  Response? get response;
   @override
   @JsonKey(ignore: true)
   _$$TourServiceResponseWrapperImplCopyWith<T,
@@ -184,8 +188,8 @@ Response _$ResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Response {
-  Header get header => throw _privateConstructorUsedError;
-  Body get body => throw _privateConstructorUsedError;
+  Header? get header => throw _privateConstructorUsedError;
+  Body? get body => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -198,10 +202,10 @@ abstract class $ResponseCopyWith<$Res> {
   factory $ResponseCopyWith(Response value, $Res Function(Response) then) =
       _$ResponseCopyWithImpl<$Res, Response>;
   @useResult
-  $Res call({Header header, Body body});
+  $Res call({Header? header, Body? body});
 
-  $HeaderCopyWith<$Res> get header;
-  $BodyCopyWith<$Res> get body;
+  $HeaderCopyWith<$Res>? get header;
+  $BodyCopyWith<$Res>? get body;
 }
 
 /// @nodoc
@@ -217,33 +221,41 @@ class _$ResponseCopyWithImpl<$Res, $Val extends Response>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? header = null,
-    Object? body = null,
+    Object? header = freezed,
+    Object? body = freezed,
   }) {
     return _then(_value.copyWith(
-      header: null == header
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
-              as Header,
-      body: null == body
+              as Header?,
+      body: freezed == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as Body,
+              as Body?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $HeaderCopyWith<$Res> get header {
-    return $HeaderCopyWith<$Res>(_value.header, (value) {
+  $HeaderCopyWith<$Res>? get header {
+    if (_value.header == null) {
+      return null;
+    }
+
+    return $HeaderCopyWith<$Res>(_value.header!, (value) {
       return _then(_value.copyWith(header: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BodyCopyWith<$Res> get body {
-    return $BodyCopyWith<$Res>(_value.body, (value) {
+  $BodyCopyWith<$Res>? get body {
+    if (_value.body == null) {
+      return null;
+    }
+
+    return $BodyCopyWith<$Res>(_value.body!, (value) {
       return _then(_value.copyWith(body: value) as $Val);
     });
   }
@@ -257,12 +269,12 @@ abstract class _$$ResponseImplCopyWith<$Res>
       __$$ResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Header header, Body body});
+  $Res call({Header? header, Body? body});
 
   @override
-  $HeaderCopyWith<$Res> get header;
+  $HeaderCopyWith<$Res>? get header;
   @override
-  $BodyCopyWith<$Res> get body;
+  $BodyCopyWith<$Res>? get body;
 }
 
 /// @nodoc
@@ -276,18 +288,18 @@ class __$$ResponseImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? header = null,
-    Object? body = null,
+    Object? header = freezed,
+    Object? body = freezed,
   }) {
     return _then(_$ResponseImpl(
-      header: null == header
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
-              as Header,
-      body: null == body
+              as Header?,
+      body: freezed == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as Body,
+              as Body?,
     ));
   }
 }
@@ -295,15 +307,15 @@ class __$$ResponseImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ResponseImpl implements _Response {
-  const _$ResponseImpl({required this.header, required this.body});
+  _$ResponseImpl({this.header, this.body});
 
   factory _$ResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ResponseImplFromJson(json);
 
   @override
-  final Header header;
+  final Header? header;
   @override
-  final Body body;
+  final Body? body;
 
   @override
   String toString() {
@@ -338,17 +350,15 @@ class _$ResponseImpl implements _Response {
 }
 
 abstract class _Response implements Response {
-  const factory _Response(
-      {required final Header header,
-      required final Body body}) = _$ResponseImpl;
+  factory _Response({final Header? header, final Body? body}) = _$ResponseImpl;
 
   factory _Response.fromJson(Map<String, dynamic> json) =
       _$ResponseImpl.fromJson;
 
   @override
-  Header get header;
+  Header? get header;
   @override
-  Body get body;
+  Body? get body;
   @override
   @JsonKey(ignore: true)
   _$$ResponseImplCopyWith<_$ResponseImpl> get copyWith =>
@@ -446,7 +456,7 @@ class __$$HeaderImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$HeaderImpl implements _Header {
-  const _$HeaderImpl({required this.resultCode, required this.resultMsg});
+  _$HeaderImpl({required this.resultCode, required this.resultMsg});
 
   factory _$HeaderImpl.fromJson(Map<String, dynamic> json) =>
       _$$HeaderImplFromJson(json);
@@ -491,7 +501,7 @@ class _$HeaderImpl implements _Header {
 }
 
 abstract class _Header implements Header {
-  const factory _Header(
+  factory _Header(
       {required final String resultCode,
       required final String resultMsg}) = _$HeaderImpl;
 
@@ -636,7 +646,7 @@ class __$$BodyImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BodyImpl implements _Body {
-  const _$BodyImpl(
+  _$BodyImpl(
       {this.items,
       required this.numOfRows,
       required this.pageNo,
@@ -692,7 +702,7 @@ class _$BodyImpl implements _Body {
 }
 
 abstract class _Body implements Body {
-  const factory _Body(
+  factory _Body(
       {final Items? items,
       required final int numOfRows,
       required final int pageNo,
@@ -794,15 +804,13 @@ class __$$ItemsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ItemsImpl implements _Items {
-  const _$ItemsImpl({final List<TourLocationDto>? item = const []})
-      : _item = item;
+  _$ItemsImpl({final List<TourLocationDto>? item}) : _item = item;
 
   factory _$ItemsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ItemsImplFromJson(json);
 
   final List<TourLocationDto>? _item;
   @override
-  @JsonKey()
   List<TourLocationDto>? get item {
     final value = _item;
     if (value == null) return null;
@@ -844,7 +852,7 @@ class _$ItemsImpl implements _Items {
 }
 
 abstract class _Items implements Items {
-  const factory _Items({final List<TourLocationDto>? item}) = _$ItemsImpl;
+  factory _Items({final List<TourLocationDto>? item}) = _$ItemsImpl;
 
   factory _Items.fromJson(Map<String, dynamic> json) = _$ItemsImpl.fromJson;
 

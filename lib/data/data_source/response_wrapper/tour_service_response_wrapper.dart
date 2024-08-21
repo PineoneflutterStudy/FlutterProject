@@ -5,29 +5,30 @@ import '../../dto/display/meet/tour_location.dto.dart';
 part 'tour_service_response_wrapper.freezed.dart';
 part 'tour_service_response_wrapper.g.dart';
 
-@Freezed(genericArgumentFactories: true)
+@freezed
 class TourServiceResponseWrapper<T> with _$TourServiceResponseWrapper<T> {
-  const factory TourServiceResponseWrapper({
-    required Response response,
+  factory TourServiceResponseWrapper({
+    Response? response,
   }) = _TourServiceResponseWrapper<T>;
 
-  factory TourServiceResponseWrapper.fromJson(Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$TourServiceResponseWrapperFromJson(json, fromJsonT);
+  factory TourServiceResponseWrapper.fromJson(Map<String, dynamic> json) =>
+      _$TourServiceResponseWrapperFromJson(json);
 }
 
 @freezed
 class Response with _$Response {
-  const factory Response({
-    required Header header,
-    required Body body,
+  factory Response({
+    Header? header,
+    Body? body,
   }) = _Response;
 
-  factory Response.fromJson(Map<String, dynamic> json) => _$ResponseFromJson(json);
+  factory Response.fromJson(Map<String, dynamic> json) =>
+      _$ResponseFromJson(json);
 }
 
 @freezed
 class Header with _$Header {
-  const factory Header({
+  factory Header({
     required String resultCode,
     required String resultMsg,
   }) = _Header;
@@ -37,23 +38,21 @@ class Header with _$Header {
 
 @freezed
 class Body with _$Body {
-  const factory Body({
+  factory Body({
     Items? items,
     required int numOfRows,
     required int pageNo,
     required int totalCount,
   }) = _Body;
 
-  factory Body.fromJson(Map<String, dynamic> json) =>
-      _$BodyFromJson(json);
+  factory Body.fromJson(Map<String, dynamic> json) => _$BodyFromJson(json);
 }
 
 @freezed
 class Items with _$Items {
-  const factory Items({
-    @Default([]) List<TourLocationDto>? item,
+  factory Items({
+    List<TourLocationDto>? item,
   }) = _Items;
 
-  factory Items.fromJson(Map<String, dynamic> json) =>
-      _$ItemsFromJson(json);
+  factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 }
