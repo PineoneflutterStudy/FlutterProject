@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../bloc/address_bloc/address_bloc.dart';
 import 'planner_item_view.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -8,8 +9,9 @@ import '../../../../../domain/model/display/place/planner.model.dart';
 class PageItemView extends StatefulWidget {
   final PlannerPage planner;
   final int index;
+  final AddressBloc addressBloc;
 
-  const PageItemView(this.planner, this.index, {super.key});
+  const PageItemView(this.planner, this.index, this.addressBloc, {super.key});
 
   @override
   State<PageItemView> createState() => _PageItemViewState();
@@ -42,7 +44,7 @@ class _PageItemViewState extends State<PageItemView> {
                 child: ListView.builder(
                   itemCount: widget.planner.page_item_list.length,
                   itemBuilder: (context, index) {
-                    return PlannerItemView(widget.planner.page_item_list[index]);
+                    return PlannerItemView(widget.planner.page_item_list[index],index,widget.planner.page_item_list.length-1, widget.addressBloc);
                   },
                 ),
               ),

@@ -10,16 +10,13 @@ part of 'mock.api.dart';
 
 class _MockApi implements MockApi {
   _MockApi(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+      this._dio, {
+        this.baseUrl,
+      });
 
   final Dio _dio;
 
   String? baseUrl;
-
-  final ParseErrorLogger? errorLogger;
 
   @override
   Future<ResponseWrapper<List<CategoryDto>>> getCategoryList(
@@ -28,38 +25,32 @@ class _MockApi implements MockApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ResponseWrapper<List<CategoryDto>>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseWrapper<List<CategoryDto>>>(Options(
+          method: 'GET',
+          headers: _headers,
+          extra: _extra,
+        )
+            .compose(
           _dio.options,
           '/api/categorys/${menuType.name}',
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
+            .copyWith(
             baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ResponseWrapper<List<CategoryDto>> _value;
-    try {
-      _value = ResponseWrapper<List<CategoryDto>>.fromJson(
-        _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<CategoryDto>(
-                    (i) => CategoryDto.fromJson(i as Map<String, dynamic>))
-                .toList()
-            : List.empty(),
-      );
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ResponseWrapper<List<CategoryDto>>.fromJson(
+      _result.data!,
+          (json) => json is List<dynamic>
+          ? json
+          .map<CategoryDto>(
+              (i) => CategoryDto.fromJson(i as Map<String, dynamic>))
+          .toList()
+          : List.empty(),
+    );
     return _value;
   }
 
@@ -77,9 +68,9 @@ class _MockApi implements MockApi {
   }
 
   String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+      String dioBaseUrl,
+      String? baseUrl,
+      ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

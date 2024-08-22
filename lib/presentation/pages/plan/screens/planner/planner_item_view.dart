@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
+import '../../bloc/address_bloc/address_bloc.dart';
 
 class PlannerItemView extends StatelessWidget {
   final PlannerItem plan;
+  final int index;
+  final int lastIndex;
+  final AddressBloc addressBloc;
 
-  const PlannerItemView(this.plan, {super.key});
+  const PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    if(index == lastIndex){
+      addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (plan.travel_time != null)
-          Container(width: 2, height: 10, color: Colors.grey, margin: const EdgeInsets.symmetric(vertical: 10.0)),
-          SizedBox(height: 10),
+        _buildTransportBar(),
         Row(
           children: [
             Expanded(
@@ -29,39 +36,83 @@ class PlannerItemView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 children: [
                   TextField(decoration: InputDecoration(labelText: plan.place_name, border: UnderlineInputBorder())),
-                  Positioned(
-                    right: 0,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // todo 장소 수정 및 아래 데이터 모두 지우기
-                          },
-                        ),
-                        IconButton(icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // todo 장소 삭제 및 아래 데이터 모두 지우기
-                          },
-                        ),
-                      ],
+                  if (index != 0)
+                    Positioned(
+                      right: 0,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(icon: Icon(Icons.edit),
+                            onPressed: () {
+                              // todo 장소 수정 및 아래 데이터 모두 지우기
+                            },
+                          ),
+                          IconButton(icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // todo 장소 삭제 및 아래 데이터 모두 지우기
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
           ],
         ),
         SizedBox(height: 8),
-        // todo 이동 수단 및 이동 시간 표기
-        Container(width: 2, height: 10, color: Colors.grey, margin: const EdgeInsets.symmetric(vertical: 10.0)),
+        Container(
+          width: 4,
+          height: 12,
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
         ElevatedButton(
-          onPressed: () {
-            // todo 추천 목록으로 이동
-          },
+          onPressed: () => context.pushNamed('rcmn', queryParameters: {'location' : plan.place_name}, extra: addressBloc),
           child: Text('Add Next Place'),
         ),
       ],
     );
+  }
+
+  Widget _buildTransportBar() {
+    if (plan.travel_time != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(width: 45),
+              Container(
+                width: 4,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              SizedBox(width: 8),
+              Text(
+                plan.transportation ?? '도보',
+                style: TextStyle(fontSize: 16, color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue),
+              ),
+              SizedBox(width: 4),
+              Icon(
+                (plan.transportation ?? '도보') == '차' ? Icons.directions_car : Icons.directions_walk,
+                color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue,
+                size: 16,
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+        ],
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }

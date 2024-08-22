@@ -24,6 +24,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     // on<event>(함수) - event발생시 함수 호출
     on<AddressInitialized>(_onAddressInitialized);
     on<AddressUpdated>(_onAddressUpdated);
+    on<SetAddressUpdated>(_onSetAddressUpdated);
     on<FilterUpdated>(_onFilterUpdated);
   }
 
@@ -78,6 +79,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     } catch (error) {
       emit(AddressState.error(CommonException.setError(error)));
     }
+  }
+
+  Future<void> _onSetAddressUpdated(SetAddressUpdated event, Emitter<AddressState> emit) async {
+    final address = event.address;
+    emit(AddressState.success(address));
   }
 
   /// 필터 정보 변경시 필터 정보만 수정 (radius, sort)

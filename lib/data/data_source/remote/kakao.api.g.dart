@@ -10,27 +10,24 @@ part of 'kakao.api.dart';
 
 class _KakaoApi implements KakaoApi {
   _KakaoApi(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+      this._dio, {
+        this.baseUrl,
+      });
 
   final Dio _dio;
 
   String? baseUrl;
 
-  final ParseErrorLogger? errorLogger;
-
   @override
   Future<KakaoResponseWrapper<PlaceDto>> getPlaceList(
-    String query,
-    String category,
-    String x,
-    String y,
-    int radius,
-    int page,
-    String sort,
-  ) async {
+      String query,
+      String category,
+      String x,
+      String y,
+      int radius,
+      int page,
+      String sort,
+      ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,
@@ -43,33 +40,27 @@ class _KakaoApi implements KakaoApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<KakaoResponseWrapper<PlaceDto>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<KakaoResponseWrapper<PlaceDto>>(Options(
+          method: 'GET',
+          headers: _headers,
+          extra: _extra,
+        )
+            .compose(
           _dio.options,
           '/keyword.json?',
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
+            .copyWith(
             baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late KakaoResponseWrapper<PlaceDto> _value;
-    try {
-      _value = KakaoResponseWrapper<PlaceDto>.fromJson(
-        _result.data!,
-        (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
-      );
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = KakaoResponseWrapper<PlaceDto>.fromJson(
+      _result.data!,
+          (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
+    );
     return _value;
   }
 
@@ -79,33 +70,27 @@ class _KakaoApi implements KakaoApi {
     final queryParameters = <String, dynamic>{r'query': query};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
+          method: 'GET',
+          headers: _headers,
+          extra: _extra,
+        )
+            .compose(
           _dio.options,
           '/address.json?',
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
+            .copyWith(
             baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late KakaoResponseWrapper<AddressDto> _value;
-    try {
-      _value = KakaoResponseWrapper<AddressDto>.fromJson(
-        _result.data!,
-        (json) => AddressDto.fromJson(json as Map<String, dynamic>),
-      );
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = KakaoResponseWrapper<AddressDto>.fromJson(
+      _result.data!,
+          (json) => AddressDto.fromJson(json as Map<String, dynamic>),
+    );
     return _value;
   }
 
@@ -123,9 +108,9 @@ class _KakaoApi implements KakaoApi {
   }
 
   String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+      String dioBaseUrl,
+      String? baseUrl,
+      ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

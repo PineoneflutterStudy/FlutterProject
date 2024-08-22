@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/common_utils.dart';
-import '../../../../../domain/usecase/planner/planner.usecase.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import 'place_app_bar_view.dart';
 
@@ -17,31 +16,27 @@ import 'place_view.dart';
 /// ### Plan 메뉴 > 추천 장소 목록 화면
 class RecommendedListPage extends StatelessWidget {
   final String location;
-
-  const RecommendedListPage({required this.location, super.key});
+  final AddressBloc addressBloc;
+  const RecommendedListPage({required this.location, required this.addressBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => CtgrBloc(locator<DisplayUsecase>())
-              ..add(CtgrInitialized(MenuType.plan)),
-          ),
-          BlocProvider(
-            create: (context) => AddressBloc(locator<PlannerUsecase>())
-              ..add(AddressInitialized(location)),
-          ),
-        ],
-        child: RecommendedListPageView(location: location));
+    return BlocProvider(
+      create: (_) => CtgrBloc(locator<DisplayUsecase>())
+        ..add(CtgrInitialized(MenuType.plan)),
+      child: RecommendedListPageView(
+        location: location,
+        addressBloc: addressBloc,
+      ),
+    );
   }
 }
 
 class RecommendedListPageView extends StatefulWidget {
   final String location;
+  final AddressBloc addressBloc;
 
-  const RecommendedListPageView({required this.location, super.key});
-
+  const RecommendedListPageView({required this.location, required this.addressBloc, super.key});
   @override
   State<RecommendedListPageView> createState() => _RecommendedListPageViewState();
 }
@@ -75,7 +70,9 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                     CategoryView(ctgrState.ctgrs),
                     Expanded(
                       child: BlocConsumer<AddressBloc, AddressState>(
+                        bloc: widget.addressBloc,
                         builder: (_, state) {
+                          CustomLogger.logger.i("rcmn address state : $state");
                           return state.when(
                             loading: () => Center(child: CircularProgressIndicator()),
                             success: (addressInfo) {
@@ -125,7 +122,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
     setState(() {
       _location = newLocation;
     });
-    context.read<AddressBloc>().add(AddressUpdated(newLocation));
+    widget.addressBloc.add(AddressUpdated(newLocation));
   }
 
   void _updateFilter(int newRadius, String newSort) {
@@ -134,7 +131,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
       radius = newRadius;
       sort = newSort;
     });
-    context.read<AddressBloc>().add(FilterUpdated(newRadius, newSort));
+    widget.addressBloc.add(FilterUpdated(newRadius, newSort));
   }
 
 }

@@ -39,8 +39,7 @@ class PlannerPage extends StatelessWidget {
                   // planner 카테고리 영역
                   Padding(
                     padding: const EdgeInsets.only(left : 25),
-                    child: SizedBox(
-                      height: 40, // 카테고리와 버튼의 높이 설정
+                    child: SizedBox(height: 40,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: categoryWidgets,
@@ -54,15 +53,10 @@ class PlannerPage extends StatelessWidget {
                       controller: _pageController,
                       count: selected.planner_page_list.length,
                       axisDirection: Axis.horizontal,
-                      effect: JumpingDotEffect(
-                        dotColor: Colors.grey,
-                        activeDotColor: AppColors.primary,
-                        dotHeight: 10,
-                        dotWidth: 10,
-                      ),
+                      effect: JumpingDotEffect(dotColor: Colors.grey, activeDotColor: AppColors.primary, dotHeight: 10, dotWidth: 10),
                     ),
                   ),
-                  //pageview 영역
+                  //page view 영역
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10),
@@ -71,7 +65,7 @@ class PlannerPage extends StatelessWidget {
                         controller: _pageController,
                         itemCount: selected.planner_page_list.length,
                         itemBuilder: (context, index) {
-                          return PageItemView(selected.planner_page_list[index], index+1 );
+                          return PageItemView(selected.planner_page_list[index], index+1, addressBloc);
                         },
                         pageSnapping: true
                       ),
@@ -89,8 +83,6 @@ class PlannerPage extends StatelessWidget {
                     SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        // todo
-                        // 에러를 다시 시도하거나 다른 액션을 취할 수 있도록
                         plannerBloc.add(const PlannerEvent.getPlannerList());
                       },
                       child: Text('다시 시도'),
@@ -102,16 +94,31 @@ class PlannerPage extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0, right: 28.0),
-        child: FloatingActionButton(
-          onPressed: () {
-            // TODO: firebase delete
-          },
-          backgroundColor: Colors.white,
-          foregroundColor: AppColors.primary,
-          child: Icon(Icons.delete),
-        ),
+      floatingActionButton: Stack(
+        children: [
+          Positioned(bottom: 16.0, right: 100.0,
+            child: FloatingActionButton(
+              heroTag: "addPageBtn",
+              onPressed: () {
+                // TODO: 다음날 계획 추가하기 팝업
+              },
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.primary,
+              child: Icon(Icons.add),
+            ),
+          ),
+          Positioned(bottom: 16.0, right: 28.0,
+            child: FloatingActionButton(
+              heroTag: "deletePageBtn",
+              onPressed: () {
+                // TODO: firebase delete
+              },
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.primary,
+              child: Icon(Icons.delete),
+            ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

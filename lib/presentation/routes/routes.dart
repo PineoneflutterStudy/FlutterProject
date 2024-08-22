@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../main/main_screen.dart';
@@ -33,8 +34,13 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
       path: RoutePath.rcmn,
       name: 'rcmn',
-      builder: (context, state) => RecommendedListPage(
-          location: state.uri.queryParameters['location'] ?? '')),
+      builder: (context, state) {
+        final location = state.uri.queryParameters['location'] ?? '';
+        final addressBloc = state.extra as AddressBloc;
+        return BlocProvider.value(
+            value: addressBloc,
+            child: RecommendedListPage(location: location, addressBloc: addressBloc));
+      }),
   GoRoute(
       path: RoutePath.like,
       name: 'like',
