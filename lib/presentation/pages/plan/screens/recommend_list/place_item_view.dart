@@ -64,6 +64,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //장소 이름, 카테고리
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -77,6 +78,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                                 overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
+                    //주소
                     Row(
                       children: [
                         Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
@@ -92,6 +94,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                           ),
                       ],
                     ),
+                    //전화번호
                     if ((widget.place.phone ?? '').isNotEmpty)
                       Row(
                         children: [
@@ -104,6 +107,19 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                           ),
                         ],
                       ),
+                    //이동시간
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.directions_walk, color: AppColors.positive , size: 13),
+                        SizedBox(width: 2),
+                        Text('${planUtil.getWalkTravelTime(widget.place.distance)}', style: TextStyle(fontSize: 16, color: AppColors.positive)),
+                        SizedBox(width: 5),
+                        Icon(Icons.directions_car, color: AppColors.error, size: 13),
+                        SizedBox(width: 3),
+                        Text('${planUtil.getCarTravelTime(widget.place.distance)}', style: TextStyle(fontSize: 16, color: AppColors.error),),
+                      ],
+                    ),
                   ],
                 ),
               ),

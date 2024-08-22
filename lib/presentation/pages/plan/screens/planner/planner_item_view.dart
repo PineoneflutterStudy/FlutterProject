@@ -91,19 +91,19 @@ class PlannerItemView extends StatelessWidget {
                 width: 4,
                 height: 12,
                 decoration: BoxDecoration(
-                  color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue,
+                  color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
               SizedBox(width: 8),
               Text(
                 plan.transportation ?? '도보',
-                style: TextStyle(fontSize: 16, color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue),
+                style: TextStyle(fontSize: 16, color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive),
               ),
               SizedBox(width: 4),
               Icon(
                 (plan.transportation ?? '도보') == '차' ? Icons.directions_car : Icons.directions_walk,
-                color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.blue,
+                color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive,
                 size: 16,
               ),
             ],

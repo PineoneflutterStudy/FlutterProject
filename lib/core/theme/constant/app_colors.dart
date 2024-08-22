@@ -31,6 +31,6 @@ class AppColors{
   static const Color contentSecondary = Color(0xFF666666);
   static const Color contentTertiary = Color(0xFF999999);
   static const Color contentFourth = Color(0xFFB2B2B2);
-  static const Color positive = Color(0xFF74CD7C);
+  static const Color positive = Color(0xFF50B75A);
   static const Color blue = Color(0xFF0F90FA);
 }

@@ -51,4 +51,26 @@ class PlanUtil {
 
     return result; // 결과를 반환
   }
+
+  String getCarTravelTime(String distance) {
+    // 시속 60km = 분속 1km = 분속 1000m
+    double timeInMinutes = double.parse(distance) / 1000;
+    return getTimeText(timeInMinutes);
+  }
+
+  String getWalkTravelTime(String distance) {
+    // 도보로 1km = 1000m 이동 시 15분 소요
+    double timeInMinutes = (double.parse(distance) / 1000) * 15;
+    return getTimeText(timeInMinutes);
+  }
+
+  String getTimeText(double timeInMinutes){
+    int hours = timeInMinutes ~/ 60;
+    int minutes = (timeInMinutes % 60).toInt();
+    int seconds = ((timeInMinutes - timeInMinutes.floor()) * 60).toInt();
+    String hText = (hours>0) ? " ${hours.toString()}시" : "";
+    String mText = (minutes>0) ? " ${minutes.toString()}분" : "";
+    String sText = (seconds>0) ? " ${seconds.toString()}초" : "";
+    return "$hText$mText$sText";
+  }
 }
