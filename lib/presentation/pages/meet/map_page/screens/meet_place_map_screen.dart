@@ -65,8 +65,7 @@ class _MapView extends ConsumerState<MapView> {
   @override
   void initState() {
     super.initState();
-    FlutterConfig.loadEnvVariables();
-    apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY');
+    apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D');
   }
 
   @override

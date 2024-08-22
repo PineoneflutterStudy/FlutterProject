@@ -11,6 +11,7 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
 
   @override
   Future<List<AddressModel>> getAllAddress() async {
+    // 파베 먼저 호출
     final localAddressList = await  _localPrefsStorage.getAddressList();
     if (localAddressList.isNotEmpty) {
       return localAddressList;

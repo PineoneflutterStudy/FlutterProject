@@ -48,14 +48,15 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
             FocusScope.of(context).unfocus(); // 키보드 닫기
             final destination = destinationController.text ?? '';
             final arrivalTime = selectedTime.format(context);
+            final pageFirstItem = PlannerItem(cur_address_info: addressInfo, place_name: destination, end_time: arrivalTime);
+            final plannerTitle = "$destination 여행";
+            final plannerFirstPage = PlannerPage(planner_title:plannerTitle, page_item_list: [pageFirstItem]);
             final planner = Planner(
               planner_id: uuid.v1(),
-              planner_title: "$destination 여행",
-              destination: addressInfo,
-              arrivalTime: arrivalTime,
-              planner_item_list: [],
+              planner_title: plannerTitle,
+              planner_page_list: [plannerFirstPage],
             );
-            print('planner.toJson() : ${planner.toJson()}');
+            print('planner to Json : ${planner.toJson()}');
             Navigator.of(context).pop({"planner": planner});
           },
           orElse: () => CommonUtils.showToastMsg("여행지를 다시 입력해주세요."),

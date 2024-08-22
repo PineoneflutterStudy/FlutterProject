@@ -27,7 +27,6 @@ class KakaoMobilityApiImpl implements KakaoMobilityApi {
   Future<MobilityDto> loadGetDirections(String startLongitude, String startLatitude, String endLongitude, String endLatitude) async {
     try {
       late List<MobilityDto> dto;
-      FlutterConfig.loadEnvVariables();
       String apiKey = FlutterConfig.get('KAKAO_REST_API_KEY');
 
       // Request

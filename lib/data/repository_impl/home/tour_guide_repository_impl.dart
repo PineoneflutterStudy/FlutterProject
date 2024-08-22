@@ -1,30 +1,28 @@
-import '../../../domain/model/display/home/festival_info_list_model.dart';
-import '../../../domain/model/display/home/image_info_list_model.dart';
-import '../../../domain/model/display/home/location_list_model.dart';
+/*
+import '../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../domain/repository/home/tour_guide_repository.dart';
 import '../../data_source/api/kakao_mobility/kakao_mobility_api.dart';
-import '../../data_source/api/tour_guide/tour_guide_api.dart';
-import '../../dto/display/common/festival/tourFestivalInfo.dto.dart';
-import '../../dto/display/common/image/tourImageInfo.dto.dart';
-import '../../dto/display/common/location/tourLocation.dto.dart';
+
+import '../../data_source/remote/tour_service.api.dart';
 import '../../dto/display/meet/mobility.dto.dart';
 
 class TourGuideRepositoryImpl extends TourGuideRepository {
-  final TourGuideApi _api;
+  final TourServiceApi _api;
   final KakaoMobilityApi _mobilityApi;
 
   TourGuideRepositoryImpl({
-    required TourGuideApi api,
+    required TourServiceApi api,
     required KakaoMobilityApi mobilityApi
   }) : _api = api,
         _mobilityApi = mobilityApi;
 
   @override
-  Future<List<TourLocationDto>> getLocationData(String longitude, String latitude, String radius) {
-    return _api.loadTourLocationList(longitude, latitude, radius);
+  Future<List<TourLocationModel>> getLocationData(String longitude, String latitude, String radius) {
+    return _api.getTourLocationInfo(longitude, latitude, radius);
   }
 
-  @override
+*/
+/*  @override
   Future<List<TourImageInfoDto>> getImageInfoData(ImageInfoListModel model) {
     return _api.loadTourImageInfoList(model);
   }
@@ -32,7 +30,8 @@ class TourGuideRepositoryImpl extends TourGuideRepository {
   @override
   Future<List<TourFestivalInfoDto>> getFestivalData(FestivalInfoListModel model) {
     return _api.loadTourFestivalInfoList(model);
-  }
+  }*//*
+
 
   /// # 출발지 - 목적지 경로 가져오기 ( Kakao Mobility )
   @override
@@ -42,3 +41,4 @@ class TourGuideRepositoryImpl extends TourGuideRepository {
 
 
 }
+*/

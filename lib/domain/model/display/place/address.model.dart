@@ -5,6 +5,7 @@ part 'address.model.g.dart';
 
 @freezed
 class Address with _$Address {
+  @JsonSerializable(explicitToJson: true)
   const factory Address({
     required String addressName,
     required String x,

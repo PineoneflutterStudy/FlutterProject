@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tourImageInfo.dto.dart';
+part of 'tour_image_info.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TourImageInfoDtoImpl _$$TourImageInfoDtoImplFromJson(
+_$TourImageInfoModelImpl _$$TourImageInfoModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$TourImageInfoDtoImpl(
+    _$TourImageInfoModelImpl(
       contentid: json['contentid'] as String,
       imgname: json['imgname'] as String,
       originimgurl: json['originimgurl'] as String,
@@ -17,8 +17,8 @@ _$TourImageInfoDtoImpl _$$TourImageInfoDtoImplFromJson(
       smallimageurl: json['smallimageurl'] as String,
     );
 
-Map<String, dynamic> _$$TourImageInfoDtoImplToJson(
-        _$TourImageInfoDtoImpl instance) =>
+Map<String, dynamic> _$$TourImageInfoModelImplToJson(
+        _$TourImageInfoModelImpl instance) =>
     <String, dynamic>{
       'contentid': instance.contentid,
       'imgname': instance.imgname,

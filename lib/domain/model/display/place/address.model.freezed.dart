@@ -138,7 +138,8 @@ class __$$AddressImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$AddressImpl implements _Address {
   const _$AddressImpl(
       {required this.addressName,

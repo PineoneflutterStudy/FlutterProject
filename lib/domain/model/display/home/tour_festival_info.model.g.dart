@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tourLocation.dto.dart';
+part of 'tour_festival_info.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TourLocationDtoImpl _$$TourLocationDtoImplFromJson(
+_$TourFestivalInfoModelImpl _$$TourFestivalInfoModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$TourLocationDtoImpl(
+    _$TourFestivalInfoModelImpl(
       addr1: json['addr1'] as String,
       addr2: json['addr2'] as String,
       areacode: json['areacode'] as String,
@@ -19,7 +19,8 @@ _$TourLocationDtoImpl _$$TourLocationDtoImplFromJson(
       contentid: json['contentid'] as String,
       contenttypeid: json['contenttypeid'] as String,
       createdtime: json['createdtime'] as String,
-      dist: json['dist'] as String,
+      eventstartdate: json['eventstartdate'] as String,
+      eventenddate: json['eventenddate'] as String,
       firstimage: json['firstimage'] as String,
       firstimage2: json['firstimage2'] as String,
       cpyrhtDivCd: json['cpyrhtDivCd'] as String,
@@ -32,8 +33,8 @@ _$TourLocationDtoImpl _$$TourLocationDtoImplFromJson(
       title: json['title'] as String,
     );
 
-Map<String, dynamic> _$$TourLocationDtoImplToJson(
-        _$TourLocationDtoImpl instance) =>
+Map<String, dynamic> _$$TourFestivalInfoModelImplToJson(
+        _$TourFestivalInfoModelImpl instance) =>
     <String, dynamic>{
       'addr1': instance.addr1,
       'addr2': instance.addr2,
@@ -45,7 +46,8 @@ Map<String, dynamic> _$$TourLocationDtoImplToJson(
       'contentid': instance.contentid,
       'contenttypeid': instance.contenttypeid,
       'createdtime': instance.createdtime,
-      'dist': instance.dist,
+      'eventstartdate': instance.eventstartdate,
+      'eventenddate': instance.eventenddate,
       'firstimage': instance.firstimage,
       'firstimage2': instance.firstimage2,
       'cpyrhtDivCd': instance.cpyrhtDivCd,

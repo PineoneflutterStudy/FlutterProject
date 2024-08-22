@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tourLocation.dto.dart';
+part of 'tour_festival_info.dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TourLocationDto _$TourLocationDtoFromJson(Map<String, dynamic> json) {
-  return _TourLocationDto.fromJson(json);
+TourFestivalInfoDto _$TourFestivalInfoDtoFromJson(Map<String, dynamic> json) {
+  return _TourFestivalInfoDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TourLocationDto {
+mixin _$TourFestivalInfoDto {
   String get addr1 =>
       throw _privateConstructorUsedError; // 주소 : 서울특별시 중구 명동길 26
   String get addr2 => throw _privateConstructorUsedError; // 상세주소 : (명동2가)
@@ -33,8 +33,10 @@ mixin _$TourLocationDto {
   String get contenttypeid =>
       throw _privateConstructorUsedError; // 콘텐츠타입 ID : 관광타입(관광지, 숙박등) ID
   String get createdtime => throw _privateConstructorUsedError; // 등록일
-  String get dist =>
-      throw _privateConstructorUsedError; // 거리 : 중심 좌표로 부터 거리 (단위:m)
+  String get eventstartdate =>
+      throw _privateConstructorUsedError; // 행사 시작일 ( 형식 : YYYYMMDD )
+  String get eventenddate =>
+      throw _privateConstructorUsedError; // 행사 종료일 ( 형식 : YYYYMMDD )
   String get firstimage =>
       throw _privateConstructorUsedError; // 대표이미지(원본) : 원본 대표 이미지 (약 500 * 333 size) Url 응답
   String get firstimage2 =>
@@ -52,15 +54,15 @@ mixin _$TourLocationDto {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TourLocationDtoCopyWith<TourLocationDto> get copyWith =>
+  $TourFestivalInfoDtoCopyWith<TourFestivalInfoDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TourLocationDtoCopyWith<$Res> {
-  factory $TourLocationDtoCopyWith(
-          TourLocationDto value, $Res Function(TourLocationDto) then) =
-      _$TourLocationDtoCopyWithImpl<$Res, TourLocationDto>;
+abstract class $TourFestivalInfoDtoCopyWith<$Res> {
+  factory $TourFestivalInfoDtoCopyWith(
+          TourFestivalInfoDto value, $Res Function(TourFestivalInfoDto) then) =
+      _$TourFestivalInfoDtoCopyWithImpl<$Res, TourFestivalInfoDto>;
   @useResult
   $Res call(
       {String addr1,
@@ -73,7 +75,8 @@ abstract class $TourLocationDtoCopyWith<$Res> {
       String contentid,
       String contenttypeid,
       String createdtime,
-      String dist,
+      String eventstartdate,
+      String eventenddate,
       String firstimage,
       String firstimage2,
       String cpyrhtDivCd,
@@ -87,9 +90,9 @@ abstract class $TourLocationDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TourLocationDtoCopyWithImpl<$Res, $Val extends TourLocationDto>
-    implements $TourLocationDtoCopyWith<$Res> {
-  _$TourLocationDtoCopyWithImpl(this._value, this._then);
+class _$TourFestivalInfoDtoCopyWithImpl<$Res, $Val extends TourFestivalInfoDto>
+    implements $TourFestivalInfoDtoCopyWith<$Res> {
+  _$TourFestivalInfoDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -109,7 +112,8 @@ class _$TourLocationDtoCopyWithImpl<$Res, $Val extends TourLocationDto>
     Object? contentid = null,
     Object? contenttypeid = null,
     Object? createdtime = null,
-    Object? dist = null,
+    Object? eventstartdate = null,
+    Object? eventenddate = null,
     Object? firstimage = null,
     Object? firstimage2 = null,
     Object? cpyrhtDivCd = null,
@@ -162,9 +166,13 @@ class _$TourLocationDtoCopyWithImpl<$Res, $Val extends TourLocationDto>
           ? _value.createdtime
           : createdtime // ignore: cast_nullable_to_non_nullable
               as String,
-      dist: null == dist
-          ? _value.dist
-          : dist // ignore: cast_nullable_to_non_nullable
+      eventstartdate: null == eventstartdate
+          ? _value.eventstartdate
+          : eventstartdate // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventenddate: null == eventenddate
+          ? _value.eventenddate
+          : eventenddate // ignore: cast_nullable_to_non_nullable
               as String,
       firstimage: null == firstimage
           ? _value.firstimage
@@ -211,11 +219,11 @@ class _$TourLocationDtoCopyWithImpl<$Res, $Val extends TourLocationDto>
 }
 
 /// @nodoc
-abstract class _$$TourLocationDtoImplCopyWith<$Res>
-    implements $TourLocationDtoCopyWith<$Res> {
-  factory _$$TourLocationDtoImplCopyWith(_$TourLocationDtoImpl value,
-          $Res Function(_$TourLocationDtoImpl) then) =
-      __$$TourLocationDtoImplCopyWithImpl<$Res>;
+abstract class _$$TourFestivalInfoDtoImplCopyWith<$Res>
+    implements $TourFestivalInfoDtoCopyWith<$Res> {
+  factory _$$TourFestivalInfoDtoImplCopyWith(_$TourFestivalInfoDtoImpl value,
+          $Res Function(_$TourFestivalInfoDtoImpl) then) =
+      __$$TourFestivalInfoDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -229,7 +237,8 @@ abstract class _$$TourLocationDtoImplCopyWith<$Res>
       String contentid,
       String contenttypeid,
       String createdtime,
-      String dist,
+      String eventstartdate,
+      String eventenddate,
       String firstimage,
       String firstimage2,
       String cpyrhtDivCd,
@@ -243,11 +252,11 @@ abstract class _$$TourLocationDtoImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TourLocationDtoImplCopyWithImpl<$Res>
-    extends _$TourLocationDtoCopyWithImpl<$Res, _$TourLocationDtoImpl>
-    implements _$$TourLocationDtoImplCopyWith<$Res> {
-  __$$TourLocationDtoImplCopyWithImpl(
-      _$TourLocationDtoImpl _value, $Res Function(_$TourLocationDtoImpl) _then)
+class __$$TourFestivalInfoDtoImplCopyWithImpl<$Res>
+    extends _$TourFestivalInfoDtoCopyWithImpl<$Res, _$TourFestivalInfoDtoImpl>
+    implements _$$TourFestivalInfoDtoImplCopyWith<$Res> {
+  __$$TourFestivalInfoDtoImplCopyWithImpl(_$TourFestivalInfoDtoImpl _value,
+      $Res Function(_$TourFestivalInfoDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -263,7 +272,8 @@ class __$$TourLocationDtoImplCopyWithImpl<$Res>
     Object? contentid = null,
     Object? contenttypeid = null,
     Object? createdtime = null,
-    Object? dist = null,
+    Object? eventstartdate = null,
+    Object? eventenddate = null,
     Object? firstimage = null,
     Object? firstimage2 = null,
     Object? cpyrhtDivCd = null,
@@ -275,7 +285,7 @@ class __$$TourLocationDtoImplCopyWithImpl<$Res>
     Object? tel = null,
     Object? title = null,
   }) {
-    return _then(_$TourLocationDtoImpl(
+    return _then(_$TourFestivalInfoDtoImpl(
       addr1: null == addr1
           ? _value.addr1
           : addr1 // ignore: cast_nullable_to_non_nullable
@@ -316,9 +326,13 @@ class __$$TourLocationDtoImplCopyWithImpl<$Res>
           ? _value.createdtime
           : createdtime // ignore: cast_nullable_to_non_nullable
               as String,
-      dist: null == dist
-          ? _value.dist
-          : dist // ignore: cast_nullable_to_non_nullable
+      eventstartdate: null == eventstartdate
+          ? _value.eventstartdate
+          : eventstartdate // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventenddate: null == eventenddate
+          ? _value.eventenddate
+          : eventenddate // ignore: cast_nullable_to_non_nullable
               as String,
       firstimage: null == firstimage
           ? _value.firstimage
@@ -366,8 +380,8 @@ class __$$TourLocationDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TourLocationDtoImpl implements _TourLocationDto {
-  const _$TourLocationDtoImpl(
+class _$TourFestivalInfoDtoImpl implements _TourFestivalInfoDto {
+  const _$TourFestivalInfoDtoImpl(
       {required this.addr1,
       required this.addr2,
       required this.areacode,
@@ -378,7 +392,8 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
       required this.contentid,
       required this.contenttypeid,
       required this.createdtime,
-      required this.dist,
+      required this.eventstartdate,
+      required this.eventenddate,
       required this.firstimage,
       required this.firstimage2,
       required this.cpyrhtDivCd,
@@ -390,8 +405,8 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
       required this.tel,
       required this.title});
 
-  factory _$TourLocationDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TourLocationDtoImplFromJson(json);
+  factory _$TourFestivalInfoDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TourFestivalInfoDtoImplFromJson(json);
 
   @override
   final String addr1;
@@ -424,8 +439,11 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
   final String createdtime;
 // 등록일
   @override
-  final String dist;
-// 거리 : 중심 좌표로 부터 거리 (단위:m)
+  final String eventstartdate;
+// 행사 시작일 ( 형식 : YYYYMMDD )
+  @override
+  final String eventenddate;
+// 행사 종료일 ( 형식 : YYYYMMDD )
   @override
   final String firstimage;
 // 대표이미지(원본) : 원본 대표 이미지 (약 500 * 333 size) Url 응답
@@ -458,14 +476,14 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
 
   @override
   String toString() {
-    return 'TourLocationDto(addr1: $addr1, addr2: $addr2, areacode: $areacode, booktour: $booktour, cat1: $cat1, cat2: $cat2, cat3: $cat3, contentid: $contentid, contenttypeid: $contenttypeid, createdtime: $createdtime, dist: $dist, firstimage: $firstimage, firstimage2: $firstimage2, cpyrhtDivCd: $cpyrhtDivCd, mapx: $mapx, mapy: $mapy, mlevel: $mlevel, modifiedtime: $modifiedtime, sigungucode: $sigungucode, tel: $tel, title: $title)';
+    return 'TourFestivalInfoDto(addr1: $addr1, addr2: $addr2, areacode: $areacode, booktour: $booktour, cat1: $cat1, cat2: $cat2, cat3: $cat3, contentid: $contentid, contenttypeid: $contenttypeid, createdtime: $createdtime, eventstartdate: $eventstartdate, eventenddate: $eventenddate, firstimage: $firstimage, firstimage2: $firstimage2, cpyrhtDivCd: $cpyrhtDivCd, mapx: $mapx, mapy: $mapy, mlevel: $mlevel, modifiedtime: $modifiedtime, sigungucode: $sigungucode, tel: $tel, title: $title)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TourLocationDtoImpl &&
+            other is _$TourFestivalInfoDtoImpl &&
             (identical(other.addr1, addr1) || other.addr1 == addr1) &&
             (identical(other.addr2, addr2) || other.addr2 == addr2) &&
             (identical(other.areacode, areacode) ||
@@ -481,7 +499,10 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
                 other.contenttypeid == contenttypeid) &&
             (identical(other.createdtime, createdtime) ||
                 other.createdtime == createdtime) &&
-            (identical(other.dist, dist) || other.dist == dist) &&
+            (identical(other.eventstartdate, eventstartdate) ||
+                other.eventstartdate == eventstartdate) &&
+            (identical(other.eventenddate, eventenddate) ||
+                other.eventenddate == eventenddate) &&
             (identical(other.firstimage, firstimage) ||
                 other.firstimage == firstimage) &&
             (identical(other.firstimage2, firstimage2) ||
@@ -513,7 +534,8 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
         contentid,
         contenttypeid,
         createdtime,
-        dist,
+        eventstartdate,
+        eventenddate,
         firstimage,
         firstimage2,
         cpyrhtDivCd,
@@ -529,20 +551,20 @@ class _$TourLocationDtoImpl implements _TourLocationDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TourLocationDtoImplCopyWith<_$TourLocationDtoImpl> get copyWith =>
-      __$$TourLocationDtoImplCopyWithImpl<_$TourLocationDtoImpl>(
+  _$$TourFestivalInfoDtoImplCopyWith<_$TourFestivalInfoDtoImpl> get copyWith =>
+      __$$TourFestivalInfoDtoImplCopyWithImpl<_$TourFestivalInfoDtoImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TourLocationDtoImplToJson(
+    return _$$TourFestivalInfoDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _TourLocationDto implements TourLocationDto {
-  const factory _TourLocationDto(
+abstract class _TourFestivalInfoDto implements TourFestivalInfoDto {
+  const factory _TourFestivalInfoDto(
       {required final String addr1,
       required final String addr2,
       required final String areacode,
@@ -553,7 +575,8 @@ abstract class _TourLocationDto implements TourLocationDto {
       required final String contentid,
       required final String contenttypeid,
       required final String createdtime,
-      required final String dist,
+      required final String eventstartdate,
+      required final String eventenddate,
       required final String firstimage,
       required final String firstimage2,
       required final String cpyrhtDivCd,
@@ -563,10 +586,10 @@ abstract class _TourLocationDto implements TourLocationDto {
       required final String modifiedtime,
       required final String sigungucode,
       required final String tel,
-      required final String title}) = _$TourLocationDtoImpl;
+      required final String title}) = _$TourFestivalInfoDtoImpl;
 
-  factory _TourLocationDto.fromJson(Map<String, dynamic> json) =
-      _$TourLocationDtoImpl.fromJson;
+  factory _TourFestivalInfoDto.fromJson(Map<String, dynamic> json) =
+      _$TourFestivalInfoDtoImpl.fromJson;
 
   @override
   String get addr1;
@@ -589,8 +612,10 @@ abstract class _TourLocationDto implements TourLocationDto {
   @override // 콘텐츠타입 ID : 관광타입(관광지, 숙박등) ID
   String get createdtime;
   @override // 등록일
-  String get dist;
-  @override // 거리 : 중심 좌표로 부터 거리 (단위:m)
+  String get eventstartdate;
+  @override // 행사 시작일 ( 형식 : YYYYMMDD )
+  String get eventenddate;
+  @override // 행사 종료일 ( 형식 : YYYYMMDD )
   String get firstimage;
   @override // 대표이미지(원본) : 원본 대표 이미지 (약 500 * 333 size) Url 응답
   String get firstimage2;
@@ -612,6 +637,6 @@ abstract class _TourLocationDto implements TourLocationDto {
   String get title;
   @override
   @JsonKey(ignore: true)
-  _$$TourLocationDtoImplCopyWith<_$TourLocationDtoImpl> get copyWith =>
+  _$$TourFestivalInfoDtoImplCopyWith<_$TourFestivalInfoDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
