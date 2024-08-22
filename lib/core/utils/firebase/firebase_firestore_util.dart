@@ -198,19 +198,16 @@ class FirebaseFirestoreUtil {
         );
       }
     }
-    return toDynamicMap(snapshot.docs.first);
+    return toDynamicMap(snapshot.docs.firstOrNull);
   }
 
-  Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?> snapshot) {
-    try {
-      final data = snapshot.data();
-      if (data is Map<String, dynamic>) {
-        return data;
-      } else {
-        return {}; // 데이터가 null이거나 Map으로 캐스팅할 수 없는 경우 빈 맵 반환
-      }
-    } catch (e) {
-      return {}; // 캐스팅 오류 발생 시 빈 맵 반환
+  Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?>? snapshot) {
+    final data = snapshot?.data();
+    if (data is Map<String, dynamic>) {
+      return data;
+    } else {
+      CustomLogger.logger.w('cast to Map<String, dynamic> failed. data is ${data.runtimeType}');
+      return {}; // 데이터가 null이거나 Map으로 캐스팅할 수 없는 경우 빈 맵 반환
     }
   }
 }
