@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/data_sources/region_impl_api.dart';
-import '../../domain/models/region_model.dart';
-import '../../domain/repositories/region_repository.dart';
+import '../../../../../../../../data/data_source/api/region/region_impl_api.dart';
+import '../../../../../../../../domain/model/display/like/region_model.dart';
+import '../../../../../../../../domain/repository/like/region_repository.dart';
 import '../bloc/region_filter_bloc.dart';
 
 class RegionFilterWidget extends StatelessWidget {

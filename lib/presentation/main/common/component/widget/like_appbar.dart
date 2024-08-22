@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../pages/like/features/filter/region/presentation/widget/region_filter_widget.dart';
+
+import '../../../../pages/like/widget/region_filter_widget.dart';
 
 /**
  * 찜목록에서 사용하는 버튼도 추가된 AppBar

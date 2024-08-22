@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/models/access_token_model.dart';
-import '../../domain/models/region_model.dart';
-import '../../domain/repositories/region_repository.dart';
+import '../../../../../../../../domain/model/display/like/access_token_model.dart';
+import '../../../../../../../../domain/model/display/like/region_model.dart';
+import '../../../../../../../../domain/repository/like/region_repository.dart';
 
 part 'region_filter_event.dart';
 part 'region_filter_state.dart';

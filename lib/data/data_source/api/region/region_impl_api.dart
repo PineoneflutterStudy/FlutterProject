@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import '../../../../../core/utils/constant/access_token_constant.dart';
-import '../../../../../core/utils/constant/region_constant.dart';
-import '../entity/access_token_entity.dart';
-import '../entity/region_entity.dart';
+import '../../../../core/utils/constant/like/access_token_constant.dart';
+import '../../../../core/utils/constant/like/region_constant.dart';
+import '../../../dto/display/like/filter/access_token_dto.dart';
+import '../../../dto/display/like/filter/region_dto.dart';
 import 'abstract_region_api.dart';
 
 class RegionImplApi extends AbstractRegionApi {
@@ -12,7 +12,7 @@ class RegionImplApi extends AbstractRegionApi {
   Client client = Client();
 
   @override
-  Future<AccessTokenEntity> getAccessToken() async {
+  Future<AccessTokenDto> getAccessToken() async {
     try {
       final response = await client.get(
         Uri.parse(
@@ -22,7 +22,7 @@ class RegionImplApi extends AbstractRegionApi {
 
       if (response.statusCode == 200) {
         print('토큰 서버 통신 성공 ${response.body}' );
-        return AccessTokenEntity.fromJson(jsonDecode(response.body));
+        return AccessTokenDto.fromJson(jsonDecode(response.body));
       }
 
     } catch (e) {
@@ -32,7 +32,7 @@ class RegionImplApi extends AbstractRegionApi {
   }
 
   @override
-  Future<RegionEntity> getRegion(String accessToken, String? cd) async {
+  Future<RegionDto> getRegion(String accessToken, String? cd) async {
     print(accessToken);
 
     try {
@@ -44,7 +44,7 @@ class RegionImplApi extends AbstractRegionApi {
 
       if (response.statusCode == 200) {
         print('지역 정보 조회 성공 -> ${response.body}');
-        return RegionEntity.fromJson(jsonDecode(response.body));
+        return RegionDto.fromJson(jsonDecode(response.body));
       }
 
     } catch (e) {

@@ -12,11 +12,14 @@ class _KakaoApi implements KakaoApi {
   _KakaoApi(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<KakaoResponseWrapper<PlaceDto>> getPlaceList(
@@ -40,27 +43,33 @@ class _KakaoApi implements KakaoApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<KakaoResponseWrapper<PlaceDto>>(Options(
+    final _options = _setStreamType<KakaoResponseWrapper<PlaceDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/keyword.json?',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final _value = KakaoResponseWrapper<PlaceDto>.fromJson(
-      _result.data!,
-      (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
-    );
+        .compose(
+          _dio.options,
+          '/keyword.json?',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late KakaoResponseWrapper<PlaceDto> _value;
+    try {
+      _value = KakaoResponseWrapper<PlaceDto>.fromJson(
+        _result.data!,
+        (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
     return _value;
   }
 
@@ -70,27 +79,33 @@ class _KakaoApi implements KakaoApi {
     final queryParameters = <String, dynamic>{r'query': query};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
+    final _options = _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/address.json?',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final _value = KakaoResponseWrapper<AddressDto>.fromJson(
-      _result.data!,
-      (json) => AddressDto.fromJson(json as Map<String, dynamic>),
-    );
+        .compose(
+          _dio.options,
+          '/address.json?',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late KakaoResponseWrapper<AddressDto> _value;
+    try {
+      _value = KakaoResponseWrapper<AddressDto>.fromJson(
+        _result.data!,
+        (json) => AddressDto.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
     return _value;
   }
 
