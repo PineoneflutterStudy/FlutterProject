@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                   emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
                   requireMoreUserInfo: () => _onRequireMoreUserInfo(),
                   loggedIn: () => _onLoggedIn(),
+                  error: () => _onError(),
                   orElse: () => null),
             )),
       );
@@ -74,6 +75,11 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoggedIn() {
     // 로그인 성공한 경우 이전 화면으로 복귀
     Navigator.pop(context, true);
+  }
+
+  void _onError() {
+    //ett 토스트 불필요한 경우에도 노출될 수 있음 확인해야함.
+    CommonUtils.showToastMsg('알 수 없는 오류가 발생했습니다.\n다른 방법으로 로그인하거나 다시 시도해 주세요.');
   }
 
   void _launchEmailSignInPage() {

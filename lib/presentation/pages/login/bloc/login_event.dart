@@ -14,4 +14,6 @@ class LoginEvent with _$LoginEvent {
   const factory LoginEvent.userChanged(User? user) = _UserChanged;
 
   const factory LoginEvent.userInfoMissing() = _UserInfoMissing;
+
+  const factory LoginEvent.errorOccurred() = _ErrorOccurred;
 }

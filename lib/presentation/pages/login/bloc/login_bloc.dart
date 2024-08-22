@@ -27,7 +27,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
           emailDuplicated: (email, providers) => emit(LoginState.emailDuplicateError(email, providers)),
           userChanged: (user) => _onUserChanged(emit, user),
-          userInfoMissing: () => emit(LoginState.requireMoreUserInfo()));
+          userInfoMissing: () => emit(LoginState.requireMoreUserInfo()),
+          errorOccurred: () => emit(LoginState.error()));
     });
   }
 
@@ -71,7 +72,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (error is EmailDuplicateException) {
         add(LoginEvent.emailDuplicated(error.email, error.providers));
       } else {
-        //eff 예외처리 필요
+        add(LoginEvent.errorOccurred());
       }
     }
   }
@@ -118,9 +119,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //eff 예외처리 필요
       }
     }, onError: (error, stackTrace) {
-      CustomLogger.logger
-          .e('`Error - Naver sign-in failed: error = $error, stackTrace = $stackTrace');
-      //eff 예외처리 필요
+      CustomLogger.logger.e('`Error - Naver sign-in failed: error = $error, stackTrace = $stackTrace');
+      add(LoginEvent.errorOccurred());
     });
   }
 }
