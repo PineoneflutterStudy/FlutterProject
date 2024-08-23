@@ -27,10 +27,12 @@ class LoginOptionItem extends StatelessWidget {
   /// 아이콘 없는 경우 노출할 텍스트만으로 구성된 아이템
   Widget _buildNormalItem(BuildContext context) => TextButton(
         child: Text(
-          '${authType.name} 로그인',
+          '${authType.providerName} 로그인',
           style: TextStyle(fontSize: 36, color: authType.fontColor),
         ),
-        style: ButtonStyle(backgroundColor: WidgetStateProperty.all(authType.bgColor)),
+        style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(authType.bgColor),
+            overlayColor: WidgetStateProperty.all(Colors.transparent)),
         onPressed: () => _onItemPressed(context, authType),
       );
 
@@ -42,10 +44,12 @@ class LoginOptionItem extends StatelessWidget {
           height: 36,
         ),
         label: Text(
-          '${authType.name} 로그인',
+          '${authType.providerName} 로그인',
           style: TextStyle(fontSize: 36, color: authType.fontColor),
         ),
-        style: ButtonStyle(backgroundColor: WidgetStateProperty.all(authType.bgColor)),
+        style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(authType.bgColor),
+            overlayColor: WidgetStateProperty.all(Colors.transparent)),
         onPressed: () => _onItemPressed(context, authType),
       );
 
