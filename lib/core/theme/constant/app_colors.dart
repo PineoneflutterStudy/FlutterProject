@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors{
+class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
 
@@ -33,4 +33,14 @@ class AppColors{
   static const Color contentFourth = Color(0xFFB2B2B2);
   static const Color positive = Color(0xFF50B75A);
   static const Color blue = Color(0xFF0F90FA);
+
+  // 로그인
+  static const Color googleBg = Color(0xFFFFFFFF);
+  static const Color googleFont = Color(0xFF000000);
+  static const Color naverBg = Color(0xFF03C75A);
+  static const Color naverFont = Color(0xFFFFFFFF);
+  static const Color kakaoBg = Color(0xFFFEE500);
+  static const Color kakaoFont = Color(0xDB000000);
+  static const Color emailBg = Color(0xFFBBBBBB);
+  static const Color emailFont = Color(0xFF000000);
 }

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/theme/constant/app_icons.dart';
 
 /// ## 로그인 화면에서 제공하는 인증 타입
@@ -13,10 +14,10 @@ import '../../../../core/theme/constant/app_icons.dart';
 /// author [Eogeum@naver.com]
 
 enum AuthType {
-  google('G', '구글', AppIcons.imgLoginLogoGoogle, Color(0xFFFFFFFF), Color(0xFF000000)),
-  naver('N', '네이버', AppIcons.imgLoginLogoNaver, Color(0xFF03C75A), Color(0xFFFFFFFF)),
-  kakao('K', '카카오', AppIcons.imgLoginLogoKakao, Color(0xFFFEE500), Color(0xDB000000)),
-  email('E', '이메일', '', Color(0xFFBBBBBB), Color(0xFF000000));
+  google('google.com', '구글', AppIcons.imgLoginLogoGoogle, AppColors.googleBg, AppColors.googleFont),
+  naver('naver.com', '네이버', AppIcons.imgLoginLogoNaver, AppColors.naverBg, AppColors.naverFont),
+  kakao('kakao.com', '카카오', AppIcons.imgLoginLogoKakao, AppColors.kakaoBg, AppColors.kakaoFont),
+  email('email', '이메일', '', AppColors.emailBg, AppColors.emailFont);
 
   const AuthType(this.code, this.name, this.iconPath, this.bgColor, this.fontColor);
 
