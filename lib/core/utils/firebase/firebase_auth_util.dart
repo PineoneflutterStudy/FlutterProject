@@ -103,7 +103,17 @@ class FirebaseAuthUtil {
         // 구글 클라우드에서 생성한 커스텀 토큰 가져오기
         final String firebaseToken = uri.queryParameters['firebaseToken'] ?? '';
         if (firebaseToken.isEmpty) {
-          throw Exception('Naver sign-in failed: firebaseToken.isEmpty == TRUE');
+          // 로그인에 실패한 경우 에러 메시지에 따라 처리
+          final String errorMessage = uri.queryParameters['errorMessage'] ?? '';
+          final String email = uri.queryParameters['email'] ?? '';
+
+          if (errorMessage == _ERROR_EMAIL_DUPLICATED && email.isNotEmpty) {
+            await checkEmailDuplicate(email);
+          } else {
+            throw Exception('Naver sign-in failed: firebaseToken.isEmpty == TRUE');
+          }
+
+          return;
         }
 
         // 커스텀 토큰으로 파이어베이스 로그인
@@ -174,7 +184,7 @@ class FirebaseAuthUtil {
   /// ## 전달받은 이메일로 가입된 정보가 있는지 확인하고 존재하는 경우 [EmailDuplicateException] 발생
   Future<void> checkEmailDuplicate(String email) async {
     final FirebaseFirestoreUtil firestoreUtil = FirebaseFirestoreUtil();
-    final Map<String, dynamic> userDocMap = await firestoreUtil.getUserDocumentByEmail(email);
+    final Map<String, dynamic> userDocMap = await firestoreUtil.getUserDocMapByEmail(email);
     if (userDocMap.isNotEmpty) {
       final String providers = userDocMap[UsersField.PROVIDERS];
       throw EmailDuplicateException(email, providers);

@@ -28,11 +28,11 @@ class FirebaseFirestoreUtil {
       await _firestore.collection(DBKey.DB_USERS).doc(user.uid).set({
         UsersField.UID: user.uid,
         UsersField.EMAIL: user.email,
-        UsersField.PROVIDERS: user.providerData,
+        // UsersField.PROVIDERS: user.providerData.toString(),
         // 'createdAt': FieldValue.serverTimestamp(),
       });
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      CustomLogger.logger.e('Set user Document failed. error = $error');
     }
   }
 
@@ -186,7 +186,7 @@ class FirebaseFirestoreUtil {
     return await action(userDocRef);
   }
 
-  Future<Map<String, dynamic>> getUserDocumentByEmail(String email) async {
+  Future<Map<String, dynamic>> getUserDocMapByEmail(String email) async {
     final QuerySnapshot snapshot =
         await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
     if (snapshot.size != 1) {

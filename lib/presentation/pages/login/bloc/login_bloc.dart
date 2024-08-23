@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:app_links/app_links.dart';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,12 +15,28 @@ part 'login_bloc.freezed.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
-const String _tag = '[Login]';
-
 /// ## 로그인 화면 Bloc
 ///
 /// author [Eogeum@naver.com]
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+//==============================================================================
+//  Fields
+//==============================================================================
+  final String _tag = '[Login]';
+
+  late StreamSubscription<Uri> _uriSubscription;
+  late StreamSubscription<User?> _userSubscription;
+
+//==============================================================================
+//  Methods
+//==============================================================================
+  @override
+  Future<void> close() {
+    _uriSubscription.cancel();
+    _userSubscription.cancel();
+    return super.close();
+  }
+
   LoginBloc() : super(const LoginState.initial()) {
     on<LoginEvent>((event, emit) {
       event.when(
@@ -32,7 +49,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
   }
 
-  void _onStarted(Emitter<LoginState> emit) {
+  Future<void> _onStarted(Emitter<LoginState> emit) async {
     // 로그인 여부 확인
     if (FirebaseAuthUtil().auth.currentUser != null) {
       CustomLogger.logger.w('$_tag Already logged in. Exiting the login page.');
@@ -41,10 +58,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     // 네이버 로그인 결과를 받기 위한 앱 링크 초기화
-    _initAppLinks();
+    await _initAppLinks();
 
     // 파이어베이스 유저 변경 구독
-    FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
+    _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
   }
 
   Future<void> _onLoginOptionItemPressed(Emitter<LoginState> emit, AuthType authType) async {
@@ -55,17 +72,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         case AuthType.google:
           await authUtil.signInWithGoogle();
           CustomLogger.logger.i('$_tag Google sign-in succeeded.');
+          break;
 
         case AuthType.naver:
           await authUtil.signInWithNaver();
+          break;
 
         case AuthType.kakao:
           await authUtil.signInWithKakao();
           CustomLogger.logger.i('$_tag Kakao sign-in succeeded.');
+          break;
 
         case AuthType.email:
-        //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
-        // emit(LoginState.loggedOut());
+          //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
+          // emit(LoginState.loggedOut());
+          break;
       }
     } catch (error) {
       CustomLogger.logger.e('$_tag `Error - $error');
@@ -84,10 +105,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     final FirebaseFirestoreUtil firestoreUtil = FirebaseFirestoreUtil();
-    final DocumentReference? userDocRef = await firestoreUtil.getUserDocRef();
-    if (userDocRef == null) {
+    final Map<String, dynamic>? userDocMap = await firestoreUtil.getUserDocumentData();
+    if (userDocMap == null || userDocMap.isEmpty) {
       // 파이어스토어에 없는 신규 유저인 경우 파이어스토어에 저장
-      firestoreUtil.setUserDoc(user);
+      await firestoreUtil.setUserDoc(user);
     } else {
       // final Map<String, dynamic> userDocMap = firestoreUtil.toDynamicMap(await userDocRef.get());
       //ett 로그인 시 변경된 정보 있는지 확인하고 최신화
@@ -106,21 +127,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final AppLinks appLinks = AppLinks();
     final Uri? initialLink = await appLinks.getInitialLink();
     if (initialLink != null) {
-      authUtil.handleNaverAppLinks(initialLink);
+      await authUtil.handleNaverAppLinks(initialLink);
     }
 
-    appLinks.uriLinkStream.listen((uri) {
+    _uriSubscription = appLinks.uriLinkStream.listen((uri) async {
       CustomLogger.logger.d('$_tag App links received. uri = ${uri.toString()}');
 
       try {
-        authUtil.handleNaverAppLinks(uri);
+        await authUtil.handleNaverAppLinks(uri);
       } catch (error) {
         CustomLogger.logger.e('$_tag `Error - $error');
-        //eff 예외처리 필요
+        if (error is EmailDuplicateException) {
+          add(LoginEvent.emailDuplicated(error.email, error.providers));
+        } else {
+          add(LoginEvent.errorOccurred());
+        }
       }
-    }, onError: (error, stackTrace) {
-      CustomLogger.logger.e('`Error - Naver sign-in failed: error = $error, stackTrace = $stackTrace');
-      add(LoginEvent.errorOccurred());
     });
   }
 }
