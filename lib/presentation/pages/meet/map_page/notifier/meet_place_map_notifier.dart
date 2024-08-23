@@ -7,10 +7,13 @@ import 'package:logger/logger.dart';
 import '../../../../../core/utils/firebase/firebase_storage_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/kakao_mobility/kakao_mobility_api.dart';
+import '../../../../../data/data_source/api/kakao_mobility/kakao_mobility_data.dart';
 import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
 import '../../../../../data/dto/display/meet/mobility.dto.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/mobility_directions.model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
+import '../../../../../domain/repository/meet/mobility_directions_repository.dart';
 import '../../../../../domain/repository/tour_service.repository.dart';
 import '../../providers.dart';
 import 'meet_place_map_state.dart';
@@ -22,19 +25,19 @@ final meetPlaceStateProvider =
     StateNotifierProvider<MeetPlaceMapNotifier, MeetPlaceMapState>(
         (ref) => MeetPlaceMapNotifier(
               tourServiceRepo: ref.read(apiProvider),
-              KakaoMobilityApi: ref.read(kakaoMobilityApiProvider),
+              DirectionsRepo: ref.read(kakaoMobilityApiProvider),
             ));
 
 class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
   MeetPlaceMapNotifier({
     required TourServiceRepository tourServiceRepo,
-    required KakaoMobilityApi KakaoMobilityApi,
+    required MobilityDirectionsRepository DirectionsRepo,
   })  : _tourServiceRepo = tourServiceRepo,
-        _kakaoMobilityApi = KakaoMobilityApi,
+        _directionsRepo = DirectionsRepo,
         super(const MeetPlaceMapState());
 
   final TourServiceRepository _tourServiceRepo;
-  final KakaoMobilityApi _kakaoMobilityApi;
+  final MobilityDirectionsRepository _directionsRepo;
 
   /// # 맵에 필요한 정보 Fetch
   /// ### 중앙지점을 이용한 목적지 및 경로 구하기...
@@ -45,24 +48,15 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     state = state.copyWith(status: MeetPlaceMapStatus.loading); // 로딩...
 
     // 중앙 좌표값을 이용한 위치기반 관광 정보 Data Get
-    var resultDto = await getDtoData(addressList);
+    var resultTourLocationInfo = await getTourLocationData(addressList);
 
     // 관광 정보로 가져온 좌표값
-    //final resultLongitude = resultDto[0].mapx;
-    //final resultLatitude = resultDto[0].mapy;
+    final resultLongitude = resultTourLocationInfo?[0].mapx;
+    final resultLatitude = resultTourLocationInfo?[0].mapy;
 
-    final List<MobilityDto> routes = [];
-    // 출발지 개수 만큼 구하기
-    /*for (int i = 0; i < addressList.length; i++) {
-      // 2. 각각의 출발지에서 선에 필요한 경로 검색 결과 좌표들
-      final routeDto = await _repo.getGoalRoute(
-          addressList[i].longitude.toString(),
-          addressList[i].latitude.toString(),
-          resultLongitude,
-          resultLatitude);
+    _logger.i('Confirm Kakao Mobility api Use Data -> ${resultLongitude} / ${resultLatitude}');
 
-      routes.add(routeDto);
-    }*/
+    var resultDirectionsInfo = await getDirectionsData(addressList, resultLongitude!, resultLatitude!);
 
     //var destinationImgUrl = await _storage.getPngImageUrl('mapMarker/location_honey_case'); //  목적지 이미지
     //var startingPointImgUrl = await _storage.getPngImageUrl('mapMarker/location_point_bee'); //  출발지 이미지
@@ -74,8 +68,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
 
     state = state.copyWith(
       status: MeetPlaceMapStatus.success,
-      //dto: List.from(resultDto),
-      directionsDto: routes,
+      dto: List.from(resultTourLocationInfo as Iterable),
+      //directionsDto: routes,
       //destinationImg: destinationImgUrl.toString(),
       //startingPointImg: startingPointImgUrl.toString(),
     );
@@ -99,7 +93,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
     return centers;
   }
 
-  Future<List<TourLocationModel>?> getDtoData(List<AddressModel> addressList) async {
+  /// # 위치 기반 관광정보 api 실행
+  Future<List<TourLocationModel>?> getTourLocationData(List<AddressModel> addressList) async {
 
     final centerValue = getCenter(addressList);
 
@@ -122,6 +117,7 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
 
     _logger.i('Confirm getLocationData ( model ) -> ${model.data}');
     if (model.data == null) {
+      state = state.copyWith(status: MeetPlaceMapStatus.loading);
       for (int i = 1; i < 100; i++) {
         model = await _tourServiceRepo.getTourLocationInfo(
         serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
@@ -141,6 +137,9 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
         _logger.i('Radius Value ( ${TourApiRequestData().defaultRadius + (1000 * i)} ) Start Tour Location Api.. -> result : ${model}');
         if (model.data != null) {
           return model.data;
+        } else if (model.data == null) {
+          state = state.copyWith(
+              status: MeetPlaceMapStatus.loading);
         }
       }
     }
@@ -160,6 +159,28 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
         break;
       default:
         return TourApiRequestData().osList[3];
+    }
+  }
+
+  Future<List<MobilityDirectionsModel>?> getDirectionsData(List<AddressModel> addressList, String endMapX, String endMapY) async {
+
+    final List<MobilityDto> routes = [];
+    // 출발지 개수 만큼 구하기
+    for (int i = 0; i < addressList.length; i++) {
+      // 2. 각각의 출발지에서 선에 필요한 경로 검색 결과 좌표들
+      final routeDto = await _directionsRepo.getDirectionsInfo(
+          startLongitude: addressList[i].longitude.toString(),
+          startLatitude: addressList[i].latitude.toString(),
+          endLongitude: endMapX,
+          endLatitude: endMapY,
+          priority: KakaoMobilityData().defaultPriority,
+          car_fuel: KakaoMobilityData().defaultCarFuel,
+          car_hipass: KakaoMobilityData().defaultBoolean,
+          alternatives: KakaoMobilityData().defaultBoolean,
+          road_details: KakaoMobilityData().defaultBoolean);
+
+      _logger.i('이건 진짜 궁금한걸 확인!!! -> ${routeDto}');
+      //routes.add(routeDto);
     }
   }
 }

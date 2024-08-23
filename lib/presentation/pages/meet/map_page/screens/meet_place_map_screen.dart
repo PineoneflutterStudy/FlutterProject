@@ -115,115 +115,131 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
-          final apiState = ref.watch(meetPlaceStateProvider);
+          final state = ref.watch(meetPlaceStateProvider);
+          final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));
 
-          return apiState.status == MeetPlaceMapStatus.loading
-              ? MapLoadingWidget()
-              : KakaoMap(
-            onMapCreated: ((controller) async {
-              // 맵 생성 Callback
-              mapController = controller;
-              List<LatLng> latLngs = [];
+          //_logger.i('화면나올때 값을 볼까 -> ${apiStatus}');
 
-              /// TODO Firebase Storage에 접근하여 이미지 가져오도록 변경...
-              // 출발지 좌표 마커 생성
-              for (int i = 0; i < addressList.length; i++) {
-                List<LatLng> polyLatLngs = [];
-                // ==================== Markers ====================
-                markers.add(Marker(
-                  markerId: UniqueKey().toString(),
-                  latLng: await LatLng(
-                      addressList[i].latitude, addressList[i].longitude),
-                  markerImageSrc:
-                  '${apiState.startingPointImg}',
-                  width: 40,
-                  height: 40,
-                ));
+          switch(apiStatus) {
+            case MeetPlaceMapStatus.initial:
+            case MeetPlaceMapStatus.loading:
+              {
+                return MapLoadingWidget();
+              }
+            case MeetPlaceMapStatus.failure:
+              {
+                // TODO 요청 실패 시  실패화면 띄워주도록 변경 필요!!
+                return MapLoadingWidget();
+              }
+            case MeetPlaceMapStatus.success:
+              {
+                return KakaoMap(
+                  onMapCreated: ((controller) async {
+                    // 맵 생성 Callback
+                    mapController = controller;
+                    List<LatLng> latLngs = [];
 
-                latLngs.add(LatLng(addressList[i].latitude, addressList[i].longitude));
+                    /// TODO Firebase Storage에 접근하여 이미지 가져오도록 변경...
+                    // 출발지 좌표 마커 생성
+                    for (int i = 0; i < addressList.length; i++) {
+                      List<LatLng> polyLatLngs = [];
+                      // ==================== Markers ====================
+                      markers.add(Marker(
+                        markerId: UniqueKey().toString(),
+                        latLng: await LatLng(
+                            addressList[i].latitude, addressList[i].longitude),
+                        markerImageSrc:
+                        '${state.startingPointImg}',
+                        width: 40,
+                        height: 40,
+                      ));
 
-                // ==================== CustomOverLay ( 마커 위 텍스트 : 출발지 ) ====================
-                final startCustomOverlay = CustomOverlay(
-                  customOverlayId: UniqueKey().toString(),
-                  latLng: LatLng(addressList[i].latitude, addressList[i].longitude),
-                  content:
-                  '<p style="background-color: white; padding: 8px; border-radius: 8px;">${i + 1}번</p>',
-                  xAnchor: 0.4,
-                  yAnchor: 0.1,
-                  zIndex: 0,
-                );
+                      latLngs.add(LatLng(addressList[i].latitude, addressList[i].longitude));
 
-                customOverlays.add(startCustomOverlay);
+                      // ==================== CustomOverLay ( 마커 위 텍스트 : 출발지 ) ====================
+                      final startCustomOverlay = CustomOverlay(
+                        customOverlayId: UniqueKey().toString(),
+                        latLng: LatLng(addressList[i].latitude, addressList[i].longitude),
+                        content:
+                        '<p style="background-color: white; padding: 8px; border-radius: 8px;">${i + 1}번</p>',
+                        xAnchor: 0.4,
+                        yAnchor: 0.1,
+                        zIndex: 0,
+                      );
 
-                // ==================== PolyLine ====================
-                var latitudeList = jsonDecode(apiState.directionsDto[i].latitudePaths);
-                var longitudeList = jsonDecode(apiState.directionsDto[i].longitudePaths);
+                      customOverlays.add(startCustomOverlay);
 
-                // DirectionDto의 경도 리스트 길이만큼 실행...
-                for (int j = 0; j < latitudeList.length; j++) {
-                  if (j % 2 == 0) { // index 가 짝수 일때만 추가..
-                    polyLatLngs.add(
-                        LatLng(double.tryParse(latitudeList[j].toString())!,
-                        double.tryParse(longitudeList[j].toString())!));
-                  } else if (j == latitudeList.length - 1) {
-                    polyLatLngs.add(
-                        LatLng(double.tryParse(latitudeList[j].toString())!,
-                            double.tryParse(longitudeList[j].toString())!));
-                  }
-                }
+                      // ==================== PolyLine ====================
+                      var latitudeList = jsonDecode(state.directionsDto[i].latitudePaths);
+                      var longitudeList = jsonDecode(state.directionsDto[i].longitudePaths);
 
-                // 폴리라인 생성
-                polyLines.add(
-                  Polyline(
-                    polylineId: UniqueKey().toString(),
-                    points: polyLatLngs,
-                    strokeColor: lineColors[i],
-                    strokeOpacity: 0.8,
-                    strokeWidth: 7,
-                    strokeStyle: StrokeStyle.solid,
-                  ),
+                      // DirectionDto의 경도 리스트 길이만큼 실행...
+                      for (int j = 0; j < latitudeList.length; j++) {
+                        if (j % 2 == 0) { // index 가 짝수 일때만 추가..
+                          polyLatLngs.add(
+                              LatLng(double.tryParse(latitudeList[j].toString())!,
+                                  double.tryParse(longitudeList[j].toString())!));
+                        } else if (j == latitudeList.length - 1) {
+                          polyLatLngs.add(
+                              LatLng(double.tryParse(latitudeList[j].toString())!,
+                                  double.tryParse(longitudeList[j].toString())!));
+                        }
+                      }
+
+                      // 폴리라인 생성
+                      polyLines.add(
+                        Polyline(
+                          polylineId: UniqueKey().toString(),
+                          points: polyLatLngs,
+                          strokeColor: lineColors[i],
+                          strokeOpacity: 0.8,
+                          strokeWidth: 7,
+                          strokeStyle: StrokeStyle.solid,
+                        ),
+                      );
+                    }
+
+                    // ==================== Last Marker ( 목적지 ) ====================
+                    // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
+                    markers.add(Marker(
+                      markerId: '-1',
+                      latLng: await LatLng(
+                          double.parse(state.tourDto[0].mapy),
+                          double.parse(state.tourDto[0].mapx)),
+                      markerImageSrc:
+                      '${state.destinationImg}',
+                      width: 40,
+                      height: 50,
+                    ));
+
+                    // ==================== CustomOverLay ( 마커 위 텍스트 : 목적지 ) ====================
+                    final destinationCustomOverlay = CustomOverlay(
+                      customOverlayId: UniqueKey().toString(),
+                      latLng: LatLng(
+                          double.parse(state.tourDto[0].mapy),
+                          double.parse(state.tourDto[0].mapx)),
+                      content:
+                      '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
+                      xAnchor: 0.4,
+                      yAnchor: 1.3,
+                      zIndex: 0,
+                    );
+
+                    customOverlays.add(destinationCustomOverlay);
+
+                    // ==================== Update Map ====================
+                    setState(() {
+                      // 마커가 보이도록 지도 재설정하기
+                      mapController.fitBounds(latLngs);
+                    });
+                  }),
+
+                  markers: markers.toList(),
+                  polylines: polyLines.toList(),
+                  customOverlays: customOverlays,
                 );
               }
-
-              // ==================== Last Marker ( 목적지 ) ====================
-              // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
-              markers.add(Marker(
-                markerId: '-1',
-                latLng: await LatLng(
-                    double.parse(apiState.tourDto[0].mapy),
-                    double.parse(apiState.tourDto[0].mapx)),
-                markerImageSrc:
-                '${apiState.destinationImg}',
-                width: 40,
-                height: 50,
-              ));
-
-              // ==================== CustomOverLay ( 마커 위 텍스트 : 목적지 ) ====================
-              final destinationCustomOverlay = CustomOverlay(
-                customOverlayId: UniqueKey().toString(),
-                latLng: LatLng(
-                    double.parse(apiState.tourDto[0].mapy),
-                    double.parse(apiState.tourDto[0].mapx)),
-                content:
-                '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
-                xAnchor: 0.4,
-                yAnchor: 1.3,
-                zIndex: 0,
-              );
-
-              customOverlays.add(destinationCustomOverlay);
-
-              // ==================== Update Map ====================
-              setState(() {
-                // 마커가 보이도록 지도 재설정하기
-                mapController.fitBounds(latLngs);
-              });
-            }),
-
-            markers: markers.toList(),
-            polylines: polyLines.toList(),
-            customOverlays: customOverlays,
-          );
+          }
         },
       ),
     );

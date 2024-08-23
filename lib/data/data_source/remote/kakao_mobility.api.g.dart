@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tour_service.api.dart';
+part of 'kakao_mobility.api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'tour_service.api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _TourServiceApi implements TourServiceApi {
-  _TourServiceApi(
+class _KakaoMobilityApi implements KakaoMobilityApi {
+  _KakaoMobilityApi(
     this._dio, {
     this.baseUrl,
   });
@@ -19,59 +19,47 @@ class _TourServiceApi implements TourServiceApi {
   String? baseUrl;
 
   @override
-  Future<TourServiceResponseWrapper<TourLocationDto>> getTourLocationInfo(
-    String serviceKey,
-    int numOfRows,
-    int pageNo,
-    String MobileOS,
-    String MobileApp,
-    String _type,
-    String listYN,
-    String arrange,
-    String mapX,
-    String mapY,
-    String radius,
-    String contentTypeId,
-    String modifiedtime,
+  Future<KakaoMobilityResponseWrapper<MobilityDirectionsDto>> getDirectionsInfo(
+    String origin,
+    String destination,
+    String priority,
+    String car_fuel,
+    bool car_hipass,
+    bool alternatives,
+    bool road_details,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'serviceKey': serviceKey,
-      r'numOfRows': numOfRows,
-      r'pageNo': pageNo,
-      r'MobileOS': MobileOS,
-      r'MobileApp': MobileApp,
-      r'_type': _type,
-      r'listYN': listYN,
-      r'arrange': arrange,
-      r'mapX': mapX,
-      r'mapY': mapY,
-      r'radius': radius,
-      r'contentTypeId': contentTypeId,
-      r'modifiedtime': modifiedtime,
+      r'origin': origin,
+      r'destination': destination,
+      r'priority': priority,
+      r'car_fuel': car_fuel,
+      r'car_hipass': car_hipass,
+      r'alternatives': alternatives,
+      r'road_details': road_details,
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<TourServiceResponseWrapper<TourLocationDto>>(
+        _setStreamType<KakaoMobilityResponseWrapper<MobilityDirectionsDto>>(
             Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/locationBasedList1?',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final _value =
-        TourServiceResponseWrapper<TourLocationDto>.fromJson(_result.data!);
+                .compose(
+                  _dio.options,
+                  '/directions?',
+                  queryParameters: queryParameters,
+                  data: _data,
+                )
+                .copyWith(
+                    baseUrl: _combineBaseUrls(
+                  _dio.options.baseUrl,
+                  baseUrl,
+                ))));
+    final _value = KakaoMobilityResponseWrapper<MobilityDirectionsDto>.fromJson(
+        _result.data!);
     return _value;
   }
 

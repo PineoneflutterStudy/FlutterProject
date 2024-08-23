@@ -6,7 +6,7 @@ import '../response_wrapper/tour_service_response_wrapper.dart';
 
 part 'tour_service.api.g.dart';
 
-/// 한국 관광 공사 - 관광 정보 서비스 API
+/// # 한국 관광 공사 - 관광 정보 서비스 API
 /// * https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578#/
 @RestApi()
 abstract class TourServiceApi {

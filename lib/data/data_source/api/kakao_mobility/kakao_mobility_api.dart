@@ -11,14 +11,17 @@ final Logger _logger = CustomLogger.logger;
 
 final baseMobilityUrl = 'https://apis-navi.kakaomobility.com/v1/directions?';
 
+/*
 abstract class KakaoMobilityApi {
   /// # 카카오 모빌리티 - 자동차 길찾기
   Future<MobilityDto> loadGetDirections(String startLongitude, String startLatitude, String endLongitude, String endLatitude);
 }
+*/
 
 /// # 카카오 모빌리티 Api
 /// ## 앱 내 사용 api 목록
 /// * 1. 자동차 길찾기
+/*
 class KakaoMobilityApiImpl implements KakaoMobilityApi {
 
   final dio = Dio();
@@ -92,4 +95,4 @@ class KakaoMobilityApiImpl implements KakaoMobilityApi {
       return MobilityDto(distance: 0, duration: 0, longitudePaths: '', latitudePaths: '');
     }
   }
-}
+}*/
