@@ -38,19 +38,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider(
+  Widget build(BuildContext context) =>
+      BlocProvider(
         create: (_) => _loginBloc,
         child: Scaffold(
             appBar: AppBar(),
             body: BlocConsumer<LoginBloc, LoginState>(
-              builder: (context, state) => const LoginOptionList(),
-              listener: (context, state) => state.maybeWhen(
-                  alreadyLoggedIn: () => _onAlreadyLoggedIn(),
-                  emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
-                  requireMoreUserInfo: () => _onRequireMoreUserInfo(),
-                  loggedIn: () => _onLoggedIn(),
-                  error: () => _onError(),
-                  orElse: () => null),
+                builder: (context, state) => const LoginOptionList(),
+                listener: (context, state) {
+                  CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
+                  state.maybeWhen(
+                      alreadyLoggedIn: () => _onAlreadyLoggedIn(),
+                      emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
+                      requireMoreUserInfo: () => _onRequireMoreUserInfo(),
+                      loggedIn: () => _onLoggedIn(),
+                      error: () => _onError(),
+                      orElse: () => null);
+                }
             )),
       );
 

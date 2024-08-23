@@ -38,18 +38,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   LoginBloc() : super(const LoginState.initial()) {
-    on<LoginEvent>((event, emit) {
-      event.when(
+    on<LoginEvent>((event, emit) async {
+      CustomLogger.logger.i('$_tag Event occurred. event = ${event.runtimeType}');
+      await event.when(
           started: () => _onStarted(emit),
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
-          emailDuplicated: (email, providers) => emit(LoginState.emailDuplicateError(email, providers)),
+          emailDuplicated: (email, providers) async => emit(LoginState.emailDuplicateError(email, providers)),
           userChanged: (user) => _onUserChanged(emit, user),
-          userInfoMissing: () => emit(LoginState.requireMoreUserInfo()),
-          errorOccurred: () => emit(LoginState.error()));
+          userInfoMissing: () async => emit(LoginState.requireMoreUserInfo()),
+          errorOccurred: () async => emit(LoginState.error()));
     });
   }
 
-  Future<void> _onStarted(Emitter<LoginState> emit) async {
+  _onStarted(Emitter<LoginState> emit) {
     // 로그인 여부 확인
     if (FirebaseAuthUtil().auth.currentUser != null) {
       CustomLogger.logger.w('$_tag Already logged in. Exiting the login page.');
@@ -58,7 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     // 네이버 로그인 결과를 받기 위한 앱 링크 초기화
-    await _initAppLinks();
+    _initAppLinks();
 
     // 파이어베이스 유저 변경 구독
     _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
@@ -121,20 +122,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   /// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
   /// [FirebaseAuthUtil.signInWithNaver]의 결과를 받기 위해선 호출이 필요하다.
-  Future<void> _initAppLinks() async {
-    final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
-
-    final AppLinks appLinks = AppLinks();
-    final Uri? initialLink = await appLinks.getInitialLink();
-    if (initialLink != null) {
-      await authUtil.handleNaverAppLinks(initialLink);
-    }
-
-    _uriSubscription = appLinks.uriLinkStream.listen((uri) async {
+  _initAppLinks() {
+    _uriSubscription = AppLinks().uriLinkStream.listen((uri) async {
       CustomLogger.logger.d('$_tag App links received. uri = ${uri.toString()}');
 
       try {
-        await authUtil.handleNaverAppLinks(uri);
+        await FirebaseAuthUtil().handleNaverAppLinks(uri);
       } catch (error) {
         CustomLogger.logger.e('$_tag `Error - $error');
         if (error is EmailDuplicateException) {

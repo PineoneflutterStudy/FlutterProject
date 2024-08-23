@@ -53,7 +53,7 @@ class FirebaseAuthUtil {
       // 인증서로 파이어베이스 로그인
       auth.signInWithCredential(credential);
     } catch (error) {
-      throw Exception('Google sign-in failed: error = $error');
+      rethrow;
     }
   }
 
@@ -66,17 +66,10 @@ class FirebaseAuthUtil {
   ///
   /// ```dart
   ///   Future<void> _initAppLinks() async {
-  ///     final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
-  ///
-  ///     final AppLinks appLinks = AppLinks();
-  ///     final Uri? initialLink = await appLinks.getInitialLink();
-  ///     if (initialLink != null) {
-  ///       authUtil.handleNaverAppLinks(initialLink);
-  ///     }
-  ///
-  ///     appLinks.uriLinkStream.listen((uri) {
+  ///     final AppLinks appLinks = ;
+  ///     AppLinks().uriLinkStream.listen((uri) {
   ///       try {
-  ///         authUtil.handleNaverAppLinks(uri);
+  ///         FirebaseAuthUtil().handleNaverAppLinks(uri);
   ///       } catch (error) {
   ///         // 예외 처리
   ///       }
@@ -120,7 +113,7 @@ class FirebaseAuthUtil {
         await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
       }
     } catch (error) {
-      throw Exception('Naver sign-in failed: error = $error');
+      rethrow;
     }
   }
 
