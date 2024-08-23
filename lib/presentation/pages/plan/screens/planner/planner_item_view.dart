@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
+import '../../../../../domain/model/display/place/transportation.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
+import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget {
   final PlannerItem plan;
@@ -11,13 +13,12 @@ class PlannerItemView extends StatelessWidget {
   final int lastIndex;
   final AddressBloc addressBloc;
 
-  const PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, {super.key});
+  PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, {super.key});
+
+  final planUtil = PlanUtil();
 
   @override
   Widget build(BuildContext context) {
-    if(index == lastIndex){
-      addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -61,24 +62,27 @@ class PlannerItemView extends StatelessWidget {
           ],
         ),
         SizedBox(height: 8),
-        Container(
-          width: 4,
-          height: 12,
+        Container(width: 4, height: 12,
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(5),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => context.pushNamed('rcmn', queryParameters: {'location' : plan.place_name}, extra: addressBloc),
-          child: Text('Add Next Place'),
-        ),
+        if (index == lastIndex)
+          ElevatedButton(
+            onPressed: () {
+              addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
+              context.pushNamed('rcmn', queryParameters: {'location': plan.place_name}, extra: addressBloc);
+              },
+            child: Text('Add Next Place'),
+          ),
       ],
     );
   }
 
   Widget _buildTransportBar() {
+    final Transportation transportation = planUtil.getTransportationByCode(plan.transportation ?? 'walk');
     if (plan.travel_time != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,25 +91,13 @@ class PlannerItemView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(width: 45),
-              Container(
-                width: 4,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive,
-                  borderRadius: BorderRadius.circular(5),
-                ),
+              Container(width: 4, height: 12,
+                decoration: BoxDecoration(color: transportation.textColor, borderRadius: BorderRadius.circular(5)),
               ),
               SizedBox(width: 8),
-              Text(
-                plan.transportation ?? '도보',
-                style: TextStyle(fontSize: 16, color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive),
-              ),
+              Text(plan.transportation ?? '도보', style: TextStyle(fontSize: 16, color: transportation.textColor)),
               SizedBox(width: 4),
-              Icon(
-                (plan.transportation ?? '도보') == '차' ? Icons.directions_car : Icons.directions_walk,
-                color: ((plan.transportation ?? '도보') == '차') ? AppColors.error : AppColors.positive,
-                size: 16,
-              ),
+              Icon( transportation.icon,color: transportation.textColor, size: 16),
             ],
           ),
           SizedBox(height: 10),

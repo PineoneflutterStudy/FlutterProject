@@ -17,6 +17,8 @@ class Place with _$Place {
     required String y,
     required String placeUrl,
     required String distance,
+    required String walkTravelTime,
+    required String carTravelTime,
   }) = _Place;
 
   factory Place.fromJson(Map<String, dynamic> json) =>

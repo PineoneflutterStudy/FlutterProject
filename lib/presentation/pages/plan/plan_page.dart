@@ -40,6 +40,7 @@ class _PlanPageState extends State<PlanPage> {
   }
 
   /// 로그인 상태 체크
+  /// todo init bloc 로 수정하기
   Future<void> _checkLoginState() async {
     bool isLoggedIn = await auth.isLoggedIn();
 

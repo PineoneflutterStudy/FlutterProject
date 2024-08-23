@@ -9,6 +9,8 @@ import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
+import '../../../../../domain/model/display/place/transportation.dart';
+import '../../dialog/add_plan_popup.dart';
 import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
@@ -48,7 +50,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {
-        //todo 여행 계획 추가 팝업
+        _showAddPlanPopup(context, widget.place)
       },
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
@@ -68,14 +70,10 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(widget.place.placeName ?? '',
-                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(
-                            child: Text(planUtil.getLastTwoCategories(widget.place.categoryName ?? ''),
-                                style: TextStyle(color: AppColors.contentTertiary),
-                                overflow: TextOverflow.ellipsis, maxLines: 1)),
+                        Expanded(child: Text(planUtil.getLastTwoCategories(widget.place.categoryName ?? ''),
+                                style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
                     //주소
@@ -89,8 +87,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                         if ((widget.place.addressName ?? '').isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18),
-                                overflow: TextOverflow.ellipsis, maxLines: 1),
+                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                       ],
                     ),
@@ -111,13 +108,9 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.directions_walk, color: AppColors.positive , size: 13),
-                        SizedBox(width: 2),
-                        Text('${planUtil.getWalkTravelTime(widget.place.distance)}', style: TextStyle(fontSize: 16, color: AppColors.positive)),
+                        planUtil.buildWalkTravelTime(widget.place.walkTravelTime),
                         SizedBox(width: 5),
-                        Icon(Icons.directions_car, color: AppColors.error, size: 13),
-                        SizedBox(width: 3),
-                        Text('${planUtil.getCarTravelTime(widget.place.distance)}', style: TextStyle(fontSize: 16, color: AppColors.error),),
+                        planUtil.buildCarTravelTime(widget.place.carTravelTime),
                       ],
                     ),
                   ],
@@ -128,17 +121,13 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                   IconButton(
                     icon: Icon(Icons.more_horiz_sharp),
                     onPressed: () => (widget.place.placeUrl ?? '').isNotEmpty
-                        ? _gotoDetailPage(context)
+                        ? _gotoDetailPage(context, widget.place.placeUrl)
                         : CommonUtils.showToastMsg('등록된 상세페이지가 없습니다.'),
                   ),
                   IconButton(
                     icon: Image.asset(isLiked ? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
                     onPressed: () {
-                      if (isLiked) {
-                        firestore.deleteDocument(placeDocRef!);
-                      } else {
-                        firestore.setDocument(placeDocRef!, widget.place.toJson());
-                      }
+                      isLiked ? firestore.deleteDocument(placeDocRef!) : firestore.setDocument(placeDocRef!, widget.place.toJson());
                       setState(() {
                         isLiked = !isLiked;
                       });
@@ -153,13 +142,31 @@ class _PlaceItemViewState extends State<PlaceItemView> {
     );
   }
 
-  Future<void> _gotoDetailPage(BuildContext context) async {
-    final Uri uri = Uri.parse(widget.place.placeUrl);
+  Future<void> _gotoDetailPage(BuildContext context, String url) async {
+    final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
       CustomLogger.logger.e('Could not launch $uri');
       CommonUtils.showToastMsg('상세페이지 이동 실패\n다시 시도해주세요.');
     }
+  }
+
+  void _showAddPlanPopup(BuildContext context, Place place) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddPlanPopup(place: place);
+      },
+    ).then((result) {
+      if (result != null) {
+        final selectedTime = result['time'];
+        final selectedTransportation = result['transportation'];
+
+        // 원하는 처리 수행
+        print('선택된 시간: $selectedTime');
+        print('선택된 이동수단: $selectedTransportation');
+      }
+    });
   }
 }

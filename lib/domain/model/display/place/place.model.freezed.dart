@@ -30,6 +30,8 @@ mixin _$Place {
   String get y => throw _privateConstructorUsedError;
   String get placeUrl => throw _privateConstructorUsedError;
   String get distance => throw _privateConstructorUsedError;
+  String get walkTravelTime => throw _privateConstructorUsedError;
+  String get carTravelTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,9 @@ abstract class $PlaceCopyWith<$Res> {
       String x,
       String y,
       String placeUrl,
-      String distance});
+      String distance,
+      String walkTravelTime,
+      String carTravelTime});
 }
 
 /// @nodoc
@@ -77,6 +81,8 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
     Object? y = null,
     Object? placeUrl = null,
     Object? distance = null,
+    Object? walkTravelTime = null,
+    Object? carTravelTime = null,
   }) {
     return _then(_value.copyWith(
       placeId: null == placeId
@@ -119,6 +125,14 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as String,
+      walkTravelTime: null == walkTravelTime
+          ? _value.walkTravelTime
+          : walkTravelTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      carTravelTime: null == carTravelTime
+          ? _value.carTravelTime
+          : carTravelTime // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -140,7 +154,9 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
       String x,
       String y,
       String placeUrl,
-      String distance});
+      String distance,
+      String walkTravelTime,
+      String carTravelTime});
 }
 
 /// @nodoc
@@ -164,6 +180,8 @@ class __$$PlaceImplCopyWithImpl<$Res>
     Object? y = null,
     Object? placeUrl = null,
     Object? distance = null,
+    Object? walkTravelTime = null,
+    Object? carTravelTime = null,
   }) {
     return _then(_$PlaceImpl(
       placeId: null == placeId
@@ -206,6 +224,14 @@ class __$$PlaceImplCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as String,
+      walkTravelTime: null == walkTravelTime
+          ? _value.walkTravelTime
+          : walkTravelTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      carTravelTime: null == carTravelTime
+          ? _value.carTravelTime
+          : carTravelTime // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -223,7 +249,9 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
       required this.x,
       required this.y,
       required this.placeUrl,
-      required this.distance});
+      required this.distance,
+      required this.walkTravelTime,
+      required this.carTravelTime});
 
   factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlaceImplFromJson(json);
@@ -248,10 +276,14 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
   final String placeUrl;
   @override
   final String distance;
+  @override
+  final String walkTravelTime;
+  @override
+  final String carTravelTime;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Place(placeId: $placeId, placeName: $placeName, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance)';
+    return 'Place(placeId: $placeId, placeName: $placeName, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance, walkTravelTime: $walkTravelTime, carTravelTime: $carTravelTime)';
   }
 
   @override
@@ -268,7 +300,9 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
       ..add(DiagnosticsProperty('x', x))
       ..add(DiagnosticsProperty('y', y))
       ..add(DiagnosticsProperty('placeUrl', placeUrl))
-      ..add(DiagnosticsProperty('distance', distance));
+      ..add(DiagnosticsProperty('distance', distance))
+      ..add(DiagnosticsProperty('walkTravelTime', walkTravelTime))
+      ..add(DiagnosticsProperty('carTravelTime', carTravelTime));
   }
 
   @override
@@ -291,13 +325,29 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
             (identical(other.placeUrl, placeUrl) ||
                 other.placeUrl == placeUrl) &&
             (identical(other.distance, distance) ||
-                other.distance == distance));
+                other.distance == distance) &&
+            (identical(other.walkTravelTime, walkTravelTime) ||
+                other.walkTravelTime == walkTravelTime) &&
+            (identical(other.carTravelTime, carTravelTime) ||
+                other.carTravelTime == carTravelTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, placeId, placeName, categoryName,
-      phone, addressName, roadAddressName, x, y, placeUrl, distance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      placeId,
+      placeName,
+      categoryName,
+      phone,
+      addressName,
+      roadAddressName,
+      x,
+      y,
+      placeUrl,
+      distance,
+      walkTravelTime,
+      carTravelTime);
 
   @JsonKey(ignore: true)
   @override
@@ -324,7 +374,9 @@ abstract class _Place implements Place {
       required final String x,
       required final String y,
       required final String placeUrl,
-      required final String distance}) = _$PlaceImpl;
+      required final String distance,
+      required final String walkTravelTime,
+      required final String carTravelTime}) = _$PlaceImpl;
 
   factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
@@ -348,6 +400,10 @@ abstract class _Place implements Place {
   String get placeUrl;
   @override
   String get distance;
+  @override
+  String get walkTravelTime;
+  @override
+  String get carTravelTime;
   @override
   @JsonKey(ignore: true)
   _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>

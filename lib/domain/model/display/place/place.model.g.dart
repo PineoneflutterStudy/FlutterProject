@@ -17,6 +17,8 @@ _$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
       y: json['y'] as String,
       placeUrl: json['placeUrl'] as String,
       distance: json['distance'] as String,
+      walkTravelTime: json['walkTravelTime'] as String,
+      carTravelTime: json['carTravelTime'] as String,
     );
 
 Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
@@ -31,4 +33,6 @@ Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
       'y': instance.y,
       'placeUrl': instance.placeUrl,
       'distance': instance.distance,
+      'walkTravelTime': instance.walkTravelTime,
+      'carTravelTime': instance.carTravelTime,
     };
