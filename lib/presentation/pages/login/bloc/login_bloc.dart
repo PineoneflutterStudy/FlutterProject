@@ -72,7 +72,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       switch (authType) {
         case AuthType.google:
           await authUtil.signInWithGoogle();
-          CustomLogger.logger.i('$_tag Google sign-in succeeded.');
           break;
 
         case AuthType.naver:
@@ -81,7 +80,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         case AuthType.kakao:
           await authUtil.signInWithKakao();
-          CustomLogger.logger.i('$_tag Kakao sign-in succeeded.');
           break;
 
         case AuthType.email:

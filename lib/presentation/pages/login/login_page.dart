@@ -109,7 +109,35 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onEmailDuplicateError(String email, String providers) {
-    //eff 이메일 중복에 대한 팝업 노출 해야함
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        content: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "이미 해당 이메일(${email})로 가입된 계정이 존재합니다. 다른 방법으로 로그인해주세요.",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+              TextSpan(
+                text: "\n\ntip: ",
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+              ),
+              TextSpan(
+                text: "로그인 방법을 추가하려면, 마이페이지의 내 정보에서 설정하실 수 있습니다.",
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text("확인"),
+          ),
+        ],
+      ),
+    );
   }
 
   void _onRequireMoreUserInfo() {
