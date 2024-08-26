@@ -32,7 +32,8 @@ class FirebaseAuthUtil {
       final GoogleSignInAccount? account = await GoogleSignIn().signIn();
 
       if (account == null) {
-        throw Exception('Google sign-in failed: account == null');
+        CustomLogger.logger.w('Google sign-in failed: account == null');
+        return;
       }
 
       // 웹인 경우 scope 접근 확인 필요
