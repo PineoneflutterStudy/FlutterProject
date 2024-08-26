@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/constant/app_colors.dart';
+import '../../../core/theme/constant/app_icons.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
+import '../../../domain/model/display/login/auth_type.dart';
 import 'bloc/login_bloc.dart';
-import 'widgets/login_option_list.dart';
+import 'widgets/login_option_item.dart';
 
 //==============================================================================
 //  Fields
@@ -23,6 +26,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late LoginBloc _loginBloc;
+  final authTypeList = AuthType.values;
 
   @override
   void initState() {
@@ -38,25 +42,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
         create: (_) => _loginBloc,
         child: Scaffold(
-            appBar: AppBar(),
-            body: BlocConsumer<LoginBloc, LoginState>(
-                builder: (context, state) => const LoginOptionList(),
-                listener: (context, state) {
-                  CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
-                  state.maybeWhen(
-                      alreadyLoggedIn: () => _onAlreadyLoggedIn(),
-                      emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
-                      requireMoreUserInfo: () => _onRequireMoreUserInfo(),
-                      loggedIn: () => _onLoggedIn(),
-                      error: () => _onError(),
-                      orElse: () => null);
-                }
-            )),
+          appBar: AppBar(backgroundColor: AppColors.secondary),
+          body: BlocConsumer<LoginBloc, LoginState>(
+            builder: (context, state) => Container(
+              color: AppColors.secondary,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // 상단 로고 영역
+                  Column(
+                    children: [
+                      Image.asset(AppIcons.ImgBeeLaugh, width: 200, height: 200),
+                      SizedBox(height: 20),
+                      Text('나만의 여행 플래너', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                      Text('개꿀트립🍯', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+
+                  // 상단 로고 영역과 로그인 옵션 목록 사이 여백
+                  SizedBox(height: 40),
+
+                  // 로그인 옵션 목록
+                  ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    itemCount: authTypeList.length,
+                    itemBuilder: (context, index) => LoginOptionItem(authTypeList[index]),
+                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    physics: NeverScrollableScrollPhysics(), // 스크롤 기능 제거
+                  ),
+
+                  // 로그인 옵션 목록 하단 여백
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+            listener: (context, state) {
+              CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
+              state.maybeWhen(
+                  alreadyLoggedIn: () => _onAlreadyLoggedIn(),
+                  emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
+                  requireMoreUserInfo: () => _onRequireMoreUserInfo(),
+                  loggedIn: () => _onLoggedIn(),
+                  error: () => _onError(),
+                  orElse: () => null);
+            },
+          ),
+        ),
       );
+
+//==============================================================================
+//  Layout
+//==============================================================================
 
 //==============================================================================
 //  Methods
