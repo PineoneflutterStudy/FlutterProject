@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../../core/theme/constant/app_colors.dart';
 import '../dialogs/start_address_input_dialog.dart';
 
 class EmptyMeetScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class EmptyMeetScreen extends StatelessWidget {
             },
             child: Icon(
               Icons.add_circle_sharp,
-              color: Colors.amberAccent,
+              color: AppColors.primary,
               size: 40,
             ),
           ),

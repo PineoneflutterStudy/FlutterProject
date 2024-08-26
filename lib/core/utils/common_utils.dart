@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -35,5 +37,27 @@ class CommonUtils {
 
     // 마스킹된 이메일 반환
     return '$maskedIdPart@$domainPart';
+  }
+
+  final List<String> osList = [
+    'AND', // OS - Android
+    'IOS', // OS - IPhone
+    'WIN', // OS - Window
+    'ETC' // OS - etc...
+  ];
+
+  /// ## 현재 단말의 Os 정보를 가져온다.
+  /// ### return -> AND / IOS / WIN / ETC
+  String getOsInfo() {
+    switch (Platform.operatingSystem) {
+      case 'android':
+        return osList[0];
+      case 'ios':
+        return osList[1];
+      case 'windows':
+        return osList[2];
+      default:
+        return osList[3];
+    }
   }
 }

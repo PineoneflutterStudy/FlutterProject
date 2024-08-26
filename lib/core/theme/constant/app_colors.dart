@@ -26,6 +26,12 @@ class AppColors {
   static const Color shadow = Color(0xFF000000);
   static const Color outline = Color(0xFFDDDDDD);
 
+  // meet line Colors
+  static const Color greenPolyLine80 = Color(0xCC4CAF50);
+  static const Color redPolyLine80 = Color(0xCCB71C1C);
+  static const Color bluePolyLine80 = Color(0xCC0D47A1);
+  static const Color blackPolyLine80 = Color(0xCC000000);
+
   // extended color
   static const Color contentPrimary = Color(0xFF333333);
   static const Color contentSecondary = Color(0xFF666666);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../../core/utils/common_utils.dart';
 import '../../../../../../core/utils/logger.dart';
 import '../../../../../../domain/model/display/meet/address_model.dart';
@@ -84,7 +85,7 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
               Container(
                 margin: EdgeInsets.only(top: 20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(dialogBgRadius),
                 ),
               ),
@@ -163,7 +164,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                   },
                   icon: Icon(
                     Icons.add_circle_sharp,
-                    color: Colors.amberAccent,
+                    color: AppColors.primary,
                     size: 30,
                   ),
                 ),
@@ -294,9 +295,9 @@ class __ContentViewState extends ConsumerState<_ContentView> {
     Fluttertoast.showToast(
       msg: message,
       gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       fontSize: 15,
-      textColor: Colors.black,
+      textColor: AppColors.black,
       toastLength: Toast.LENGTH_SHORT,
     );
   }

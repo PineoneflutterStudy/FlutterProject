@@ -7,6 +7,8 @@ part 'mobility_directions.model.g.dart';
 @freezed
 class MobilityDirectionsModel with _$MobilityDirectionsModel {
   const factory MobilityDirectionsModel ({
+    required int distance,
+    required int duration,
     required List vertexes,
   }) = _MobilityDirectionsModel;
 

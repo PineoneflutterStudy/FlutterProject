@@ -1,13 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
-import '../../../data/data_source/api/kakao_mobility/kakao_mobility_api.dart';
 import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
-import '../../../data/data_source/remote/tour_service.api.dart';
 import '../../../data/repository_impl/home/tour_service_repository_impl.dart';
 import '../../../data/repository_impl/meet/mobility_directions_repository_impl.dart';
 import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
-import '../../../domain/repository/home/tour_guide_repository.dart';
 import '../../../domain/repository/meet/mobility_directions_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/repository/tour_service.repository.dart';

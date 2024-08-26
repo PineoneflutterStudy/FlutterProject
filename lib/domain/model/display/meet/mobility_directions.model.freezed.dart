@@ -21,6 +21,8 @@ MobilityDirectionsModel _$MobilityDirectionsModelFromJson(
 
 /// @nodoc
 mixin _$MobilityDirectionsModel {
+  int get distance => throw _privateConstructorUsedError;
+  int get duration => throw _privateConstructorUsedError;
   List<dynamic> get vertexes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,7 @@ abstract class $MobilityDirectionsModelCopyWith<$Res> {
           $Res Function(MobilityDirectionsModel) then) =
       _$MobilityDirectionsModelCopyWithImpl<$Res, MobilityDirectionsModel>;
   @useResult
-  $Res call({List<dynamic> vertexes});
+  $Res call({int distance, int duration, List<dynamic> vertexes});
 }
 
 /// @nodoc
@@ -52,9 +54,19 @@ class _$MobilityDirectionsModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? distance = null,
+    Object? duration = null,
     Object? vertexes = null,
   }) {
     return _then(_value.copyWith(
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as int,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
       vertexes: null == vertexes
           ? _value.vertexes
           : vertexes // ignore: cast_nullable_to_non_nullable
@@ -72,7 +84,7 @@ abstract class _$$MobilityDirectionsModelImplCopyWith<$Res>
       __$$MobilityDirectionsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<dynamic> vertexes});
+  $Res call({int distance, int duration, List<dynamic> vertexes});
 }
 
 /// @nodoc
@@ -88,9 +100,19 @@ class __$$MobilityDirectionsModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? distance = null,
+    Object? duration = null,
     Object? vertexes = null,
   }) {
     return _then(_$MobilityDirectionsModelImpl(
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as int,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
       vertexes: null == vertexes
           ? _value._vertexes
           : vertexes // ignore: cast_nullable_to_non_nullable
@@ -102,12 +124,19 @@ class __$$MobilityDirectionsModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MobilityDirectionsModelImpl implements _MobilityDirectionsModel {
-  const _$MobilityDirectionsModelImpl({required final List<dynamic> vertexes})
+  const _$MobilityDirectionsModelImpl(
+      {required this.distance,
+      required this.duration,
+      required final List<dynamic> vertexes})
       : _vertexes = vertexes;
 
   factory _$MobilityDirectionsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MobilityDirectionsModelImplFromJson(json);
 
+  @override
+  final int distance;
+  @override
+  final int duration;
   final List<dynamic> _vertexes;
   @override
   List<dynamic> get vertexes {
@@ -118,7 +147,7 @@ class _$MobilityDirectionsModelImpl implements _MobilityDirectionsModel {
 
   @override
   String toString() {
-    return 'MobilityDirectionsModel(vertexes: $vertexes)';
+    return 'MobilityDirectionsModel(distance: $distance, duration: $duration, vertexes: $vertexes)';
   }
 
   @override
@@ -126,13 +155,17 @@ class _$MobilityDirectionsModelImpl implements _MobilityDirectionsModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MobilityDirectionsModelImpl &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
             const DeepCollectionEquality().equals(other._vertexes, _vertexes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_vertexes));
+  int get hashCode => Object.hash(runtimeType, distance, duration,
+      const DeepCollectionEquality().hash(_vertexes));
 
   @JsonKey(ignore: true)
   @override
@@ -151,11 +184,17 @@ class _$MobilityDirectionsModelImpl implements _MobilityDirectionsModel {
 
 abstract class _MobilityDirectionsModel implements MobilityDirectionsModel {
   const factory _MobilityDirectionsModel(
-      {required final List<dynamic> vertexes}) = _$MobilityDirectionsModelImpl;
+      {required final int distance,
+      required final int duration,
+      required final List<dynamic> vertexes}) = _$MobilityDirectionsModelImpl;
 
   factory _MobilityDirectionsModel.fromJson(Map<String, dynamic> json) =
       _$MobilityDirectionsModelImpl.fromJson;
 
+  @override
+  int get distance;
+  @override
+  int get duration;
   @override
   List<dynamic> get vertexes;
   @override

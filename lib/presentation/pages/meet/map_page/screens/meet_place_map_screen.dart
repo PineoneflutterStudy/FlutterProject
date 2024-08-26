@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../common/map_loading_widget.dart';
@@ -30,10 +31,10 @@ late String apiKey = '';
 late List<AddressModel> addressList;
 // 라인 컬러 리스트
 final List<Color> lineColors = [
-  Colors.green,
-  Colors.red,
-  Colors.blue,
-  Colors.black,
+  AppColors.greenPolyLine80,
+  AppColors.redPolyLine80,
+  AppColors.bluePolyLine80,
+  AppColors.blackPolyLine80,
 ];
 
 // ======================================================================
@@ -170,8 +171,8 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                       customOverlays.add(startCustomOverlay);
 
                       // ==================== PolyLine ====================
-                      var latitudeList = jsonDecode(state.directionsDto[i].latitudePaths);
-                      var longitudeList = jsonDecode(state.directionsDto[i].longitudePaths);
+                      var latitudeList = jsonDecode(state.directionsModel[i].latitudePaths);
+                      var longitudeList = jsonDecode(state.directionsModel[i].longitudePaths);
 
                       // DirectionDto의 경도 리스트 길이만큼 실행...
                       for (int j = 0; j < latitudeList.length; j++) {

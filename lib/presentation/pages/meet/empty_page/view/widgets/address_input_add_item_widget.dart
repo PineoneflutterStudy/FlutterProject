@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/theme/constant/app_colors.dart';
+
 class AddressInputAddItemWidget extends StatelessWidget {
   final int indexNum;
   final String address;
@@ -21,7 +23,7 @@ class AddressInputAddItemWidget extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.amberAccent, width: 2),
+        border: Border.all(color: AppColors.primary, width: 2),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,11 +46,11 @@ class AddressInputAddItemWidget extends StatelessWidget {
               icon: address.isEmpty
                   ? Icon(
                       Icons.remove_circle,
-                      color: Colors.black.withOpacity(0.4),
+                      color: AppColors.black.withOpacity(0.4),
                     )
                   : Icon(
                       Icons.cancel,
-                      color: Colors.black.withOpacity(0.8),
+                      color: AppColors.black.withOpacity(0.8),
                     ),
             ),
           )

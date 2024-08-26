@@ -10,14 +10,14 @@ part 'kakao_mobility_response_wrapper.g.dart';
 class KakaoMobilityResponseWrapper<T> with _$KakaoMobilityResponseWrapper<T> {
   const factory KakaoMobilityResponseWrapper({
     required String trans_id,
-    required List routes,
+    Routes? routes,
   }) = _KakaoMobilityResponseWrapper<T>;
 
   factory KakaoMobilityResponseWrapper.fromJson(Map<String, dynamic> json) =>
       _$KakaoMobilityResponseWrapperFromJson(json);
 }
 
-/*@freezed
+@freezed
 class Routes with _$Routes {
   const factory Routes({
     required int result_code,
@@ -34,7 +34,7 @@ class Summary with _$Summary {
   const factory Summary({
     Origin? origin,
     Destination? destination,
-    required String? waypoints,
+    required List<dynamic>? waypoints,
     required String priority,
     Bound? bound,
     Fare? fare,
@@ -98,9 +98,9 @@ class Sections with _$Sections {
     required int duration,
     Bound? bound,
     List<MobilityDirectionsDto>? roads,
-    List<String>? guides,
+    required List<dynamic>? guides,
   }) = _Sections;
 
   factory Sections.fromJson(Map<String, dynamic> json) =>
       _$SectionsFromJson(json);
-}*/
+}

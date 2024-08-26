@@ -1,3 +1,4 @@
+
 /// ## 한국관광공사 Api Request 시 기본적으로 사용되는 Data들...
 class TourApiRequestData {
   final String appName = '개꿀트립';
@@ -5,13 +6,6 @@ class TourApiRequestData {
   final int emptyIntData = -1;
   final String responseType = 'json';
   final int defaultRadius = 1000;
-  final List<String> osList = [
-    'AND', // OS - Android
-    'IOS', // OS - IPhone
-    'WIN', // OS - Window Phone
-    'ETC' // OS - etc...
-  ];
-
   final List<String> arrangeList = [
     'A', // 정렬구분 - 제목순
     'C', // 정렬구분 - 수정일순

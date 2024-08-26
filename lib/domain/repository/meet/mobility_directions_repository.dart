@@ -1,10 +1,10 @@
 import '../../../data/data_source/response_wrapper/response_wrapper.dart';
-import '../../model/display/meet/tour_location.model.dart';
+import '../../model/display/meet/mobility_directions.model.dart';
 import '../repository.dart';
 
 abstract class MobilityDirectionsRepository extends Repository {
 
-  Future<ResponseWrapper<List<TourLocationModel>>> getDirectionsInfo({
+  Future<ResponseWrapper<List<MobilityDirectionsModel>>> getDirectionsInfo({
     required String startLongitude,
     required String startLatitude,
     required String endLongitude,

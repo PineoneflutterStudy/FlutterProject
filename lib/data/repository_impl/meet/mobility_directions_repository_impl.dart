@@ -3,16 +3,20 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:logger/logger.dart';
 
 import '../../../core/utils/logger.dart';
-import '../../../domain/model/display/meet/tour_location.model.dart';
+import '../../../domain/model/display/meet/mobility_directions.model.dart';
 import '../../../domain/repository/meet/mobility_directions_repository.dart';
 import '../../data_source/remote/kakao_mobility.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
+import '../../mapper/mobility_direcionts.mapper.dart';
 
 final Logger _logger = CustomLogger.logger;
+final String DTO_DISTANCE = 'distance';
+final String DTO_DURATION = 'duration';
+final String DTO_VERTEXES = 'vertexes';
 
 class MobilityDirectionsRepositoryImpl extends MobilityDirectionsRepository {
   @override
-  Future<ResponseWrapper<List<TourLocationModel>>> getDirectionsInfo(
+  Future<ResponseWrapper<List<MobilityDirectionsModel>>> getDirectionsInfo(
       {required String startLongitude,
       required String startLatitude,
       required String endLongitude,
@@ -35,14 +39,18 @@ class MobilityDirectionsRepositoryImpl extends MobilityDirectionsRepository {
           priority, car_fuel, car_hipass, alternatives, road_details);
 
       _logger.i('Kakao Mobility Response Data Check -> ${response}');
+      final roadList = response.routes?.sections?.roads;
 
+      _logger.i('Kakao Mobility Response Use Data Confirm -> ${roadList}');
 
-      return ResponseWrapper<List<TourLocationModel>>(status: 'success', code: '0000', message: '', data: []);
+      final resultDirections = roadList?.map((item) => item.toModel()).toList();
+
+      return ResponseWrapper<List<MobilityDirectionsModel>>(status: 'success', code: '0000', message: '', data: resultDirections);
     } catch (e, stackTrace) {
       // 에러 확인...
       _logger.e('Error in getTourLocationInfo: $e');
       _logger.e('Stack trace: $stackTrace');
-      return ResponseWrapper<List<TourLocationModel>>(status: 'error', code: '9999', message: e.toString(), data: []);
+      return ResponseWrapper<List<MobilityDirectionsModel>>(status: 'error', code: '9999', message: e.toString(), data: []);
     }
   }
 }

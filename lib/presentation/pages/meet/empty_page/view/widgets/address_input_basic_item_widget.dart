@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/theme/constant/app_colors.dart';
+
 /**
  * 출발지 입력 기본적으로 보여지는 Item Screen
  *
@@ -28,7 +30,7 @@ class AddressInputBasicItemWidget extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.amberAccent, width: 2),
+        border: Border.all(color: AppColors.primary, width: 2),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +54,7 @@ class AddressInputBasicItemWidget extends StatelessWidget {
                 onPressed: onDeleteBtnPress,
                 icon: Icon(
                   Icons.cancel,
-                  color: Colors.black.withOpacity(0.8),
+                  color: AppColors.black.withOpacity(0.8),
                 ),
               ),
             ),
