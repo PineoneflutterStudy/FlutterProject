@@ -23,8 +23,12 @@ TourServiceResponseWrapper<T> _$TourServiceResponseWrapperFromJson<T>(
 mixin _$TourServiceResponseWrapper<T> {
   Response? get response => throw _privateConstructorUsedError;
 
+  /// Serializes this TourServiceResponseWrapper to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TourServiceResponseWrapperCopyWith<T, TourServiceResponseWrapper<T>>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -53,6 +57,8 @@ class _$TourServiceResponseWrapperCopyWithImpl<T, $Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -66,6 +72,8 @@ class _$TourServiceResponseWrapperCopyWithImpl<T, $Res,
     ) as $Val);
   }
 
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResponseCopyWith<$Res>? get response {
@@ -104,6 +112,8 @@ class __$$TourServiceResponseWrapperImplCopyWithImpl<T, $Res>
       $Res Function(_$TourServiceResponseWrapperImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,11 +155,13 @@ class _$TourServiceResponseWrapperImpl<T>
                 other.response == response));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TourServiceResponseWrapperImplCopyWith<T,
@@ -175,8 +187,11 @@ abstract class _TourServiceResponseWrapper<T>
 
   @override
   Response? get response;
+
+  /// Create a copy of TourServiceResponseWrapper
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TourServiceResponseWrapperImplCopyWith<T,
           _$TourServiceResponseWrapperImpl<T>>
       get copyWith => throw _privateConstructorUsedError;
@@ -191,8 +206,12 @@ mixin _$Response {
   Header? get header => throw _privateConstructorUsedError;
   Body? get body => throw _privateConstructorUsedError;
 
+  /// Serializes this Response to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResponseCopyWith<Response> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -218,6 +237,8 @@ class _$ResponseCopyWithImpl<$Res, $Val extends Response>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -236,6 +257,8 @@ class _$ResponseCopyWithImpl<$Res, $Val extends Response>
     ) as $Val);
   }
 
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HeaderCopyWith<$Res>? get header {
@@ -248,6 +271,8 @@ class _$ResponseCopyWithImpl<$Res, $Val extends Response>
     });
   }
 
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BodyCopyWith<$Res>? get body {
@@ -285,6 +310,8 @@ class __$$ResponseImplCopyWithImpl<$Res>
       _$ResponseImpl _value, $Res Function(_$ResponseImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -331,11 +358,13 @@ class _$ResponseImpl implements _Response {
             (identical(other.body, body) || other.body == body));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, header, body);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResponseImplCopyWith<_$ResponseImpl> get copyWith =>
@@ -359,8 +388,11 @@ abstract class _Response implements Response {
   Header? get header;
   @override
   Body? get body;
+
+  /// Create a copy of Response
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResponseImplCopyWith<_$ResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -374,8 +406,12 @@ mixin _$Header {
   String get resultCode => throw _privateConstructorUsedError;
   String get resultMsg => throw _privateConstructorUsedError;
 
+  /// Serializes this Header to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Header
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HeaderCopyWith<Header> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -397,6 +433,8 @@ class _$HeaderCopyWithImpl<$Res, $Val extends Header>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Header
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -434,6 +472,8 @@ class __$$HeaderImplCopyWithImpl<$Res>
       _$HeaderImpl _value, $Res Function(_$HeaderImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Header
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -482,11 +522,13 @@ class _$HeaderImpl implements _Header {
                 other.resultMsg == resultMsg));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, resultCode, resultMsg);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Header
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HeaderImplCopyWith<_$HeaderImpl> get copyWith =>
@@ -511,8 +553,11 @@ abstract class _Header implements Header {
   String get resultCode;
   @override
   String get resultMsg;
+
+  /// Create a copy of Header
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HeaderImplCopyWith<_$HeaderImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -528,8 +573,12 @@ mixin _$Body {
   int get pageNo => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
 
+  /// Serializes this Body to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BodyCopyWith<Body> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -553,6 +602,8 @@ class _$BodyCopyWithImpl<$Res, $Val extends Body>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -581,6 +632,8 @@ class _$BodyCopyWithImpl<$Res, $Val extends Body>
     ) as $Val);
   }
 
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ItemsCopyWith<$Res>? get items {
@@ -614,6 +667,8 @@ class __$$BodyImplCopyWithImpl<$Res>
   __$$BodyImplCopyWithImpl(_$BodyImpl _value, $Res Function(_$BodyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -682,12 +737,14 @@ class _$BodyImpl implements _Body {
                 other.totalCount == totalCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, items, numOfRows, pageNo, totalCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BodyImplCopyWith<_$BodyImpl> get copyWith =>
@@ -718,8 +775,11 @@ abstract class _Body implements Body {
   int get pageNo;
   @override
   int get totalCount;
+
+  /// Create a copy of Body
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BodyImplCopyWith<_$BodyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -730,10 +790,14 @@ Items _$ItemsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Items {
-  List<TourLocationDto>? get item => throw _privateConstructorUsedError;
+  List<dynamic>? get item => throw _privateConstructorUsedError;
 
+  /// Serializes this Items to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Items
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ItemsCopyWith<Items> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -742,7 +806,7 @@ abstract class $ItemsCopyWith<$Res> {
   factory $ItemsCopyWith(Items value, $Res Function(Items) then) =
       _$ItemsCopyWithImpl<$Res, Items>;
   @useResult
-  $Res call({List<TourLocationDto>? item});
+  $Res call({List<dynamic>? item});
 }
 
 /// @nodoc
@@ -755,6 +819,8 @@ class _$ItemsCopyWithImpl<$Res, $Val extends Items>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Items
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -764,7 +830,7 @@ class _$ItemsCopyWithImpl<$Res, $Val extends Items>
       item: freezed == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
-              as List<TourLocationDto>?,
+              as List<dynamic>?,
     ) as $Val);
   }
 }
@@ -776,7 +842,7 @@ abstract class _$$ItemsImplCopyWith<$Res> implements $ItemsCopyWith<$Res> {
       __$$ItemsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TourLocationDto>? item});
+  $Res call({List<dynamic>? item});
 }
 
 /// @nodoc
@@ -787,6 +853,8 @@ class __$$ItemsImplCopyWithImpl<$Res>
       _$ItemsImpl _value, $Res Function(_$ItemsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Items
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -796,7 +864,7 @@ class __$$ItemsImplCopyWithImpl<$Res>
       item: freezed == item
           ? _value._item
           : item // ignore: cast_nullable_to_non_nullable
-              as List<TourLocationDto>?,
+              as List<dynamic>?,
     ));
   }
 }
@@ -804,14 +872,14 @@ class __$$ItemsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ItemsImpl implements _Items {
-  _$ItemsImpl({final List<TourLocationDto>? item}) : _item = item;
+  _$ItemsImpl({final List<dynamic>? item}) : _item = item;
 
   factory _$ItemsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ItemsImplFromJson(json);
 
-  final List<TourLocationDto>? _item;
+  final List<dynamic>? _item;
   @override
-  List<TourLocationDto>? get item {
+  List<dynamic>? get item {
     final value = _item;
     if (value == null) return null;
     if (_item is EqualUnmodifiableListView) return _item;
@@ -832,12 +900,14 @@ class _$ItemsImpl implements _Items {
             const DeepCollectionEquality().equals(other._item, _item));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_item));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Items
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ItemsImplCopyWith<_$ItemsImpl> get copyWith =>
@@ -852,14 +922,17 @@ class _$ItemsImpl implements _Items {
 }
 
 abstract class _Items implements Items {
-  factory _Items({final List<TourLocationDto>? item}) = _$ItemsImpl;
+  factory _Items({final List<dynamic>? item}) = _$ItemsImpl;
 
   factory _Items.fromJson(Map<String, dynamic> json) = _$ItemsImpl.fromJson;
 
   @override
-  List<TourLocationDto>? get item;
+  List<dynamic>? get item;
+
+  /// Create a copy of Items
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ItemsImplCopyWith<_$ItemsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

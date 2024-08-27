@@ -7,6 +7,7 @@ import '../../../domain/repository/tour_service.repository.dart';
 import '../../data_source/remote/tour_service.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
 
+import '../../dto/display/meet/tour_location.dto.dart';
 import '../../mapper/tour_service.mapper.dart';
 
 final Logger _logger = CustomLogger.logger;
@@ -42,8 +43,10 @@ class TourServiceRepositoryImpl extends TourServiceRepository {
 
       final items = response.response?.body?.items?.item;
       _logger.i('Items: $items');
+      final transItem = items?.map((e) => TourLocationDto.fromJson(e as Map<String, dynamic>))
+        .toList();
 
-      final  locations = response.response?.body?.items?.item?.map((item) => item.toModel()).toList();
+      final  locations = transItem!.map((item) => item.toModel()).toList();
       _logger.i('Check Response Data - item : $locations');
 
       return ResponseWrapper<List<TourLocationModel>>(status: 'success', code: '0000', message: '', data: locations);

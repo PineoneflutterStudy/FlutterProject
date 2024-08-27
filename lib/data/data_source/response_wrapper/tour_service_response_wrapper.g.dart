@@ -65,9 +65,7 @@ Map<String, dynamic> _$$BodyImplToJson(_$BodyImpl instance) =>
     };
 
 _$ItemsImpl _$$ItemsImplFromJson(Map<String, dynamic> json) => _$ItemsImpl(
-      item: (json['item'] as List<dynamic>?)
-          ?.map((e) => TourLocationDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      item: json['item'] as List<dynamic>?,
     );
 
 Map<String, dynamic> _$$ItemsImplToJson(_$ItemsImpl instance) =>

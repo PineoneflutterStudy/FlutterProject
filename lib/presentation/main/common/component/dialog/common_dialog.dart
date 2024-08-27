@@ -32,4 +32,48 @@ class CommonDialog {
           );
         });
   }
+
+  /// ## Confirm Dialog
+  /// ### @param
+  /// #### 1. context - BuildContext
+  /// #### 2. title - 타이틀
+  /// #### 3. content - 내용
+  /// #### 4. btn1Text - 버튼 1 text ( [ 좌 ] 버튼 )
+  /// #### 5. btn2Text - 버튼 2 text ( [ 우 ] 버튼 )
+  /// #### 6. onBtn1Pressed - 버튼 1 입력 ( 사용 화면에서 제어 )
+  /// #### 7. onBtn2Pressed - 버튼 2 입력 ( 사용 화면에서 제어 )
+  static Future<void> confirmDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required String btn1Text,
+    required String btn2Text,
+    required Function(BuildContext) onBtn1Pressed,
+    required Function(BuildContext) onBtn2Pressed,
+  }) {
+    return showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('$title', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
+                Text('$content', style: TextStyle(fontSize: 21),)
+              ],
+            ),
+            actionsAlignment: MainAxisAlignment.center,
+            actions: [
+              ElevatedButton(
+                  onPressed: () => onBtn1Pressed(_),
+                  child: Text(btn1Text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+              ),
+              ElevatedButton(
+                  onPressed: () => onBtn2Pressed(_),
+                  child: Text(btn2Text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+              )
+            ],
+          );
+        });
+  }
 }

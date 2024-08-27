@@ -173,6 +173,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
           state = state.copyWith(status: MeetPlaceMapStatus.loading);
         }
       }
+    } else {
+      return model.data;
     }
     return List.empty();
   }

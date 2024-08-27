@@ -51,7 +51,7 @@ class Body with _$Body {
 @freezed
 class Items with _$Items {
   factory Items({
-    List<TourLocationDto>? item,
+    List<dynamic>? item,
   }) = _Items;
 
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
