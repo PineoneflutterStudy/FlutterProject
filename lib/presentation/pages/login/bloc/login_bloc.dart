@@ -46,8 +46,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
           emailDuplicated: (email, providers) async => emit(LoginState.emailDuplicateError(email, providers)),
           userChanged: (user) => _onUserChanged(emit, user),
-          userInfoMissing: () async => emit(LoginState.requireMoreUserInfo()),
-          errorOccurred: () async => emit(LoginState.error()));
+          userInfoMissing: () async => _emitWithReset(emit, LoginState.requireMoreUserInfo()),
+          errorOccurred: () async => _emitWithReset(emit, LoginState.error()));
     });
   }
 
@@ -55,7 +55,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // 로그인 여부 확인
     if (FirebaseAuthUtil().auth.currentUser != null) {
       CustomLogger.logger.w('$_tag Already logged in. Exiting the login page.');
-      emit(LoginState.alreadyLoggedIn());
+      _emitWithReset(emit, LoginState.alreadyLoggedIn());
       return;
     }
 
@@ -84,7 +84,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           break;
 
         case AuthType.email:
-          emit(LoginState.navigateToEmailSignIn());
+          _emitWithReset(emit, LoginState.navigateToEmailSignIn());
           break;
       }
     } catch (error) {
@@ -115,7 +115,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       // firestoreUtil.updateDocument(currentUserDocRef, userDocMap);
     }
 
-    emit(LoginState.loggedIn());
+    _emitWithReset(emit, LoginState.loggedIn());
+  }
+
+  /// ## 현재와 동일한 상태(state)인 경우 초기화 후 변경
+  _emitWithReset(Emitter<LoginState> emit, LoginState loginState) {
+    if (loginState == state) {
+      emit(LoginState.initial());
+    }
+    emit(loginState);
   }
 
   /// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
