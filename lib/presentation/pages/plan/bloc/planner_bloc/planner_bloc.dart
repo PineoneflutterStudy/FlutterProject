@@ -84,6 +84,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     var docRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if(docRef != null){
       firestore.deleteDocument(docRef);
+      await _onGetPlannerList(emit);
     }else{
       CustomLogger.logger.e("plannerDocRef is null");
     }
