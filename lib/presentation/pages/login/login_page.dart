@@ -4,15 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/constant/app_colors.dart';
 import '../../../core/theme/constant/app_icons.dart';
 import '../../../core/utils/common_utils.dart';
+import '../../../core/utils/constant/tag.dart';
 import '../../../core/utils/logger.dart';
 import '../../../domain/model/display/login/auth_type.dart';
 import 'bloc/login_bloc.dart';
+import 'screens/email/email_login_page.dart';
 import 'widgets/login_option_item.dart';
 
 //==============================================================================
 //  Fields
 //==============================================================================
-const String _tag = '[Login]';
+const String _tag = Tag.LOGIN;
 
 /// ## 로그인 화면
 ///
@@ -86,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                   alreadyLoggedIn: () => _onAlreadyLoggedIn(),
                   emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
                   requireMoreUserInfo: () => _onRequireMoreUserInfo(),
+                  navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
                   loggedIn: () => _onLoggedIn(),
                   error: () => _onError(),
                   orElse: () => null);
@@ -154,14 +157,12 @@ class _LoginPageState extends State<LoginPage> {
     CommonUtils.showToastMsg('알 수 없는 오류가 발생했습니다.\n다른 방법으로 로그인하거나 다시 시도해 주세요.');
   }
 
-  void _launchEmailSignInPage() {
-    CustomLogger.logger.i('$_tag launchSignInPage()');
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => SignInPage(),
-    //     fullscreenDialog: true,
-    //   ),
-    // );
+  void _onNavigateToEmailSignIn() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EmailLoginPage(),
+      ),
+    );
   }
 }

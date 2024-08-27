@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 
 import '../DBkey.dart';
+import '../constant/tag.dart';
 import '../logger.dart';
 import 'firebase_auth_util.dart';
 
@@ -190,7 +191,7 @@ class FirebaseFirestoreUtil {
     final QuerySnapshot snapshot =
         await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
     if (snapshot.size != 1) {
-      final String _tag = '[Login]';
+      const String _tag = Tag.LOGIN;
       CustomLogger.logger.e('$_tag `Error - querySnapshot.size != 1');
       if (!CustomLogger.isDebugLogHidden) {
         snapshot.docs.forEach(

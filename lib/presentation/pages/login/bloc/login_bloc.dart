@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/utils/constant/tag.dart';
 import '../../../../core/utils/exception/email_duplicate_exception.dart';
 import '../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../core/utils/firebase/firebase_firestore_util.dart';
@@ -22,7 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 //==============================================================================
 //  Fields
 //==============================================================================
-  final String _tag = '[Login]';
+  final String _tag = Tag.LOGIN;
 
   late StreamSubscription<Uri> _uriSubscription;
   late StreamSubscription<User?> _userSubscription;
@@ -83,8 +84,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           break;
 
         case AuthType.email:
-          //eff 상태 변경해서 _launchEmailSignInPage() 불러야한다.
-          // emit(LoginState.loggedOut());
+          emit(LoginState.navigateToEmailSignIn());
           break;
       }
     } catch (error) {
