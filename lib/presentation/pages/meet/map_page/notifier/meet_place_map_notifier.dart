@@ -124,6 +124,8 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
       List<AddressModel> addressList) async {
     final centerValue = getCenter(addressList);
 
+    _logger.i('Start Api -> Tour Location Service Api');
+
     var model = await _tourServiceRepo.getTourLocationInfo(
       serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
       numOfRows: TourApiRequestData().emptyIntData,
@@ -140,14 +142,14 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
       modifiedtime: TourApiRequestData().emptyData,
     );
 
-    if (model.code == '9999' || model.status == 'error') {
+    /*if (model.code == '9999' || model.status == 'error') {
       // 데이터를 가져오는 과정에서 error 발생 시...
       state = state.copyWith(status: MeetPlaceMapStatus.failure);
       return List.empty();
-    }
+    }*/
 
     _logger.i('Confirm getLocationData ( model ) -> ${model.data}');
-    if (model.data == null) {
+    if (model.data == null || model.data!.isEmpty || model.data!.length == 0) {
       state = state.copyWith(status: MeetPlaceMapStatus.loading);
       for (int i = 1; i < 100; i++) {
         model = await _tourServiceRepo.getTourLocationInfo(
@@ -171,12 +173,12 @@ class MeetPlaceMapNotifier extends StateNotifier<MeetPlaceMapState> {
           return model.data;
         } else if (model.data == null) {
           state = state.copyWith(status: MeetPlaceMapStatus.loading);
+          return List.empty();
         }
       }
     } else {
       return model.data;
     }
-    return List.empty();
   }
 
   Future<List<MobilityDirectionsModel>?> getDirectionsData(

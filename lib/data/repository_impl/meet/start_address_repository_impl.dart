@@ -1,5 +1,10 @@
-import '../../../../domain/model/display/meet/address_model.dart';
-import '../../../../domain/repository/meet/start_address_repository.dart';
+import 'package:logger/logger.dart';
+
+import '../../../core/utils/DBkey.dart';
+import '../../../core/utils/firebase/firebase_firestore_util.dart';
+import '../../../core/utils/logger.dart';
+import '../../../domain/model/display/meet/address_model.dart';
+import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../data_source/local_storage/meet/local_prefs_storage.dart';
 
 class StartAddressRepositoryImpl implements StartAddressRepository {
@@ -8,19 +13,16 @@ class StartAddressRepositoryImpl implements StartAddressRepository {
   StartAddressRepositoryImpl({
     required LocalPrefsStorage localPrefsStorage,
 }) : _localPrefsStorage = localPrefsStorage;
-
   @override
   Future<List<AddressModel>> getAllAddress() async {
-    // 파베 먼저 호출
-    final localAddressList = await  _localPrefsStorage.getAddressList();
-    if (localAddressList.isNotEmpty) {
-      return localAddressList;
-    }
-
-    await _localPrefsStorage.setDefaultAddress(); // 디폴트 값 세팅 후 다시 조회하여 리턴
     final fetchAddressList = await _localPrefsStorage.getAddressList();
     // 출발지 정보가 비었다면 디폴트 출발지 설정
     return fetchAddressList;
+  }
+
+  @override
+  Future<void> setDefaultData() async {
+    await _localPrefsStorage.setDefaultAddress(); // 디폴트 값 세팅
   }
 
   @override

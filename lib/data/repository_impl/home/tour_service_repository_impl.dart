@@ -54,7 +54,7 @@ class TourServiceRepositoryImpl extends TourServiceRepository {
       // 에러 확인...
       _logger.e('Error in getTourLocationInfo: $e');
       _logger.e('Stack trace: $stackTrace');
-      return ResponseWrapper<List<TourLocationModel>>(status: 'error', code: '9999', message: e.toString(), data: []);
+      return ResponseWrapper<List<TourLocationModel>>(status: 'error', code: '9999', message: e.toString(), data: List.empty());
     }
   }
 

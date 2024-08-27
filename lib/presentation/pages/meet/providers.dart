@@ -23,12 +23,6 @@ final getAllAddressProvider = Provider((ref) => GetAllAddress(
       repository: ref.read(addressRepositoryProvider),
     ));
 
-/*final tourGuideApiRepositoryProvider =
-    Provider<TourGuideRepository>((ref) => TourGuideRepositoryImpl(
-          api: ref.read(apiProvider),
-          mobilityApi: ref.read(kakaoMobilityApiProvider),
-        ));*/
-
 // ======================================================================
 // Data
 // ======================================================================

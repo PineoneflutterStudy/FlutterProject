@@ -64,57 +64,41 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
   @override
   Widget build(BuildContext context) {
     final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
-    switch(status) {
-      case AddressInfoStatus.initial:
-      case AddressInfoStatus.loading:
-      {
-        _logger.i('Current AddressInfo Status is ... -> $status');
-        return CircularProgressIndicator();
-      }
-      case AddressInfoStatus.failure:
-        {
-          _logger.e('Current AddressInfo Status is ... -> $status');
-          return CircularProgressIndicator();
-        }
-      case AddressInfoStatus.success:
-        _logger.i('Success Status..!');
-        return Dialog(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(dialogBgRadius),
-                ),
-              ),
-              TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: TextContentAreaWidget(
-                  content: '먼저 출발지를 입력해주세요.',
-                  contentSize: textSize_content,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // 주소 검색 Api 사용
-              status == AddressInfoStatus.initial
-                  ? const Center(child: CircularProgressIndicator(),)
-                  : const _ContentView(),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+    return Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(dialogBgRadius),
+            ),
           ),
-        );
-    }
-
+          TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: TextContentAreaWidget(
+              content: '먼저 출발지를 입력해주세요.',
+              contentSize: textSize_content,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          // 주소 검색 Api 사용
+          status == AddressInfoStatus.loading
+              ? const Center(child: CircularProgressIndicator(),)
+              : const _ContentView(),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -178,14 +162,14 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     onBackPress: () {
                       Navigator.of(context).pop();
                       // 현재 데이터 초기화 시점은 -> Dialog 에서 취소 버튼 입력 시 되도록 적용...
-                      ref.read(addressInfoStateProvider.notifier).resetAddress();
+                      //ref.read(addressInfoStateProvider.notifier).resetAddress();
                     },
                     onNextPress: () {
                       List<String> indices = state.addressList.map((address) => address.address).toList();
                       _logger.i('Confirm Current AddressList Info -> $indices}');
                       if (indices.contains('')) {
                         // 빈값이 존재한다면? => 넘어가기 X
-                        showToast('비어있는 출발지가 있습니다!');
+                        CommonUtils.showToastMsg('비어있는 출발지가 있습니다!');
                       } else {
                         // 주소가 모두 입력
                         Navigator.of(context).pop();
@@ -285,20 +269,6 @@ class __ContentViewState extends ConsumerState<_ContentView> {
               );
             },
           )),
-    );
-  }
-
-  /**
-   * 토스트 메시지 제공
-   */
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: AppColors.white,
-      fontSize: 15,
-      textColor: AppColors.black,
-      toastLength: Toast.LENGTH_SHORT,
     );
   }
 }

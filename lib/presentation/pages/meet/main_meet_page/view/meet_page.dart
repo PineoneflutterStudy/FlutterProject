@@ -25,20 +25,15 @@ class MeetPage extends StatefulWidget {
   State<MeetPage> createState() => _MeetPageState();
 }
 class _MeetPageState extends State<MeetPage> {
-
   late GetAllAddress _getAllAddress;
-
   @override
   void initState() {
     super.initState();
-
     final localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
     final repo = StartAddressRepositoryImpl(localPrefsStorage: localStorage);
-
     _getAllAddress = GetAllAddress(repository: repo);
 
   }
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
