@@ -18,45 +18,57 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlannerEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
     required TResult Function() getPlannerList,
     required TResult Function(Planner plannerList) addPlanner,
     required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
     TResult? Function()? getPlannerList,
     TResult? Function(Planner plannerList)? addPlanner,
     TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
     TResult Function()? getPlannerList,
     TResult Function(Planner plannerList)? addPlanner,
     TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
     required TResult Function(GetPlannerListEvent value) getPlannerList,
     required TResult Function(AddPlannerEvent value) addPlanner,
     required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
     TResult? Function(GetPlannerListEvent value)? getPlannerList,
     TResult? Function(AddPlannerEvent value)? addPlanner,
     TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
     TResult Function(GetPlannerListEvent value)? getPlannerList,
     TResult Function(AddPlannerEvent value)? addPlanner,
     TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -78,6 +90,126 @@ class _$PlannerEventCopyWithImpl<$Res, $Val extends PlannerEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$CheckLoginStateImplCopyWith<$Res> {
+  factory _$$CheckLoginStateImplCopyWith(_$CheckLoginStateImpl value,
+          $Res Function(_$CheckLoginStateImpl) then) =
+      __$$CheckLoginStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CheckLoginStateImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$CheckLoginStateImpl>
+    implements _$$CheckLoginStateImplCopyWith<$Res> {
+  __$$CheckLoginStateImplCopyWithImpl(
+      _$CheckLoginStateImpl _value, $Res Function(_$CheckLoginStateImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CheckLoginStateImpl implements CheckLoginState {
+  const _$CheckLoginStateImpl();
+
+  @override
+  String toString() {
+    return 'PlannerEvent.checkLoginState()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CheckLoginStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
+  }) {
+    return checkLoginState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
+  }) {
+    return checkLoginState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
+    required TResult orElse(),
+  }) {
+    if (checkLoginState != null) {
+      return checkLoginState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
+  }) {
+    return checkLoginState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+  }) {
+    return checkLoginState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    required TResult orElse(),
+  }) {
+    if (checkLoginState != null) {
+      return checkLoginState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CheckLoginState implements PlannerEvent {
+  const factory CheckLoginState() = _$CheckLoginStateImpl;
 }
 
 /// @nodoc
@@ -119,9 +251,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
     required TResult Function() getPlannerList,
     required TResult Function(Planner plannerList) addPlanner,
     required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
   }) {
     return getPlannerList();
   }
@@ -129,9 +263,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
     TResult? Function()? getPlannerList,
     TResult? Function(Planner plannerList)? addPlanner,
     TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
   }) {
     return getPlannerList?.call();
   }
@@ -139,9 +275,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
     TResult Function()? getPlannerList,
     TResult Function(Planner plannerList)? addPlanner,
     TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
     required TResult orElse(),
   }) {
     if (getPlannerList != null) {
@@ -153,9 +291,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
     required TResult Function(GetPlannerListEvent value) getPlannerList,
     required TResult Function(AddPlannerEvent value) addPlanner,
     required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
   }) {
     return getPlannerList(this);
   }
@@ -163,9 +303,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
     TResult? Function(GetPlannerListEvent value)? getPlannerList,
     TResult? Function(AddPlannerEvent value)? addPlanner,
     TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
   }) {
     return getPlannerList?.call(this);
   }
@@ -173,9 +315,11 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
     TResult Function(GetPlannerListEvent value)? getPlannerList,
     TResult Function(AddPlannerEvent value)? addPlanner,
     TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
     required TResult orElse(),
   }) {
     if (getPlannerList != null) {
@@ -265,9 +409,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
     required TResult Function() getPlannerList,
     required TResult Function(Planner plannerList) addPlanner,
     required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
   }) {
     return addPlanner(plannerList);
   }
@@ -275,9 +421,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
     TResult? Function()? getPlannerList,
     TResult? Function(Planner plannerList)? addPlanner,
     TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
   }) {
     return addPlanner?.call(plannerList);
   }
@@ -285,9 +433,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
     TResult Function()? getPlannerList,
     TResult Function(Planner plannerList)? addPlanner,
     TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
     required TResult orElse(),
   }) {
     if (addPlanner != null) {
@@ -299,9 +449,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
     required TResult Function(GetPlannerListEvent value) getPlannerList,
     required TResult Function(AddPlannerEvent value) addPlanner,
     required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
   }) {
     return addPlanner(this);
   }
@@ -309,9 +461,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
     TResult? Function(GetPlannerListEvent value)? getPlannerList,
     TResult? Function(AddPlannerEvent value)? addPlanner,
     TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
   }) {
     return addPlanner?.call(this);
   }
@@ -319,9 +473,11 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
     TResult Function(GetPlannerListEvent value)? getPlannerList,
     TResult Function(AddPlannerEvent value)? addPlanner,
     TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
     required TResult orElse(),
   }) {
     if (addPlanner != null) {
@@ -418,9 +574,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
     required TResult Function() getPlannerList,
     required TResult Function(Planner plannerList) addPlanner,
     required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
   }) {
     return selected(selectedPlanner);
   }
@@ -428,9 +586,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
     TResult? Function()? getPlannerList,
     TResult? Function(Planner plannerList)? addPlanner,
     TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
   }) {
     return selected?.call(selectedPlanner);
   }
@@ -438,9 +598,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
     TResult Function()? getPlannerList,
     TResult Function(Planner plannerList)? addPlanner,
     TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -452,9 +614,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
     required TResult Function(GetPlannerListEvent value) getPlannerList,
     required TResult Function(AddPlannerEvent value) addPlanner,
     required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
   }) {
     return selected(this);
   }
@@ -462,9 +626,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
     TResult? Function(GetPlannerListEvent value)? getPlannerList,
     TResult? Function(AddPlannerEvent value)? addPlanner,
     TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
   }) {
     return selected?.call(this);
   }
@@ -472,9 +638,11 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
     TResult Function(GetPlannerListEvent value)? getPlannerList,
     TResult Function(AddPlannerEvent value)? addPlanner,
     TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -495,9 +663,164 @@ abstract class SelectedPlannerEvent implements PlannerEvent {
 }
 
 /// @nodoc
+abstract class _$$DeletedPlannerEventImplCopyWith<$Res> {
+  factory _$$DeletedPlannerEventImplCopyWith(_$DeletedPlannerEventImpl value,
+          $Res Function(_$DeletedPlannerEventImpl) then) =
+      __$$DeletedPlannerEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String plannerId});
+}
+
+/// @nodoc
+class __$$DeletedPlannerEventImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$DeletedPlannerEventImpl>
+    implements _$$DeletedPlannerEventImplCopyWith<$Res> {
+  __$$DeletedPlannerEventImplCopyWithImpl(_$DeletedPlannerEventImpl _value,
+      $Res Function(_$DeletedPlannerEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plannerId = null,
+  }) {
+    return _then(_$DeletedPlannerEventImpl(
+      null == plannerId
+          ? _value.plannerId
+          : plannerId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
+  const _$DeletedPlannerEventImpl(this.plannerId);
+
+  @override
+  final String plannerId;
+
+  @override
+  String toString() {
+    return 'PlannerEvent.deletePlanner(plannerId: $plannerId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeletedPlannerEventImpl &&
+            (identical(other.plannerId, plannerId) ||
+                other.plannerId == plannerId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, plannerId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeletedPlannerEventImplCopyWith<_$DeletedPlannerEventImpl> get copyWith =>
+      __$$DeletedPlannerEventImplCopyWithImpl<_$DeletedPlannerEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
+    required TResult Function() getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(Planner selectedPlanner) selected,
+    required TResult Function(String plannerId) deletePlanner,
+  }) {
+    return deletePlanner(plannerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
+    TResult? Function()? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(Planner selectedPlanner)? selected,
+    TResult? Function(String plannerId)? deletePlanner,
+  }) {
+    return deletePlanner?.call(plannerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
+    TResult Function()? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(Planner selectedPlanner)? selected,
+    TResult Function(String plannerId)? deletePlanner,
+    required TResult orElse(),
+  }) {
+    if (deletePlanner != null) {
+      return deletePlanner(plannerId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
+  }) {
+    return deletePlanner(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+  }) {
+    return deletePlanner?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    required TResult orElse(),
+  }) {
+    if (deletePlanner != null) {
+      return deletePlanner(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeletedPlannerEvent implements PlannerEvent {
+  const factory DeletedPlannerEvent(final String plannerId) =
+      _$DeletedPlannerEventImpl;
+
+  String get plannerId;
+  @JsonKey(ignore: true)
+  _$$DeletedPlannerEventImplCopyWith<_$DeletedPlannerEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$PlannerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(bool isLogined) init,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, Planner selectedPlanner)
@@ -507,6 +830,7 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLogined)? init,
     TResult? Function()? loading,
     TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -515,6 +839,7 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLogined)? init,
     TResult Function()? loading,
     TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -524,23 +849,26 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(Init value) init,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(Init value)? init,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(Init value)? init,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -565,6 +893,155 @@ class _$PlannerStateCopyWithImpl<$Res, $Val extends PlannerState>
 }
 
 /// @nodoc
+abstract class _$$InitImplCopyWith<$Res> {
+  factory _$$InitImplCopyWith(
+          _$InitImpl value, $Res Function(_$InitImpl) then) =
+      __$$InitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLogined});
+}
+
+/// @nodoc
+class __$$InitImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$InitImpl>
+    implements _$$InitImplCopyWith<$Res> {
+  __$$InitImplCopyWithImpl(_$InitImpl _value, $Res Function(_$InitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLogined = null,
+  }) {
+    return _then(_$InitImpl(
+      null == isLogined
+          ? _value.isLogined
+          : isLogined // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InitImpl implements Init {
+  const _$InitImpl(this.isLogined);
+
+  @override
+  final bool isLogined;
+
+  @override
+  String toString() {
+    return 'PlannerState.init(isLogined: $isLogined)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitImpl &&
+            (identical(other.isLogined, isLogined) ||
+                other.isLogined == isLogined));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isLogined);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitImplCopyWith<_$InitImpl> get copyWith =>
+      __$$InitImplCopyWithImpl<_$InitImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLogined) init,
+    required TResult Function() loading,
+    required TResult Function(
+            List<Planner> plannerList, Planner selectedPlanner)
+        success,
+    required TResult Function(ErrorResponse error) error,
+  }) {
+    return init(isLogined);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLogined)? init,
+    TResult? Function()? loading,
+    TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return init?.call(isLogined);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLogined)? init,
+    TResult Function()? loading,
+    TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
+        success,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(isLogined);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Init value) init,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Init value)? init,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Init value)? init,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Init implements PlannerState {
+  const factory Init(final bool isLogined) = _$InitImpl;
+
+  bool get isLogined;
+  @JsonKey(ignore: true)
+  _$$InitImplCopyWith<_$InitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$LoadingImplCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
           _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
@@ -582,7 +1059,7 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl implements Loading {
   const _$LoadingImpl();
 
   @override
@@ -602,6 +1079,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(bool isLogined) init,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, Planner selectedPlanner)
@@ -614,6 +1092,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLogined)? init,
     TResult? Function()? loading,
     TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -625,6 +1104,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLogined)? init,
     TResult Function()? loading,
     TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -640,9 +1120,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(Init value) init,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return loading(this);
   }
@@ -650,9 +1131,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(Init value)? init,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -660,9 +1142,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(Init value)? init,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -672,8 +1155,8 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements PlannerState {
-  const factory _Loading() = _$LoadingImpl;
+abstract class Loading implements PlannerState {
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -724,7 +1207,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
+class _$SuccessImpl implements Success {
   const _$SuccessImpl(final List<Planner> plannerList, this.selectedPlanner)
       : _plannerList = plannerList;
 
@@ -768,6 +1251,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(bool isLogined) init,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, Planner selectedPlanner)
@@ -780,6 +1264,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLogined)? init,
     TResult? Function()? loading,
     TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -791,6 +1276,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLogined)? init,
     TResult Function()? loading,
     TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -806,9 +1292,10 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(Init value) init,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return success(this);
   }
@@ -816,9 +1303,10 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(Init value)? init,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return success?.call(this);
   }
@@ -826,9 +1314,10 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(Init value)? init,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -838,8 +1327,8 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements PlannerState {
-  const factory _Success(
+abstract class Success implements PlannerState {
+  const factory Success(
           final List<Planner> plannerList, final Planner selectedPlanner) =
       _$SuccessImpl;
 
@@ -883,7 +1372,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl implements Error {
   const _$ErrorImpl(this.error);
 
   @override
@@ -914,6 +1403,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(bool isLogined) init,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, Planner selectedPlanner)
@@ -926,6 +1416,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLogined)? init,
     TResult? Function()? loading,
     TResult? Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -937,6 +1428,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLogined)? init,
     TResult Function()? loading,
     TResult Function(List<Planner> plannerList, Planner selectedPlanner)?
         success,
@@ -952,9 +1444,10 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(Init value) init,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return error(this);
   }
@@ -962,9 +1455,10 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(Init value)? init,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
   }
@@ -972,9 +1466,10 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(Init value)? init,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -984,8 +1479,8 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements PlannerState {
-  const factory _Error(final ErrorResponse error) = _$ErrorImpl;
+abstract class Error implements PlannerState {
+  const factory Error(final ErrorResponse error) = _$ErrorImpl;
 
   ErrorResponse get error;
   @JsonKey(ignore: true)

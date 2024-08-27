@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/utils/logger.dart';
+import '../../main/common/component/dialog/common_dialog.dart';
 import 'screens/planner/init_planner_page.dart';
 import '../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../domain/usecase/planner/planner.usecase.dart';
@@ -20,7 +22,6 @@ class PlanPage extends StatefulWidget {
 class _PlanPageState extends State<PlanPage> {
   final auth = FirebaseAuthUtil();
   final planUtil = PlanUtil();
-  bool _isLogin = false;
   late AddressBloc _addressBloc;
   late PlannerBloc _plannerBloc;
 
@@ -29,7 +30,7 @@ class _PlanPageState extends State<PlanPage> {
     super.initState();
     _addressBloc = AddressBloc(locator<PlannerUsecase>());
     _plannerBloc = PlannerBloc();
-    _checkLoginState();
+    _plannerBloc.add(PlannerEvent.checkLoginState());
   }
 
   @override
@@ -39,20 +40,6 @@ class _PlanPageState extends State<PlanPage> {
     super.dispose();
   }
 
-  /// 로그인 상태 체크
-  /// todo init bloc 로 수정하기
-  Future<void> _checkLoginState() async {
-    bool isLoggedIn = await auth.isLoggedIn();
-
-    setState(() {
-      _isLogin = isLoggedIn;
-    });
-
-    if (isLoggedIn) {
-      _plannerBloc.add(const PlannerEvent.getPlannerList());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -60,20 +47,28 @@ class _PlanPageState extends State<PlanPage> {
           BlocProvider(create: (_) => _addressBloc),
           BlocProvider(create: (_) => _plannerBloc),
         ],
-        child: BlocBuilder<PlannerBloc, PlannerState>(
+        child: BlocConsumer<PlannerBloc, PlannerState>(
           bloc: _plannerBloc,
           builder: (_, state) {
+            print('cur state : $state');
             return state.when(
               loading: () => Center(child: CircularProgressIndicator()),
-              success: (plannerList, selected) {
-                return PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc);
-              },
-              error: (error) {
-                return InitPlannerPage(isLogin: _isLogin, addressBloc: _addressBloc, plannerBloc: _plannerBloc, checkLoginState: _checkLoginState);
-              },
+              init: (isLogined) => InitPlannerPage(isLogin: isLogined, addressBloc: _addressBloc, plannerBloc: _plannerBloc),
+              success: (plannerList, selected) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),
+              error: (error) => Container(),
             );
           },
-        )
+          listener: (context, state) async {
+            if (state is Error) {
+              CustomLogger.logger.e(state.error);
+              final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
+              if (result) {
+                _plannerBloc..add(PlannerEvent.checkLoginState());
+              }
+            }
+          },
+          listenWhen: (prev, curr) => prev.runtimeType != curr.runtimeType,
+        ),
     );
   }
 }

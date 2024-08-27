@@ -13,9 +13,8 @@ class InitPlannerPage extends StatelessWidget {
   final bool isLogin;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  final Future<void> Function() checkLoginState;
 
-  InitPlannerPage({super.key, required this.isLogin, required this.addressBloc, required this.plannerBloc, required this.checkLoginState});
+  InitPlannerPage({super.key, required this.isLogin, required this.addressBloc, required this.plannerBloc});
 
   final planUtil = PlanUtil();
   @override
@@ -47,7 +46,7 @@ class InitPlannerPage extends StatelessWidget {
               } else {
                 final result = await showDialog(context: context, builder: (context) => LoginPopup());
                 if (result == true) {
-                  await checkLoginState();
+                  plannerBloc.add(PlannerEvent.checkLoginState());
                 }
               }
             },

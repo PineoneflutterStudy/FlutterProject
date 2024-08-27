@@ -5,6 +5,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
+import 'init_planner_page.dart';
 import 'page_item_view.dart';
 
 import '../../../../main/common/component/widget/appbar.dart';
@@ -31,6 +32,21 @@ class PlannerPage extends StatelessWidget {
           print("current state : $state");
           return state.when(
             loading: () => Center(child: CircularProgressIndicator()),
+            init: (isLogined){
+              //todo 수정예정
+              print('비 정상적인 루트 plannerpage > init');
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InitPlannerPage(
+                    isLogin: isLogined,
+                    addressBloc: addressBloc,
+                    plannerBloc: plannerBloc,
+                  ),
+                ),
+              );
+              return Container();
+            },
             success: (plannerList, selected) {
               final categoryWidgets = getCategoryViewList(context, plannerList, selected);
 
