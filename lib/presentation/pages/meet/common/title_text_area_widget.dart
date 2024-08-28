@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ## 간단한 Title를 출력하는 Area Widget ( mainAxisAlignment - center )
+/// ### @param
+/// #### 1. content - 출력할 content(String)
+/// #### 2. contentSize - FontSize(double)
 class TitleTextAreaWidget extends StatelessWidget {
   const TitleTextAreaWidget({super.key, required this.content, required this.contentSize});
 

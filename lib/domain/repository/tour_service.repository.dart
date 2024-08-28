@@ -2,8 +2,10 @@ import '../../data/data_source/response_wrapper/response_wrapper.dart';
 import '../model/display/meet/tour_location.model.dart';
 import 'repository.dart';
 
+/// ## 관광정보 서비스 Repository
 abstract class TourServiceRepository extends Repository {
 
+  /// ## 관광정보 서비스 - 위치 기반 관광 정보 Get
   Future<ResponseWrapper<List<TourLocationModel>>> getTourLocationInfo({
     required String serviceKey,
     required int numOfRows,

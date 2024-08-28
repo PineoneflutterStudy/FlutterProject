@@ -2,6 +2,7 @@ import '../../../data/data_source/response_wrapper/response_wrapper.dart';
 import '../../model/display/meet/mobility_directions.model.dart';
 import '../repository.dart';
 
+/// ## Kakao Mobility 자동차 길찾기 Repository
 abstract class MobilityDirectionsRepository extends Repository {
 
   Future<ResponseWrapper<List<MobilityDirectionsModel>>> getDirectionsInfo({

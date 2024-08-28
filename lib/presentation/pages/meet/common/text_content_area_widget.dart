@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ## 간단한 Text를 출력하는 Area Widget ( mainAxisAlignment - start )
+/// ### @param
+/// #### 1. content - 출력할 content(String)
+/// #### 2. contentSize - FontSize(double)
 class TextContentAreaWidget extends StatelessWidget {
   const TextContentAreaWidget({super.key, required this.content, required this.contentSize});
 

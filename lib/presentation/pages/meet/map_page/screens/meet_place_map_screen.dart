@@ -19,9 +19,6 @@ import '../notifier/meet_place_map_notifier.dart';
 import '../notifier/meet_place_map_state.dart';
 
 /**
- * 약속장소 정하기 Screen
- *
- * Description
  * 1. 출발위치 입력받아 가운데 지점 구하기
  * 2. 입력한 출발지 마크 표시
  * 3. 구하기 결과를 여러개 제시할 수 있도록
@@ -43,6 +40,7 @@ final List<Color> lineColors = [
 // ======================================================================
 // Kakao Map Page
 // ======================================================================
+/// ## 약속장소 정하기 Screen ( Kakao Map Screen )
 class MeetPlaceMapScreen extends StatelessWidget {
   const MeetPlaceMapScreen({required this.addresses, super.key});
 
@@ -290,8 +288,4 @@ void showToast(String message) {
     textColor: Colors.black,
     toastLength: Toast.LENGTH_SHORT,
   );
-}
-
-void _showSaveConfirmDialog() {
-
 }

@@ -2,15 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/theme/constant/app_colors.dart';
 
-/**
- * 출발지 입력 기본적으로 보여지는 Item Screen
- *
- * @Description
- * 출발지를 입력해주세요! / X 버튼 미제공
- *
- * @param indexNum - Listview index number
- */
-
+/// ## 출발지 입력 기본적으로 보여지는 Item Screen ( ListView Item Widtet - Default )
+/// ### 출발지를 입력해주세요! / X 버튼 미제공 Item
 class AddressInputBasicItemWidget extends StatelessWidget {
   final int indexNum;
   final String address;

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// ## 좌, 우 화살표 및 Text 가 spaceBetween 으로 위치한 widget
+// < [ Text ]       [ Text ] >  버튼 Widget
+/// ### @param
+/// #### 1. backText - [ 좌 ] 화살표 동작에 대한 Text
+/// #### 2. nextText - [ 우 ] 화살표 동작에 대한 Text
+/// #### 3. onBackPress - [ 좌 ] 화살표 동작 ( 사용 화면에서 구현 )
+/// #### 4. onNextPress - [ 우 ] 화살표 동작 ( 사용 화면에서 구현 )
 class SelectMoveStepWidget extends StatelessWidget {
   const SelectMoveStepWidget(
       {super.key,

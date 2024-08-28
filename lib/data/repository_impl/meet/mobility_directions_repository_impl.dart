@@ -10,9 +10,6 @@ import '../../data_source/response_wrapper/response_wrapper.dart';
 import '../../mapper/mobility_direcionts.mapper.dart';
 
 final Logger _logger = CustomLogger.logger;
-final String DTO_DISTANCE = 'distance';
-final String DTO_DURATION = 'duration';
-final String DTO_VERTEXES = 'vertexes';
 
 class MobilityDirectionsRepositoryImpl extends MobilityDirectionsRepository {
   @override

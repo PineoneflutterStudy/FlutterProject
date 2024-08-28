@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../dto/display/meet/tour_location.dto.dart';
-
 part 'tour_service_response_wrapper.freezed.dart';
 part 'tour_service_response_wrapper.g.dart';
 

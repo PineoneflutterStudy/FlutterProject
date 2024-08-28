@@ -15,7 +15,6 @@ import '../../notifier/address_info_notifier.dart';
 import '../../notifier/address_info_state.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:kpostal/kpostal.dart';
 

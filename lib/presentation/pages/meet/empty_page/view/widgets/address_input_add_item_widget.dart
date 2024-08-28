@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/theme/constant/app_colors.dart';
 
+/// ## 출발지 입력 칸 item Widget ( ListView Item Widtet - Add )
+/// ### 출발지를 입력해주세요! / X 버튼 제공 Item
 class AddressInputAddItemWidget extends StatelessWidget {
   final int indexNum;
   final String address;
