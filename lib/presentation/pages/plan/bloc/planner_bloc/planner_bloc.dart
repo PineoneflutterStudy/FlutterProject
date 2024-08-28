@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../core/utils/DBkey.dart';
+import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';

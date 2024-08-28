@@ -9,7 +9,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../domain/model/display/login/auth_type.dart';
-import '../DBkey.dart';
+import '../db_key.dart';
 import '../constant/tag.dart';
 import '../exception/email_duplicate_exception.dart';
 import '../logger.dart';
