@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
               state.maybeWhen(
                   alreadyLoggedIn: () => _onAlreadyLoggedIn(),
-                  emailDuplicateError: (email, providers) => _onEmailDuplicateError(email, providers),
+                  emailDuplicateError: (email) => _onEmailDuplicateError(email),
                   requireMoreUserInfo: () => _onRequireMoreUserInfo(),
                   navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
                   loggedIn: () => _onLoggedIn(),
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context, true);
   }
 
-  void _onEmailDuplicateError(String email, String providers) {
+  void _onEmailDuplicateError(String email) {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(

@@ -16,8 +16,8 @@ import '../../../../core/theme/constant/app_icons.dart';
 enum AuthType {
   google('google.com', '구글', AppIcons.imgLoginLogoGoogle, AppColors.googleBg, AppColors.googleFont),
   naver('naver.com', '네이버', AppIcons.imgLoginLogoNaver, AppColors.naverBg, AppColors.naverFont),
-  kakao('kakao.com', '카카오', AppIcons.imgLoginLogoKakao, AppColors.kakaoBg, AppColors.kakaoFont),
-  email('email', '이메일', '', AppColors.emailBg, AppColors.emailFont);
+  kakao('oidc.kakao', '카카오', AppIcons.imgLoginLogoKakao, AppColors.kakaoBg, AppColors.kakaoFont),
+  email('password', '이메일', '', AppColors.emailBg, AppColors.emailFont);
 
   const AuthType(this.providerId, this.providerName, this.iconPath, this.bgColor, this.fontColor);
 

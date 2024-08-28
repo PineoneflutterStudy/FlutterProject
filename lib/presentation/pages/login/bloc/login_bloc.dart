@@ -44,7 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await event.when(
           started: () => _onStarted(emit),
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
-          emailDuplicated: (email, providers) async => emit(LoginState.emailDuplicateError(email, providers)),
+          emailDuplicated: (email) async => _emitWithReset(emit, LoginState.emailDuplicateError(email)),
           userChanged: (user) => _onUserChanged(emit, user),
           userInfoMissing: () async => _emitWithReset(emit, LoginState.requireMoreUserInfo()),
           errorOccurred: () async => _emitWithReset(emit, LoginState.error()));
@@ -90,7 +90,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (error) {
       CustomLogger.logger.e('$_tag `Error - $error');
       if (error is EmailDuplicateException) {
-        add(LoginEvent.emailDuplicated(error.email, error.providers));
+        add(LoginEvent.emailDuplicated(error.email));
       } else {
         add(LoginEvent.errorOccurred());
       }
@@ -137,7 +137,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } catch (error) {
         CustomLogger.logger.e('$_tag `Error - $error');
         if (error is EmailDuplicateException) {
-          add(LoginEvent.emailDuplicated(error.email, error.providers));
+          add(LoginEvent.emailDuplicated(error.email));
         } else {
           add(LoginEvent.errorOccurred());
         }

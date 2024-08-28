@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../domain/model/display/login/auth_type.dart';
 import '../DBkey.dart';
 import '../constant/tag.dart';
 import '../exception/email_duplicate_exception.dart';
@@ -43,7 +44,7 @@ class FirebaseAuthUtil {
       // }
 
       // 동일한 이메일로 가입된 계정 존재 여부 확인
-      await checkEmailDuplicate(account.email);
+      await checkEmailDuplicate(account.email, AuthType.google.providerId);
 
       // 구글 인증 정보 가져오기
       final GoogleSignInAuthentication authentication = await account.authentication;
@@ -103,7 +104,7 @@ class FirebaseAuthUtil {
           final String email = uri.queryParameters['email'] ?? '';
 
           if (errorMessage == _ERROR_EMAIL_DUPLICATED && email.isNotEmpty) {
-            await checkEmailDuplicate(email);
+            await checkEmailDuplicate(email, AuthType.naver.providerId);
           } else {
             throw Exception('Naver sign-in failed: firebaseToken.isEmpty == TRUE');
           }
@@ -176,13 +177,27 @@ class FirebaseAuthUtil {
     }
   }
 
+  /// ## 전달받은 User의 ProviderId를 나열한 리스트 반환
+  List<String> getProvidersFromUser(User user) {
+    return user.providerData.map((element) => element.providerId).toList();
+  }
+
   /// ## 전달받은 이메일로 가입된 정보가 있는지 확인하고 존재하는 경우 [EmailDuplicateException] 발생
-  Future<void> checkEmailDuplicate(String email) async {
-    final FirebaseFirestoreUtil firestoreUtil = FirebaseFirestoreUtil();
-    final Map<String, dynamic> userDocMap = await firestoreUtil.getUserDocMapByEmail(email);
-    if (userDocMap.isNotEmpty) {
-      final String providers = userDocMap[UsersField.PROVIDERS];
-      throw EmailDuplicateException(email, providers);
+  Future<void> checkEmailDuplicate(String email, String attemptedProvider) async {
+    final String lowerCaseEmail = email.toLowerCase();
+    final Map<String, dynamic> userDocMap = await FirebaseFirestoreUtil().getUserDocMapByEmail(lowerCaseEmail);
+    if (userDocMap.isEmpty) {
+      // 이메일에 해당하는 사용자 문서가 없는 경우 중복 아님
+      return;
     }
+
+    // providers가 null인 경우 예외 발생하므로 호출처에서 처리 필요
+    final List<String> providers = userDocMap[UsersField.PROVIDERS];
+    if (providers.contains(attemptedProvider)) {
+      // 시도된 제공사가 리스트에 포함된 경우 중복 아님
+      return;
+    }
+
+    throw EmailDuplicateException(lowerCaseEmail);
   }
 }

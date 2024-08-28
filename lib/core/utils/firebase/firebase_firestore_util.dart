@@ -28,9 +28,11 @@ class FirebaseFirestoreUtil {
     try {
       await _firestore.collection(DBKey.DB_USERS).doc(user.uid).set({
         UsersField.UID: user.uid,
+        // User에서 email은 소문자로만 반환되므로 toLowerCase() 불필요
         UsersField.EMAIL: user.email,
-        // UsersField.PROVIDERS: user.providerData.toString(),
-        // 'createdAt': FieldValue.serverTimestamp(),
+        UsersField.PROVIDERS: _auth.getProvidersFromUser(user),
+        UsersField.PHOTO_URL: user.photoURL,
+        UsersField.CREATION_TIME: user.metadata.creationTime,
       });
     } catch (error) {
       CustomLogger.logger.e('Set user Document failed. error = $error');
@@ -97,7 +99,6 @@ class FirebaseFirestoreUtil {
       }
     });
   }
-
 
   /// 특정 문서에서 데이터를 가져오는 함수
   Future<Map<String, dynamic>?> getUserDocumentData() async {
@@ -188,8 +189,11 @@ class FirebaseFirestoreUtil {
   }
 
   Future<Map<String, dynamic>> getUserDocMapByEmail(String email) async {
-    final QuerySnapshot snapshot =
-        await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
+    final String lowerCaseEmail = email.toLowerCase();
+    final QuerySnapshot snapshot = await _firestore
+        .collection(DBKey.DB_USERS)
+        .where(UsersField.EMAIL, isEqualTo: lowerCaseEmail)
+        .get();
     if (snapshot.size != 0) {
       const String _tag = Tag.LOGIN;
       CustomLogger.logger.w('$_tag querySnapshot.size != 0');

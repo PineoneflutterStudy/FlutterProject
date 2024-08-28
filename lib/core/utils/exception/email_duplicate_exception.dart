@@ -6,13 +6,12 @@ import '../logger.dart';
 /// author [Eogeum@naver.com]
 class EmailDuplicateException implements Exception {
   final String email;
-  final String providers;
 
-  EmailDuplicateException(this.email, this.providers);
+  EmailDuplicateException(this.email);
 
   @override
   String toString() {
     final String tempEmail = CustomLogger.isDebugLogHidden ? CommonUtils().maskEmail(email) : email;
-    return 'EmailDuplicateException: email = $tempEmail, providers = $providers';
+    return 'EmailDuplicateException: email = $tempEmail';
   }
 }
