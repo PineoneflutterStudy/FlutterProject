@@ -38,9 +38,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
   final GetAllAddress _getAllAddress;
   final StartAddressRepository _repo;
 
-  /**
-   * Fetch Address Update
-   */
+  /// ## 출발지 정보 Fetch
   Future<void> fetchAddressInfo() async {
     state = state.copyWith(status: AddressInfoStatus.loading);
     
@@ -50,16 +48,21 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     final getAllLocations = await firestore.getDocumentsFromCollection(DBKey.DB_LOCATIONS);
     _logger.i('Check get All Address ( firebase DB ) -> ${getAllLocations}');
 
-    final dbData = await getFireStoreDBData(getAllLocations);
-    _logger.i('Check get DB Data -> ${dbData}');
+    if (getAllLocations != null) {
+      final dbData = await getFireStoreDBData(getAllLocations);
+      _logger.i('Check get DB Data -> ${dbData}');
 
-    if (dbData.isNotEmpty) {
-      _logger.i('DB에 값이 잇어서 DB 값 셋팅!!');
-      for (int i = 0; i < dbData.length; i++) {
-        await _repo.updateAddress(dbData[i]);
+      if (dbData.isNotEmpty) {
+        _logger.i('DB에 값이 잇어서 DB 값 셋팅!!');
+        for (int i = 0; i < dbData.length; i++) {
+          await _repo.updateAddress(dbData[i]);
+        }
+      } else {
+        _logger.i('[ getFireStoreDBData ] is Empty..!');
+        await _repo.setDefaultData();
       }
     } else {
-      _logger.i('DB에 값이 없어서 기본값 셋팅!!!!');
+      _logger.i('[ getDocumentsFromCollection ] is Null & Empty..!');
       await _repo.setDefaultData();
     }
 
@@ -71,9 +74,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     );
   }
 
-  /**
-   * Update Address Input Line
-   */
+  /// ## 출발지 정보 Update
   Future<void> addAddressInput(AddressModel addressModel) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
@@ -87,6 +88,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     );
   }
 
+  /// ## 출발지 입력 라인 Add
   Future<void> addEmptyAddress(int index) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
@@ -100,6 +102,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     );
   }
 
+  /// ## 입력된 주소 정보 Delete
   Future<void> deleteAddress(int index) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
@@ -112,6 +115,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     );
   }
 
+  /// ## 출발지 입력 라인 Delete
   Future<void> deleteAddressInput(int index) async {
     state = state.copyWith(status: AddressInfoStatus.loading);
 
@@ -125,11 +129,13 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
     );
   }
 
+  /// ## SharedPreferences 에 저장한 주소 정보 reset ( All Delete )
   Future<void> resetAddress() async {
     _logger.i('Reset Local Repository..!');
     await _repo.resetAddress();
   }
 
+  /// ## 출발지 정보 Data Save ( SharedPreferences -> FireStore DB )
   Future<void> saveLocationsData() async {
     final list = await _getAllAddress();
     _logger.i('전체 경로 저장 전에 모든 경로 확인 -> ${list}');
