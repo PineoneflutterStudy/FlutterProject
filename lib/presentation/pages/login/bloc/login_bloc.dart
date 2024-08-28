@@ -25,16 +25,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 //==============================================================================
   final String _tag = Tag.LOGIN;
 
-  late StreamSubscription<Uri> _uriSubscription;
-  late StreamSubscription<User?> _userSubscription;
+  StreamSubscription<Uri>? _uriSubscription;
+  StreamSubscription<User?>? _userSubscription;
 
 //==============================================================================
 //  Methods
 //==============================================================================
   @override
   Future<void> close() {
-    _uriSubscription.cancel();
-    _userSubscription.cancel();
+    _uriSubscription?.cancel();
+    _userSubscription?.cancel();
     return super.close();
   }
 

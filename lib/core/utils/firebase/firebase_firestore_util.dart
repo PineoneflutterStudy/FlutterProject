@@ -190,9 +190,9 @@ class FirebaseFirestoreUtil {
   Future<Map<String, dynamic>> getUserDocMapByEmail(String email) async {
     final QuerySnapshot snapshot =
         await _firestore.collection(DBKey.DB_USERS).where(UsersField.EMAIL, isEqualTo: email).get();
-    if (snapshot.size != 1) {
+    if (snapshot.size != 0) {
       const String _tag = Tag.LOGIN;
-      CustomLogger.logger.e('$_tag `Error - querySnapshot.size != 1');
+      CustomLogger.logger.w('$_tag querySnapshot.size != 0');
       if (!CustomLogger.isDebugLogHidden) {
         snapshot.docs.forEach(
           (element) => CustomLogger.logger.d('$_tag element = ${toDynamicMap(element)}'),
