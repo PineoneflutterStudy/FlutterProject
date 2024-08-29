@@ -41,9 +41,6 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
   @override
   void initState() {
     super.initState();
-    /*WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(meetPageStateProvider.notifier).getLoginState();
-    });*/
   }
 
   @override
@@ -101,16 +98,26 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
                                         StartAddressInputDialog(),
                                   );
                                 },
-                                onBtn2Pressed: (context) {
+                                onBtn2Pressed: (context) async {
                                   Navigator.of(context).pop();
-                                  // 로그인 화면 실행!
-                                  Navigator.push(
+                                  // 로그인 화면 실행 및 결과 대기
+                                  final result = await Navigator.push<bool>(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => LoginPage(),
                                       fullscreenDialog: true,
                                     ),
                                   );
+
+                                  // 로그인 화면에서 로그인 진행 결과 -> true : 로그인 성공! / null : 로그인 성공적으로 진행하지 않고 빠져나옴...
+                                  if (result == true) {
+                                    _logger.i('Login Result is Success! Current Login User!');
+                                    ref.read(meetPageStateProvider.notifier).updateLoginState(true);
+                                    return;
+                                  }
+
+                                  _logger.i('Login Result is Failure Or Cancel... Current Non-Login User..');
+                                  ref.read(meetPageStateProvider.notifier).updateLoginState(false);
                                 });
                           }
 
