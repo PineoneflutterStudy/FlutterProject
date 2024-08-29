@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 
-import '../db_key.dart';
+import '../../../domain/model/display/login/user.model.dart' as kkul;
 import '../constant/tag.dart';
+import '../db_key.dart';
 import '../logger.dart';
 import 'firebase_auth_util.dart';
 
@@ -188,22 +189,20 @@ class FirebaseFirestoreUtil {
     return await action(userDocRef);
   }
 
-  Future<Map<String, dynamic>> getUserDocMapByEmail(String email) async {
+  Future<kkul.User?> getUserByEmail(String email) async {
     final String lowerCaseEmail = email.toLowerCase();
     final QuerySnapshot snapshot = await _firestore
         .collection(DBKey.DB_USERS)
         .where(UsersField.EMAIL, isEqualTo: lowerCaseEmail)
         .get();
-    if (snapshot.size != 0) {
-      const String _tag = Tag.LOGIN;
-      CustomLogger.logger.w('$_tag querySnapshot.size != 0');
-      if (!CustomLogger.isDebugLogHidden) {
-        snapshot.docs.forEach(
-          (element) => CustomLogger.logger.d('$_tag element = ${toDynamicMap(element)}'),
-        );
-      }
+    final List<kkul.User> userList =
+        snapshot.docs.map((e) => kkul.User.fromJson(toDynamicMap(e))).toList();
+
+    if (!CustomLogger.isDebugLogHidden) {
+      CustomLogger.logger.d('${Tag.LOGIN} userList = $userList');
     }
-    return toDynamicMap(snapshot.docs.firstOrNull);
+
+    return userList.firstOrNull;
   }
 
   Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?>? snapshot) {

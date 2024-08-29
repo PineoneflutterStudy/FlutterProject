@@ -8,8 +8,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:url_launcher/url_launcher.dart';
 
+import '/../../../domain/model/display/login/user.model.dart' as kkul;
 import '../../../domain/model/display/login/auth_type.dart';
-import '../db_key.dart';
 import '../constant/tag.dart';
 import '../exception/email_duplicate_exception.dart';
 import '../logger.dart';
@@ -185,14 +185,14 @@ class FirebaseAuthUtil {
   /// ## 전달받은 이메일로 가입된 정보가 있는지 확인하고 존재하는 경우 [EmailDuplicateException] 발생
   Future<void> checkEmailDuplicate(String email, String attemptedProvider) async {
     final String lowerCaseEmail = email.toLowerCase();
-    final Map<String, dynamic> userDocMap = await FirebaseFirestoreUtil().getUserDocMapByEmail(lowerCaseEmail);
-    if (userDocMap.isEmpty) {
+    final kkul.User? user = await FirebaseFirestoreUtil().getUserByEmail(lowerCaseEmail);
+    if (user == null) {
       // 이메일에 해당하는 사용자 문서가 없는 경우 중복 아님
       return;
     }
 
     // providers가 null인 경우 예외 발생하므로 호출처에서 처리 필요
-    final List<String> providers = userDocMap[UsersField.PROVIDERS];
+    final List<String> providers = user.providers;
     if (providers.contains(attemptedProvider)) {
       // 시도된 제공사가 리스트에 포함된 경우 중복 아님
       return;
