@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../../../data/repository_impl/meet/start_address_repository_impl.dart';
@@ -10,6 +11,7 @@ import '../../../../../main.dart';
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../empty_page/view/screens/empty_meet_screen.dart';
 import '../notifier/meet_page_notifier.dart';
+import '../notifier/meet_page_state.dart';
 
 
 /**
@@ -55,14 +57,45 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
     final localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
     final repo = StartAddressRepositoryImpl(localPrefsStorage: localStorage);
     _getAllAddress = GetAllAddress(repository: repo);
-
-    ref.read(meetPageStateProvider.notifier).getLoginState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(meetPageStateProvider.notifier).getLoginState();
+    });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppbar(title: '우리 어디서 만날까?'),
-      body: EmptyMeetScreen(), // todo -> 바로 비어잇는 화면 보여주지 않고 로그인중이지 확인함 -> 로그인해고 db 조회햇는데 없다면 비어있는 화면 출력 / 비로그인 시에도 비어있는 화면 출력
+      body: Consumer(
+          builder: (context, ref, child) {
+            final dbState = ref.watch(meetPageStateProvider);
+            final dbStatus = ref.watch(meetPageStateProvider.select((p) => p.status)); // DB Status
+            final loginStatus = ref.watch(meetPageStateProvider.select((p) => p.loginStatus)); // Login Status
+
+            _logger.i('[ MeetPage ] Current Login Status Info -> ${loginStatus}');
+            switch(loginStatus) {
+              case MeetPageLoginStatus.initial: {
+                // Init -> CircularProgress
+                return CircularProgressIndicator();
+              }
+              case MeetPageLoginStatus.nonLogin: {
+                // todo -> 바로 비어잇는 화면 보여주지 않고 로그인중이지 확인함 -> 로그인해고 db 조회햇는데 없다면 비어있는 화면 출력 / 비로그인 시에도 비어있는 화면 출력
+                // 비로그인 -> EmptyMeetScreen
+                return EmptyMeetScreen();
+              }
+              case MeetPageLoginStatus.failure: {
+                // 간단 토스트 팝업 제공 후 -> EmptyMeetScreen
+                CommonUtils.showToastMsg('로그인 정보가 확인되지 않습니다.');
+                return EmptyMeetScreen();
+              }
+              case MeetPageLoginStatus.login: {
+                // 저장된 약속장소 데이터가 있는지 DB Select Run!
+                return Container(
+                  child: Text('로그인이 되어있는 사용자 입니다!!'),
+                );
+              }
+            }
+          }
+      ),
     );
   }
 
