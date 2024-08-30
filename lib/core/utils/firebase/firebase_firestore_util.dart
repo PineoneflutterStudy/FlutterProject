@@ -31,7 +31,7 @@ class FirebaseFirestoreUtil {
         UsersField.UID: user.uid,
         // User에서 email은 소문자로만 반환되므로 toLowerCase() 불필요
         UsersField.EMAIL: user.email,
-        UsersField.PROVIDERS: _auth.getProvidersFromUser(user),
+        UsersField.PROVIDERS: await _auth.getProvidersFromUser(user),
         UsersField.PHOTO_URL: user.photoURL,
         UsersField.CREATION_TIME: user.metadata.creationTime,
       });

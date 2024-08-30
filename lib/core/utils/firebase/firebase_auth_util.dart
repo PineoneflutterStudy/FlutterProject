@@ -201,8 +201,24 @@ class FirebaseAuthUtil {
   }
 
   /// ## 전달받은 User의 ProviderId를 나열한 리스트 반환
-  List<String> getProvidersFromUser(User user) {
-    return user.providerData.map((element) => element.providerId).toList();
+  Future<List<String>> getProvidersFromUser(User user) async {
+    final List<String> providers = user.providerData.map((element) => element.providerId).toList();
+
+    // 현재 사용자의 ID 토큰을 가져와서 커스텀 클레임을 확인
+    final IdTokenResult tokenResult = await user.getIdTokenResult();
+    final Map<String, dynamic> claims = tokenResult.claims ?? {};
+
+    // 커스텀 클레임에서 'providers' 필드 가져오기
+    final List<dynamic> customProviders = claims['providers'] as List<dynamic>? ?? [];
+
+    // 커스텀 클레임에 있는 제공사 정보를 기본 제공사 정보 리스트에 추가
+    customProviders.forEach((element) {
+      if (element is String) {
+        providers.add(element);
+      }
+    });
+
+    return providers;
   }
 
   /// ## 전달받은 이메일로 가입된 정보가 있는지 확인하고 존재하는 경우 [EmailDuplicateException] 발생
