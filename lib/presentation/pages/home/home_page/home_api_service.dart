@@ -1,5 +1,3 @@
-import '../../../core/utils/logger.dart';
-
 enum Groups {
   title(GroupId: 3238),
   image(GroupId: 3239),
@@ -10,17 +8,29 @@ enum Groups {
   final int GroupId;
 }
 
-class HomeModel {
+// # 크롤링, Mock :: Hardcoding Data 관련 처리
+class HomeApiService {
+  // static final String indexUrl =
+  //     'https://www.yeogi.com/_next/data/PkbqwxduEf53Qt2MewwBK/index.json';
+
+  static Future<HomeApiService> getIndex() async {
+    // final url = Uri.parse(indexUrl);
+    // final response = await http.get(url);
+    //
+    // return HomeModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return HomeApiService.hardJson(); // http을 하드 코딩으로 변경
+  }
+
   final List<String> titleList, imageList, locationList;
 
   // 크롤링
-  HomeModel.fromJson(dynamic json) // state는 추후 State로 변경
+  HomeApiService.fromJson(dynamic json) // state는 추후 State로 변경
       : titleList = crawling(json, Groups.title),
         imageList = crawling(json, Groups.image),
         locationList = crawling(json, Groups.location);
 
   // 하드코딩
-  HomeModel.hardJson()
+  HomeApiService.hardJson()
       : titleList = ["국내 인기 여행지"],
         imageList = [
           "https://image.goodchoice.kr/exhibition/cms/Region_jeju_03_20231103163922.png",
@@ -76,7 +86,6 @@ class HomeModel {
         }
       }
     }
-    CustomLogger.logger.i('[result]: $result');
     return result;
   }
 }

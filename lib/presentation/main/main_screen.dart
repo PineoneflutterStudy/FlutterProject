@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../pages/home/home_page.dart';
+import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
 import '../pages/meet/main_meet_page/view/meet_page.dart';
 import '../pages/plan/plan_page.dart';

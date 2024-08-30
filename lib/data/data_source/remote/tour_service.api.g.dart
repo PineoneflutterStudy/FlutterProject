@@ -53,8 +53,7 @@ class _TourServiceApi implements TourServiceApi {
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<TourServiceResponseWrapper<TourLocationDto>>(
-            Options(
+        _setStreamType<TourServiceResponseWrapper<TourLocationDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -72,6 +71,102 @@ class _TourServiceApi implements TourServiceApi {
             ))));
     final _value =
         TourServiceResponseWrapper<TourLocationDto>.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<TourServiceResponseWrapper<TourImageInfoDto>> getTourImageInfo(
+    String serviceKey,
+    int numOfRows,
+    int pageNo,
+    String MobileOS,
+    String MobileApp,
+    String _type,
+    String contentId,
+    String imageYN,
+    String subImageYN,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'serviceKey': serviceKey,
+      r'numOfRows': numOfRows,
+      r'pageNo': pageNo,
+      r'MobileOS': MobileOS,
+      r'MobileApp': MobileApp,
+      r'_type': _type,
+      r'contentId': contentId,
+      r'imageYN': imageYN,
+      r'subImageYN': subImageYN,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<TourServiceResponseWrapper<TourImageInfoDto>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/detailImage1?',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        TourServiceResponseWrapper<TourImageInfoDto>.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<TourServiceResponseWrapper<TourFestivalInfoDto>> getTourFestivalInfo(
+    String serviceKey,
+    int numOfRows,
+    int pageNo,
+    String MobileOS,
+    String MobileApp,
+    String _type,
+    String listYN,
+    String arrange,
+    String eventStartDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'serviceKey': serviceKey,
+      r'numOfRows': numOfRows,
+      r'pageNo': pageNo,
+      r'MobileOS': MobileOS,
+      r'MobileApp': MobileApp,
+      r'_type': _type,
+      r'listYN': listYN,
+      r'arrange': arrange,
+      r'eventStartDate': eventStartDate,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<TourServiceResponseWrapper<TourFestivalInfoDto>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/searchFestival1?',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        TourServiceResponseWrapper<TourFestivalInfoDto>.fromJson(_result.data!);
     return _value;
   }
 

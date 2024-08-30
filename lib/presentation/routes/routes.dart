@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../main/main_screen.dart';
-import '../pages/home/home_page.dart';
+import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
 import '../pages/meet/main_meet_page/view/meet_page.dart';
