@@ -56,6 +56,6 @@ class LoginOptionItem extends StatelessWidget {
 //  Methods
 //==============================================================================
   void _onItemPressed(BuildContext context, AuthType authType) {
-    BlocProvider.of<LoginBloc>(context).add(LoginEvent.loginOptionItemPressed(authType));
+    context.read<LoginBloc>().add(LoginEvent.loginOptionItemPressed(authType));
   }
 }
