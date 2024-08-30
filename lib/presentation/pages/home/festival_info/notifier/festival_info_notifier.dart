@@ -1,5 +1,6 @@
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../../core/utils/common_utils.dart';
@@ -20,7 +21,7 @@ StateNotifierProvider<FestivalListNotifier, FestivialState>(
 class FestivalListNotifier extends StateNotifier<FestivialState> {
   final TourServiceRepository _tourServiceRepo;
   final Logger _logger = CustomLogger.logger;
-  final dt = DateTime.now();
+  final String dt = DateFormat('yyyyMMdd').format(DateTime.now());
 
   FestivalListNotifier({
     required TourServiceRepository tour,
@@ -34,7 +35,6 @@ class FestivalListNotifier extends StateNotifier<FestivialState> {
     state = state.copyWith(status: HomeResponseStatus.load);
 
     var model = await _tourServiceRepo.getTourFestivalInfo(
-      // fixme : hard
         serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
         numOfRows: 10,
         pageNo: 1,
@@ -43,7 +43,7 @@ class FestivalListNotifier extends StateNotifier<FestivialState> {
         type: TourApiRequestData().responseType,
         listYN: "Y",
         arrange: TourApiRequestData().arrangeList[5],
-        eventStartDate: "20240828",
+        eventStartDate: '$dt',
         eventEndDate: TourApiRequestData().emptyData,
         areaCode: TourApiRequestData().emptyData,
         sigunguCode: TourApiRequestData().emptyData,
