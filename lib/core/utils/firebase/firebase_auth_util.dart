@@ -54,7 +54,7 @@ class FirebaseAuthUtil {
           idToken: authentication.idToken, accessToken: authentication.accessToken);
 
       // 인증서로 파이어베이스 로그인
-      auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } catch (error) {
       rethrow;
     }
@@ -106,14 +106,14 @@ class FirebaseAuthUtil {
           if (errorMessage == _ERROR_EMAIL_DUPLICATED && email.isNotEmpty) {
             await checkEmailDuplicate(email, AuthType.naver.providerId);
           } else {
-            throw Exception('Naver sign-in failed: firebaseToken.isEmpty == TRUE');
+            throw Exception('Naver sign-in failed: firebaseToken.isEmpty');
           }
 
           return;
         }
 
         // 커스텀 토큰으로 파이어베이스 로그인
-        await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+        await auth.signInWithCustomToken(firebaseToken);
       }
     } catch (error) {
       rethrow;
@@ -124,10 +124,17 @@ class FirebaseAuthUtil {
   Future<void> signInWithKakao() async {
     if (await kakao.isKakaoTalkInstalled()) {
       // 카카오톡 실행 가능한 경우 카카오톡으로 로그인
+      bool isLoginSucceeded = false;
       try {
         final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoTalk();
-        _onKakaoLoginSucceeded(authToken);
+        isLoginSucceeded = true;
+        await _onKakaoLoginSucceeded(authToken);
       } catch (error) {
+        // _onKakaoLoginSucceeded에서 발생한 예외는 rethrow
+        if (isLoginSucceeded) {
+          rethrow;
+        }
+
         const String _tag = Tag.LOGIN;
 
         // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
@@ -149,10 +156,17 @@ class FirebaseAuthUtil {
   }
 
   Future<void> _signInWithKakaoAccount() async {
+    bool isLoginSucceeded = false;
     try {
       final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoAccount();
-      _onKakaoLoginSucceeded(authToken);
+      isLoginSucceeded = true;
+      await _onKakaoLoginSucceeded(authToken);
     } catch (error) {
+      // _onKakaoLoginSucceeded에서 발생한 예외는 rethrow
+      if (isLoginSucceeded) {
+        rethrow;
+      }
+
       throw Exception('Kakao account sign-in failed: error = $error');
     }
   }
@@ -161,15 +175,24 @@ class FirebaseAuthUtil {
   final bool isKakaoBizApp = false; // fixme 비즈앱 심사 통과 시 변경
 
   /// ## 카카오 로그인 성공 후 파이어베이스 로그인
-  void _onKakaoLoginSucceeded(kakao.OAuthToken authToken) {
+  Future<void> _onKakaoLoginSucceeded(kakao.OAuthToken authToken) async {
     if (isKakaoBizApp) {
+      final kakao.User user = await kakao.UserApi.instance.me();
+      final String? email = user.kakaoAccount?.email;
+      if (email == null || email.isEmpty) {
+        throw Exception('Kakao sign-in failed: email == null || email.isEmpty');
+      }
+
+      // 동일한 이메일로 가입된 계정 존재 여부 확인
+      await checkEmailDuplicate(email, AuthType.kakao.providerId);
+
       // 인증 정보로 인증서 생성
       final OAuthProvider provider = OAuthProvider('oidc.kakao');
       final OAuthCredential credential =
           provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
 
       // 인증서로 파이어베이스 로그인
-      FirebaseAuth.instance.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } else {
       // 비즈앱 심사를 통과하지 않아 이메일을 가져올 수 없으므로
       //eff 이메일 가입 화면으로 이동하는 등 시나리오 필요
@@ -198,6 +221,6 @@ class FirebaseAuthUtil {
       return;
     }
 
-    throw EmailDuplicateException(lowerCaseEmail);
+    throw EmailDuplicateException(lowerCaseEmail, attemptedProvider);
   }
 }
