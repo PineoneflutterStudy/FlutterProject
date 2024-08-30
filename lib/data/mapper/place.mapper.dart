@@ -1,6 +1,7 @@
 import '../../domain/model/display/place/place.model.dart';
 import '../../presentation/pages/plan/utils/plan_util.dart';
 import '../dto/display/place/place.dto.dart';
+class PlanUtilImpl with PlanUtil {}
 
 extension PlaceX on PlaceDto {
   Place toModel() {
@@ -15,8 +16,8 @@ extension PlaceX on PlaceDto {
       y: y ?? '',
       placeUrl: place_url ?? '',
       distance: distance ?? '',
-      walkTravelTime: PlanUtil().getWalkTravelTime(distance),
-      carTravelTime: PlanUtil().getCarTravelTime(distance),
+      walkTravelTime: PlanUtilImpl().getWalkTravelTime(distance),
+      carTravelTime: PlanUtilImpl().getCarTravelTime(distance),
     );
   }
 }

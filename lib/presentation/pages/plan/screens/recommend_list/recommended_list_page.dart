@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
+import '../planner/planner_loading_widget.dart';
 import 'place_app_bar_view.dart';
 
 import '../../../../../core/utils/constant.dart';
@@ -17,6 +18,7 @@ import 'place_view.dart';
 class RecommendedListPage extends StatelessWidget {
   final String location;
   final AddressBloc addressBloc;
+
   const RecommendedListPage({required this.location, required this.addressBloc, super.key});
 
   @override
@@ -60,9 +62,9 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
           builder: (_, ctgrState) {
             switch (ctgrState.status) {
               case Status.initial:
-                return Center(child: CircularProgressIndicator());
+                return PlannerLoadingWidget();
               case Status.loading:
-                return Center(child: CircularProgressIndicator());
+                return PlannerLoadingWidget();
               case Status.success:
                 CustomLogger.logger.i("카테고리 목록 : ${ctgrState.ctgrs}");
                 return Column(
@@ -74,10 +76,10 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                         builder: (_, state) {
                           CustomLogger.logger.i("rcmn address state : $state");
                           return state.when(
-                            loading: () => Center(child: CircularProgressIndicator()),
+                            loading: () => PlannerLoadingWidget(),
                             success: (addressInfo) {
                               CustomLogger.logger.i("현재 중심 위치 : $addressInfo");
-                              return PlaceView(ctgrState.ctgrs, addressInfo);
+                              return PlaceView(categoryList : ctgrState.ctgrs, address : addressInfo);
                             },
                             error: (error) {
                               return Center(
@@ -118,15 +120,16 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
     );
   }
 
+  /// 주소 정보 업데이트
+  /// 검색 창에서 주소 변경한 경우 사용된다.
   void _updateAddressInfo(String newLocation) {
-    setState(() {
-      _location = newLocation;
-    });
+    setState(() => _location = newLocation);
+    // Todo 이전장소와의 거리 관련 문구 문제 해결
     widget.addressBloc.add(AddressUpdated(newLocation));
   }
 
+  /// 필터조건 update
   void _updateFilter(int newRadius, String newSort) {
-    print('radius : $newRadius, sort : $newSort');
     setState(() {
       radius = newRadius;
       sort = newSort;

@@ -41,16 +41,15 @@ Map<String, dynamic> _$$PlannerPageImplToJson(_$PlannerPageImpl instance) =>
 
 _$PlannerItemImpl _$$PlannerItemImplFromJson(Map<String, dynamic> json) =>
     _$PlannerItemImpl(
+      prev_address_info: json['prev_address_info'] == null
+          ? null
+          : Address.fromJson(json['prev_address_info'] as Map<String, dynamic>),
       cur_address_info:
           Address.fromJson(json['cur_address_info'] as Map<String, dynamic>),
       place_name: json['place_name'] as String,
       start_time: json['start_time'] as String?,
       end_time: json['end_time'] as String,
       stay_time: json['stay_time'] as String?,
-      prev_address_info: json['prev_address_info'] == null
-          ? null
-          : Address.fromJson(json['prev_address_info'] as Map<String, dynamic>),
-      prev_place_id: json['prev_place_id'] as String?,
       distance: json['distance'] as String?,
       transportation: json['transportation'] as String?,
       travel_time: json['travel_time'] as String?,
@@ -58,13 +57,12 @@ _$PlannerItemImpl _$$PlannerItemImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PlannerItemImplToJson(_$PlannerItemImpl instance) =>
     <String, dynamic>{
+      'prev_address_info': instance.prev_address_info?.toJson(),
       'cur_address_info': instance.cur_address_info.toJson(),
       'place_name': instance.place_name,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'stay_time': instance.stay_time,
-      'prev_address_info': instance.prev_address_info?.toJson(),
-      'prev_place_id': instance.prev_place_id,
       'distance': instance.distance,
       'transportation': instance.transportation,
       'travel_time': instance.travel_time,

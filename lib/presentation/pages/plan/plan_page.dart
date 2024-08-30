@@ -8,6 +8,7 @@ import '../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../service_locator.dart';
 import 'bloc/address_bloc/address_bloc.dart';
 import 'bloc/planner_bloc/planner_bloc.dart';
+import 'screens/planner/planner_loading_widget.dart';
 import 'screens/planner/planner_page.dart';
 import 'utils/plan_util.dart';
 
@@ -19,9 +20,8 @@ class PlanPage extends StatefulWidget {
   State<PlanPage> createState() => _PlanPageState();
 }
 
-class _PlanPageState extends State<PlanPage> {
+class _PlanPageState extends State<PlanPage> with PlanUtil{
   final auth = FirebaseAuthUtil();
-  final planUtil = PlanUtil();
   late AddressBloc _addressBloc;
   late PlannerBloc _plannerBloc;
 
@@ -30,6 +30,12 @@ class _PlanPageState extends State<PlanPage> {
     super.initState();
     _addressBloc = AddressBloc(locator<PlannerUsecase>());
     _plannerBloc = PlannerBloc();
+    _plannerBloc.add(PlannerEvent.checkLoginState());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _plannerBloc.add(PlannerEvent.checkLoginState());
   }
 
@@ -50,9 +56,8 @@ class _PlanPageState extends State<PlanPage> {
         child: BlocConsumer<PlannerBloc, PlannerState>(
           bloc: _plannerBloc,
           builder: (_, state) {
-            print('cur state : $state');
             return state.when(
-              loading: () => Center(child: CircularProgressIndicator()),
+              loading: () => PlannerLoadingWidget(),
               init: (isLogined) => InitPlannerPage(isLogin: isLogined, addressBloc: _addressBloc, plannerBloc: _plannerBloc),
               success: (plannerList, selected) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),
               error: (error) => Container(),

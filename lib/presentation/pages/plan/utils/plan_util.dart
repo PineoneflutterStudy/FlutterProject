@@ -7,7 +7,7 @@ import '../../../../domain/model/display/place/transportation.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 import '../dialog/go_plan_popup.dart';
 
-class PlanUtil {
+mixin PlanUtil {
   /// 거리 format
   /// 1000 이상일 경우 km, 1000 이하일 경우 m 단위로 표기
   String formatDistance(String? distanceStr) {
@@ -71,8 +71,7 @@ class PlanUtil {
     int seconds = ((timeInMinutes - timeInMinutes.floor()) * 60).toInt();
     String hText = (hours > 0) ? " ${hours.toString()}시" : "";
     String mText = (minutes > 0) ? " ${minutes.toString()}분" : "";
-    String sText =
-        (minutes > 0 && seconds > 0) ? " ${seconds.toString()}초" : "1분 미만";
+    String sText = (minutes < 1 && seconds > 0) ? "1분 미만" : " ${seconds.toString()}초";
     return "$hText$mText$sText";
   }
 
@@ -87,6 +86,7 @@ class PlanUtil {
     return Transportation.walk;
   }
 
+  /// [walkIcon+이동시간] widget
   Widget buildWalkTravelTime(String walkTravelTime) {
     final Transportation walk = getTransportationByCode('walk');
     return Row(
@@ -99,6 +99,7 @@ class PlanUtil {
     );
   }
 
+  /// [carIcon+이동시간] widget
   Widget buildCarTravelTime(String carTravelTime) {
     final Transportation car = getTransportationByCode('car');
     return Row(
@@ -109,5 +110,63 @@ class PlanUtil {
         Text(carTravelTime, style: TextStyle(fontSize: 16, color: car.textColor))
       ],
     );
+  }
+
+  /// 시간을 분으로 변환
+  int convertTimeToMinutes(TimeOfDay time) {
+    return time.hour * 60 + time.minute;
+  }
+
+  /// 을/를 반환
+  String getParticle(String word) {
+    if (word.isEmpty) {
+      return '';
+    }
+
+    String lastChar = word[word.length - 1];
+
+    // 마지막 문자가 한글이 아닌 경우
+    if (lastChar.codeUnitAt(0) < 0xAC00 || lastChar.codeUnitAt(0) > 0xD7A3) {
+      return '을';
+    }
+
+    int lastCharCode = lastChar.codeUnitAt(0);
+    int baseCode = lastCharCode - 0xAC00;
+    int finalConsonantIndex = baseCode % 28;
+
+    // 받침이 있으면 '을', 없으면 '를' 반환
+    return finalConsonantIndex == 0 ? '를' : '을';
+  }
+
+  /// [timeString] - "10:00 AM"과 같은 형식의 시간 문자열
+  /// [minutes] - 추가할 분 단위 (예: 120)
+  String addMinutesToTime(String timeString, String minutes) {
+    final DateFormat timeFormat = DateFormat('h:mm a');
+
+    DateTime initialTime = timeFormat.parse(timeString);
+
+    int minutesToAdd = int.tryParse(minutes) ?? 0;
+
+    DateTime updatedTime = initialTime.add(Duration(minutes: minutesToAdd));
+
+    return timeFormat.format(updatedTime);
+  }
+
+  //code, 거리 입력 시 이동 수단 정보 반환
+  String getTravelTime(String distance, String code){
+    return code == 'car' ? getCarTravelTime(distance) : getWalkTravelTime(distance);
+  }
+
+  /// 주어진 시간 문자열을 분 단위로 변환하여 반환합니다.
+  /// 예: "1시 5분 8초" -> 65 (분)
+  String timeStringToMinutes(String timeString) {
+    RegExp regex = RegExp(r'(?:(\d+)시)?(?:\s*(\d+)분)?(?:\s*(\d+)초)?');
+    RegExpMatch? match = regex.firstMatch(timeString);
+
+    int hours = int.parse(match?.group(1) ?? '0');
+    int minutes = int.parse(match?.group(2) ?? '0');
+    int totalMinutes = hours * 60 + minutes;
+
+    return (totalMinutes >= 1) ? totalMinutes.toString() : '0';
   }
 }

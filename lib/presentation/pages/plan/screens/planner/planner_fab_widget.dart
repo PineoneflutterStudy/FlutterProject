@@ -7,31 +7,35 @@ class PlannerFabWidget extends StatefulWidget {
   ValueChanged<int> onIconTapped;
 
   PlannerFabWidget({required this.icons, required this.onIconTapped});
+
   @override
   State createState() => PlannerFabWidgetState();
 }
 
-class PlannerFabWidgetState extends State<PlannerFabWidget> with TickerProviderStateMixin {
+class PlannerFabWidgetState extends State<PlannerFabWidget>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 30, 20 ),
+      padding: const EdgeInsets.fromLTRB(0, 0, 30, 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: List.generate(widget.icons.length, (int index) {
           return _buildChild(index);
-        }).toList()..add(
-          _buildFab(),
-        ),
+        }).toList()
+          ..add(
+            _buildFab(),
+          ),
       ),
     );
   }
@@ -47,13 +51,11 @@ class PlannerFabWidgetState extends State<PlannerFabWidget> with TickerProviderS
       child: ScaleTransition(
         scale: CurvedAnimation(
           parent: _controller,
-          curve: Interval(
-              0.0,
-              1.0 - index / widget.icons.length / 2.0,
-              curve: Curves.easeOut
-          ),
+          curve: Interval(0.0, 1.0 - index / widget.icons.length / 2.0,
+              curve: Curves.easeOut),
         ),
         child: FloatingActionButton(
+          heroTag: 'btn$index',
           backgroundColor: backgroundColor,
           mini: true,
           child: Icon(widget.icons[index], color: iconColor),
@@ -66,6 +68,7 @@ class PlannerFabWidgetState extends State<PlannerFabWidget> with TickerProviderS
   // 기본 플러팅 버튼
   Widget _buildFab() {
     return FloatingActionButton(
+      heroTag: 'basicBtn',
       onPressed: () {
         if (_controller.isDismissed) {
           _controller.forward();

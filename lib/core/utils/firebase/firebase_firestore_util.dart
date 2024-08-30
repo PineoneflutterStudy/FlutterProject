@@ -40,7 +40,7 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// User > uid
+  /// User > uid 문서 참조 위치 반환
   Future<DocumentReference?> getUserDocRef() async {
     if (!await _auth.isLoggedIn()) {
       _logger.e("User not logged in");
@@ -50,7 +50,7 @@ class FirebaseFirestoreUtil {
     return _firestore.collection(DBKey.DB_USERS).doc(userId);
   }
 
-  /// User > uid > collectionPath > docId
+  /// User > uid > collectionPath > docId 문서 참조 위치 반환
   Future<DocumentReference?> getCollectionDocRef(String collectionPath, String docId) async {
     return await _executeWithUserDocRef<DocumentReference?>((userDocRef) async {
       try {
@@ -62,7 +62,7 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// User 컬렉션에서 문서들을 가져오는 함수
+  /// User 컬렉션에서 doc 문서들을 가져오는 함수
   Future<List<Map<String, dynamic>>> getDocumentsFromUser() async {
     try {
       final querySnapshot = await _firestore.collection(DBKey.DB_USERS).get();
@@ -73,7 +73,7 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// User > 특정 컬렉션에서 문서들을 가져오는 함수
+  /// User > uid > collectionPath 특정 컬렉션에서 doc 문서들 Json 형태로 반환
   Future<List<Map<String, dynamic>>?> getDocumentsFromCollection(String collectionPath) async {
     return await _executeWithUserDocRef<List<Map<String, dynamic>>>((userDocRef) async {
       try {
@@ -86,7 +86,7 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// User > 특정 컬렉션에서 문서들을 가져오는 함수, json 형식의 데이터 T형식으로 mapping
+  /// User > uid > collectionPath 특정 컬렉션에서 doc 문서들 List<T> 형태로 반환
   Future<List<T>?> getDocumentsFromCollectionMapperData<T>(String collectionPath, T Function(Map<String, dynamic>) fromJson) async {
     return await _executeWithUserDocRef<List<T>>((userDocRef) async {
       try {
@@ -101,7 +101,8 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// 특정 문서에서 데이터를 가져오는 함수
+  /// User > uid 위치에 위치한 데이터 가져오는 함수
+  /// Json형태로 반환
   Future<Map<String, dynamic>?> getUserDocumentData() async {
     return await _executeWithUserDocRef<Map<String, dynamic>?>((userDocRef) async {
       try {
@@ -114,7 +115,8 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// 특정 컬렉션 경로와 문서 ID로 서브 컬렉션에서 문서 데이터를 가져오기
+  /// User > uid > collection > doc 특정 위치에 데이터 가져오는 함수
+  /// Json 형태로 반환
   Future<Map<String, dynamic>?> getDocumentDataFromSubCollection(String collectionPath, String docId) async {
     return await _executeWithUserDocRef<Map<String, dynamic>?>((userDocRef) async {
       try {
@@ -127,7 +129,14 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// 문서 참조(docRef)를 통해 문서 데이터를 가져오기
+  /// User > uid > collection > doc 특정 위치에 데이터 가져오는 함수
+  /// json 형식의 데이터 T형식으로 mapping
+  Future<T?> getDocumentMapperDataFromSubCollection<T>(String collection , T Function(Map<String, dynamic>) fromJson) async {
+    //Todo
+  }
+
+  /// 문서 참조 위치(docRef)를 통해 문서 데이터를 가져오기
+  /// json 형식
   Future<Map<String, dynamic>?> getDocumentDataFromRef(DocumentReference docRef) async {
     try {
       DocumentSnapshot documentSnapshot = await docRef.get();
@@ -138,7 +147,21 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// 문서 존재 여부 반환
+  /// 문서 참조 위치(docRef)를 통해 데이터를 가져오기
+  /// json 형식의 데이터 T형식으로 mapping
+  Future<T?> getDocumentMapperDataFromRef<T>(DocumentReference docRef, T Function(Map<String, dynamic>) fromJson) async {
+    try {
+      DocumentSnapshot documentSnapshot = await docRef.get();
+      Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
+
+      return data != null? fromJson(data) : null;
+    } catch (e) {
+      _logger.e("Error getting document data: $e");
+      return null;
+    }
+  }
+
+  /// 참조 위치(docRef)에 문서 존재 여부 반환
   Future<bool> checkDocumentExistsFromRef(DocumentReference docRef) async {
     try {
       DocumentSnapshot documentSnapshot = await docRef.get();
@@ -149,7 +172,7 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// docRef 위치에 data set
+  /// 참조 위치(docRef)에 data set
   Future<void> setDocument(DocumentReference docRef, Map<String, dynamic> data) async {
     try {
       await docRef.set(data);
@@ -159,7 +182,7 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// docRef 위치에 있는 data delete
+  /// 참조 위치(docRef)에 존재하는 data delete
   Future<void> deleteDocument(DocumentReference docRef) async {
     try {
       await docRef.delete();
@@ -169,7 +192,7 @@ class FirebaseFirestoreUtil {
     }
   }
 
-  /// docRef 위치에 있는 data update
+  /// 참조 위치(docRef)에 있는 data update
   Future<void> updateDocument(DocumentReference docRef, Map<String, dynamic> data) async {
     try {
       await docRef.update(data);

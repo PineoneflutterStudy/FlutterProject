@@ -7,7 +7,6 @@ import '../../../../../domain/model/display/place/planner.model.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 import 'planner_fab_widget.dart';
-import 'init_planner_page.dart';
 import 'page_item_view.dart';
 
 import '../../../../main/common/component/widget/appbar.dart';
@@ -19,20 +18,14 @@ class PlannerPage extends StatefulWidget {
   final PlannerBloc plannerBloc;
   final AddressBloc addressBloc;
 
-  PlannerPage({
-    required this.plannerBloc,
-    required this.addressBloc,
-    super.key,
-  });
+  PlannerPage({required this.plannerBloc, required this.addressBloc, super.key});
 
   @override
   State<PlannerPage> createState() => _PlannerPageState();
 }
 
-class _PlannerPageState extends State<PlannerPage> {
+class _PlannerPageState extends State<PlannerPage> with PlanUtil{
   final PageController _pageController = PageController(viewportFraction: 0.93);
-
-  final planUtil = PlanUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +35,6 @@ class _PlannerPageState extends State<PlannerPage> {
         print("current state : $state");
         return state.when(
           loading: () => PlannerLoadingWidget(),
-          init: (isLogined) {
-            //todo 수정예정
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => InitPlannerPage(
-                  isLogin: isLogined,
-                  addressBloc: widget.addressBloc,
-                  plannerBloc: widget.plannerBloc,
-                ),
-              ),
-            );
-            return Container();
-          },
           success: (plannerList, selected) {
             final categoryWidgets = getCategoryViewList(context, plannerList, selected);
 
@@ -94,10 +73,7 @@ class _PlannerPageState extends State<PlannerPage> {
                           controller: _pageController,
                           itemCount: selected.planner_page_list.length,
                           itemBuilder: (context, index) {
-                            return PageItemView(
-                                selected.planner_page_list[index],
-                                index + 1,
-                                widget.addressBloc);
+                            return PageItemView(selected.planner_page_list[index], index + 1, widget.addressBloc, widget.plannerBloc);
                           },
                           pageSnapping: true),
                     ),
@@ -108,6 +84,11 @@ class _PlannerPageState extends State<PlannerPage> {
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             );
           },
+          init: (isLogined) {
+            // todo 수정
+            // 여기를 안타긴하지만 혹시모르는 비정상적인 루트 예외처리 필요
+            return Container();
+          },
           error: (error) {
             return Center(
               child: Column(
@@ -116,10 +97,7 @@ class _PlannerPageState extends State<PlannerPage> {
                   Text('플래너를 불러오는 데 실패했습니다.'),
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {
-                      widget.plannerBloc
-                          .add(const PlannerEvent.getPlannerList());
-                    },
+                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList()),
                     child: Text('다시 시도'),
                   ),
                 ],
@@ -154,7 +132,7 @@ class _PlannerPageState extends State<PlannerPage> {
         child: IconButton(
           icon: Icon(Icons.add_circle_sharp, color: AppColors.primary, size: 20),
           onPressed: () async {
-            final result = await planUtil.showGoPlanPopup(context: context, addressBloc: widget.addressBloc);
+            final result = await showGoPlanPopup(context: context, addressBloc: widget.addressBloc);
             if (result != null && result.containsKey('planner')) {
               Planner planner = result['planner']!;
               widget.plannerBloc.add(PlannerEvent.addPlanner(planner));

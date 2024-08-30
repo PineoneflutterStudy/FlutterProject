@@ -5,17 +5,16 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
 import '../../../../../domain/model/display/place/transportation.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
+import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
-class PlannerItemView extends StatelessWidget {
+class PlannerItemView extends StatelessWidget with PlanUtil{
   final PlannerItem plan;
   final int index;
   final int lastIndex;
   final AddressBloc addressBloc;
-
-  PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, {super.key});
-
-  final planUtil = PlanUtil();
+  final PlannerBloc plannerBloc;
+  PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, this.plannerBloc, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +71,27 @@ class PlannerItemView extends StatelessWidget {
         if (index == lastIndex)
           ElevatedButton(
             onPressed: () {
-              addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
-              context.pushNamed('rcmn', queryParameters: {'location': plan.place_name}, extra: addressBloc);
-              },
+              var prevAddress = plan.cur_address_info;
+              addressBloc.add(AddressEvent.setAddress(prevAddress));
+              context.pushNamed('rcmn', queryParameters: {'location': plan.place_name}, extra: addressBloc).then((value) {
+                var result = value as Map<String,dynamic>;
+                print(' result : $result');
+                var startTime = plan.end_time;
+                var plannerItem = PlannerItem(
+                  prev_address_info: prevAddress, // O
+                  cur_address_info: result['cur_address_info'], // X
+                  place_name: result['place_name'],
+                  start_time: addMinutesToTime(startTime, timeStringToMinutes(result['travel_time'])), //+ travel_time
+                  end_time: addMinutesToTime(startTime, result['selectedTime']), // start_time + stay_time
+                  stay_time: result['selectedTime'],
+                  distance: result['distance'],
+                  transportation: result['selectedTransportation'],
+                  travel_time: result['travel_time'],
+                );
+                print('plannerItem : $plannerItem');
+                // plannerBloc.add(PlannerEvent.addPlannerItem(PlannerId, index, plannerItem));
+              });
+            },
             child: Text('Add Next Place'),
           ),
       ],
@@ -82,7 +99,7 @@ class PlannerItemView extends StatelessWidget {
   }
 
   Widget _buildTransportBar() {
-    final Transportation transportation = planUtil.getTransportationByCode(plan.transportation ?? 'walk');
+    final Transportation transportation = getTransportationByCode(plan.transportation ?? 'walk');
     if (plan.travel_time != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,

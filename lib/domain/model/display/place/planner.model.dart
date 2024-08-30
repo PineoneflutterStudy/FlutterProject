@@ -36,13 +36,13 @@ class PlannerPage with _$PlannerPage {
 class PlannerItem with _$PlannerItem {
   @JsonSerializable(explicitToJson: true)
   const factory PlannerItem({
+    Address? prev_address_info,
+    // String? prev_place_id,
     required Address cur_address_info,
     required String place_name,
     String? start_time,
     required String end_time,
     String? stay_time, // 이용시간
-    Address? prev_address_info,
-    String? prev_place_id,
     String? distance, // 이전장소와의 거리
     String? transportation, //이동수단
     String? travel_time // 이동시간

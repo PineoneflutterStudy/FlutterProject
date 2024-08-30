@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -8,25 +9,23 @@ import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/common_utils.dart';
+import '../../../../../domain/model/display/place/address.model.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
-import '../../../../../domain/model/display/place/transportation.dart';
 import '../../dialog/add_plan_popup.dart';
 import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
 class PlaceItemView extends StatefulWidget {
   final Place place;
-
-  const PlaceItemView(this.place, {super.key});
+  const PlaceItemView({required this.place, super.key});
 
   @override
   State<PlaceItemView> createState() => _PlaceItemViewState();
 }
 
-class _PlaceItemViewState extends State<PlaceItemView> {
+class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   bool isLiked = false;
   final firestore = FirebaseFirestoreUtil();
-  final planUtil = PlanUtil();
   DocumentReference? placeDocRef;
   @override
   void initState() {
@@ -72,7 +71,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                       children: [
                         Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(child: Text(planUtil.getLastTwoCategories(widget.place.categoryName ?? ''),
+                        Expanded(child: Text(getLastTwoCategories(widget.place.categoryName ?? ''),
                                 style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
@@ -82,7 +81,7 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                         Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
-                          child: Text(planUtil.formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
+                          child: Text(formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
                         ),
                         if ((widget.place.addressName ?? '').isNotEmpty)
                           Padding(
@@ -108,9 +107,9 @@ class _PlaceItemViewState extends State<PlaceItemView> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        planUtil.buildWalkTravelTime(widget.place.walkTravelTime),
+                        buildWalkTravelTime(widget.place.walkTravelTime),
                         SizedBox(width: 5),
-                        planUtil.buildCarTravelTime(widget.place.carTravelTime),
+                        buildCarTravelTime(widget.place.carTravelTime),
                       ],
                     ),
                   ],
@@ -155,17 +154,24 @@ class _PlaceItemViewState extends State<PlaceItemView> {
   void _showAddPlanPopup(BuildContext context, Place place) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AddPlanPopup(place: place);
-      },
+      builder: (BuildContext context) => AddPlanPopup(place: place),
     ).then((result) {
       if (result != null) {
-        final selectedTime = result['time'];
-        final selectedTransportation = result['transportation'];
+        final selectedTime = result['time'].toString();
+        final selectedTransportation = result['transportation'].toString();
 
-        // 원하는 처리 수행
-        print('선택된 시간: $selectedTime');
-        print('선택된 이동수단: $selectedTransportation');
+        context.pop({
+          'selectedTime': selectedTime,
+          'selectedTransportation': selectedTransportation,
+          'distance' : widget.place.distance,
+          'travel_time' : getTravelTime(widget.place.distance, selectedTransportation),
+          'place_name' : widget.place.placeName,
+          'cur_address_info' : Address(
+            addressName: widget.place.placeName,
+            x: widget.place.x,
+            y: widget.place.y,
+          )
+        });
       }
     });
   }

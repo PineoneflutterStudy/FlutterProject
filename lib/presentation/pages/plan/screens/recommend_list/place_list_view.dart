@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../domain/model/display/place/address.model.dart';
+import '../../bloc/planner_bloc/planner_bloc.dart';
 import 'place_item_view.dart';
 
 import '../../../../../core/utils/constant.dart';
@@ -14,8 +15,7 @@ import '../../bloc/place_bloc/place_bloc.dart';
 class PlaceListView extends StatelessWidget {
   final Category category;
   final Address address;
-
-  const PlaceListView(this.category, this.address, {super.key});
+  const PlaceListView({required this.category,required this.address, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class PlaceListPageView extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: state.places.length,
                 itemBuilder: (context, index) {
-                  return PlaceItemView(state.places[index]);
+                  return PlaceItemView(place : state.places[index]);
                 },
               );
             }

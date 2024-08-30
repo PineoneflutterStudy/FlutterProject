@@ -9,6 +9,7 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/place/planner.model.dart';
 
 part 'planner_event.dart';
+
 part 'planner_state.dart';
 
 part 'planner_bloc.freezed.dart';
@@ -23,27 +24,27 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
         checkLoginState: () async => await _onCheckLoginState(emit),
         getPlannerList: () async => await _onGetPlannerList(emit),
         addPlanner: (planner) async => await _onAddPlanner(emit, planner),
+        addPlannerItem: (plannerId, index, plannerItem) async => await _onAddPlannerItem(emit, plannerId, index, plannerItem),
         selected: (selectedPlanner) async => await _onUpdateSelected(emit, selectedPlanner),
         deletePlanner: (plannerId) async => await _onDeletePlanner(emit, plannerId),
       );
     });
   }
 
-  Future<void> _onCheckLoginState(Emitter<PlannerState> emit) async{
+  Future<void> _onCheckLoginState(Emitter<PlannerState> emit) async {
     bool isLoggedIn = await auth.isLoggedIn();
 
-    if(isLoggedIn){
+    if (isLoggedIn) {
       await _onGetPlannerList(emit);
-    }else {
+    } else {
       // Emit a state if the user is not logged in (optional)
-     emit(PlannerState.init(false));
+      emit(PlannerState.init(false));
     }
   }
 
-
-  Future<void> _onGetPlannerList(Emitter<PlannerState> emit) async{
+  Future<void> _onGetPlannerList(Emitter<PlannerState> emit) async {
     try {
-      final plannerList = await firestore.getDocumentsFromCollectionMapperData(DBKey.DB_PLANNER,(json) => Planner.fromJson(json));
+      final plannerList = await firestore.getDocumentsFromCollectionMapperData(DBKey.DB_PLANNER, (json) => Planner.fromJson(json));
       print('plannerList : $plannerList');
       if (plannerList != null && plannerList.isNotEmpty) {
         emit(PlannerState.success(plannerList, plannerList[0]));
@@ -62,30 +63,54 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     } else {
       CustomLogger.logger.e("plannerDocRef is null");
     }
-    state.maybeWhen(
-        success: (plannerList, selected) { // 기존 플래너 목록에 새 플래너를 추가
-          final updatedList = List<Planner>.from(plannerList)..add(newPlanner);
-          emit(PlannerState.success(updatedList, newPlanner));
-        },
-        orElse: () { // 플래너 목록이 없을 때
-          emit(PlannerState.success([newPlanner], newPlanner));
-        }
-    );
+    state.maybeWhen(success: (plannerList, selected) {
+      // 기존 플래너 목록에 새 플래너를 추가
+      final updatedList = List<Planner>.from(plannerList)..add(newPlanner);
+      emit(PlannerState.success(updatedList, newPlanner));
+    }, orElse: () {
+      // 플래너 목록이 없을 때
+      emit(PlannerState.success([newPlanner], newPlanner));
+    });
   }
 
   Future<void> _onUpdateSelected(Emitter<PlannerState> emit, Planner newSelected) async {
     state.maybeWhen(
-      success: (plannerList, selected) => emit(PlannerState.success(plannerList, newSelected)),
-      orElse: () {}
+        success: (plannerList, selected) => emit(PlannerState.success(plannerList, newSelected)),
+        orElse: () {},
     );
+  }
+
+  Future<void> _onAddPlannerItem(Emitter<PlannerState> emit, String plannerId, int index, PlannerItem newPlannerItem) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
+    if (plannerDocRef != null) {
+      Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
+
+      if (plannerData != null) {
+        List<dynamic> pages = plannerData['planner_page_list'];
+
+        if (pages.length > index) {
+          var page = pages[index] as Map<String, dynamic>;
+          List<dynamic> pageItemList = page['page_item_list'];
+          pageItemList.add(newPlannerItem.toJson());
+          pages[index]['page_item_list'] = pageItemList;
+
+          await plannerDocRef.update({'planner_page_list': pages});
+          await _onGetPlannerList(emit);
+        } else {
+          print('해당 페이지 인덱스가 유효하지 않습니다.');
+        }
+      } else {
+        CustomLogger.logger.e("plannerDocRef is null");
+      }
+    }
   }
 
   Future<void> _onDeletePlanner(Emitter<PlannerState> emit, String plannerId) async {
     var docRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
-    if(docRef != null){
+    if (docRef != null) {
       firestore.deleteDocument(docRef);
       await _onGetPlannerList(emit);
-    }else{
+    } else {
       CustomLogger.logger.e("plannerDocRef is null");
     }
   }

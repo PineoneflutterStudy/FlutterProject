@@ -9,14 +9,13 @@ import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
 /// ### plan메뉴 초기 화면
-class InitPlannerPage extends StatelessWidget {
+class InitPlannerPage extends StatelessWidget with PlanUtil{
   final bool isLogin;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
 
   InitPlannerPage({super.key, required this.isLogin, required this.addressBloc, required this.plannerBloc});
 
-  final planUtil = PlanUtil();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,16 +37,13 @@ class InitPlannerPage extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               if (isLogin) {
-                final result = await planUtil.showGoPlanPopup(context: context, addressBloc: addressBloc);
+                final result = await showGoPlanPopup(context: context, addressBloc: addressBloc);
                 if (result != null && result.containsKey('planner')) {
                   Planner planner = result['planner']!;
                   plannerBloc.add(PlannerEvent.addPlanner(planner));
                 }
               } else {
-                final result = await showDialog(context: context, builder: (context) => LoginPopup());
-                if (result == true) {
-                  plannerBloc.add(PlannerEvent.checkLoginState());
-                }
+                await showDialog(context: context, builder: (context) => LoginPopup());
               }
             },
             child: const Icon(Icons.add_circle_sharp, color: AppColors.primary, size: 40)
