@@ -55,8 +55,10 @@ class FirebaseAuthUtil {
 
       // 인증서로 파이어베이스 로그인
       await auth.signInWithCredential(credential);
-    } catch (error) {
+    } on EmailDuplicateException {
       rethrow;
+    } catch (e) {
+      throw Exception('Google sign-in failed: error = $e');
     }
   }
 
@@ -115,8 +117,10 @@ class FirebaseAuthUtil {
         // 커스텀 토큰으로 파이어베이스 로그인
         await auth.signInWithCustomToken(firebaseToken);
       }
-    } catch (error) {
+    } on EmailDuplicateException {
       rethrow;
+    } catch (e) {
+      throw Exception('Naver sign-in failed: error = $e');
     }
   }
 
@@ -188,8 +192,8 @@ class FirebaseAuthUtil {
 
       // 인증 정보로 인증서 생성
       final OAuthProvider provider = OAuthProvider('oidc.kakao');
-      final OAuthCredential credential =
-          provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
+      final OAuthCredential credential = provider.credential(
+          accessToken: authToken.accessToken, idToken: authToken.idToken);
 
       // 인증서로 파이어베이스 로그인
       await auth.signInWithCredential(credential);
