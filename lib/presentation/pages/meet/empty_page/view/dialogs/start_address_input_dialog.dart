@@ -7,12 +7,12 @@ import '../../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../../core/utils/common_utils.dart';
 import '../../../../../../core/utils/logger.dart';
 import '../../../../../../domain/model/display/meet/address_model.dart';
-import '../../../common/select_move_step_widget.dart';
-import '../../../common/text_content_area_widget.dart';
-import '../../../common/title_text_area_widget.dart';
+import '../../../notifiers/address_local/address_shprf_notifier.dart';
+import '../../../notifiers/address_local/address_shprf_state.dart';
+import '../../../widgets/common/select_move_step_widget.dart';
+import '../../../widgets/common/text_content_area_widget.dart';
 import '../../../map_page/screens/meet_place_map_screen.dart';
-import '../../notifier/address_info_notifier.dart';
-import '../../notifier/address_info_state.dart';
+import '../../../widgets/common/title_text_area_widget.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
 
@@ -36,7 +36,7 @@ class StartAddressInputDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(child: AddressDialogView());
+    return AddressDialogView();
   }
 }
 
@@ -56,13 +56,13 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(addressInfoStateProvider.notifier).fetchAddressInfo();
+      ref.read(addressShprfNotifierProvider.notifier).fetchAddressInfo();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final status = ref.watch(addressInfoStateProvider.select((p) => p.status));
+    final status = ref.watch(addressShprfNotifierProvider.select((p) => p.status));
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -89,7 +89,7 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
             height: 10,
           ),
           // 주소 검색 Api 사용
-          status == AddressInfoStatus.loading
+          status == AddressShprfStatus.loading
               ? const Center(child: CircularProgressIndicator(),)
               : const _ContentView(),
           SizedBox(
@@ -123,7 +123,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: Consumer(
         builder: (context, ref, child) {
-          final state = ref.watch(addressInfoStateProvider);
+          final state = ref.watch(addressShprfNotifierProvider);
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -140,7 +140,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                   onPressed: () {
                     _logger.i('Is Max Address Input box? => ${state.isMaxInput}');
                     if (state.isMaxInput) {
-                      ref.read(addressInfoStateProvider.notifier).addEmptyAddress(state.addressList.length);
+                      ref.read(addressShprfNotifierProvider.notifier).addEmptyAddress(state.addressList.length);
                     } else {
                       CommonUtils.showToastMsg('최대 4명까지 입력 가능합니다!');
                     }
@@ -194,7 +194,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
   /**
    * 출발지 입력 리스트뷰
    */
-  ListView makeStartAddressList(BuildContext context, AddressInfoState state) {
+  ListView makeStartAddressList(BuildContext context, AddressShprfState state) {
     return ListView.builder(
       itemCount: state.addressList.length,
       itemBuilder: (context, index) {
@@ -219,7 +219,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                         onDeleteBtnPress: () {
                           _logger.i('Default Line Delete Address Info');
                           // Default 2 Line 입력 주소 제거
-                          ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                          ref.read(addressShprfNotifierProvider.notifier).deleteAddress(index);
                         },
                       )
                           : AddressInputAddItemWidget(
@@ -228,13 +228,13 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                         onDeleteBtnPress: () {
                           _logger.i('Add Line Delete Address Info');
                           // 추가 Line 입력 주소 제거( - )
-                          ref.read(addressInfoStateProvider.notifier).deleteAddress(index);
+                          ref.read(addressShprfNotifierProvider.notifier).deleteAddress(index);
 
                         },
                         onRemoveBtnPress: () {
                           _logger.i('Add Line Delete..!');
                           // Input List 제거 ( x )
-                          ref.read(addressInfoStateProvider.notifier).deleteAddressInput(index);
+                          ref.read(addressShprfNotifierProvider.notifier).deleteAddressInput(index);
                         },
                       )),
                 ),
@@ -259,7 +259,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
       MaterialPageRoute(
           builder: (_) => KpostalView(
             callback: (Kpostal result) {
-              ref.read(addressInfoStateProvider.notifier).addAddressInput(
+              ref.read(addressShprfNotifierProvider.notifier).addAddressInput(
                 AddressModel(
                     index: listIndex,
                     address: result.address,

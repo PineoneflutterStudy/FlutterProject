@@ -13,8 +13,8 @@ import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
-import '../../common/map_loading_widget.dart';
-import '../../empty_page/notifier/address_info_notifier.dart';
+import '../../notifiers/address_local/address_shprf_notifier.dart';
+import '../../widgets/common/map_loading_widget.dart';
 import '../notifier/meet_place_map_notifier.dart';
 import '../notifier/meet_place_map_state.dart';
 
@@ -117,7 +117,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
-          final addressState = ref.watch(addressInfoStateProvider);
+          final addressState = ref.watch(addressShprfNotifierProvider);
           final state = ref.watch(meetPlaceStateProvider);
           final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));
 
@@ -153,13 +153,13 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                         btn1Text: '아니오',
                         btn2Text: '네',
                         onBtn1Pressed: (context) {
-                          ref.read(addressInfoStateProvider.notifier).resetAddress();
+                          ref.read(addressShprfNotifierProvider.notifier).resetAddress();
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         },
                         onBtn2Pressed: (context) {
                           _logger.i('FireStore DB Data Save!');
-                          ref.read(addressInfoStateProvider.notifier).saveLocationsData();
+                          ref.read(addressShprfNotifierProvider.notifier).saveLocationsData();
                           CommonUtils.showToastMsg('약속장소 정보를 저장합니다!');
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();

@@ -5,7 +5,7 @@ import '../main/main_screen.dart';
 import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
-import '../pages/meet/main_meet_page/view/meet_page.dart';
+import '../pages/meet/meet_page.dart';
 import '../pages/plan/bloc/address_bloc/address_bloc.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/plan/screens/recommend_list/recommended_list_page.dart';

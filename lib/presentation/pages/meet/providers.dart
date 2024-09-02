@@ -1,44 +1,34 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
 import '../../../data/repository_impl/home/tour_service_repository_impl.dart';
-import '../../../data/repository_impl/meet/location_firestore_repository_impl.dart';
-import '../../../data/repository_impl/meet/mobility_directions_repository_impl.dart';
-import '../../../data/repository_impl/meet/start_address_repository_impl.dart';
 import '../../../domain/repository/meet/location_firestore.repository.dart';
 import '../../../domain/repository/meet/mobility_directions_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/repository/tour_service.repository.dart';
 import '../../../domain/usecase/meet/get_all_address.dart';
-import '../../../main.dart';
 
 // ======================================================================
 // Domain
 // ======================================================================
-final addressRepositoryProvider =
-    Provider<StartAddressRepository>((ref) => StartAddressRepositoryImpl(
-          localPrefsStorage: ref.read(localStorageProvider),
-        ));
-
-/// # 모든 출발지 정보
-final getAllAddressProvider = Provider((ref) => GetAllAddress(
-      repository: ref.read(addressRepositoryProvider),
-    ));
+    /// # 모든 출발지 정보
+    final getAllAddressProvider = Provider((ref) => GetAllAddress
+(
+repository: ref.read(localStorageProvider),
+));
 
 // ======================================================================
 // Data
 // ======================================================================
-final localStorageProvider = Provider<LocalPrefsStorage>(
-  (ref) => LocalPrefsStorageImpl(sharedPreferences: sharedPref),
-);
+final localStorageProvider = Provider<AddressShrefRepository>((ref) => AddressShrefRepositoryImpl());
 
 /// # 관광정보 서비스 api 사용 provider
 final apiProvider = Provider<TourServiceRepository>((ref) => TourServiceRepositoryImpl());
 
 /// # 카카오 모빌리티 - 자동차 길찾기 api 사용 provider
 final kakaoMobilityApiProvider =
-    Provider<MobilityDirectionsRepository>((ref) => MobilityDirectionsRepositoryImpl());
+Provider<MobilityDirectionsRepository>((ref) => MobilityDirectionsRepositoryImpl());
 
 /// ## FireBase > FireStore DB > Locations Provider
-final locationDBProvider =
-    Provider<LocationFireStoreRepository>((ref) => LocationFireStoreRepositoryImpl());
+final locationFireStoreDBProvider =
+Provider<LocationFireStoreRepository>((ref) => LocationFireStoreRepositoryImpl()
+);

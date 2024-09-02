@@ -1,6 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
@@ -8,39 +7,27 @@ import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/repository/meet/start_address_repository.dart';
 import '../../../../../domain/usecase/meet/get_all_address.dart';
 import '../../providers.dart';
-import 'address_info_state.dart';
+import 'address_shprf_state.dart';
 
-final addressInfoStateProvider =
-StateNotifierProvider<AddressInfoNotifier, AddressInfoState>(
-        (ref) => AddressInfoNotifier(
-      getAllAddress: ref.read(getAllAddressProvider),
-      repo: ref.read(addressRepositoryProvider),
-    )
-);
+part 'address_shprf_notifier.g.dart';
 
 final Logger _logger = CustomLogger.logger;
 final firestore = FirebaseFirestoreUtil();
 
-/**
- * viewModel 과 같은 기능이라 생각하면 될듯
- */
-class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
+@riverpod
+class AddressShprfNotifier extends _$AddressShprfNotifier {
+  @override
+  AddressShprfState build() {
+    return const AddressShprfState();
+  }
 
-  AddressInfoNotifier({
-    required GetAllAddress getAllAddress,
-    required StartAddressRepository repo,
-  })
-      : _getAllAddress = getAllAddress,
-        _repo = repo,
-        super(const AddressInfoState());
-
-  final GetAllAddress _getAllAddress;
-  final StartAddressRepository _repo;
+  GetAllAddress get _getAllAddress => ref.read(getAllAddressProvider);
+  AddressShrefRepository get _repo => ref.read(localStorageProvider);
 
   /// ## 출발지 정보 Fetch
   Future<void> fetchAddressInfo() async {
-    state = state.copyWith(status: AddressInfoStatus.loading);
-    
+    state = state.copyWith(status: AddressShprfStatus.loading);
+
     resetAddress(); // 기존에 남아있던 SharedPreferences 데이터 삭제 후 진행
 
     // firebase DB 우선 확인..
@@ -67,7 +54,7 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
 
     final list = await _getAllAddress();
     state = state.copyWith(
-      status: AddressInfoStatus.success,
+      status: AddressShprfStatus.success,
       addresses: List.of(state.addressList)..addAll(list),
       isMaxInput: list.length < 4,
     );
@@ -75,13 +62,13 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
 
   /// ## 출발지 정보 Update
   Future<void> addAddressInput(AddressModel addressModel) async {
-    state = state.copyWith(status: AddressInfoStatus.loading);
+    state = state.copyWith(status: AddressShprfStatus.loading);
 
     await _repo.updateAddress(addressModel);
 
     final list = await _getAllAddress();
     state = state.copyWith(
-      status: AddressInfoStatus.success,
+      status: AddressShprfStatus.success,
       addresses: List.from(list),
       isMaxInput: list.length < 4,
     );
@@ -89,13 +76,13 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
 
   /// ## 출발지 입력 라인 Add
   Future<void> addEmptyAddress(int index) async {
-    state = state.copyWith(status: AddressInfoStatus.loading);
+    state = state.copyWith(status: AddressShprfStatus.loading);
 
     await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
     final list = await _getAllAddress();
     state = state.copyWith(
-      status: AddressInfoStatus.success,
+      status: AddressShprfStatus.success,
       addresses: List.from(list),
       isMaxInput: list.length < 4,
     );
@@ -103,26 +90,26 @@ class AddressInfoNotifier extends StateNotifier<AddressInfoState> {
 
   /// ## 입력된 주소 정보 Delete
   Future<void> deleteAddress(int index) async {
-    state = state.copyWith(status: AddressInfoStatus.loading);
+    state = state.copyWith(status: AddressShprfStatus.loading);
 
     await _repo.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
     final list = await _getAllAddress();
     state = state.copyWith(
-      status: AddressInfoStatus.success,
+      status: AddressShprfStatus.success,
       addresses: List.from(list),
     );
   }
 
   /// ## 출발지 입력 라인 Delete
   Future<void> deleteAddressInput(int index) async {
-    state = state.copyWith(status: AddressInfoStatus.loading);
+    state = state.copyWith(status: AddressShprfStatus.loading);
 
     await _repo.deleteAddressInput(index);
 
     final list = await _getAllAddress();
     state = state.copyWith(
-      status: AddressInfoStatus.success,
+      status: AddressShprfStatus.success,
       addresses: List.from(list),
       isMaxInput: list.length < 4,
     );

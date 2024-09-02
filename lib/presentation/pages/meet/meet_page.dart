@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../../core/utils/common_utils.dart';
-import '../../../../../core/utils/logger.dart';
-import '../../../../../data/data_source/local_storage/meet/local_prefs_storage.dart';
-import '../../../../../data/repository_impl/meet/start_address_repository_impl.dart';
-import '../../../../../domain/usecase/meet/get_all_address.dart';
-import '../../../../../main.dart';
-import '../../../../main/common/component/widget/appbar.dart';
-import '../../empty_page/view/screens/empty_meet_screen.dart';
-import '../notifier/meet_page_notifier.dart';
-import '../notifier/meet_page_state.dart';
+import '../../../core/utils/common_utils.dart';
+import '../../../core/utils/logger.dart';
+import '../../main/common/component/widget/appbar.dart';
+import 'empty_page/view/screens/empty_meet_screen.dart';
+import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
+import 'notifiers/meet_firestore/meet_firestore_state.dart';
 
 /**
  * Manager 김경태
@@ -48,18 +44,14 @@ class MeetMainView extends ConsumerStatefulWidget {
 }
 
 class _MeetMainView extends ConsumerState<MeetMainView> {
-  late GetAllAddress _getAllAddress;
 
   @override
   void initState() {
     super.initState();
     _logger.i('[ MeetMainView ] -> initState');
     // todo initState상태에서 바로 로그인 체크 -> 상태관리로 확인하여 비로그인 / 로그인 / 로그인했는데 DB 비었을떄 에 따라 화면 다르게 출력되도록 실행
-    final localStorage = LocalPrefsStorageImpl(sharedPreferences: sharedPref);
-    final repo = StartAddressRepositoryImpl(localPrefsStorage: localStorage);
-    _getAllAddress = GetAllAddress(repository: repo);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(meetPageStateProvider.notifier).getLoginState();
+      ref.read(meetFireStoreNotifierProvider.notifier).getLoginState();
     });
   }
 
@@ -68,32 +60,30 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
     return Scaffold(
       appBar: MainAppbar(title: '우리 어디서 만날까?'),
       body: Consumer(builder: (context, ref, child) {
-        final dbState = ref.watch(meetPageStateProvider);
-        final dbStatus = ref
-            .watch(meetPageStateProvider.select((p) => p.status)); // DB Status
-        final loginStatus = ref.watch(
-            meetPageStateProvider.select((p) => p.loginStatus)); // Login Status
+        final dbState = ref.watch(meetFireStoreNotifierProvider);
+        final dbStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // DB Status
+        final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status
 
         _logger.i('[ MeetPage ] Current Login Status Info -> ${loginStatus}');
         switch (loginStatus) {
-          case MeetPageLoginStatus.initial:
+          case MeetLoginStatus.initial:
             {
               // Init -> CircularProgress
               return CircularProgressIndicator();
             }
-          case MeetPageLoginStatus.nonLogin:
+          case MeetLoginStatus.nonLogin:
             {
               // todo -> 바로 비어잇는 화면 보여주지 않고 로그인중이지 확인함 -> 로그인해고 db 조회햇는데 없다면 비어있는 화면 출력 / 비로그인 시에도 비어있는 화면 출력
               // 비로그인 -> EmptyMeetScreen
               return EmptyMeetScreen();
             }
-          case MeetPageLoginStatus.failure:
+          case MeetLoginStatus.failure:
             {
               // 간단 토스트 팝업 제공 후 -> EmptyMeetScreen
               CommonUtils.showToastMsg('로그인 정보가 확인되지 않습니다.');
               return EmptyMeetScreen();
             }
-          case MeetPageLoginStatus.login:
+          case MeetLoginStatus.login:
             {
               // 저장된 약속장소 데이터가 있는지 DB Select Run!
               return Container(

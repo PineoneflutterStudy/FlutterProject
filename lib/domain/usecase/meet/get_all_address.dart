@@ -4,10 +4,10 @@ import '../../repository/meet/start_address_repository.dart';
 /// ## 출발지 입력 화면 진입
 class GetAllAddress {
   GetAllAddress({
-    required StartAddressRepository repository,
+    required AddressShrefRepository repository,
   }) : _repository = repository;
 
-  final StartAddressRepository _repository;
+  final AddressShrefRepository _repository;
 
   Future<List<AddressModel>> call() async {
     final list = await _repository.getAllAddress();

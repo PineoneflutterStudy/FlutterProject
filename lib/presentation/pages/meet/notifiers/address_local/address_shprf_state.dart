@@ -2,29 +2,29 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../../domain/model/display/meet/address_model.dart';
 
-enum AddressInfoStatus { initial, loading, success, failure }
+enum AddressShprfStatus { initial, loading, success, failure }
 
-class AddressInfoState extends Equatable {
+class AddressShprfState extends Equatable {
 
-  const AddressInfoState ({
-    this.status = AddressInfoStatus.initial,
+  const AddressShprfState ({
+    this.status = AddressShprfStatus.initial,
     this.addressList = const [],
     this.isMaxInput = true,
     this.isDataSaved = '',
-});
+  });
 
-  final AddressInfoStatus status;
+  final AddressShprfStatus status;
   final List<AddressModel> addressList;
   final bool isMaxInput;
   final String isDataSaved;
 
-  AddressInfoState copyWith({
-    AddressInfoStatus? status,
+  AddressShprfState copyWith({
+    AddressShprfStatus? status,
     List<AddressModel>? addresses,
     bool? isMaxInput,
     String? isDataSaved,
   }) {
-    return AddressInfoState(
+    return AddressShprfState(
       status: status ?? this.status,
       addressList: addresses ?? this.addressList,
       isMaxInput: isMaxInput ?? this.isMaxInput,

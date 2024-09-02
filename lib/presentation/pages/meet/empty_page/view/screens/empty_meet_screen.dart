@@ -7,8 +7,8 @@ import '../../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../../core/utils/logger.dart';
 import '../../../../../main/common/component/dialog/common_dialog.dart';
 import '../../../../login/login_page.dart';
-import '../../../main_meet_page/notifier/meet_page_notifier.dart';
-import '../../../main_meet_page/notifier/meet_page_state.dart';
+import '../../../notifiers/meet_firestore/meet_firestore_notifier.dart';
+import '../../../notifiers/meet_firestore/meet_firestore_state.dart';
 import '../dialogs/start_address_input_dialog.dart';
 
 final Logger _logger = CustomLogger.logger;
@@ -48,19 +48,19 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
     return Scaffold(
       body: Consumer(builder: (context, ref, child) {
         final loginStatus = ref.watch(
-            meetPageStateProvider.select((p) => p.loginStatus)); // Login Status
+            meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status
 
         _logger.i(
             '[ EmptyMeetScreen ] Current Login Status Info -> ${loginStatus}');
 
         switch (loginStatus) {
-          case MeetPageLoginStatus.initial:
+          case MeetLoginStatus.initial:
             {
               return CircularProgressIndicator();
             }
-          case MeetPageLoginStatus.nonLogin:
-          case MeetPageLoginStatus.failure:
-          case MeetPageLoginStatus.login:
+          case MeetLoginStatus.nonLogin:
+          case MeetLoginStatus.failure:
+          case MeetLoginStatus.login:
             {
               // 비로그인과 로그인 실패 -> 로그인 화면으로 넘기는 기능 필요 / 로그인 사용자( DB에 데이터가 없음 ) -> 출발지 입력 Dialog 실행 가능!!
               return Column(
@@ -70,7 +70,7 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
                     // 제스처 감지
                     onTap: () {
                       switch (loginStatus) {
-                        case MeetPageLoginStatus.login:
+                        case MeetLoginStatus.login:
                           {
                             // 로그인 사용자 -> 출발지 입력 Dialog 제공!
                             showDialog(
@@ -78,8 +78,8 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
                               builder: (context) => StartAddressInputDialog(),
                             );
                           }
-                        case MeetPageLoginStatus.nonLogin:
-                        case MeetPageLoginStatus.failure:
+                        case MeetLoginStatus.nonLogin:
+                        case MeetLoginStatus.failure:
                           {
                             // 비로그인 / 로그인 실패 -> 로그인 유도 화면 이동!!
                             CommonDialog.confirmDialog(
@@ -112,12 +112,12 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
                                   // 로그인 화면에서 로그인 진행 결과 -> true : 로그인 성공! / null : 로그인 성공적으로 진행하지 않고 빠져나옴...
                                   if (result == true) {
                                     _logger.i('Login Result is Success! Current Login User!');
-                                    ref.read(meetPageStateProvider.notifier).updateLoginState(true);
+                                    ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(true);
                                     return;
                                   }
 
                                   _logger.i('Login Result is Failure Or Cancel... Current Non-Login User..');
-                                  ref.read(meetPageStateProvider.notifier).updateLoginState(false);
+                                  ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(false);
                                 });
                           }
 
