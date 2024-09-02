@@ -29,7 +29,7 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
     super.initState();
     apiKey = FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D');
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(festivalStateProvider.notifier).getTourFestivalInfo();
+      ref.read(festivalInfoNotifierProvider.notifier).getTourFestivalInfo();
     });
   }
 
@@ -38,9 +38,9 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
     return Container(
       child: Consumer(
         builder: (context, ref, child) {
-          final provider = ref.watch(festivalStateProvider);
+          final provider = ref.watch(festivalInfoNotifierProvider);
           final apiStatus =
-              ref.watch(festivalStateProvider.select((p) => p.status));
+              ref.watch(festivalInfoNotifierProvider.select((p) => p.status));
 
           switch (apiStatus) {
             case HomeResponseStatus.init:
