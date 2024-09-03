@@ -22,6 +22,14 @@ class CommonUtils {
     );
   }
 
+  /// ## 전달된 이메일 형식 유효성 검사 후 결과를 반환한다.
+  bool isValidEmail(String email) {
+    final RegExp emailRegExp = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegExp.hasMatch(email);
+  }
+
   /// ## *로 마스킹 처리된 이메일을 반환한다.
   String maskEmail(String email) {
     // 이메일 주소를 @ 기준으로 나눔
