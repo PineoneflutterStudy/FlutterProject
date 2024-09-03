@@ -84,14 +84,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
             listener: (context, state) {
               CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
-              state.maybeWhen(
-                  alreadyLoggedIn: () => _onAlreadyLoggedIn(),
-                  emailDuplicateError: (email) => _onEmailDuplicateError(email),
-                  requireMoreUserInfo: () => _onRequireMoreUserInfo(),
-                  navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
-                  loggedIn: () => _onLoggedIn(),
-                  error: () => _onError(),
-                  orElse: () => null);
+              state.when(
+                initial: () {},
+                alreadyLoggedIn: () => _onAlreadyLoggedIn(),
+                emailDuplicateError: (email) => _onEmailDuplicateError(email),
+                requireMoreUserInfo: () => _onRequireMoreUserInfo(),
+                navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
+                loggedIn: () => _onLoggedIn(),
+                error: () => _onError(),
+              );
             },
           ),
         ),
