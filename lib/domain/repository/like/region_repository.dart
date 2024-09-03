@@ -1,6 +1,7 @@
 import '../../../data/data_source/api/region/region_impl_api.dart';
-import '../../model/display/like/access_token_model.dart';
-import '../../model/display/like/region_model.dart';
+
+import '../../model/display/like/access_token.dart';
+import '../../model/display/like/region.dart';
 import 'abstract_region_repository.dart';
 
 class RegionRepository extends AbstractRegionRepository {

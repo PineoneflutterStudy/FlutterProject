@@ -1,5 +1,5 @@
-import '../../model/display/like/access_token_model.dart';
-import '../../model/display/like/region_model.dart';
+import '../../model/display/like/access_token.dart';
+import '../../model/display/like/region.dart';
 
 abstract class AbstractRegionRepository {
 
