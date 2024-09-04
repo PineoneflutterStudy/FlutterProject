@@ -7,6 +7,7 @@ import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
 import '../../login/login_page.dart';
+import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_state.dart';
 import '../dialogs/start_address_input_dialog.dart';
@@ -47,11 +48,12 @@ class _EmptyMeetScreenView extends ConsumerState<EmptyMeetScreenView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer(builder: (context, ref, child) {
-        final loginStatus = ref.watch(
-            meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status
+        final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status -> 로그인 유도
+        final shprfStatus = ref.watch(addressShprfNotifierProvider.select((p) => p.status)); // SharedPreferences Status
+        final shprfState = ref.read(addressShprfNotifierProvider.notifier); // SharedPreferences State
+        final dbState = ref.watch(meetFireStoreNotifierProvider);
 
-        _logger.i(
-            '[ EmptyMeetScreen ] Current Login Status Info -> ${loginStatus}');
+        _logger.i('[ EmptyMeetScreen ] Current Login Status Info -> ${loginStatus}');
 
         switch (loginStatus) {
           case MeetLoginStatus.initial:

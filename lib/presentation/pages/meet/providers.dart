@@ -5,19 +5,9 @@ import '../../../domain/repository/meet/location_firestore.repository.dart';
 import '../../../domain/repository/meet/mobility_directions_repository.dart';
 import '../../../domain/repository/meet/start_address_repository.dart';
 import '../../../domain/repository/tour_service.repository.dart';
-import '../../../domain/usecase/meet/get_all_address.dart';
 
 // ======================================================================
-// Domain
-// ======================================================================
-    /// # 모든 출발지 정보
-    final getAllAddressProvider = Provider((ref) => GetAllAddress
-(
-repository: ref.read(localStorageProvider),
-));
-
-// ======================================================================
-// Data
+// Provider ( Repository )
 // ======================================================================
 final localStorageProvider = Provider<AddressShrefRepository>((ref) => AddressShrefRepositoryImpl());
 

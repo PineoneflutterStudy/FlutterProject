@@ -5,7 +5,6 @@ import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/repository/meet/start_address_repository.dart';
-import '../../../../../domain/usecase/meet/get_all_address.dart';
 import '../../providers.dart';
 import 'address_shprf_state.dart';
 
@@ -20,39 +19,18 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
   AddressShprfState build() {
     return const AddressShprfState();
   }
-
-  GetAllAddress get _getAllAddress => ref.read(getAllAddressProvider);
   AddressShrefRepository get _repo => ref.read(localStorageProvider);
 
-  /// ## 출발지 정보 Fetch
-  Future<void> fetchAddressInfo() async {
+  /// ## Default Address Data Set
+  Future<void> getDefaultAddress() async {
     state = state.copyWith(status: AddressShprfStatus.loading);
 
     resetAddress(); // 기존에 남아있던 SharedPreferences 데이터 삭제 후 진행
 
-    // firebase DB 우선 확인..
-    final getAllLocations = await firestore.getDocumentsFromCollection(DBKey.DB_LOCATIONS);
-    _logger.i('Check get All Address ( firebase DB ) -> ${getAllLocations}');
+    _logger.i('Set Default Data & Empty 2 Input Line');
+    await _repo.setDefaultData();
 
-    if (getAllLocations != null) {
-      final dbData = await getFireStoreDBData(getAllLocations);
-      _logger.i('Check get DB Data -> ${dbData}');
-
-      if (dbData.isNotEmpty) {
-        _logger.i('DB에 값이 잇어서 DB 값 셋팅!!');
-        for (int i = 0; i < dbData.length; i++) {
-          await _repo.updateAddress(dbData[i]);
-        }
-      } else {
-        _logger.i('[ getFireStoreDBData ] is Empty..!');
-        await _repo.setDefaultData();
-      }
-    } else {
-      _logger.i('[ getDocumentsFromCollection ] is Null & Empty..!');
-      await _repo.setDefaultData();
-    }
-
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     state = state.copyWith(
       status: AddressShprfStatus.success,
       addresses: List.of(state.addressList)..addAll(list),
@@ -66,7 +44,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
 
     await _repo.updateAddress(addressModel);
 
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     state = state.copyWith(
       status: AddressShprfStatus.success,
       addresses: List.from(list),
@@ -80,7 +58,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
 
     await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     state = state.copyWith(
       status: AddressShprfStatus.success,
       addresses: List.from(list),
@@ -94,7 +72,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
 
     await _repo.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
 
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     state = state.copyWith(
       status: AddressShprfStatus.success,
       addresses: List.from(list),
@@ -107,7 +85,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
 
     await _repo.deleteAddressInput(index);
 
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     state = state.copyWith(
       status: AddressShprfStatus.success,
       addresses: List.from(list),
@@ -121,9 +99,10 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
     await _repo.resetAddress();
   }
 
+  /// ## 추후 이동 예정...
   /// ## 출발지 정보 Data Save ( SharedPreferences -> FireStore DB )
   Future<void> saveLocationsData() async {
-    final list = await _getAllAddress();
+    final list = await _repo.getAllAddress();
     _logger.i('전체 경로 저장 전에 모든 경로 확인 -> ${list}');
     if (list.isNotEmpty) {
       for (int i = 0; i < list.length; i++) {

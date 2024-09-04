@@ -28,10 +28,6 @@ class MeetMobilityNotifier extends _$MeetMobilityNotifier {
   Future<void> getAllRouteData(
       List<AddressModel> addressList, String longitude, String latitude) async {
     state = state.copyWith(status: MeetMobilityStatus.loading);
-    // 관광 정보로 가져온 좌표값 -> 0 번쨰꺼 전달 받아야 한다.
-    /*final resultLongitude = resultTourLocationInfo[0].mapx;
-    final resultLatitude = resultTourLocationInfo[0].mapy;*/
-
     final List<MeetDirectionsModel> routes = [];
     _logger.i('Confirm AdderessList Data -> $addressList');
 

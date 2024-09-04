@@ -90,11 +90,10 @@ class MeetTourServiceNotifier extends _$MeetTourServiceNotifier {
         );
         _logger.i(
             'Radius Value ( ${TourApiRequestData().defaultRadius + (1000 * i)} ) Start Tour Location Api.. -> result : ${model}');
-        if (model.data != null) {
+        if (model.data != null && model.data!.isNotEmpty) {
           return model.data;
-        } else if (model.data == null) {
+        } else if (model.data == null || model.data!.isEmpty) {
           state = state.copyWith(status: MeetTourServiceStatus.loading);
-          return List.empty();
         }
       }
     } else {

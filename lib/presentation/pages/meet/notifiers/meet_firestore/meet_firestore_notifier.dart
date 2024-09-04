@@ -25,6 +25,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
       _logger.i('Current User Non Login Info...!');
       state = state.copyWith(
         loginStatus: MeetLoginStatus.nonLogin,
+        status: MeetFireStoreStatus.failure,
       );
       return;
     }
@@ -33,6 +34,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
     _logger.i('Current User is Login Success!!');
 
     // todo 로그인 시 DB에 정보 가져오는 로직 추가...
+    getLocationDB();
 
     // 현재 로그인 되어있음
     state = state.copyWith(
@@ -46,7 +48,46 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   )
       : state = state.copyWith(
     loginStatus: MeetLoginStatus.nonLogin,
+    status: MeetFireStoreStatus.failure,
   );
+
+  /// ## Firestore Database Get Location Info
+  // TODO save 로직 우선 구현 후 get 동작 구현... 우선 실패 반환
+  // TODO 성공 시 날짜별로 분류되어 있는 출발 목적지 정보들을  가져와서 저장...
+  Future<void> getLocationDB() async {
+    state = state.copyWith(
+      status: MeetFireStoreStatus.loading,
+    );
+
+    // firebase DB 우선 확인.. -> 이게 있어야 할듯
+    /*final getAllLocations = await firestore.getDocumentsFromCollection(DBKey.DB_LOCATIONS);
+    _logger.i('Check get All Address ( firebase DB ) -> ${getAllLocations}');
+
+    if (getAllLocations != null) {
+      final dbData = await getFireStoreDBData(getAllLocations);
+      _logger.i('Check get DB Data -> ${dbData}');
+
+      if (dbData.isNotEmpty) {
+        _logger.i('DB에 값이 잇어서 DB 값 셋팅!!');
+        for (int i = 0; i < dbData.length; i++) {
+          await _repo.updateAddress(dbData[i]);
+        }
+      } else {
+        _logger.i('[ getFireStoreDBData ] is Empty..!');
+        await _repo.setDefaultData();
+      }
+    } else {
+      _logger.i('[ getDocumentsFromCollection ] is Null & Empty..!');
+      await _repo.setDefaultData();
+    }*/
+
+
+
+    state = state.copyWith(
+      status: MeetFireStoreStatus.failure,
+    );
+  }
+
 
   /// ## Firebase Storage -> Marker에 사용할 이미지 Url Get
   Future<void> getMarkerImage() async {

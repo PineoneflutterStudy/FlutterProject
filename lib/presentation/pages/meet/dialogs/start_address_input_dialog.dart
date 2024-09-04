@@ -9,6 +9,7 @@ import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/address_model.dart';
 import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/address_local/address_shprf_state.dart';
+import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
 import '../screens/meet_place_map_screen.dart';
@@ -36,7 +37,7 @@ class StartAddressInputDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AddressDialogView();
+    return ProviderScope(child: AddressDialogView());
   }
 }
 
@@ -54,50 +55,63 @@ class _AddressDialogView extends ConsumerState<AddressDialogView> {
   @override
   void initState() {
     super.initState();
-
+    _logger.i('[ _AddressDialogView ] initState!!');
+    // 진입 시 Default값 Setting
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(addressShprfNotifierProvider.notifier).fetchAddressInfo();
+      ref.read(addressShprfNotifierProvider.notifier).getDefaultAddress();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final status = ref.watch(addressShprfNotifierProvider.select((p) => p.status));
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(dialogBgRadius),
+    // Default 2 Line 생성 상태만 확인
+    final shprfStatus = ref.watch(addressShprfNotifierProvider.select((p) => p.status));
+
+    switch (shprfStatus) {
+      case AddressShprfStatus.initial:
+      case AddressShprfStatus.loading:
+      case AddressShprfStatus.failure:
+        {
+          // failure는 아직 상태가 존재하지 않아 우선 ProgressIndicator 동작
+          return const Center(child: CircularProgressIndicator(),);
+        }
+      case AddressShprfStatus.success:
+        {
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(dialogBgRadius),
+                  ),
+                ),
+                TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: TextContentAreaWidget(
+                    content: '먼저 출발지를 입력해주세요.',
+                    contentSize: textSize_content,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // 주소 검색 Api 사용
+                _ContentView(),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
-          ),
-          TitleTextAreaWidget(content: '출발지 입력', contentSize: textSize_title),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextContentAreaWidget(
-              content: '먼저 출발지를 입력해주세요.',
-              contentSize: textSize_content,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          // 주소 검색 Api 사용
-          status == AddressShprfStatus.loading
-              ? const Center(child: CircularProgressIndicator(),)
-              : const _ContentView(),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    );
+          );
+        }
+    }
   }
 }
 
@@ -115,6 +129,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
   @override
   void initState() {
     super.initState();
+    _logger.i('[ __ContentViewState ] initState!!');
   }
 
   @override
@@ -160,8 +175,6 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     nextText: '중간지점 찾기!',
                     onBackPress: () {
                       Navigator.of(context).pop();
-                      // 현재 데이터 초기화 시점은 -> Dialog 에서 취소 버튼 입력 시 되도록 적용...
-                      //ref.read(addressInfoStateProvider.notifier).resetAddress();
                     },
                     onNextPress: () {
                       List<String> indices = state.addressList.map((address) => address.address).toList();

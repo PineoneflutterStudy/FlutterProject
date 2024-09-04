@@ -85,15 +85,33 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
             }
           case MeetLoginStatus.login:
             {
-              // 저장된 약속장소 데이터가 있는지 DB Select Run!
-              return Container(
-                child: Center(
-                  child: Text(
-                    '로그인이 되어있는 사용자 입니다!!',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              );
+              _logger.i('[ MeetPage ] Current FireStore Database Status Info -> ${dbStatus}');
+              switch (dbStatus) {
+                case MeetFireStoreStatus.initial:
+                case MeetFireStoreStatus.loading:
+                  {
+                    // initial, loading -> CircularProgress
+                    return CircularProgressIndicator();
+                  }
+                case MeetFireStoreStatus.failure:
+                  {
+                    // DB 데이터 조회 실패 -> 저장된 약속정보를 가져오는데 실패하였습니다. ( Toast ) -> EmptyMeetScreen
+                    CommonUtils.showToastMsg('저장된 약속정보를 가져오는데 실패하였습니다.');
+                    return EmptyMeetScreen();
+                  }
+                case MeetFireStoreStatus.success:
+                  {
+                    // 저장된 약속장소 데이터가 있는지 DB Select Run!
+                    return Container(
+                      child: Center(
+                        child: Text(
+                          'FireStore Database에 데이터가 존재합니다..!!',
+                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  }
+              }
             }
         }
       }),
