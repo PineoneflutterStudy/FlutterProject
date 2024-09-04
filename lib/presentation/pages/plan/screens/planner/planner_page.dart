@@ -73,7 +73,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                           controller: _pageController,
                           itemCount: selected.planner_page_list.length,
                           itemBuilder: (context, index) {
-                            return PageItemView(selected.planner_page_list[index], index + 1, widget.addressBloc, widget.plannerBloc);
+                            return PageItemView(plannerId: selected.planner_id, planner: selected.planner_page_list[index], pageIndex:  index, addressBloc:  widget.addressBloc, plannerBloc: widget.plannerBloc);
                           },
                           pageSnapping: true),
                     ),

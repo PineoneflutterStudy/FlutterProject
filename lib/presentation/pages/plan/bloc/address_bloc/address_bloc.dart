@@ -24,11 +24,12 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     // on<event>(함수) - event발생시 함수 호출
     on<AddressInitialized>(_onAddressInitialized);
     on<AddressUpdated>(_onAddressUpdated);
-    on<SetAddressUpdated>(_onSetAddressUpdated);
+    on<SetAddressUpdated>(_onSetAddress);
+    on<SetXYUpdated>(_onXYUpdated);
     on<FilterUpdated>(_onFilterUpdated);
   }
 
-  /// 처음 장소 검색 시, 필터 설정 X
+  /// 처음 장소 설정 시, 필터 설정 X
   Future<void> _onAddressInitialized(AddressInitialized event, Emitter<AddressState> emit) async {
     final location = event.location;
     try {
@@ -51,7 +52,13 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
   }
 
-  /// 필터 설정 후 검색 시 필터정보 유지, 장소 정보만 변경 (지역, 좌표(x,y))
+  Future<void> _onSetAddress(SetAddressUpdated event, Emitter<AddressState> emit) async {
+    final address = event.address;
+    emit(AddressState.success(address));
+  }
+
+
+  /// 검색창에서 검색 시 필터정보 유지, 검색 장소 만 변경 (지역)
   Future<void> _onAddressUpdated(AddressUpdated event, Emitter<AddressState> emit) async {
     final location = event.location;
     try {
@@ -81,9 +88,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
   }
 
-  Future<void> _onSetAddressUpdated(SetAddressUpdated event, Emitter<AddressState> emit) async {
-    final address = event.address;
-    emit(AddressState.success(address));
+  void _onXYUpdated(SetXYUpdated event, Emitter<AddressState> emit) {
+    state.maybeWhen(
+      success: (addressInfo) =>  emit(AddressState.success(addressInfo.copyWith(x: event.address.x, y: event.address.y))),
+      orElse: () {},
+    );
   }
 
   /// 필터 정보 변경시 필터 정보만 수정 (radius, sort)

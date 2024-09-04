@@ -80,7 +80,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     );
   }
 
-  Future<void> _onAddPlannerItem(Emitter<PlannerState> emit, String plannerId, int index, PlannerItem newPlannerItem) async {
+  /// 계획에 장소 추가하기
+  Future<void> _onAddPlannerItem(Emitter<PlannerState> emit, String plannerId, int pageIndex, PlannerItem newPlannerItem) async {
     final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
@@ -88,16 +89,16 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
       if (plannerData != null) {
         List<dynamic> pages = plannerData['planner_page_list'];
 
-        if (pages.length > index) {
-          var page = pages[index] as Map<String, dynamic>;
+        if (pages.length > pageIndex) {
+          var page = pages[pageIndex] as Map<String, dynamic>;
           List<dynamic> pageItemList = page['page_item_list'];
           pageItemList.add(newPlannerItem.toJson());
-          pages[index]['page_item_list'] = pageItemList;
+          pages[pageIndex]['page_item_list'] = pageItemList;
 
           await plannerDocRef.update({'planner_page_list': pages});
-          await _onGetPlannerList(emit);
+          await _onGetPlannerList(emit); // list 갱신
         } else {
-          print('해당 페이지 인덱스가 유효하지 않습니다.');
+          CustomLogger.logger.e('해당 페이지 인덱스가 유효하지 않습니다.');
         }
       } else {
         CustomLogger.logger.e("plannerDocRef is null");

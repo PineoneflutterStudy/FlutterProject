@@ -21,6 +21,7 @@ mixin _$AddressEvent {
     required TResult Function(String location) initialized,
     required TResult Function(String location) updated,
     required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
     required TResult Function(int radius, String sort) filterUpdated,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$AddressEvent {
     TResult? Function(String location)? initialized,
     TResult? Function(String location)? updated,
     TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
     TResult? Function(int radius, String sort)? filterUpdated,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$AddressEvent {
     TResult Function(String location)? initialized,
     TResult Function(String location)? updated,
     TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
     TResult Function(int radius, String sort)? filterUpdated,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$AddressEvent {
     required TResult Function(AddressInitialized value) initialized,
     required TResult Function(AddressUpdated value) updated,
     required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
     required TResult Function(FilterUpdated value) filterUpdated,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$AddressEvent {
     TResult? Function(AddressInitialized value)? initialized,
     TResult? Function(AddressUpdated value)? updated,
     TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
     TResult? Function(FilterUpdated value)? filterUpdated,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$AddressEvent {
     TResult Function(AddressInitialized value)? initialized,
     TResult Function(AddressUpdated value)? updated,
     TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
     TResult Function(FilterUpdated value)? filterUpdated,
     required TResult orElse(),
   }) =>
@@ -155,6 +161,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     required TResult Function(String location) initialized,
     required TResult Function(String location) updated,
     required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
     required TResult Function(int radius, String sort) filterUpdated,
   }) {
     return initialized(location);
@@ -166,6 +173,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     TResult? Function(String location)? initialized,
     TResult? Function(String location)? updated,
     TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
     TResult? Function(int radius, String sort)? filterUpdated,
   }) {
     return initialized?.call(location);
@@ -177,6 +185,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     TResult Function(String location)? initialized,
     TResult Function(String location)? updated,
     TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
     TResult Function(int radius, String sort)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -192,6 +201,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     required TResult Function(AddressInitialized value) initialized,
     required TResult Function(AddressUpdated value) updated,
     required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
     required TResult Function(FilterUpdated value) filterUpdated,
   }) {
     return initialized(this);
@@ -203,6 +213,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     TResult? Function(AddressInitialized value)? initialized,
     TResult? Function(AddressUpdated value)? updated,
     TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
     TResult? Function(FilterUpdated value)? filterUpdated,
   }) {
     return initialized?.call(this);
@@ -214,6 +225,7 @@ class _$AddressInitializedImpl implements AddressInitialized {
     TResult Function(AddressInitialized value)? initialized,
     TResult Function(AddressUpdated value)? updated,
     TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
     TResult Function(FilterUpdated value)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -303,6 +315,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     required TResult Function(String location) initialized,
     required TResult Function(String location) updated,
     required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
     required TResult Function(int radius, String sort) filterUpdated,
   }) {
     return updated(location);
@@ -314,6 +327,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     TResult? Function(String location)? initialized,
     TResult? Function(String location)? updated,
     TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
     TResult? Function(int radius, String sort)? filterUpdated,
   }) {
     return updated?.call(location);
@@ -325,6 +339,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     TResult Function(String location)? initialized,
     TResult Function(String location)? updated,
     TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
     TResult Function(int radius, String sort)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -340,6 +355,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     required TResult Function(AddressInitialized value) initialized,
     required TResult Function(AddressUpdated value) updated,
     required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
     required TResult Function(FilterUpdated value) filterUpdated,
   }) {
     return updated(this);
@@ -351,6 +367,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     TResult? Function(AddressInitialized value)? initialized,
     TResult? Function(AddressUpdated value)? updated,
     TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
     TResult? Function(FilterUpdated value)? filterUpdated,
   }) {
     return updated?.call(this);
@@ -362,6 +379,7 @@ class _$AddressUpdatedImpl implements AddressUpdated {
     TResult Function(AddressInitialized value)? initialized,
     TResult Function(AddressUpdated value)? updated,
     TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
     TResult Function(FilterUpdated value)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -459,6 +477,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     required TResult Function(String location) initialized,
     required TResult Function(String location) updated,
     required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
     required TResult Function(int radius, String sort) filterUpdated,
   }) {
     return setAddress(address);
@@ -470,6 +489,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     TResult? Function(String location)? initialized,
     TResult? Function(String location)? updated,
     TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
     TResult? Function(int radius, String sort)? filterUpdated,
   }) {
     return setAddress?.call(address);
@@ -481,6 +501,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     TResult Function(String location)? initialized,
     TResult Function(String location)? updated,
     TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
     TResult Function(int radius, String sort)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -496,6 +517,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     required TResult Function(AddressInitialized value) initialized,
     required TResult Function(AddressUpdated value) updated,
     required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
     required TResult Function(FilterUpdated value) filterUpdated,
   }) {
     return setAddress(this);
@@ -507,6 +529,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     TResult? Function(AddressInitialized value)? initialized,
     TResult? Function(AddressUpdated value)? updated,
     TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
     TResult? Function(FilterUpdated value)? filterUpdated,
   }) {
     return setAddress?.call(this);
@@ -518,6 +541,7 @@ class _$SetAddressUpdatedImpl implements SetAddressUpdated {
     TResult Function(AddressInitialized value)? initialized,
     TResult Function(AddressUpdated value)? updated,
     TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
     TResult Function(FilterUpdated value)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -535,6 +559,167 @@ abstract class SetAddressUpdated implements AddressEvent {
   Address get address;
   @JsonKey(ignore: true)
   _$$SetAddressUpdatedImplCopyWith<_$SetAddressUpdatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetXYUpdatedImplCopyWith<$Res> {
+  factory _$$SetXYUpdatedImplCopyWith(
+          _$SetXYUpdatedImpl value, $Res Function(_$SetXYUpdatedImpl) then) =
+      __$$SetXYUpdatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Address address});
+
+  $AddressCopyWith<$Res> get address;
+}
+
+/// @nodoc
+class __$$SetXYUpdatedImplCopyWithImpl<$Res>
+    extends _$AddressEventCopyWithImpl<$Res, _$SetXYUpdatedImpl>
+    implements _$$SetXYUpdatedImplCopyWith<$Res> {
+  __$$SetXYUpdatedImplCopyWithImpl(
+      _$SetXYUpdatedImpl _value, $Res Function(_$SetXYUpdatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? address = null,
+  }) {
+    return _then(_$SetXYUpdatedImpl(
+      null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SetXYUpdatedImpl implements SetXYUpdated {
+  const _$SetXYUpdatedImpl(this.address);
+
+  @override
+  final Address address;
+
+  @override
+  String toString() {
+    return 'AddressEvent.setXYUpdated(address: $address)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetXYUpdatedImpl &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, address);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SetXYUpdatedImplCopyWith<_$SetXYUpdatedImpl> get copyWith =>
+      __$$SetXYUpdatedImplCopyWithImpl<_$SetXYUpdatedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String location) initialized,
+    required TResult Function(String location) updated,
+    required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
+    required TResult Function(int radius, String sort) filterUpdated,
+  }) {
+    return setXYUpdated(address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String location)? initialized,
+    TResult? Function(String location)? updated,
+    TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
+    TResult? Function(int radius, String sort)? filterUpdated,
+  }) {
+    return setXYUpdated?.call(address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String location)? initialized,
+    TResult Function(String location)? updated,
+    TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
+    TResult Function(int radius, String sort)? filterUpdated,
+    required TResult orElse(),
+  }) {
+    if (setXYUpdated != null) {
+      return setXYUpdated(address);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddressInitialized value) initialized,
+    required TResult Function(AddressUpdated value) updated,
+    required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
+    required TResult Function(FilterUpdated value) filterUpdated,
+  }) {
+    return setXYUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddressInitialized value)? initialized,
+    TResult? Function(AddressUpdated value)? updated,
+    TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
+    TResult? Function(FilterUpdated value)? filterUpdated,
+  }) {
+    return setXYUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddressInitialized value)? initialized,
+    TResult Function(AddressUpdated value)? updated,
+    TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
+    TResult Function(FilterUpdated value)? filterUpdated,
+    required TResult orElse(),
+  }) {
+    if (setXYUpdated != null) {
+      return setXYUpdated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetXYUpdated implements AddressEvent {
+  const factory SetXYUpdated(final Address address) = _$SetXYUpdatedImpl;
+
+  Address get address;
+  @JsonKey(ignore: true)
+  _$$SetXYUpdatedImplCopyWith<_$SetXYUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -613,6 +798,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     required TResult Function(String location) initialized,
     required TResult Function(String location) updated,
     required TResult Function(Address address) setAddress,
+    required TResult Function(Address address) setXYUpdated,
     required TResult Function(int radius, String sort) filterUpdated,
   }) {
     return filterUpdated(radius, sort);
@@ -624,6 +810,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     TResult? Function(String location)? initialized,
     TResult? Function(String location)? updated,
     TResult? Function(Address address)? setAddress,
+    TResult? Function(Address address)? setXYUpdated,
     TResult? Function(int radius, String sort)? filterUpdated,
   }) {
     return filterUpdated?.call(radius, sort);
@@ -635,6 +822,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     TResult Function(String location)? initialized,
     TResult Function(String location)? updated,
     TResult Function(Address address)? setAddress,
+    TResult Function(Address address)? setXYUpdated,
     TResult Function(int radius, String sort)? filterUpdated,
     required TResult orElse(),
   }) {
@@ -650,6 +838,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     required TResult Function(AddressInitialized value) initialized,
     required TResult Function(AddressUpdated value) updated,
     required TResult Function(SetAddressUpdated value) setAddress,
+    required TResult Function(SetXYUpdated value) setXYUpdated,
     required TResult Function(FilterUpdated value) filterUpdated,
   }) {
     return filterUpdated(this);
@@ -661,6 +850,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     TResult? Function(AddressInitialized value)? initialized,
     TResult? Function(AddressUpdated value)? updated,
     TResult? Function(SetAddressUpdated value)? setAddress,
+    TResult? Function(SetXYUpdated value)? setXYUpdated,
     TResult? Function(FilterUpdated value)? filterUpdated,
   }) {
     return filterUpdated?.call(this);
@@ -672,6 +862,7 @@ class _$FilterUpdatedImpl implements FilterUpdated {
     TResult Function(AddressInitialized value)? initialized,
     TResult Function(AddressUpdated value)? updated,
     TResult Function(SetAddressUpdated value)? setAddress,
+    TResult Function(SetXYUpdated value)? setXYUpdated,
     TResult Function(FilterUpdated value)? filterUpdated,
     required TResult orElse(),
   }) {

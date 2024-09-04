@@ -9,15 +9,21 @@ import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget with PlanUtil{
+  final String plannerId;
+  final int pageIndex;
   final PlannerItem plan;
-  final int index;
+  final int curItemindex;
   final int lastIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  PlannerItemView(this.plan, this.index, this.lastIndex, this.addressBloc, this.plannerBloc, {super.key});
+  PlannerItemView({required this.plannerId,required this.pageIndex, required this.plan,required this.curItemindex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
+    if(curItemindex == 0){
+      addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
+    }
+    //todo 다음날 넘어갈 경우 구분선 추가하기
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -31,12 +37,12 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                 child: Text(plan.end_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 20))),
             SizedBox(width: 8),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Stack(
                 alignment: Alignment.centerLeft,
                 children: [
                   TextField(decoration: InputDecoration(labelText: plan.place_name, border: UnderlineInputBorder())),
-                  if (index != 0)
+                  if (curItemindex != 0)
                     Positioned(
                       right: 0,
                       child: Row(
@@ -60,22 +66,17 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
             ),
           ],
         ),
-        SizedBox(height: 8),
-        Container(width: 4, height: 12,
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        if (index == lastIndex)
+        SizedBox(height: (curItemindex == lastIndex) ? 40 : 10 ),
+        if (curItemindex == lastIndex)
           ElevatedButton(
             onPressed: () {
+              // 마지막 위치로 좌표 수정
               var prevAddress = plan.cur_address_info;
-              addressBloc.add(AddressEvent.setAddress(prevAddress));
+              addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
+
               context.pushNamed('rcmn', queryParameters: {'location': plan.place_name}, extra: addressBloc).then((value) {
                 var result = value as Map<String,dynamic>;
-                print(' result : $result');
+
                 var startTime = plan.end_time;
                 var plannerItem = PlannerItem(
                   prev_address_info: prevAddress, // O
@@ -88,8 +89,9 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                   transportation: result['selectedTransportation'],
                   travel_time: result['travel_time'],
                 );
-                print('plannerItem : $plannerItem');
-                // plannerBloc.add(PlannerEvent.addPlannerItem(PlannerId, index, plannerItem));
+
+                plannerBloc.add(PlannerEvent.addPlannerItem(plannerId, pageIndex, plannerItem));
+                plannerBloc.add(GetPlannerListEvent());
               });
             },
             child: Text('Add Next Place'),
@@ -102,12 +104,13 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     final Transportation transportation = getTransportationByCode(plan.transportation ?? 'walk');
     if (plan.travel_time != null) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: 45),
+              Expanded(child: Container()),
+              SizedBox(width: 10),
               Container(width: 4, height: 12,
                 decoration: BoxDecoration(color: transportation.textColor, borderRadius: BorderRadius.circular(5)),
               ),
@@ -115,6 +118,8 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
               Text(plan.transportation ?? '도보', style: TextStyle(fontSize: 16, color: transportation.textColor)),
               SizedBox(width: 4),
               Icon( transportation.icon,color: transportation.textColor, size: 16),
+              Expanded(child: Container()),
+              Expanded(flex : 3, child: Container()),
             ],
           ),
           SizedBox(height: 10),

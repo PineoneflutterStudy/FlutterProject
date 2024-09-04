@@ -76,7 +76,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                         builder: (_, state) {
                           CustomLogger.logger.i("rcmn address state : $state");
                           return state.when(
-                            loading: () => PlannerLoadingWidget(),
+                            loading: () => CircularProgressIndicator(),
                             success: (addressInfo) {
                               CustomLogger.logger.i("현재 중심 위치 : $addressInfo");
                               return PlaceView(categoryList : ctgrState.ctgrs, address : addressInfo);

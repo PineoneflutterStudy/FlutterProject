@@ -8,12 +8,13 @@ import '../../../../../domain/model/display/place/planner.model.dart';
 
 /// 여행계획 Item View
 class PageItemView extends StatefulWidget {
+  final String plannerId;
   final PlannerPage planner;
-  final int index;
+  final int pageIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
 
-  const PageItemView(this.planner, this.index, this.addressBloc, this.plannerBloc, {super.key});
+  const PageItemView({required this.plannerId, required this.planner,required this.pageIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   State<PageItemView> createState() => _PageItemViewState();
@@ -38,7 +39,7 @@ class _PageItemViewState extends State<PageItemView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${widget.planner.planner_title ?? ''} ${widget.index}일차 🚘",
+                "${widget.planner.planner_title ?? ''} ${widget.pageIndex + 1}일차 🚘",
                 style: TextStyle(fontSize: 25),
               ),
               SizedBox(height: 16), // Text와 ListView 사이의 간격
@@ -46,7 +47,14 @@ class _PageItemViewState extends State<PageItemView> {
                 child: ListView.builder(
                   itemCount: widget.planner.page_item_list.length,
                   itemBuilder: (context, index) {
-                    return PlannerItemView(widget.planner.page_item_list[index],index,widget.planner.page_item_list.length-1, widget.addressBloc, widget.plannerBloc);
+                    return PlannerItemView(
+                        plannerId: widget.plannerId,
+                        pageIndex: widget.pageIndex,
+                        plan: widget.planner.page_item_list[index],
+                        curItemindex: index,
+                        lastIndex: widget.planner.page_item_list.length - 1,
+                        addressBloc: widget.addressBloc,
+                        plannerBloc: widget.plannerBloc);
                   },
                 ),
               ),

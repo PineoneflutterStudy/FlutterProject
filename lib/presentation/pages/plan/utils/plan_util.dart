@@ -8,8 +8,9 @@ import '../bloc/address_bloc/address_bloc.dart';
 import '../dialog/go_plan_popup.dart';
 
 mixin PlanUtil {
+
   /// 거리 format
-  /// 1000 이상일 경우 km, 1000 이하일 경우 m 단위로 표기
+  /// 1000 이상일 경우 km 단위, 1000 이하일 경우 m 단위로 표기
   String formatDistance(String? distanceStr) {
     double distance = double.parse(distanceStr ?? '0');
 
@@ -31,6 +32,28 @@ mixin PlanUtil {
     }
   }
 
+  /// 을/를 반환
+  String getParticle(String word) {
+    if (word.isEmpty) {
+      return '';
+    }
+
+    String lastChar = word[word.length - 1];
+
+    // 마지막 문자가 한글이 아닌 경우
+    if (lastChar.codeUnitAt(0) < 0xAC00 || lastChar.codeUnitAt(0) > 0xD7A3) {
+      return '을';
+    }
+
+    int lastCharCode = lastChar.codeUnitAt(0);
+    int baseCode = lastCharCode - 0xAC00;
+    int finalConsonantIndex = baseCode % 28;
+
+    // 받침이 있으면 '을', 없으면 '를' 반환
+    return finalConsonantIndex == 0 ? '를' : '을';
+  }
+
+
   /// 여행지 입력 팝업
   // init_planner_page, planner_page 에서 사용
   Future<Map<String, Planner>?> showGoPlanPopup(
@@ -49,6 +72,18 @@ mixin PlanUtil {
     return result; // 결과를 반환
   }
 
+  /// 이동 시간 "몇시몇분몇초" 텍스트 반환
+  /// 60초 이하는 1분미만 텍스트 반환
+  String getTimeText(double timeInMinutes) {
+    int hours = timeInMinutes ~/ 60;
+    int minutes = (timeInMinutes % 60).toInt();
+    int seconds = ((timeInMinutes - timeInMinutes.floor()) * 60).toInt();
+    String hText = (hours > 0) ? " ${hours.toString()}시" : "";
+    String mText = (minutes > 0) ? " ${minutes.toString()}분" : "";
+    String sText = (hours ==0 && minutes == 0 && seconds > 0) ? "1분 미만" : " ${seconds.toString()}초";
+    return "$hText$mText$sText";
+  }
+
   /// 차량 이동 시간 계산
   /// 시속 60km = 분속 1km = 분속 1000m
   String getCarTravelTime(String distance) {
@@ -61,18 +96,6 @@ mixin PlanUtil {
   String getWalkTravelTime(String distance) {
     double timeInMinutes = (double.parse(distance) / 1000) * 15;
     return getTimeText(timeInMinutes);
-  }
-
-  /// 이동 시간 "몇시몇분몇초" 텍스트 반환
-  /// todo 60초 이하는 1분미만 수정
-  String getTimeText(double timeInMinutes) {
-    int hours = timeInMinutes ~/ 60;
-    int minutes = (timeInMinutes % 60).toInt();
-    int seconds = ((timeInMinutes - timeInMinutes.floor()) * 60).toInt();
-    String hText = (hours > 0) ? " ${hours.toString()}시" : "";
-    String mText = (minutes > 0) ? " ${minutes.toString()}분" : "";
-    String sText = (minutes < 1 && seconds > 0) ? "1분 미만" : " ${seconds.toString()}초";
-    return "$hText$mText$sText";
   }
 
   /// 이동수단 정보 반환 (텍스트, 색상, 아이콘)
@@ -117,27 +140,6 @@ mixin PlanUtil {
     return time.hour * 60 + time.minute;
   }
 
-  /// 을/를 반환
-  String getParticle(String word) {
-    if (word.isEmpty) {
-      return '';
-    }
-
-    String lastChar = word[word.length - 1];
-
-    // 마지막 문자가 한글이 아닌 경우
-    if (lastChar.codeUnitAt(0) < 0xAC00 || lastChar.codeUnitAt(0) > 0xD7A3) {
-      return '을';
-    }
-
-    int lastCharCode = lastChar.codeUnitAt(0);
-    int baseCode = lastCharCode - 0xAC00;
-    int finalConsonantIndex = baseCode % 28;
-
-    // 받침이 있으면 '을', 없으면 '를' 반환
-    return finalConsonantIndex == 0 ? '를' : '을';
-  }
-
   /// [timeString] - "10:00 AM"과 같은 형식의 시간 문자열
   /// [minutes] - 추가할 분 단위 (예: 120)
   String addMinutesToTime(String timeString, String minutes) {
@@ -158,8 +160,11 @@ mixin PlanUtil {
   }
 
   /// 주어진 시간 문자열을 분 단위로 변환하여 반환합니다.
-  /// 예: "1시 5분 8초" -> 65 (분)
+  /// 예: "1시 5분 8초" -> 65, "1분미만 -> 0
   String timeStringToMinutes(String timeString) {
+    if(timeString == "1분 미만")
+      return '0';
+
     RegExp regex = RegExp(r'(?:(\d+)시)?(?:\s*(\d+)분)?(?:\s*(\d+)초)?');
     RegExpMatch? match = regex.firstMatch(timeString);
 
