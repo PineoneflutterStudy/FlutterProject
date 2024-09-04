@@ -9,7 +9,6 @@ import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/address_model.dart';
 import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/address_local/address_shprf_state.dart';
-import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
 import '../screens/meet_place_map_screen.dart';

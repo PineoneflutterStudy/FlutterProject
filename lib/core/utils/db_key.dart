@@ -2,6 +2,8 @@ class DBKey {
   static const String DB_USERS = "Users"; // 유저정보
   static const String DB_LIKES = "Likes"; // 찜목록
   static const String DB_LOCATIONS = "Locations"; // 중간지점
+  static const String DB_DB_START = "Start"; // 출발지들
+  static const String DB_DB_DESTINATION = "Destination"; // 목적지
   static const String DB_PLANNER = "Planners"; // 여행계획
 }
 

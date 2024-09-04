@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
@@ -163,6 +162,8 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                         tourServiceState.tourDto[0].mapx,
                         tourServiceState.tourDto[0].mapy);
                   });
+
+                  ref.read(addressShprfNotifierProvider.notifier).setDestination(tourServiceState.tourDto[0]);
                 }
 
                 _logger.i('[ __ContentMapViewState ] Kakao Mobility Status -> ${mobilityStatus}');
@@ -203,10 +204,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                       Navigator.of(context).pop();
                                     },
                                     onBtn2Pressed: (context) {
-                                      ref
-                                          .read(addressShprfNotifierProvider
-                                              .notifier)
-                                          .resetAddress();
+                                      ref.read(addressShprfNotifierProvider.notifier).resetAddress();
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                     });
@@ -221,18 +219,14 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                     btn1Text: '아니오',
                                     btn2Text: '네',
                                     onBtn1Pressed: (context) {
-                                      ref
-                                          .read(addressShprfNotifierProvider
-                                              .notifier)
-                                          .resetAddress();
+                                      ref.read(addressShprfNotifierProvider.notifier).resetAddress();
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                     },
                                     onBtn2Pressed: (context) {
                                       _logger.i('FireStore DB Data Save!');
                                       ref.read(addressShprfNotifierProvider.notifier).saveLocationsData();
-                                      CommonUtils.showToastMsg(
-                                          '약속장소 정보를 저장합니다!');
+                                      CommonUtils.showToastMsg('약속장소 정보를 저장합니다!');
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                     });

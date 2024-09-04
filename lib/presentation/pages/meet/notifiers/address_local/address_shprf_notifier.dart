@@ -4,6 +4,7 @@ import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/meet/start_address_repository.dart';
 import '../../providers.dart';
 import 'address_shprf_state.dart';
@@ -99,14 +100,36 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
     await _repo.resetAddress();
   }
 
+  ///  목적지 저장
+  Future<void> setDestination(TourLocationModel tourDto) async {
+    await _repo.setDestination(tourDto);
+  }
+
+  Future<void> getDestination() async {
+    final destination =  await _repo.getDestination();
+
+    _logger.i('이거 확인해야할듯  222  -> ${destination}');
+  }
+
+
   /// ## 추후 이동 예정...
   /// ## 출발지 정보 Data Save ( SharedPreferences -> FireStore DB )
   Future<void> saveLocationsData() async {
     final list = await _repo.getAllAddress();
-    _logger.i('전체 경로 저장 전에 모든 경로 확인 -> ${list}');
+    _logger.i('Check All Address List -> ${list}');
+    final curDate = getCurDate();
+
+    final destinationInfo = await _repo.getDestination();
+    _logger.i('Get destination -> ${destinationInfo}');
+
     if (list.isNotEmpty) {
       for (int i = 0; i < list.length; i++) {
-        final locationDocRef = await firestore.getCollectionDocRef(DBKey.DB_LOCATIONS, list[i].index.toString());
+        final locationDocRef = await firestore.getCollectionDocRefDocRef(
+          DBKey.DB_LOCATIONS,
+          curDate,
+          DBKey.DB_DB_START,
+          'sPoint${list[i].index}'
+        );
         if (locationDocRef != null) {
           await firestore.setDocument(locationDocRef, list[i].toJson());
         } else {
@@ -115,6 +138,21 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
           );
         }
       }
+
+      final locationDocRef = await firestore.getCollectionDocRefDocRef(
+          DBKey.DB_LOCATIONS,
+          curDate,
+          DBKey.DB_DB_DESTINATION,
+          'ePoint'
+      );
+      if (locationDocRef != null) {
+        await firestore.setDocument(locationDocRef, destinationInfo.toJson());
+      } else {
+        state = state.copyWith(
+          isDataSaved: 'fail',
+        );
+      }
+
       resetAddress();
       state = state.copyWith(
         isDataSaved: 'success',
@@ -141,4 +179,9 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
       return List.empty();
     }
   }
+}
+
+String getCurDate() {
+  DateTime now = DateTime.now();
+  return  now.toString();
 }

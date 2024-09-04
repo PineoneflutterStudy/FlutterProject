@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/utils/logger.dart';
 import '../../model/display/meet/address_model.dart';
+import '../../model/display/meet/tour_location.model.dart';
 
 part 'start_address_repository.g.dart';
 
@@ -13,6 +14,7 @@ part 'start_address_repository.g.dart';
 
 final Logger _logger = CustomLogger.logger;
 final String listSaveName = "addressList";
+final String destinationSaveName = "destination";
 
 List<AddressModel> defaultAddress = [
   AddressModel(index: 0, address: '', latitude: 0.0, longitude: 0.0),
@@ -31,6 +33,8 @@ abstract class AddressShrefRepository {
   Future<void> deleteAddress(AddressModel addressModel);
   Future<void> deleteAddressInput(int index);
   Future<void> resetAddress();
+  Future<void> setDestination(TourLocationModel tourDto);
+  Future<TourLocationModel> getDestination();
 }
 
 class AddressShrefRepositoryImpl implements AddressShrefRepository {
@@ -158,6 +162,28 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
   Future<void> resetAddress() async {
     await _initSharedPreferences();
     await _sharedPref.remove(listSaveName);
+    await _sharedPref.remove(destinationSaveName);
+  }
+
+  @override
+  Future<void> setDestination(TourLocationModel tourDto) async {
+    await _initSharedPreferences();
+
+    final model = jsonEncode(tourDto.toJson());
+    await _sharedPref.setString(destinationSaveName, model); // index
+    _logger.i('Destination Setting Success');
+  }
+
+  @override
+  Future<TourLocationModel> getDestination() async {
+    await _initSharedPreferences();
+    final destinationInfo = _sharedPref.getString(destinationSaveName) ?? '';
+
+    var destinationMap = jsonDecode(destinationInfo);
+    var getDestinationMap = TourLocationModel.fromJson(destinationMap);
+    _logger.i('이거 확인해야할듯 00 -> ${getDestinationMap}');
+
+    return getDestinationMap;
   }
 
 }
