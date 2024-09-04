@@ -8,15 +8,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../core/utils/common_utils.dart';
-import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/meet/address_model.dart';
-import '../../../../main/common/component/dialog/common_dialog.dart';
-import '../../notifiers/address_local/address_shprf_notifier.dart';
-import '../../widgets/common/map_loading_widget.dart';
-import '../notifier/meet_place_map_notifier.dart';
-import '../notifier/meet_place_map_state.dart';
+import '../../../../core/theme/constant/app_colors.dart';
+import '../../../../core/utils/common_utils.dart';
+import '../../../../core/utils/logger.dart';
+import '../../../../domain/model/display/meet/address_model.dart';
+import '../../../main/common/component/dialog/common_dialog.dart';
+import '../notifiers/address_local/address_shprf_notifier.dart';
+import '../widgets/common/map_loading_widget.dart';
 
 /**
  * 1. 출발위치 입력받아 가운데 지점 구하기
@@ -107,9 +105,9 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    /*WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(meetPlaceStateProvider.notifier).getMapInfo(addressList);
-    });
+    });*/
   }
 
   @override
@@ -118,12 +116,13 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
       body: Consumer(
         builder: (context, ref, child) {
           final addressState = ref.watch(addressShprfNotifierProvider);
-          final state = ref.watch(meetPlaceStateProvider);
-          final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));
+          /*final state = ref.watch(meetPlaceStateProvider);
+          final apiStatus = ref.watch(meetPlaceStateProvider.select((p) => p.status));*/
 
           //_logger.i('화면나올때 값을 볼까 -> ${apiStatus}');
+          return MapLoadingWidget();
 
-          switch(apiStatus) {
+          /*switch(apiStatus) {
             case MeetPlaceMapStatus.initial:
             case MeetPlaceMapStatus.loading:
               {
@@ -272,7 +271,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                   ),
                 );
               }
-          }
+          }*/
         },
       ),
     );

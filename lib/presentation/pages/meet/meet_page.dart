@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
-import 'empty_page/view/screens/empty_meet_screen.dart';
+import 'screens/empty_meet_screen.dart';
 import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
 import 'notifiers/meet_firestore/meet_firestore_state.dart';
 

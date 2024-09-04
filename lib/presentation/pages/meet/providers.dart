@@ -22,7 +22,7 @@ repository: ref.read(localStorageProvider),
 final localStorageProvider = Provider<AddressShrefRepository>((ref) => AddressShrefRepositoryImpl());
 
 /// # 관광정보 서비스 api 사용 provider
-final apiProvider = Provider<TourServiceRepository>((ref) => TourServiceRepositoryImpl());
+final tourServiceApiProvider = Provider<TourServiceRepository>((ref) => TourServiceRepositoryImpl());
 
 /// # 카카오 모빌리티 - 자동차 길찾기 api 사용 provider
 final kakaoMobilityApiProvider =
