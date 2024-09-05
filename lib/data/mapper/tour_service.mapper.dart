@@ -2,6 +2,7 @@ import '../../domain/model/display/home/tour_festival_info.model.dart';
 import '../../domain/model/display/home/tour_image_info.model.dart';
 import '../../domain/model/display/meet/tour_location.model.dart';
 import '../dto/display/home/tour_festival_info.dto.dart';
+import '../dto/display/home/tour_image_info.dto.dart';
 import '../dto/display/meet/tour_location.dto.dart';
 
 extension TourLocationX on TourLocationDto {
@@ -46,6 +47,19 @@ extension TourFestivalX on TourFestivalInfoDto {
       sigungucode: sigungucode ?? '',
       tel: tel ?? '',
       title: title ?? '',
+    );
+  }
+}
+
+extension TourImageX on TourImageInfoDto {
+  TourImageInfoModel toModel() {
+    return TourImageInfoModel(
+        contentid: contentid ?? '',
+        imgname: imgname ?? '',
+        originimgurl: originimgurl ?? '',
+        serialnum: serialnum ?? '',
+        cpyrhtDivCd: cpyrhtDivCd ?? '',
+        smallimageurl: smallimageurl ?? ''
     );
   }
 }

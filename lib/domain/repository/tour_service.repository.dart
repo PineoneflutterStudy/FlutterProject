@@ -24,17 +24,17 @@ abstract class TourServiceRepository extends Repository {
     required String modifiedtime,
   });
 
-  // Future<ResponseWrapper<List<TourImageInfoModel>>> getTourImageInfo({
-  //   required String serviceKey,
-  //   required String MobileOS,
-  //   required String MobileApp,
-  //   required String type,
-  //   required String contentId,
-  //   required String imageYN,
-  //   required String subImageYN,
-  //   required int numOfRows,
-  //   required int pageNo,
-  // });
+  Future<ResponseWrapper<List<TourImageInfoModel>>> getTourImageInfo({
+    required String serviceKey,
+    required String MobileOS,
+    required String MobileApp,
+    required String type,
+    required String contentId,
+    required String imageYN,
+    required String subImageYN,
+    required int numOfRows,
+    required int pageNo,
+  });
 
   Future<ResponseWrapper<List<TourFestivalInfoModel>>> getTourFestivalInfo({
     required String serviceKey,
