@@ -127,6 +127,25 @@ class FirebaseFirestoreUtil {
     });
   }
 
+  /// User > uid > collection 하위 doc 리스트로 반환하는 함수
+  /// List 형태로 반환 (하위 doc 은 json 형식)
+  Future<List<Map<String, dynamic>>?> getSubCollectionListFromCollection(String collectionPath) async {
+    return await _executeWithUserDocRef<List<Map<String, dynamic>>?>((userDocRef) async {
+      try {
+        QuerySnapshot querySnapshot = await userDocRef.collection(collectionPath).get();
+
+        List<Map<String, dynamic>> documents = querySnapshot.docs.map((doc) {
+          return doc.data() as Map<String, dynamic>;
+        }).toList();
+
+        return documents;
+      } catch (e) {
+        _logger.e("Error getting sub-collection document data: $e");
+        return null;
+      }
+    });
+  }
+
   /// User > uid > collection > doc 특정 위치에 데이터 가져오는 함수
   /// Json 형태로 반환
   Future<Map<String, dynamic>?> getDocumentDataFromSubCollection(String collectionPath, String docId) async {
