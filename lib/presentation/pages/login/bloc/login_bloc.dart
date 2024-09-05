@@ -59,11 +59,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return;
     }
 
-    // 네이버 로그인 결과를 받기 위한 앱 링크 초기화
-    _initAppLinks();
-
-    // 파이어베이스 유저 변경 구독
-    _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
+    _initUriSubscription();
+    _initUserSubscription();
   }
 
   Future<void> _onLoginOptionItemPressed(Emitter<LoginState> emit, AuthType authType) async {
@@ -126,9 +123,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(loginState);
   }
 
-  /// ## 네이버 로그인 결과를 받기 위한 앱 링크 초기화
+  /// ## 네이버 로그인 결과를 받기 위한 [StreamSubscription] 초기화
   /// [FirebaseAuthUtil.signInWithNaver]의 결과를 받기 위해선 호출이 필요하다.
-  _initAppLinks() {
+  _initUriSubscription() {
+    if (_uriSubscription != null) {
+      return;
+    }
+
     _uriSubscription = AppLinks().uriLinkStream.listen((uri) async {
       CustomLogger.logger.d('$_tag App links received. uri = ${uri.toString()}');
 
@@ -143,5 +144,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
       }
     });
+  }
+
+  /// 파이어베이스 유저 변경 감지를 위한 [StreamSubscription] 초기화
+  _initUserSubscription() {
+    if (_userSubscription != null) {
+      return;
+    }
+
+    _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
   }
 }

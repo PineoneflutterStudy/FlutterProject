@@ -11,11 +11,6 @@ import 'bloc/login_bloc.dart';
 import 'screens/email/email_login_page.dart';
 import 'widgets/login_option_item.dart';
 
-//==============================================================================
-//  Fields
-//==============================================================================
-const String _tag = Tag.LOGIN;
-
 /// ## 로그인 화면
 ///
 /// author [Eogeum@naver.com]
@@ -27,8 +22,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+//==============================================================================
+//  Fields
+//==============================================================================
+  final String _tag = Tag.LOGIN;
+
   late LoginBloc _loginBloc;
-  final authTypeList = AuthType.values;
+  final _authTypeList = AuthType.values;
 
   @override
   void initState() {
@@ -71,8 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                   ListView.separated(
                     shrinkWrap: true,
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    itemCount: authTypeList.length,
-                    itemBuilder: (context, index) => LoginOptionItem(authTypeList[index]),
+                    itemCount: _authTypeList.length,
+                    itemBuilder: (context, index) => LoginOptionItem(_authTypeList[index]),
                     separatorBuilder: (context, index) => SizedBox(height: 8),
                     physics: NeverScrollableScrollPhysics(), // 스크롤 기능 제거
                   ),
