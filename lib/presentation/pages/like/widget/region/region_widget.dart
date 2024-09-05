@@ -11,6 +11,7 @@ import '../../../../../domain/model/display/like/region_list.dart';
 import '../../../../../domain/repository/like/region_repository.dart';
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/region_filter_bloc.dart';
+import '../common/like_loading_page.dart';
 
 class RegionWidget extends StatelessWidget {
   final RegionRepository repository = RegionRepository(RegionImplApi());
@@ -31,7 +32,7 @@ class RegionWidget extends StatelessWidget {
       child: BlocConsumer<RegionFilterBloc, RegionFilterState>(
         builder: (context, state) {
           return state.maybeWhen(
-            initial: () => buildLoadingPage(),
+            initial: () => LikeLoadingPage(),
             showMajor: (regionList) => setUI('major' ,_width, regionList, ''),
             showMiddle: (regionList, current) => setUI('middle' ,_width, regionList, current),
             showMinor: (regionList,current) => setUI('minor' ,_width, regionList, current),
@@ -46,20 +47,6 @@ class RegionWidget extends StatelessWidget {
         },
       )
     );
-  }
-
-  /*
-   * 로딩 화면
-   */
-  Container buildLoadingPage() {
-    return Container(
-            decoration: BoxDecoration(
-              color: Colors.white
-            ),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
   }
 
   Scaffold setUI(String state, double width, RegionListModel region, String current) {

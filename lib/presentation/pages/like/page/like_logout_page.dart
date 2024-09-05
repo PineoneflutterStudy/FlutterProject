@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../login/login_page.dart';
-import '../bloc/like_bloc.dart';
+import '../bloc/login/login_check_bloc.dart';
 
 class LikeLogoutPage extends StatelessWidget {
 
@@ -40,7 +40,7 @@ class LikeLogoutPage extends StatelessWidget {
               );
 
               if (result != null && result) {
-                context.read<LikeBloc>().add(LikeEvent.checkLoginState());
+                context.read<LoginCheckBloc>().add(LoginCheckEvent.checkLogin());
               }
             },
           ),

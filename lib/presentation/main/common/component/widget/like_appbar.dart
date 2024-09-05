@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../pages/like/bloc/like_bloc.dart';
+import '../../../../pages/like/bloc/login/login_check_bloc.dart';
 import '../../../../pages/like/widget/region/region_widget.dart';
 
 /**
@@ -20,11 +20,11 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LikeBloc, LikeState>(
+    return BlocBuilder<LoginCheckBloc, LoginCheckState>(
       builder: (context, state) {
-
         return state.maybeWhen(
-          initial: (isLoggedIn) => initializeAppBar(context, isLoggedIn),
+          loggedIn: () => initializeAppBar(context, true),
+          loggedOut: () => initializeAppBar(context, false),
           orElse: () => const SizedBox(),
         );
       },

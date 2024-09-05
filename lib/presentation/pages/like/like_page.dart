@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/login/login_check_bloc.dart';
 import 'page/like_logout_page.dart';
 
 import '../../../core/utils/constant.dart';
@@ -7,8 +8,9 @@ import '../../../domain/usecase/display/display.usecase.dart';
 import '../../../service_locator.dart';
 import '../../main/common/bloc/ctgr_bloc/ctgr_bloc.dart';
 import '../../main/common/component/widget/like_appbar.dart';
-import 'bloc/like_bloc.dart';
 import 'widget/category/category_widget.dart';
+import 'widget/common/like_empty_page.dart';
+import 'widget/common/like_loading_page.dart';
 
 class LikePage extends StatefulWidget {
   const LikePage({super.key});
@@ -23,7 +25,7 @@ class _LikePageState extends State<LikePage> {
     return MultiBlocProvider(
         providers: [
         BlocProvider(create: ((context) =>
-            LikeBloc()..add(LikeEvent.checkLoginState()))),
+            LoginCheckBloc()..add(LoginCheckEvent.checkLogin()))),
         BlocProvider(create: ((context) =>
             CtgrBloc(locator<DisplayUsecase>())
               ..add(CtgrInitialized(MenuType.like))
@@ -34,18 +36,18 @@ class _LikePageState extends State<LikePage> {
           context: context,
           title: '찜목록'
         ),
-        body: BlocConsumer<LikeBloc, LikeState>(
+        body: BlocConsumer<LoginCheckBloc, LoginCheckState>(
           builder: (context, state) {
-            return state.when(
-              initial: (isLoggedIn) => _initializePage(context, isLoggedIn),
-              loading: () => loadingPage(),
-              success: () => _categoryUI(),
-              error: () => Text('에러'),
+            return state.maybeWhen(
+              loading: () => LikeLoadingPage(),
+              loggedIn: () => _categoryUI(),
+              loggedOut: () => LikeLogoutPage(context: context),
+              orElse: () => LikeEmptyPage(),
             );
           },
           listener: (context, state) {
             state.maybeWhen(
-              loading: () {},
+              error: () => _nothing, //TODO 에러 및 성공 상태에 다른 로그 보완 예정
               orElse: () => _nothing,
             );
           },
@@ -53,45 +55,6 @@ class _LikePageState extends State<LikePage> {
       ),
     );
 
-
-    // return Scaffold(
-    //   appBar: LikeAppbar(title: '찜목록'),
-    //   body: MultiBlocProvider(
-    //     providers: [
-    //       BlocProvider(create: ((context) =>
-    //           LikeBloc()..add(LikeEvent.checkLoginState()))),
-    //       BlocProvider(create: ((context) =>
-    //           CtgrBloc(locator<DisplayUsecase>())
-    //             ..add(CtgrInitialized(MenuType.like))
-    //       )),
-    //     ],
-    //     child: BlocConsumer<LikeBloc, LikeState>(
-    //       builder: (context, state) {
-    //         return state.when(
-    //           initial: (isLoggedIn) => _initializePage(context, isLoggedIn),
-    //           loading: () => loadingPage(),
-    //           success: () => _categoryUI(),
-    //           error: () => Text('에러'),
-    //         );
-    //       },
-    //       listener: (context, state) {
-    //         state.maybeWhen(
-    //           loading: () {},
-    //           orElse: () => _nothing,
-    //         );
-    //       },
-    //     ),
-    //   ),
-    // );
-  }
-
-  Widget _initializePage(BuildContext context, bool isLoggedIn) {
-    if (isLoggedIn) {
-      return _categoryUI();
-    }
-    else {
-      return LikeLogoutPage(context: context);
-    }
   }
 
   Widget _categoryUI() {
@@ -116,25 +79,6 @@ class _LikePageState extends State<LikePage> {
         },
       )
     );
-  }
-
-  /*
-   * 로딩 화면
-   */
-  Container loadingPage() {
-    print('로딩 페이지?');
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white
-      ),
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-
-  void _sendCheckLoginEvent() {
-    ;
   }
 
   void _nothing() => {};

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'like_bloc.dart';
+part of 'login_check_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,51 +15,52 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$LikeEvent {
+mixin _$LoginCheckEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() checkLoginState,
+    required TResult Function() checkLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? checkLoginState,
+    TResult? Function()? checkLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? checkLoginState,
+    TResult Function()? checkLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CheckLoginState value) checkLoginState,
+    required TResult Function(_CheckLoginState value) checkLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_CheckLoginState value)? checkLoginState,
+    TResult? Function(_CheckLoginState value)? checkLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CheckLoginState value)? checkLoginState,
+    TResult Function(_CheckLoginState value)? checkLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LikeEventCopyWith<$Res> {
-  factory $LikeEventCopyWith(LikeEvent value, $Res Function(LikeEvent) then) =
-      _$LikeEventCopyWithImpl<$Res, LikeEvent>;
+abstract class $LoginCheckEventCopyWith<$Res> {
+  factory $LoginCheckEventCopyWith(
+          LoginCheckEvent value, $Res Function(LoginCheckEvent) then) =
+      _$LoginCheckEventCopyWithImpl<$Res, LoginCheckEvent>;
 }
 
 /// @nodoc
-class _$LikeEventCopyWithImpl<$Res, $Val extends LikeEvent>
-    implements $LikeEventCopyWith<$Res> {
-  _$LikeEventCopyWithImpl(this._value, this._then);
+class _$LoginCheckEventCopyWithImpl<$Res, $Val extends LoginCheckEvent>
+    implements $LoginCheckEventCopyWith<$Res> {
+  _$LoginCheckEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -76,7 +77,7 @@ abstract class _$$CheckLoginStateImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$CheckLoginStateImplCopyWithImpl<$Res>
-    extends _$LikeEventCopyWithImpl<$Res, _$CheckLoginStateImpl>
+    extends _$LoginCheckEventCopyWithImpl<$Res, _$CheckLoginStateImpl>
     implements _$$CheckLoginStateImplCopyWith<$Res> {
   __$$CheckLoginStateImplCopyWithImpl(
       _$CheckLoginStateImpl _value, $Res Function(_$CheckLoginStateImpl) _then)
@@ -90,7 +91,7 @@ class _$CheckLoginStateImpl implements _CheckLoginState {
 
   @override
   String toString() {
-    return 'LikeEvent.checkLoginState()';
+    return 'LoginCheckEvent.checkLogin()';
   }
 
   @override
@@ -105,27 +106,27 @@ class _$CheckLoginStateImpl implements _CheckLoginState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() checkLoginState,
+    required TResult Function() checkLogin,
   }) {
-    return checkLoginState();
+    return checkLogin();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? checkLoginState,
+    TResult? Function()? checkLogin,
   }) {
-    return checkLoginState?.call();
+    return checkLogin?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? checkLoginState,
+    TResult Function()? checkLogin,
     required TResult orElse(),
   }) {
-    if (checkLoginState != null) {
-      return checkLoginState();
+    if (checkLogin != null) {
+      return checkLogin();
     }
     return orElse();
   }
@@ -133,84 +134,84 @@ class _$CheckLoginStateImpl implements _CheckLoginState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CheckLoginState value) checkLoginState,
+    required TResult Function(_CheckLoginState value) checkLogin,
   }) {
-    return checkLoginState(this);
+    return checkLogin(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_CheckLoginState value)? checkLoginState,
+    TResult? Function(_CheckLoginState value)? checkLogin,
   }) {
-    return checkLoginState?.call(this);
+    return checkLogin?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CheckLoginState value)? checkLoginState,
+    TResult Function(_CheckLoginState value)? checkLogin,
     required TResult orElse(),
   }) {
-    if (checkLoginState != null) {
-      return checkLoginState(this);
+    if (checkLogin != null) {
+      return checkLogin(this);
     }
     return orElse();
   }
 }
 
-abstract class _CheckLoginState implements LikeEvent {
+abstract class _CheckLoginState implements LoginCheckEvent {
   const factory _CheckLoginState() = _$CheckLoginStateImpl;
 }
 
 /// @nodoc
-mixin _$LikeState {
+mixin _$LoginCheckState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_loggedIn value) loggedIn,
+    required TResult Function(_loggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_loggedIn value)? loggedIn,
+    TResult? Function(_loggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_loggedIn value)? loggedIn,
+    TResult Function(_loggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -218,166 +219,21 @@ mixin _$LikeState {
 }
 
 /// @nodoc
-abstract class $LikeStateCopyWith<$Res> {
-  factory $LikeStateCopyWith(LikeState value, $Res Function(LikeState) then) =
-      _$LikeStateCopyWithImpl<$Res, LikeState>;
+abstract class $LoginCheckStateCopyWith<$Res> {
+  factory $LoginCheckStateCopyWith(
+          LoginCheckState value, $Res Function(LoginCheckState) then) =
+      _$LoginCheckStateCopyWithImpl<$Res, LoginCheckState>;
 }
 
 /// @nodoc
-class _$LikeStateCopyWithImpl<$Res, $Val extends LikeState>
-    implements $LikeStateCopyWith<$Res> {
-  _$LikeStateCopyWithImpl(this._value, this._then);
+class _$LoginCheckStateCopyWithImpl<$Res, $Val extends LoginCheckState>
+    implements $LoginCheckStateCopyWith<$Res> {
+  _$LoginCheckStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLogined});
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$LikeStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLogined = null,
-  }) {
-    return _then(_$InitialImpl(
-      null == isLogined
-          ? _value.isLogined
-          : isLogined // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl(this.isLogined);
-
-  @override
-  final bool isLogined;
-
-  @override
-  String toString() {
-    return 'LikeState.initial(isLogined: $isLogined)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InitialImpl &&
-            (identical(other.isLogined, isLogined) ||
-                other.isLogined == isLogined));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isLogined);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
-  }) {
-    return initial(isLogined);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
-  }) {
-    return initial?.call(isLogined);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(isLogined);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements LikeState {
-  const factory _Initial(final bool isLogined) = _$InitialImpl;
-
-  bool get isLogined;
-  @JsonKey(ignore: true)
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -389,7 +245,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$LikeStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$LoginCheckStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -403,7 +259,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'LikeState.loading()';
+    return 'LoginCheckState.loading()';
   }
 
   @override
@@ -418,9 +274,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function() error,
   }) {
     return loading();
@@ -429,9 +285,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -440,9 +296,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -455,9 +311,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_loggedIn value) loggedIn,
+    required TResult Function(_loggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -466,9 +322,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_loggedIn value)? loggedIn,
+    TResult? Function(_loggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -477,9 +333,9 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_loggedIn value)? loggedIn,
+    TResult Function(_loggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -490,40 +346,40 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements LikeState {
+abstract class _Loading implements LoginCheckState {
   const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$loggedInImplCopyWith<$Res> {
+  factory _$$loggedInImplCopyWith(
+          _$loggedInImpl value, $Res Function(_$loggedInImpl) then) =
+      __$$loggedInImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$LikeStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$loggedInImplCopyWithImpl<$Res>
+    extends _$LoginCheckStateCopyWithImpl<$Res, _$loggedInImpl>
+    implements _$$loggedInImplCopyWith<$Res> {
+  __$$loggedInImplCopyWithImpl(
+      _$loggedInImpl _value, $Res Function(_$loggedInImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
+class _$loggedInImpl implements _loggedIn {
+  const _$loggedInImpl();
 
   @override
   String toString() {
-    return 'LikeState.success()';
+    return 'LoginCheckState.loggedIn()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType && other is _$loggedInImpl);
   }
 
   @override
@@ -532,36 +388,36 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function() error,
   }) {
-    return success();
+    return loggedIn();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function()? error,
   }) {
-    return success?.call();
+    return loggedIn?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success();
+    if (loggedIn != null) {
+      return loggedIn();
     }
     return orElse();
   }
@@ -569,43 +425,157 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_loggedIn value) loggedIn,
+    required TResult Function(_loggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
-    return success(this);
+    return loggedIn(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_loggedIn value)? loggedIn,
+    TResult? Function(_loggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
-    return success?.call(this);
+    return loggedIn?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_loggedIn value)? loggedIn,
+    TResult Function(_loggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(this);
+    if (loggedIn != null) {
+      return loggedIn(this);
     }
     return orElse();
   }
 }
 
-abstract class _Success implements LikeState {
-  const factory _Success() = _$SuccessImpl;
+abstract class _loggedIn implements LoginCheckState {
+  const factory _loggedIn() = _$loggedInImpl;
+}
+
+/// @nodoc
+abstract class _$$loggedOutImplCopyWith<$Res> {
+  factory _$$loggedOutImplCopyWith(
+          _$loggedOutImpl value, $Res Function(_$loggedOutImpl) then) =
+      __$$loggedOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$loggedOutImplCopyWithImpl<$Res>
+    extends _$LoginCheckStateCopyWithImpl<$Res, _$loggedOutImpl>
+    implements _$$loggedOutImplCopyWith<$Res> {
+  __$$loggedOutImplCopyWithImpl(
+      _$loggedOutImpl _value, $Res Function(_$loggedOutImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$loggedOutImpl implements _loggedOut {
+  const _$loggedOutImpl();
+
+  @override
+  String toString() {
+    return 'LoginCheckState.loggedOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$loggedOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
+    required TResult Function() error,
+  }) {
+    return loggedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
+    TResult? Function()? error,
+  }) {
+    return loggedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_loggedIn value) loggedIn,
+    required TResult Function(_loggedOut value) loggedOut,
+    required TResult Function(_Error value) error,
+  }) {
+    return loggedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_loggedIn value)? loggedIn,
+    TResult? Function(_loggedOut value)? loggedOut,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loggedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_loggedIn value)? loggedIn,
+    TResult Function(_loggedOut value)? loggedOut,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _loggedOut implements LoginCheckState {
+  const factory _loggedOut() = _$loggedOutImpl;
 }
 
 /// @nodoc
@@ -617,7 +587,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$LikeStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$LoginCheckStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -631,7 +601,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'LikeState.error()';
+    return 'LoginCheckState.error()';
   }
 
   @override
@@ -646,9 +616,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function() loggedIn,
+    required TResult Function() loggedOut,
     required TResult Function() error,
   }) {
     return error();
@@ -657,9 +627,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function()? loggedIn,
+    TResult? Function()? loggedOut,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -668,9 +638,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function()? loggedIn,
+    TResult Function()? loggedOut,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -683,9 +653,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_loggedIn value) loggedIn,
+    required TResult Function(_loggedOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -694,9 +664,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_loggedIn value)? loggedIn,
+    TResult? Function(_loggedOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -705,9 +675,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_loggedIn value)? loggedIn,
+    TResult Function(_loggedOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -718,6 +688,6 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements LikeState {
+abstract class _Error implements LoginCheckState {
   const factory _Error() = _$ErrorImpl;
 }
