@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'page/like_place_empty_page.dart';
 import 'widget/like_place/like_place_widget.dart';
 import '../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../data/repository_impl/like/like_place_repository_impl.dart';
@@ -108,6 +109,7 @@ class _LikePageState extends State<LikePage> {
       builder: (context, state) {
         return state.maybeWhen(
           success: (placeList) => LikePlaceWidget(placeList: placeList),
+          empty: () => LikePlaceEmptyPage(),
           orElse: () => LikeEmptyPage(),
         );
       },

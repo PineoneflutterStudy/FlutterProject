@@ -171,6 +171,7 @@ mixin _$LikePlaceState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
@@ -179,6 +180,7 @@ mixin _$LikePlaceState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -187,6 +189,7 @@ mixin _$LikePlaceState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -196,6 +199,7 @@ mixin _$LikePlaceState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -204,6 +208,7 @@ mixin _$LikePlaceState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -212,6 +217,7 @@ mixin _$LikePlaceState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -277,6 +283,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
     required TResult Function() error,
   }) {
     return initial();
@@ -288,6 +295,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
     TResult? Function()? error,
   }) {
     return initial?.call();
@@ -299,6 +307,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -314,6 +323,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -325,6 +335,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -336,6 +347,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -391,6 +403,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
     required TResult Function() error,
   }) {
     return loading();
@@ -402,6 +415,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -413,6 +427,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -428,6 +443,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -439,6 +455,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -450,6 +467,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -538,6 +556,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
     required TResult Function() error,
   }) {
     return success(placeList);
@@ -549,6 +568,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
     TResult? Function()? error,
   }) {
     return success?.call(placeList);
@@ -560,6 +580,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -575,6 +596,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Error value) error,
   }) {
     return success(this);
@@ -586,6 +608,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Error value)? error,
   }) {
     return success?.call(this);
@@ -597,6 +620,7 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -614,6 +638,126 @@ abstract class _Success implements LikePlaceState {
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EmptyImplCopyWith<$Res> {
+  factory _$$EmptyImplCopyWith(
+          _$EmptyImpl value, $Res Function(_$EmptyImpl) then) =
+      __$$EmptyImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmptyImplCopyWithImpl<$Res>
+    extends _$LikePlaceStateCopyWithImpl<$Res, _$EmptyImpl>
+    implements _$$EmptyImplCopyWith<$Res> {
+  __$$EmptyImplCopyWithImpl(
+      _$EmptyImpl _value, $Res Function(_$EmptyImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EmptyImpl implements _Empty {
+  const _$EmptyImpl();
+
+  @override
+  String toString() {
+    return 'LikePlaceState.empty()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
+    required TResult Function() error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
+    TResult? Function()? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
+    required TResult Function(_Error value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
+    TResult? Function(_Error value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Empty implements LikePlaceState {
+  const factory _Empty() = _$EmptyImpl;
 }
 
 /// @nodoc
@@ -657,6 +801,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Place> placeList) success,
+    required TResult Function() empty,
     required TResult Function() error,
   }) {
     return error();
@@ -668,6 +813,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Place> placeList)? success,
+    TResult? Function()? empty,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -679,6 +825,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Place> placeList)? success,
+    TResult Function()? empty,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -694,6 +841,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -705,6 +853,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -716,6 +865,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

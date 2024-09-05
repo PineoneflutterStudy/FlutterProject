@@ -7,6 +7,6 @@ class GetLikePlaceUsecase extends RemoteUsecase<LikePlaceRepository> {
   @override
   Future call(LikePlaceRepository repository) async {
     final result = await repository.getLikePlaceList();
-    return (result.isNotEmpty) ? result : [];
+    return result;
   }
 }

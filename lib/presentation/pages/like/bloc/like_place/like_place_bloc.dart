@@ -22,13 +22,14 @@ class LikePlaceBloc extends Bloc<LikePlaceEvent, LikePlaceState> {
   }
 
   Future<void> _onInitializedPlace(Emitter<LikePlaceState> emit) async {
-    print('블록 타냐?');
     emit(LikePlaceState.loading());
 
     try {
       final response = await _fetch();
       if (response.isNotEmpty) {
         emit(LikePlaceState.success(response));
+      } else {
+        emit(LikePlaceState.empty());
       }
     } catch (e) {
       emit(LikePlaceState.error());
