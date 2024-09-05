@@ -20,7 +20,7 @@ Planner _$PlannerFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Planner {
-  String get planner_id => throw _privateConstructorUsedError;
+  int get planner_index => throw _privateConstructorUsedError;
   String get planner_title => throw _privateConstructorUsedError;
   List<PlannerPage> get planner_page_list => throw _privateConstructorUsedError;
 
@@ -35,7 +35,7 @@ abstract class $PlannerCopyWith<$Res> {
       _$PlannerCopyWithImpl<$Res, Planner>;
   @useResult
   $Res call(
-      {String planner_id,
+      {int planner_index,
       String planner_title,
       List<PlannerPage> planner_page_list});
 }
@@ -53,15 +53,15 @@ class _$PlannerCopyWithImpl<$Res, $Val extends Planner>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? planner_id = null,
+    Object? planner_index = null,
     Object? planner_title = null,
     Object? planner_page_list = null,
   }) {
     return _then(_value.copyWith(
-      planner_id: null == planner_id
-          ? _value.planner_id
-          : planner_id // ignore: cast_nullable_to_non_nullable
-              as String,
+      planner_index: null == planner_index
+          ? _value.planner_index
+          : planner_index // ignore: cast_nullable_to_non_nullable
+              as int,
       planner_title: null == planner_title
           ? _value.planner_title
           : planner_title // ignore: cast_nullable_to_non_nullable
@@ -82,7 +82,7 @@ abstract class _$$PlannerImplCopyWith<$Res> implements $PlannerCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String planner_id,
+      {int planner_index,
       String planner_title,
       List<PlannerPage> planner_page_list});
 }
@@ -98,15 +98,15 @@ class __$$PlannerImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? planner_id = null,
+    Object? planner_index = null,
     Object? planner_title = null,
     Object? planner_page_list = null,
   }) {
     return _then(_$PlannerImpl(
-      planner_id: null == planner_id
-          ? _value.planner_id
-          : planner_id // ignore: cast_nullable_to_non_nullable
-              as String,
+      planner_index: null == planner_index
+          ? _value.planner_index
+          : planner_index // ignore: cast_nullable_to_non_nullable
+              as int,
       planner_title: null == planner_title
           ? _value.planner_title
           : planner_title // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ class __$$PlannerImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
   const _$PlannerImpl(
-      {required this.planner_id,
+      {required this.planner_index,
       this.planner_title = 'plan',
       final List<PlannerPage> planner_page_list = const []})
       : _planner_page_list = planner_page_list;
@@ -133,7 +133,7 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
       _$$PlannerImplFromJson(json);
 
   @override
-  final String planner_id;
+  final int planner_index;
   @override
   @JsonKey()
   final String planner_title;
@@ -149,7 +149,7 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Planner(planner_id: $planner_id, planner_title: $planner_title, planner_page_list: $planner_page_list)';
+    return 'Planner(planner_index: $planner_index, planner_title: $planner_title, planner_page_list: $planner_page_list)';
   }
 
   @override
@@ -157,7 +157,7 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Planner'))
-      ..add(DiagnosticsProperty('planner_id', planner_id))
+      ..add(DiagnosticsProperty('planner_index', planner_index))
       ..add(DiagnosticsProperty('planner_title', planner_title))
       ..add(DiagnosticsProperty('planner_page_list', planner_page_list));
   }
@@ -167,8 +167,8 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlannerImpl &&
-            (identical(other.planner_id, planner_id) ||
-                other.planner_id == planner_id) &&
+            (identical(other.planner_index, planner_index) ||
+                other.planner_index == planner_index) &&
             (identical(other.planner_title, planner_title) ||
                 other.planner_title == planner_title) &&
             const DeepCollectionEquality()
@@ -177,7 +177,7 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, planner_id, planner_title,
+  int get hashCode => Object.hash(runtimeType, planner_index, planner_title,
       const DeepCollectionEquality().hash(_planner_page_list));
 
   @JsonKey(ignore: true)
@@ -196,14 +196,14 @@ class _$PlannerImpl with DiagnosticableTreeMixin implements _Planner {
 
 abstract class _Planner implements Planner {
   const factory _Planner(
-      {required final String planner_id,
+      {required final int planner_index,
       final String planner_title,
       final List<PlannerPage> planner_page_list}) = _$PlannerImpl;
 
   factory _Planner.fromJson(Map<String, dynamic> json) = _$PlannerImpl.fromJson;
 
   @override
-  String get planner_id;
+  int get planner_index;
   @override
   String get planner_title;
   @override

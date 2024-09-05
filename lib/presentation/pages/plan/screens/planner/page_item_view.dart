@@ -8,13 +8,13 @@ import '../../../../../domain/model/display/place/planner.model.dart';
 
 /// 여행계획 Item View
 class PageItemView extends StatefulWidget {
-  final String plannerId;
+  final int plannerIndex;
   final PlannerPage planner;
   final int pageIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
 
-  const PageItemView({required this.plannerId, required this.planner,required this.pageIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  const PageItemView({required this.plannerIndex, required this.planner,required this.pageIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   State<PageItemView> createState() => _PageItemViewState();
@@ -48,7 +48,7 @@ class _PageItemViewState extends State<PageItemView> {
                   itemCount: widget.planner.page_item_list.length,
                   itemBuilder: (context, index) {
                     return PlannerItemView(
-                        plannerId: widget.plannerId,
+                        plannerIndex: widget.plannerIndex,
                         pageIndex: widget.pageIndex,
                         plan: widget.planner.page_item_list[index],
                         curItemindex: index,

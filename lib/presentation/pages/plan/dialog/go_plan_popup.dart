@@ -8,8 +8,9 @@ import '../../../../domain/model/display/place/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
 class GoPlanPopup extends StatefulWidget {
+  final int index;
   final AddressBloc addressBloc;
-  const GoPlanPopup({required this.addressBloc, super.key});
+  const GoPlanPopup({required this.index, required this.addressBloc, super.key});
 
   @override
   State<GoPlanPopup> createState() => _GoPlanPopupState();
@@ -39,7 +40,6 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
 
   @override
   Widget build(BuildContext context) {
-    var uuid = Uuid();
     return BlocListener<AddressBloc, AddressState>(
       bloc: widget.addressBloc,
       listener: (context, state) {
@@ -52,7 +52,7 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
             final plannerTitle = "$destination 여행";
             final plannerFirstPage = PlannerPage(planner_title:plannerTitle, page_item_list: [pageFirstItem]);
             final planner = Planner(
-              planner_id: uuid.v1(),
+              planner_index: widget.index,
               planner_title: plannerTitle,
               planner_page_list: [plannerFirstPage],
             );

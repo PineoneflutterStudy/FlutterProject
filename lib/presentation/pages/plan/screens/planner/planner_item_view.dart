@@ -9,14 +9,14 @@ import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget with PlanUtil{
-  final String plannerId;
+  final int plannerIndex;
   final int pageIndex;
   final PlannerItem plan;
   final int curItemindex;
   final int lastIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  PlannerItemView({required this.plannerId,required this.pageIndex, required this.plan,required this.curItemindex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.plan,required this.curItemindex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +90,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                   travel_time: result['travel_time'],
                 );
 
-                plannerBloc.add(PlannerEvent.addPlannerItem(plannerId, pageIndex, plannerItem));
-                plannerBloc.add(GetPlannerListEvent());
+                plannerBloc.add(PlannerEvent.addPlannerItem(plannerIndex, pageIndex, plannerItem));
               });
             },
             child: Text('Add Next Place'),

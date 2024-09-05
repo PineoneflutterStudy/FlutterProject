@@ -37,7 +37,7 @@ class InitPlannerPage extends StatelessWidget with PlanUtil{
           GestureDetector(
             onTap: () async {
               if (isLogin) {
-                final result = await showGoPlanPopup(context: context, addressBloc: addressBloc);
+                final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
                 if (result != null && result.containsKey('planner')) {
                   Planner planner = result['planner']!;
                   plannerBloc.add(PlannerEvent.addPlanner(planner));

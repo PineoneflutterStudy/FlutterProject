@@ -35,8 +35,8 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         print("current state : $state");
         return state.when(
           loading: () => PlannerLoadingWidget(),
-          success: (plannerList, selected) {
-            final categoryWidgets = getCategoryViewList(context, plannerList, selected);
+          success: (plannerList, selectedIndex) {
+            final categoryWidgets = getCategoryViewList(context, plannerList, selectedIndex);
 
             return Scaffold(
               appBar: MainAppbar(title: '나만의 여행플래너'),
@@ -55,7 +55,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                     height: 20,
                     child: SmoothPageIndicator(
                       controller: _pageController,
-                      count: selected.planner_page_list.length,
+                      count: plannerList[selectedIndex].planner_page_list.length,
                       axisDirection: Axis.horizontal,
                       effect: JumpingDotEffect(
                           dotColor: Colors.grey,
@@ -71,16 +71,16 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                       child: PageView.builder(
                           scrollDirection: Axis.horizontal,
                           controller: _pageController,
-                          itemCount: selected.planner_page_list.length,
+                          itemCount: plannerList[selectedIndex].planner_page_list.length,
                           itemBuilder: (context, index) {
-                            return PageItemView(plannerId: selected.planner_id, planner: selected.planner_page_list[index], pageIndex:  index, addressBloc:  widget.addressBloc, plannerBloc: widget.plannerBloc);
+                            return PageItemView(plannerIndex: plannerList[selectedIndex].planner_index, planner: plannerList[selectedIndex].planner_page_list[index], pageIndex:  index, addressBloc:  widget.addressBloc, plannerBloc: widget.plannerBloc);
                           },
                           pageSnapping: true),
                     ),
                   ),
                 ],
               ),
-              floatingActionButton: _buildFab(context, selected),
+              floatingActionButton: _buildFab(context, plannerList[selectedIndex]),
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             );
           },
@@ -97,7 +97,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                   Text('플래너를 불러오는 데 실패했습니다.'),
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList()),
+                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList(0)),
                     child: Text('다시 시도'),
                   ),
                 ],
@@ -110,16 +110,19 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
   }
 
   // 상단 플래너 카테고리 뷰
-  List<Widget> getCategoryViewList(BuildContext context, List<Planner> plannerList, Planner selected) {
-    final List<Widget> categoryWidgets = plannerList.map((planner) {
+  List<Widget> getCategoryViewList(BuildContext context, List<Planner> plannerList, int selectedIndex) {
+    final List<Widget> categoryWidgets = plannerList.asMap().entries.map((entry) {
+      int index = entry.key;
+      Planner planner = entry.value;
+
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: ChoiceChip(
           label: Text(planner.planner_title, style: TextStyle(fontSize: 20)),
-          selected: planner == selected,
+          selected: index == selectedIndex,
           onSelected: (isSelected) {
             if (isSelected) {
-              widget.plannerBloc.add(PlannerEvent.selected(planner));
+              widget.plannerBloc.add(PlannerEvent.selected(index));  // 인덱스를 사용하여 선택 이벤트 처리
             }
           },
         ),
@@ -132,7 +135,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         child: IconButton(
           icon: Icon(Icons.add_circle_sharp, color: AppColors.primary, size: 20),
           onPressed: () async {
-            final result = await showGoPlanPopup(context: context, addressBloc: widget.addressBloc);
+            final result = await showGoPlanPopup(context: context, addressBloc: widget.addressBloc, index : plannerList.length);
             if (result != null && result.containsKey('planner')) {
               Planner planner = result['planner']!;
               widget.plannerBloc.add(PlannerEvent.addPlanner(planner));
@@ -153,7 +156,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         if (index == 0) { // add btn
           // TODO: 다음날 계획 추가하기 팝업
         } else { // delete btn
-          widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_id));
+          widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index));
         }
       },
     );
