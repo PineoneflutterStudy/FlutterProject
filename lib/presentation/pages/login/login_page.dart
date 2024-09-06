@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "이미 해당 이메일(${email})로 가입된 계정이 존재합니다. 다른 방법으로 로그인해주세요.",
+                text: "해당 계정($email)은 현재 시도한 로그인 방식과 연결되지 않았습니다. 다른 로그인 방법을 선택해 주세요.",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               TextSpan(

@@ -19,38 +19,38 @@ mixin _$EmailEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String password) loginButtonPressed,
+    required TResult Function(String email) emailSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String password)? loginButtonPressed,
+    TResult? Function(String email)? emailSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String password)? loginButtonPressed,
+    TResult Function(String email)? emailSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LoginButtonPressed value) loginButtonPressed,
+    required TResult Function(_EmailSubmitted value) emailSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult? Function(_EmailSubmitted value)? emailSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult Function(_EmailSubmitted value)? emailSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String password) loginButtonPressed,
+    required TResult Function(String email) emailSubmitted,
   }) {
     return started();
   }
@@ -122,7 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String password)? loginButtonPressed,
+    TResult? Function(String email)? emailSubmitted,
   }) {
     return started?.call();
   }
@@ -131,7 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String password)? loginButtonPressed,
+    TResult Function(String email)? emailSubmitted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,7 +144,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LoginButtonPressed value) loginButtonPressed,
+    required TResult Function(_EmailSubmitted value) emailSubmitted,
   }) {
     return started(this);
   }
@@ -153,7 +153,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult? Function(_EmailSubmitted value)? emailSubmitted,
   }) {
     return started?.call(this);
   }
@@ -162,7 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult Function(_EmailSubmitted value)? emailSubmitted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -177,36 +177,31 @@ abstract class _Started implements EmailEvent {
 }
 
 /// @nodoc
-abstract class _$$LoginButtonPressedImplCopyWith<$Res> {
-  factory _$$LoginButtonPressedImplCopyWith(_$LoginButtonPressedImpl value,
-          $Res Function(_$LoginButtonPressedImpl) then) =
-      __$$LoginButtonPressedImplCopyWithImpl<$Res>;
+abstract class _$$EmailSubmittedImplCopyWith<$Res> {
+  factory _$$EmailSubmittedImplCopyWith(_$EmailSubmittedImpl value,
+          $Res Function(_$EmailSubmittedImpl) then) =
+      __$$EmailSubmittedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email});
 }
 
 /// @nodoc
-class __$$LoginButtonPressedImplCopyWithImpl<$Res>
-    extends _$EmailEventCopyWithImpl<$Res, _$LoginButtonPressedImpl>
-    implements _$$LoginButtonPressedImplCopyWith<$Res> {
-  __$$LoginButtonPressedImplCopyWithImpl(_$LoginButtonPressedImpl _value,
-      $Res Function(_$LoginButtonPressedImpl) _then)
+class __$$EmailSubmittedImplCopyWithImpl<$Res>
+    extends _$EmailEventCopyWithImpl<$Res, _$EmailSubmittedImpl>
+    implements _$$EmailSubmittedImplCopyWith<$Res> {
+  __$$EmailSubmittedImplCopyWithImpl(
+      _$EmailSubmittedImpl _value, $Res Function(_$EmailSubmittedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? email = null,
-    Object? password = null,
   }) {
-    return _then(_$LoginButtonPressedImpl(
+    return _then(_$EmailSubmittedImpl(
       null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -214,66 +209,62 @@ class __$$LoginButtonPressedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoginButtonPressedImpl implements _LoginButtonPressed {
-  const _$LoginButtonPressedImpl(this.email, this.password);
+class _$EmailSubmittedImpl implements _EmailSubmitted {
+  const _$EmailSubmittedImpl(this.email);
 
   @override
   final String email;
-  @override
-  final String password;
 
   @override
   String toString() {
-    return 'EmailEvent.loginButtonPressed(email: $email, password: $password)';
+    return 'EmailEvent.emailSubmitted(email: $email)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginButtonPressedImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
+            other is _$EmailSubmittedImpl &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType, email);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoginButtonPressedImplCopyWith<_$LoginButtonPressedImpl> get copyWith =>
-      __$$LoginButtonPressedImplCopyWithImpl<_$LoginButtonPressedImpl>(
+  _$$EmailSubmittedImplCopyWith<_$EmailSubmittedImpl> get copyWith =>
+      __$$EmailSubmittedImplCopyWithImpl<_$EmailSubmittedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String password) loginButtonPressed,
+    required TResult Function(String email) emailSubmitted,
   }) {
-    return loginButtonPressed(email, password);
+    return emailSubmitted(email);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String password)? loginButtonPressed,
+    TResult? Function(String email)? emailSubmitted,
   }) {
-    return loginButtonPressed?.call(email, password);
+    return emailSubmitted?.call(email);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String password)? loginButtonPressed,
+    TResult Function(String email)? emailSubmitted,
     required TResult orElse(),
   }) {
-    if (loginButtonPressed != null) {
-      return loginButtonPressed(email, password);
+    if (emailSubmitted != null) {
+      return emailSubmitted(email);
     }
     return orElse();
   }
@@ -282,42 +273,40 @@ class _$LoginButtonPressedImpl implements _LoginButtonPressed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LoginButtonPressed value) loginButtonPressed,
+    required TResult Function(_EmailSubmitted value) emailSubmitted,
   }) {
-    return loginButtonPressed(this);
+    return emailSubmitted(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult? Function(_EmailSubmitted value)? emailSubmitted,
   }) {
-    return loginButtonPressed?.call(this);
+    return emailSubmitted?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LoginButtonPressed value)? loginButtonPressed,
+    TResult Function(_EmailSubmitted value)? emailSubmitted,
     required TResult orElse(),
   }) {
-    if (loginButtonPressed != null) {
-      return loginButtonPressed(this);
+    if (emailSubmitted != null) {
+      return emailSubmitted(this);
     }
     return orElse();
   }
 }
 
-abstract class _LoginButtonPressed implements EmailEvent {
-  const factory _LoginButtonPressed(final String email, final String password) =
-      _$LoginButtonPressedImpl;
+abstract class _EmailSubmitted implements EmailEvent {
+  const factory _EmailSubmitted(final String email) = _$EmailSubmittedImpl;
 
   String get email;
-  String get password;
   @JsonKey(ignore: true)
-  _$$LoginButtonPressedImplCopyWith<_$LoginButtonPressedImpl> get copyWith =>
+  _$$EmailSubmittedImplCopyWith<_$EmailSubmittedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -326,9 +315,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -338,9 +324,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -350,9 +333,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -363,7 +343,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -373,7 +352,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -383,7 +361,6 @@ mixin _$EmailState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
@@ -450,9 +427,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -465,9 +439,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -480,9 +451,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -499,7 +467,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -512,7 +479,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -525,7 +491,6 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
@@ -541,197 +506,6 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements EmailState {
   const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$ValidationFailedImplCopyWith<$Res> {
-  factory _$$ValidationFailedImplCopyWith(_$ValidationFailedImpl value,
-          $Res Function(_$ValidationFailedImpl) then) =
-      __$$ValidationFailedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty});
-}
-
-/// @nodoc
-class __$$ValidationFailedImplCopyWithImpl<$Res>
-    extends _$EmailStateCopyWithImpl<$Res, _$ValidationFailedImpl>
-    implements _$$ValidationFailedImplCopyWith<$Res> {
-  __$$ValidationFailedImplCopyWithImpl(_$ValidationFailedImpl _value,
-      $Res Function(_$ValidationFailedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isEmailEmpty = null,
-    Object? isEmailInvalid = null,
-    Object? isPasswordEmpty = null,
-  }) {
-    return _then(_$ValidationFailedImpl(
-      null == isEmailEmpty
-          ? _value.isEmailEmpty
-          : isEmailEmpty // ignore: cast_nullable_to_non_nullable
-              as bool,
-      null == isEmailInvalid
-          ? _value.isEmailInvalid
-          : isEmailInvalid // ignore: cast_nullable_to_non_nullable
-              as bool,
-      null == isPasswordEmpty
-          ? _value.isPasswordEmpty
-          : isPasswordEmpty // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ValidationFailedImpl implements _ValidationFailed {
-  const _$ValidationFailedImpl(
-      this.isEmailEmpty, this.isEmailInvalid, this.isPasswordEmpty);
-
-  @override
-  final bool isEmailEmpty;
-  @override
-  final bool isEmailInvalid;
-  @override
-  final bool isPasswordEmpty;
-
-  @override
-  String toString() {
-    return 'EmailState.validationFailed(isEmailEmpty: $isEmailEmpty, isEmailInvalid: $isEmailInvalid, isPasswordEmpty: $isPasswordEmpty)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ValidationFailedImpl &&
-            (identical(other.isEmailEmpty, isEmailEmpty) ||
-                other.isEmailEmpty == isEmailEmpty) &&
-            (identical(other.isEmailInvalid, isEmailInvalid) ||
-                other.isEmailInvalid == isEmailInvalid) &&
-            (identical(other.isPasswordEmpty, isPasswordEmpty) ||
-                other.isPasswordEmpty == isPasswordEmpty));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, isEmailEmpty, isEmailInvalid, isPasswordEmpty);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ValidationFailedImplCopyWith<_$ValidationFailedImpl> get copyWith =>
-      __$$ValidationFailedImplCopyWithImpl<_$ValidationFailedImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
-    required TResult Function() userNotFound,
-    required TResult Function() wrongPassword,
-    required TResult Function() loggedIn,
-    required TResult Function() error,
-  }) {
-    return validationFailed(isEmailEmpty, isEmailInvalid, isPasswordEmpty);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
-    TResult? Function()? userNotFound,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? loggedIn,
-    TResult? Function()? error,
-  }) {
-    return validationFailed?.call(
-        isEmailEmpty, isEmailInvalid, isPasswordEmpty);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
-    TResult Function()? userNotFound,
-    TResult Function()? wrongPassword,
-    TResult Function()? loggedIn,
-    TResult Function()? error,
-    required TResult orElse(),
-  }) {
-    if (validationFailed != null) {
-      return validationFailed(isEmailEmpty, isEmailInvalid, isPasswordEmpty);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
-    required TResult Function(_UserNotFound value) userNotFound,
-    required TResult Function(_WrongPassword value) wrongPassword,
-    required TResult Function(_LoggedIn value) loggedIn,
-    required TResult Function(_Error value) error,
-  }) {
-    return validationFailed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
-    TResult? Function(_UserNotFound value)? userNotFound,
-    TResult? Function(_WrongPassword value)? wrongPassword,
-    TResult? Function(_LoggedIn value)? loggedIn,
-    TResult? Function(_Error value)? error,
-  }) {
-    return validationFailed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
-    TResult Function(_UserNotFound value)? userNotFound,
-    TResult Function(_WrongPassword value)? wrongPassword,
-    TResult Function(_LoggedIn value)? loggedIn,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (validationFailed != null) {
-      return validationFailed(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ValidationFailed implements EmailState {
-  const factory _ValidationFailed(
-      final bool isEmailEmpty,
-      final bool isEmailInvalid,
-      final bool isPasswordEmpty) = _$ValidationFailedImpl;
-
-  bool get isEmailEmpty;
-  bool get isEmailInvalid;
-  bool get isPasswordEmpty;
-  @JsonKey(ignore: true)
-  _$$ValidationFailedImplCopyWith<_$ValidationFailedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -773,9 +547,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -788,9 +559,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -803,9 +571,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -822,7 +587,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -835,7 +599,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -848,7 +611,6 @@ class _$UserNotFoundImpl implements _UserNotFound {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
@@ -905,9 +667,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -920,9 +679,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -935,9 +691,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -954,7 +707,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -967,7 +719,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -980,7 +731,6 @@ class _$WrongPasswordImpl implements _WrongPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
@@ -1037,9 +787,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -1052,9 +799,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -1067,9 +811,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -1086,7 +827,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -1099,7 +839,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -1112,7 +851,6 @@ class _$LoggedInImpl implements _LoggedIn {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
@@ -1169,9 +907,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)
-        validationFailed,
     required TResult Function() userNotFound,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
@@ -1184,9 +919,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult? Function()? userNotFound,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
@@ -1199,9 +931,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            bool isEmailEmpty, bool isEmailInvalid, bool isPasswordEmpty)?
-        validationFailed,
     TResult Function()? userNotFound,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
@@ -1218,7 +947,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_ValidationFailed value) validationFailed,
     required TResult Function(_UserNotFound value) userNotFound,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
@@ -1231,7 +959,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_ValidationFailed value)? validationFailed,
     TResult? Function(_UserNotFound value)? userNotFound,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
@@ -1244,7 +971,6 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_ValidationFailed value)? validationFailed,
     TResult Function(_UserNotFound value)? userNotFound,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,

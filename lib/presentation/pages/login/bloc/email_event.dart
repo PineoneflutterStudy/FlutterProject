@@ -4,5 +4,5 @@ part of 'email_bloc.dart';
 class EmailEvent with _$EmailEvent {
   const factory EmailEvent.started() = _Started;
 
-  const factory EmailEvent.loginButtonPressed(String email, String password) = _LoginButtonPressed;
+  const factory EmailEvent.emailSubmitted(String email) = _EmailSubmitted;
 }

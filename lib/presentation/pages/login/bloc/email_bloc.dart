@@ -19,7 +19,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 //  Fields
 //==============================================================================
   final String _tag = Tag.EMAIL;
-  final CommonUtils commonUtils = CommonUtils();
+
+  String submittedEmail = '';
 
 //==============================================================================
 //  Methods
@@ -29,17 +30,21 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       CustomLogger.logger.i('$_tag Event occurred. event = ${event.runtimeType}');
       await event.when(
         started: () async => emit(EmailState.initial()),
-        loginButtonPressed: (email, password) => _onLoginButtonPressed(emit, email, password),
+        emailSubmitted: (email) => _onEmailSubmitted(emit, email),
       );
     });
   }
 
+  _onEmailSubmitted(Emitter<EmailState> emit, String email) {
+    submittedEmail = email;
+    // emit(Event);
+  }
+
   _onLoginButtonPressed(Emitter<EmailState> emit, String email, String password) async {
     final bool isEmailEmpty = email.isEmpty;
-    final bool isEmailInvalid = !commonUtils.isValidEmail(email);
+    final bool isEmailInvalid = !CommonUtils.isValidEmail(email);
     final bool isPasswordEmpty = password.isEmpty;
     if (isEmailEmpty || isEmailInvalid || isPasswordEmpty) {
-      emit(EmailState.validationFailed(isEmailEmpty, isEmailInvalid, isPasswordEmpty));
       return;
     }
 

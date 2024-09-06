@@ -12,7 +12,7 @@ class EmailDuplicateException implements Exception {
 
   @override
   String toString() {
-    final String tempEmail = CustomLogger.isDebugLogHidden ? CommonUtils().maskEmail(email) : email;
+    final String tempEmail = CustomLogger.isDebugLogHidden ? CommonUtils.maskEmail(email) : email;
     return 'EmailDuplicateException: email = $tempEmail, attemptedProvider = $attemptedProvider';
   }
 }
