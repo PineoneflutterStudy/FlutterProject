@@ -39,7 +39,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     super.initState();
     _emailBloc = EmailBloc();
     _emailBloc.add(EmailEvent.started());
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -81,25 +81,27 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
                           labelText: '이메일',
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                           contentPadding: EdgeInsets.only(left: 20),
-                          errorText: _getErrorTextForEmail(),
+                          errorText: _getErrorTextForEmail(_showEmailEmptyMessage, _showEmailInvalidMessage),
                           suffixIcon: _isEmailEmpty
                               ? null
                               : _buildClearButton(controller: _emailController),
                         ),
                         keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => setState(() => _isEmailEmpty = value.isEmpty),
+                        autofocus: true,
+                        onChanged: (value) => onEmailTextChanged(value),
                         onSubmitted: (value) {
                           setState(() {
                             if (_isEmailEmpty) {
                               _showEmailEmptyMessage = true;
                               _showEmailInvalidMessage = false;
-                            } else if (CommonUtils.isValidEmail(value)) {
+                            } else if (!CommonUtils.isValidEmail(value)) {
                               _showEmailEmptyMessage = false;
                               _showEmailInvalidMessage = true;
                             }
-                          },);
+                          });
 
                           if (_showEmailEmptyMessage || _showEmailInvalidMessage) {
+                            _emailFocusNode.requestFocus();
                             return;
                           }
 
@@ -122,8 +124,6 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 16),
-
-
                     ],
                   ),
                 ),
@@ -148,11 +148,11 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
 //==============================================================================
   EmailBloc _getBloc(BuildContext context) => context.read<EmailBloc>();
 
-  String? _getErrorTextForEmail() {
+  String? _getErrorTextForEmail(bool showEmailEmptyMessage, bool showEmailInvalidMessage) {
     final String? errorText;
-    if (_showEmailEmptyMessage) {
+    if (showEmailEmptyMessage) {
       errorText = '이메일 주소를 입력해 주세요.';
-    } else if (_showEmailInvalidMessage) {
+    } else if (showEmailInvalidMessage) {
       errorText = '올바른 이메일 주소를 입력해 주세요.';
     } else {
       errorText = null;
@@ -160,15 +160,28 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     return errorText;
   }
 
+  Widget _buildClearButton({required TextEditingController controller}) => IconButton(
+        icon: Icon(Icons.clear_rounded),
+        onPressed: () {
+          controller.clear();
+          onEmailTextChanged(controller.text);
+        },
+      );
+
+  onEmailTextChanged(String value) {
+    setState(() {
+      _isEmailEmpty = value.isEmpty;
+      if (_showEmailEmptyMessage || _showEmailInvalidMessage) {
+        _showEmailEmptyMessage = false;
+        _showEmailInvalidMessage = false;
+      }
+    });
+  }
+
   String? _getErrorTextForPassword(EmailState state) {
     //     return isPasswordEmpty ? '비밀번호를 입력해 주세요' : null;
     return null;
   }
-
-  Widget _buildClearButton({required TextEditingController controller}) => IconButton(
-        icon: Icon(Icons.clear_rounded),
-        onPressed: () => controller.clear(),
-      );
 
 //==============================================================================
 //  Methods
