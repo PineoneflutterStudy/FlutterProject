@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -7,6 +8,7 @@ import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/place/place.model.dart';
 import '../../../plan/utils/plan_util.dart';
+import '../../bloc/like_place/like_place_bloc.dart';
 
 class LikePlaceItemWidget extends StatefulWidget {
 
@@ -103,6 +105,8 @@ class _LikePlaceItemWidgetState extends State<LikePlaceItemWidget> with PlanUtil
                   IconButton(
                     icon: Image.asset(true ? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
                     onPressed: () {
+                      String placeId = widget.place.placeId;
+                      context.read<LikePlaceBloc>().add(LikePlaceEvent.delete(placeId));
                       // isLiked ? firestore.deleteDocument(placeDocRef!) : firestore.setDocument(placeDocRef!, widget.place.toJson());
                       // setState(() {
                       //   isLiked = !isLiked;

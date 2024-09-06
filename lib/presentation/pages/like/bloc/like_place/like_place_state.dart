@@ -7,5 +7,5 @@ class LikePlaceState with _$LikePlaceState {
   const factory LikePlaceState.success(List<Place> placeList) = _Success;
   const factory LikePlaceState.empty() = _Empty;
   const factory LikePlaceState.error() = _Error;
-
+  const factory LikePlaceState.delete() = _onDelete;
 }
