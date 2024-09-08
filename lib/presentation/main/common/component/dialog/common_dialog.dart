@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/utils/error/error_response.dart';
-
 
 class CommonDialog {
   CommonDialog();
 
-  //Todo error Code에 따른 Message 정의 필요
+  //Todo: error Code에 따른 Message 정의 필요
   static Future<bool?> errorDialog(BuildContext context, ErrorResponse? error) {
     return showDialog<bool>(
         context: context,
@@ -24,10 +24,9 @@ class CommonDialog {
                 ],
               ),
             ),
-            actionsAlignment: MainAxisAlignment.center,
             actions: [
-              ElevatedButton(onPressed: ()=>context.pop(true), child: Text('다시 시도')),
-              ElevatedButton(onPressed: ()=>exit(0), child: Text('종료'))
+              ElevatedButton(onPressed: () => context.pop(true), child: Text('다시 시도')),
+              ElevatedButton(onPressed: () => exit(0), child: Text('종료'))
             ],
           );
         });
@@ -45,35 +44,49 @@ class CommonDialog {
   static Future<void> confirmDialog({
     required BuildContext context,
     required String title,
-    required String content,
+    String? content,
     required String btn1Text,
     required String btn2Text,
     required Function(BuildContext) onBtn1Pressed,
     required Function(BuildContext) onBtn2Pressed,
   }) {
     return showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Column(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          content: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 25, 10, 0),
+            child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('$title', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
-                Text('$content', style: TextStyle(fontSize: 21),)
+                Text('$title',
+                  style: TextStyle(fontSize: 25, height: 1, fontWeight: FontWeight.bold),
+                ),
+                if (content?.isNotEmpty == true)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: Text('$content',
+                      style: TextStyle(fontSize: 18, color: AppColors.contentFourth, height: 1),
+                    ),
+                  )
               ],
             ),
-            actionsAlignment: MainAxisAlignment.center,
-            actions: [
-              ElevatedButton(
-                  onPressed: () => onBtn1Pressed(_),
-                  child: Text(btn1Text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-              ),
-              ElevatedButton(
-                  onPressed: () => onBtn2Pressed(_),
-                  child: Text(btn2Text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-              )
-            ],
-          );
-        });
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () => onBtn1Pressed(_),
+                child: Text(btn1Text,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )),
+            ElevatedButton(
+                onPressed: () => onBtn2Pressed(_),
+                child: Text(btn2Text,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ))
+          ],
+        );
+      },
+    );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../main/common/component/dialog/common_dialog.dart';
 import 'planner_loading_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -52,16 +54,16 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                   ),
                   // indicator 영역
                   SizedBox(
-                    height: 20,
+                    height: 25,
                     child: SmoothPageIndicator(
                       controller: _pageController,
                       count: plannerList[selectedIndex].planner_page_list.length,
                       axisDirection: Axis.horizontal,
                       effect: JumpingDotEffect(
                           dotColor: Colors.grey,
-                          activeDotColor: AppColors.primary,
-                          dotHeight: 10,
-                          dotWidth: 10),
+                          activeDotColor: AppColors.error,
+                          dotHeight: 7,
+                          dotWidth: 7),
                     ),
                   ),
                   //page view 영역
@@ -118,8 +120,14 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: ChoiceChip(
-          label: Text(planner.planner_title, style: TextStyle(fontSize: 20)),
+          elevation: 1,
+          showCheckmark: false,
+          avatar: Icon( Icons.calendar_month, color: (index == selectedIndex) ? AppColors.error : AppColors.contentFourth) ,
+          labelPadding: EdgeInsets.only(left: 3),
+          label: Text(planner.planner_title , style: TextStyle(fontSize: 16, color: (index == selectedIndex) ? AppColors.black : AppColors.contentFourth)),
           selected: index == selectedIndex,
+          backgroundColor: Colors.white,
+          checkmarkColor: AppColors.primary,
           onSelected: (isSelected) {
             if (isSelected) {
               widget.plannerBloc.add(PlannerEvent.selected(index));  // 인덱스를 사용하여 선택 이벤트 처리
@@ -133,7 +141,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 0),
         child: IconButton(
-          icon: Icon(Icons.add_circle_sharp, color: AppColors.primary, size: 20),
+          icon: Icon(Icons.add_circle_sharp, color: AppColors.error.withOpacity(0.8), size: 20),
           onPressed: () async {
             final result = await showGoPlanPopup(context: context, addressBloc: widget.addressBloc, index : plannerList.length);
             if (result != null && result.containsKey('planner')) {
@@ -156,7 +164,18 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         if (index == 0) { // add btn
           // TODO: 다음날 계획 추가하기 팝업
         } else { // delete btn
-          widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index));
+          CommonDialog.confirmDialog(
+            context: context,
+            title: '\'${selected.planner_title}\' 계획을\n정말 삭제하시겠습니까?',
+            content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
+            btn1Text: '아니요',
+            btn2Text: '네',
+            onBtn1Pressed: (context) => context.pop(),
+            onBtn2Pressed: (context) => {
+              context.pop(),
+              widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index))
+            },
+          );
         }
       },
     );
