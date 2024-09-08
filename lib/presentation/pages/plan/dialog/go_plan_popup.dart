@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/common_utils.dart';
-import '../../../../domain/model/display/place/planner.model.dart';
+import '../../../../domain/model/display/plan/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
 class GoPlanPopup extends StatefulWidget {

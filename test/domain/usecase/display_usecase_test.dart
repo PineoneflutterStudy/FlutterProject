@@ -1,7 +1,7 @@
 import 'package:flutter_project_team1/core/utils/constant.dart';
 import 'package:flutter_project_team1/core/utils/error/error_response.dart';
 import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
-import 'package:flutter_project_team1/data/repository_impl/display/display_repository_impl.dart';
+import 'package:flutter_project_team1/data/repository_impl/common/common_repository_impl.dart';
 import 'package:flutter_project_team1/domain/model/common/result.dart';
 import 'package:flutter_project_team1/domain/model/display/category/category.model.dart';
 import 'package:flutter_project_team1/domain/repository/display.repository.dart';
@@ -18,7 +18,7 @@ void main() {
   late DisplayUsecase displayUsecase;
 
   setUpAll((){
-    displayRepository = DisplayRepositoryImpl(MockDisplayApi());
+    displayRepository = CommonRepositoryImpl(MockDisplayApi());
     displayUsecase = DisplayUsecase(displayRepository,);
   });
 

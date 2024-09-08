@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
 import 'planner_loading_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../domain/model/display/place/planner.model.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 import 'planner_fab_widget.dart';

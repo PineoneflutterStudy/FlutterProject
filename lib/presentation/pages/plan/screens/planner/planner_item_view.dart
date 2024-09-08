@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../domain/model/display/place/planner.model.dart';
-import '../../../../../domain/model/display/place/transportation.dart';
+import '../../../../../domain/model/display/plan/planner.model.dart';
+import '../../../../../domain/model/display/plan/transportation.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
@@ -12,15 +11,15 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
   final int plannerIndex;
   final int pageIndex;
   final PlannerItem plan;
-  final int curItemindex;
+  final int curItemIndex;
   final int lastIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.plan,required this.curItemindex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.plan,required this.curItemIndex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
-    if(curItemindex == 0) {
+    if(curItemIndex == 0) {
       addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
     }
     //todo 다음날 넘어갈 경우 구분선 추가하기
@@ -44,21 +43,17 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                   TextField( style: TextStyle(
                     fontSize: 20, // 텍스트 크기 조정
                   ),decoration: InputDecoration(labelText: plan.place_name, contentPadding: EdgeInsets.only(right: 50), border: UnderlineInputBorder())),
-                  if (curItemindex != 0)
+                  if (curItemIndex != 0)
                     Positioned(
                       right: 0,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // IconButton(icon: Icon(Icons.edit),
-                          //   onPressed: () {
-                          //     // todo 장소 수정 및 아래 데이터 모두 지우기
-                          //   },
-                          // ),
-                          IconButton(icon: Icon(Icons.delete),
+                          IconButton(icon: Icon(Icons.edit),
                             iconSize: 20,
+                            padding: EdgeInsets.zero,
                             onPressed: () {
-                              // todo 장소 삭제 및 아래 데이터 모두 지우기
+                              // todo 장소 수정, 삭제 팝업
                             },
                           ),
                         ],
@@ -69,8 +64,8 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
             ),
           ],
         ),
-        SizedBox(height: (curItemindex == lastIndex) ? 30 : 10 ),
-        if (curItemindex == lastIndex)
+        SizedBox(height: (curItemIndex == lastIndex) ? 30 : 10 ),
+        if (curItemIndex == lastIndex)
           ElevatedButton(
             onPressed: () {
               // 마지막 위치로 좌표 수정

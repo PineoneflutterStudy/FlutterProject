@@ -1,5 +1,5 @@
 import '../../../core/utils/firebase/firebase_firestore_util.dart';
-import '../../../domain/model/display/place/place.model.dart';
+import '../../../domain/model/display/plan/place.model.dart';
 import '../../../domain/repository/like/like_place_repository.dart';
 
 class LikePlaceRepositoryImpl implements LikePlaceRepository {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../domain/model/display/place/address.model.dart';
-import '../../bloc/planner_bloc/planner_bloc.dart';
+import '../../../../../domain/model/display/plan/address.model.dart';
 import 'place_item_view.dart';
 
 import '../../../../../core/utils/constant.dart';

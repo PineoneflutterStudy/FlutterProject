@@ -1,6 +1,6 @@
-import '../../domain/model/display/place/place.model.dart';
-import '../../presentation/pages/plan/utils/plan_util.dart';
-import '../dto/display/place/place.dto.dart';
+import '../../../domain/model/display/plan/place.model.dart';
+import '../../../presentation/pages/plan/utils/plan_util.dart';
+import '../../dto/display/place/place.dto.dart';
 class PlanUtilImpl with PlanUtil {}
 
 extension PlaceX on PlaceDto {

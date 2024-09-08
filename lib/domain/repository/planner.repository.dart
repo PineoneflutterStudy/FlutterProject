@@ -1,6 +1,6 @@
 import '../../data/data_source/response_wrapper/response_wrapper.dart';
-import '../model/display/place/address.model.dart';
-import '../model/display/place/place.model.dart';
+import '../model/display/plan/address.model.dart';
+import '../model/display/plan/place.model.dart';
 import 'repository.dart';
 
 /**

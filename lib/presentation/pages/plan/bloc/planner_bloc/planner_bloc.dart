@@ -6,7 +6,7 @@ import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/place/planner.model.dart';
+import '../../../../../domain/model/display/plan/planner.model.dart';
 
 part 'planner_event.dart';
 

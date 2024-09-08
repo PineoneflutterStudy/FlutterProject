@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../domain/model/display/place/place.model.dart';
+import '../../../../../domain/model/display/plan/place.model.dart';
 import 'like_place_item_widget.dart';
 
 class LikePlaceWidget extends StatefulWidget {

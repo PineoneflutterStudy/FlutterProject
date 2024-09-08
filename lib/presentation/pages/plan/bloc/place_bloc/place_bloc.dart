@@ -5,7 +5,7 @@ import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/exception/common_exception.dart';
 import '../../../../../domain/model/common/result.dart';
-import '../../../../../domain/model/display/place/place.model.dart';
+import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../../../domain/usecase/planner/plan/get_place_list.usecase.dart';
 import '../../../../../domain/usecase/planner/planner.usecase.dart';
 

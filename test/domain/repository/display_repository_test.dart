@@ -2,8 +2,8 @@ import 'package:flutter_project_team1/core/utils/constant.dart';
 import 'package:flutter_project_team1/data/data_source/api/category/ctgr_mock_api.dart';
 import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
 import 'package:flutter_project_team1/data/mapper/common.mapper.dart';
-import 'package:flutter_project_team1/data/mapper/display.mapper.dart';
-import 'package:flutter_project_team1/data/repository_impl/display/display_repository_impl.dart';
+import 'package:flutter_project_team1/data/mapper/plan/category.mapper.dart';
+import 'package:flutter_project_team1/data/repository_impl/common/common_repository_impl.dart';
 import 'package:flutter_project_team1/domain/model/display/category/category.model.dart';
 import 'package:flutter_project_team1/domain/repository/display.repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +17,7 @@ void main(){
 
   setUpAll((){
     mockApi = MockDisplayApi();
-    displayRepository = DisplayRepositoryImpl(mockApi);
+    displayRepository = CommonRepositoryImpl(mockApi);
   });
 
   test('의존성 주입 및 객체 생성 완료', ()=> expect(displayRepository, isNotNull));

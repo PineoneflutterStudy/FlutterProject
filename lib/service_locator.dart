@@ -5,8 +5,8 @@ import 'core/utils/rest_client/rest_client.dart';
 import 'data/data_source/api/category/ctgr_mock_api.dart';
 import 'data/data_source/remote/kakao.api.dart';
 import 'data/data_source/remote/mock.api.dart';
-import 'data/repository_impl/display/display_repository_impl.dart';
-import 'data/repository_impl/planner/planner_repository_impl.dart';
+import 'data/repository_impl/common/common_repository_impl.dart';
+import 'data/repository_impl/plan/planner_repository_impl.dart';
 import 'domain/repository/display.repository.dart';
 import 'domain/repository/planner.repository.dart';
 import 'domain/usecase/display/display.usecase.dart';
@@ -33,7 +33,7 @@ void _data() {
 void _domain() {
   //repository
   locator.registerSingleton<DisplayRepository>(
-      DisplayRepositoryImpl(locator<MockApi>()));
+      CommonRepositoryImpl(locator<MockApi>()));
   locator.registerSingleton<PlannerRepository>(
       PlannerRepositoryImpl(locator<KakaoApi>()));
   //usecase

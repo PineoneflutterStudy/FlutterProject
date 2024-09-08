@@ -1,10 +1,10 @@
-import '../../../domain/model/display/place/address.model.dart';
-import '../../../domain/model/display/place/place.model.dart';
+import '../../../domain/model/display/plan/address.model.dart';
+import '../../../domain/model/display/plan/place.model.dart';
 import '../../../domain/repository/planner.repository.dart';
 import '../../data_source/remote/kakao.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
-import '../../mapper/address.mapper.dart';
-import '../../mapper/place.mapper.dart';
+import '../../mapper/plan/address.mapper.dart';
+import '../../mapper/plan/place.mapper.dart';
 
 /**
  * Plan 메뉴 Repository

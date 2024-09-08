@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../domain/model/display/place/planner.model.dart';
+import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../main/common/component/dialog/login_popup.dart';
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/address_bloc/address_bloc.dart';

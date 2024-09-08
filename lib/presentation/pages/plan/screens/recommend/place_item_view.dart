@@ -9,8 +9,8 @@ import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/common_utils.dart';
-import '../../../../../domain/model/display/place/address.model.dart';
-import '../../../../../domain/model/display/place/place.model.dart';
+import '../../../../../domain/model/display/plan/address.model.dart';
+import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../dialog/add_plan_popup.dart';
 import '../../utils/plan_util.dart';
 

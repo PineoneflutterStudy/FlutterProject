@@ -1,6 +1,6 @@
 
-import '../../domain/model/display/place/address.model.dart';
-import '../dto/display/address/address.dto.dart';
+import '../../../domain/model/display/plan/address.model.dart';
+import '../../dto/display/address/address.dto.dart';
 
 extension AddressX on AddressDto {
   Address toModel() {

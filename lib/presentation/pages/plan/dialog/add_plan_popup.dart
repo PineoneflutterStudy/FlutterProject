@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
-import '../../../../domain/model/display/place/place.model.dart';
-import '../../../../domain/model/display/place/transportation.dart';
+import '../../../../domain/model/display/plan/place.model.dart';
+import '../../../../domain/model/display/plan/transportation.dart';
 import '../utils/plan_util.dart';
 
 class AddPlanPopup extends StatefulWidget {

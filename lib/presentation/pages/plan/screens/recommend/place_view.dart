@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../domain/model/display/place/address.model.dart';
+import '../../../../../domain/model/display/plan/address.model.dart';
 import 'place_list_view.dart';
 
 import '../../../../../domain/model/display/category/category.model.dart';

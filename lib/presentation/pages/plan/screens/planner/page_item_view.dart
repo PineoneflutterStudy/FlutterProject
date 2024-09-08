@@ -1,11 +1,11 @@
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
+import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import 'planner_item_view.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../domain/model/display/place/planner.model.dart';
 
 /// 여행계획 Item View
 class PageItemView extends StatefulWidget {
@@ -60,7 +60,7 @@ class _PageItemViewState extends State<PageItemView> {
                           plannerIndex: widget.plannerIndex,
                           pageIndex: widget.pageIndex,
                           plan: widget.planner.page_item_list[index],
-                          curItemindex: index,
+                          curItemIndex: index,
                           lastIndex: widget.planner.page_item_list.length - 1,
                           addressBloc: widget.addressBloc,
                           plannerBloc: widget.plannerBloc);
