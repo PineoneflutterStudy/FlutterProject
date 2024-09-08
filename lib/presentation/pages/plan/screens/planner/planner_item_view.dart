@@ -20,7 +20,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
 
   @override
   Widget build(BuildContext context) {
-    if(curItemindex == 0){
+    if(curItemindex == 0) {
       addressBloc.add(AddressEvent.setAddress(plan.cur_address_info));
     }
     //todo 다음날 넘어갈 경우 구분선 추가하기
@@ -31,29 +31,32 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
         Row(
           children: [
             Expanded(
-                child: Text(plan.start_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 20))),
+                child: Text(plan.start_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18))),
             Text('~', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Expanded(
-                child: Text(plan.end_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 20))),
+                child: Text(plan.end_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18))),
             SizedBox(width: 8),
             Expanded(
               flex: 3,
               child: Stack(
                 alignment: Alignment.centerLeft,
                 children: [
-                  TextField(decoration: InputDecoration(labelText: plan.place_name, border: UnderlineInputBorder())),
+                  TextField( style: TextStyle(
+                    fontSize: 20, // 텍스트 크기 조정
+                  ),decoration: InputDecoration(labelText: plan.place_name, contentPadding: EdgeInsets.only(right: 50), border: UnderlineInputBorder())),
                   if (curItemindex != 0)
                     Positioned(
                       right: 0,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          IconButton(icon: Icon(Icons.edit),
-                            onPressed: () {
-                              // todo 장소 수정 및 아래 데이터 모두 지우기
-                            },
-                          ),
+                          // IconButton(icon: Icon(Icons.edit),
+                          //   onPressed: () {
+                          //     // todo 장소 수정 및 아래 데이터 모두 지우기
+                          //   },
+                          // ),
                           IconButton(icon: Icon(Icons.delete),
+                            iconSize: 20,
                             onPressed: () {
                               // todo 장소 삭제 및 아래 데이터 모두 지우기
                             },
@@ -66,7 +69,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
             ),
           ],
         ),
-        SizedBox(height: (curItemindex == lastIndex) ? 40 : 10 ),
+        SizedBox(height: (curItemindex == lastIndex) ? 30 : 10 ),
         if (curItemindex == lastIndex)
           ElevatedButton(
             onPressed: () {

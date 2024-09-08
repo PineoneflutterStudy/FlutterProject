@@ -112,8 +112,8 @@ mixin PlanUtil {
   /// [walkIcon+이동시간] widget
   Widget buildWalkTravelTime(String walkTravelTime) {
     final Transportation walk = getTransportationByCode('walk');
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Icon(walk.icon, color: walk.textColor , size: 13),
         SizedBox(width: 2),
@@ -121,15 +121,14 @@ mixin PlanUtil {
       ],
     );
   }
-
   /// [carIcon+이동시간] widget
   Widget buildCarTravelTime(String carTravelTime) {
     final Transportation car = getTransportationByCode('car');
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Icon(car.icon, color: car.textColor, size: 13),
-        SizedBox(width: 3),
+        SizedBox(width: 2),
         Text(carTravelTime, style: TextStyle(fontSize: 16, color: car.textColor))
       ],
     );

@@ -130,11 +130,11 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
               FocusScope.of(context).unfocus(); // 키보드 닫기
               Navigator.of(context).pop();
             },
-            child: Text("No"),
+            child: Text("No", style: TextStyle(color: AppColors.primary, fontSize: 20)),
           ),
           TextButton(
             onPressed: () => _onConfirm(),
-            child: Text("Yes"),
+            child: Text("Yes", style: TextStyle(color: AppColors.primary, fontSize: 20)),
           ),
         ],
       ),

@@ -26,7 +26,7 @@ class PlannerFabWidgetState extends State<PlannerFabWidget>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 30, 20),
+      padding: const EdgeInsets.fromLTRB(0, 0, 20, 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

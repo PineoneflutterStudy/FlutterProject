@@ -30,6 +30,7 @@ dependencies:
   intl: ^0.19.0 #데이터 포맷
   uuid: ^4.4.2 #id 생성
   smooth_page_indicator: ^1.2.0
+  fading_edge_scrollview: ^4.1.1
 
   fluttertoast: ^8.0.8 # 토스트 팝업 사용
   provider: ^6.0.3 # Provider 사용
