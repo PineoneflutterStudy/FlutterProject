@@ -13,8 +13,8 @@ part 'start_address_repository.g.dart';
 /// ## 출발지 데이터(임시) SharedPreferences 사용을 위한 Repository
 
 final Logger _logger = CustomLogger.logger;
-final String listSaveName = "addressList";
-final String destinationSaveName = "destination";
+final String listSaveName = "addressList"; // 출발지 List
+final String destinationSaveName = "destination"; // 목적지
 
 List<AddressModel> defaultAddress = [
   AddressModel(index: 0, address: '', latitude: 0.0, longitude: 0.0),
@@ -34,7 +34,7 @@ abstract class AddressShrefRepository {
   Future<void> deleteAddressInput(int index);
   Future<void> resetAddress();
   Future<void> setDestination(TourLocationModel tourDto);
-  Future<TourLocationModel> getDestination();
+  Future<TourLocationModel?> getDestination();
 }
 
 class AddressShrefRepositoryImpl implements AddressShrefRepository {
@@ -68,7 +68,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
 
   /// ## { Create } 저장된 출발지 정보가 없음 -> Default 출발지 정보 생성
   @override
-  Future<void> setDefaultData() async {// 디폴트 값 세팅
+  Future<void> setDefaultData() async { // 디폴트 값 세팅
     List<String> address = [];
     await _initSharedPreferences();
     for (int i = 0; i < defaultAddress.length; i++) {
@@ -78,7 +78,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     _logger.i('Default Address Setting Success');
   }
 
-  /// ## {Update} 출발지 정보 업데이트 ( add / update )
+  /// ## { Update } 출발지 정보 업데이트 ( add / update )
   @override
   Future<void> updateAddress(AddressModel addressModel) async {
     await _initSharedPreferences();
@@ -88,7 +88,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     List<int> currentIndex = [];
     int updateIndex = addressModel.index; // Update 또는 Add를 진행할 index 정보
 
-    List<String> addressInfoList = []; //
+    List<String> addressInfoList = [];
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
       AddressModel getAddress = AddressModel.fromJson(addressMap);
@@ -142,7 +142,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
     int updateIndexNum = 0;
 
-    List<String> addressInfoList = []; //
+    List<String> addressInfoList = [];
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
       AddressModel getAddress = AddressModel.fromJson(addressMap);
@@ -161,10 +161,11 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
   /// ##{ All Delete } Shared Preference 데이터 초기화
   Future<void> resetAddress() async {
     await _initSharedPreferences();
-    await _sharedPref.remove(listSaveName);
-    await _sharedPref.remove(destinationSaveName);
+    await _sharedPref.remove(listSaveName); // 출발지 정보 Reset
+    await _sharedPref.remove(destinationSaveName); // 목적지 정보 Reset
   }
 
+  /// ## { Create } 목적지 정보 생성
   @override
   Future<void> setDestination(TourLocationModel tourDto) async {
     await _initSharedPreferences();
@@ -174,14 +175,18 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     _logger.i('Destination Setting Success');
   }
 
+  /// ## { Read } 저장되어 있는 목적지 정보 가져오기
   @override
-  Future<TourLocationModel> getDestination() async {
+  Future<TourLocationModel?> getDestination() async {
     await _initSharedPreferences();
     final destinationInfo = _sharedPref.getString(destinationSaveName) ?? '';
 
+    if (destinationInfo.isEmpty) {
+      return null;
+    }
+
     var destinationMap = jsonDecode(destinationInfo);
     var getDestinationMap = TourLocationModel.fromJson(destinationMap);
-    _logger.i('이거 확인해야할듯 00 -> ${getDestinationMap}');
 
     return getDestinationMap;
   }

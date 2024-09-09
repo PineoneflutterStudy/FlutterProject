@@ -101,7 +101,7 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
                   }
                 case MeetFireStoreStatus.success:
                   {
-                    // 저장된 약속장소 데이터가 있는지 DB Select Run!
+                    // 저장된 약속장소 데이터가 있는지 DB Select Run! -> ListView 출력
                     return Container(
                       child: Center(
                         child: Text(

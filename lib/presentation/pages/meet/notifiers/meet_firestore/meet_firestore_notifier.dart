@@ -1,7 +1,10 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../../../core/utils/firebase/firebase_storage_util.dart';
+import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/location_db.model.dart';
+import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/meet/location_firestore.repository.dart';
 import '../../providers.dart';
 import 'meet_firestore_state.dart';
@@ -9,7 +12,8 @@ import 'meet_firestore_state.dart';
 part 'meet_firestore_notifier.g.dart';
 
 final Logger _logger = CustomLogger.logger;
-final FirebaseStorageUtil _storage = FirebaseStorageUtil();
+final String UrlDestination = 'mapMarker/location_honey_case';
+final String UrlStarting = 'mapMarker/location_point_bee';
 @riverpod
 class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   @override
@@ -18,7 +22,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   }
 
   LocationFireStoreRepository get _locationRepo => ref.read(locationFireStoreDBProvider);
-
+  /// ## 로그인 상태 Get
   Future<void> getLoginState() async {
     // 현재 로그인 되어 있지 않습니다..!
     if (await _locationRepo.getLoginState() == null) {
@@ -30,18 +34,30 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
       return;
     }
 
-    // 현재 유저가 로그인 되어 있음을 알려주는 로그!
-    _logger.i('Current User is Login Success!!');
-
-    // todo 로그인 시 DB에 정보 가져오는 로직 추가...
-    getLocationDB();
-
     // 현재 로그인 되어있음
     state = state.copyWith(
       loginStatus: MeetLoginStatus.login,
     );
-  }
 
+    // 현재 유저가 로그인 되어 있음을 알려주는 로그!
+    _logger.i('Current User is Login Success!!');
+
+    // todo 로그인 시 DB에 정보 가져오는 로직 추가...
+    final getDbData = await getLocationDB();
+
+    if (getDbData.isEmpty) {
+      state = state.copyWith(
+        status: MeetFireStoreStatus.failure, // 데이터가 없으므로 failure
+      );
+    } else {
+      state = state.copyWith(
+        getLocationInfo: getDbData,
+        status: MeetFireStoreStatus.success, // 데이터가 없으므로 failure
+      );
+    }
+
+  }
+  /// 로그인 상태 Update
   Future<void> updateLoginState(bool isLogin) async => isLogin
       ? state = state.copyWith(
     loginStatus: MeetLoginStatus.login,
@@ -51,41 +67,42 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
     status: MeetFireStoreStatus.failure,
   );
 
-  /// ## Firestore Database Get Location Info
-  // TODO save 로직 우선 구현 후 get 동작 구현... 우선 실패 반환
-  // TODO 성공 시 날짜별로 분류되어 있는 출발 목적지 정보들을  가져와서 저장...
-  Future<void> getLocationDB() async {
+  /// ## Firestore Database Get Locations Info
+  Future<List<LocationDbModel>> getLocationDB() async {
     state = state.copyWith(
       status: MeetFireStoreStatus.loading,
     );
 
-    // firebase DB 우선 확인.. -> 이게 있어야 할듯
-    /*final getAllLocations = await firestore.getDocumentsFromCollection(DBKey.DB_LOCATIONS);
+    final getAllLocations = await _locationRepo.getLocationAllInfo(DBKey.DB_LOCATIONS);
     _logger.i('Check get All Address ( firebase DB ) -> ${getAllLocations}');
 
-    if (getAllLocations != null) {
-      final dbData = await getFireStoreDBData(getAllLocations);
-      _logger.i('Check get DB Data -> ${dbData}');
+    if (getAllLocations != null || getAllLocations!.isNotEmpty) {
+      
+      List<LocationDbModel> locations = getAllLocations.map((locationJson) {
+        // JSON에서 starting_point_list와 destination_point를 추출
+        final startingPointsJson = locationJson['starting_point_list'] as List<dynamic>;
+        final destinationPointJson = locationJson['destination_point'] as Map<String, dynamic>;
+        final locationId = locationJson['location_id'];
 
-      if (dbData.isNotEmpty) {
-        _logger.i('DB에 값이 잇어서 DB 값 셋팅!!');
-        for (int i = 0; i < dbData.length; i++) {
-          await _repo.updateAddress(dbData[i]);
-        }
-      } else {
-        _logger.i('[ getFireStoreDBData ] is Empty..!');
-        await _repo.setDefaultData();
-      }
-    } else {
-      _logger.i('[ getDocumentsFromCollection ] is Null & Empty..!');
-      await _repo.setDefaultData();
-    }*/
+        // AddressModel 리스트로 변환
+        List<AddressModel> startingPoints = startingPointsJson
+            .map((point) => AddressModel.fromJson(point as Map<String, dynamic>))
+            .toList();
 
+        // TourLocationModel로 변환
+        TourLocationModel destinationPoint = TourLocationModel.fromJson(destinationPointJson);
 
-
-    state = state.copyWith(
-      status: MeetFireStoreStatus.failure,
-    );
+        // LocationDbModel 생성
+        return LocationDbModel(
+          starting_point_list: startingPoints,
+          destination_point: [destinationPoint],
+          location_id: locationId, // destination_point는 리스트로 감싸야 함
+        );
+      }).toList();
+      
+      return locations;
+    }
+    return List.empty();
   }
 
 
@@ -93,8 +110,8 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   Future<void> getMarkerImage() async {
     state = state.copyWith(storageStatus: MeetFireStorageStatus.loading,);
 
-    final destinationImgUrl = await _storage.getPngImageUrl('mapMarker/location_honey_case'); //  목적지 이미지
-    final startingPointImgUrl = await _storage.getPngImageUrl('mapMarker/location_point_bee'); //  출발지 이미지
+    final destinationImgUrl = await _locationRepo.getImgUrl(UrlDestination); //  목적지 이미지
+    final startingPointImgUrl = await _locationRepo.getImgUrl(UrlStarting); //  출발지 이미지
 
     // 이미지 Url를 정상적으로 가져오지 못함
     if (destinationImgUrl.isEmpty || startingPointImgUrl.isEmpty) {

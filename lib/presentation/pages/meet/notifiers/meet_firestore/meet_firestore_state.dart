@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../../domain/model/display/meet/location_db.model.dart';
+
 enum MeetFireStoreStatus { initial, loading, success, failure }
 
 enum MeetLoginStatus { initial, login, nonLogin, failure }
@@ -13,6 +15,7 @@ class MeetFireStoreState extends Equatable {
     this.storageStatus = MeetFireStorageStatus.initial,
     this.destinationImg = '',
     this.startingPointImg = '',
+    this.getLocationInfo = const [],
   });
 
   final MeetFireStoreStatus status;
@@ -20,6 +23,7 @@ class MeetFireStoreState extends Equatable {
   final MeetFireStorageStatus storageStatus; // Storage 상태
   final String destinationImg; // 목적지 이미지 Url
   final String startingPointImg; // 출발지 이미지 Url
+  final List<LocationDbModel> getLocationInfo;
 
   MeetFireStoreState copyWith({
     MeetFireStoreStatus? status,
@@ -27,6 +31,7 @@ class MeetFireStoreState extends Equatable {
     MeetFireStorageStatus? storageStatus,
     String? destinationImg,
     String? startingPointImg,
+    List<LocationDbModel>? getLocationInfo,
   }) {
     return MeetFireStoreState(
       status: status ?? this.status,
@@ -34,6 +39,7 @@ class MeetFireStoreState extends Equatable {
       storageStatus: storageStatus ?? this.storageStatus,
       destinationImg: destinationImg ?? this.destinationImg,
       startingPointImg: startingPointImg ?? this.startingPointImg,
+      getLocationInfo: getLocationInfo ?? this.getLocationInfo,
     );
   }
 
@@ -44,5 +50,6 @@ class MeetFireStoreState extends Equatable {
         storageStatus,
         destinationImg,
         startingPointImg,
+        getLocationInfo,
       ];
 }

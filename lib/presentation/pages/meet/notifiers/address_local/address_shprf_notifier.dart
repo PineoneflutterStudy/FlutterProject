@@ -105,62 +105,64 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
     await _repo.setDestination(tourDto);
   }
 
-  Future<void> getDestination() async {
-    final destination =  await _repo.getDestination();
-
-    _logger.i('이거 확인해야할듯  222  -> ${destination}');
-  }
-
-
-  /// ## 추후 이동 예정...
   /// ## 출발지 정보 Data Save ( SharedPreferences -> FireStore DB )
   Future<void> saveLocationsData() async {
-    final list = await _repo.getAllAddress();
-    _logger.i('Check All Address List -> ${list}');
+    // 저장날짜 get
     final curDate = getCurDate();
 
-    final destinationInfo = await _repo.getDestination();
-    _logger.i('Get destination -> ${destinationInfo}');
+    // FireStore DB 확인
+    final locationDocRef = await firestore.getCollectionDocRef(DBKey.DB_LOCATIONS, curDate.toString());
+    if (locationDocRef != null) { // 현재 날짜의 경로까지 ...
+      List<dynamic> startingPointList = [];
 
-    if (list.isNotEmpty) {
-      for (int i = 0; i < list.length; i++) {
-        final locationDocRef = await firestore.getCollectionDocRefDocRef(
-          DBKey.DB_LOCATIONS,
-          curDate,
-          DBKey.DB_DB_START,
-          'sPoint${list[i].index}'
-        );
-        if (locationDocRef != null) {
-          await firestore.setDocument(locationDocRef, list[i].toJson());
-        } else {
-          state = state.copyWith(
-            isDataSaved: 'fail',
-          );
-        }
-      }
-
-      final locationDocRef = await firestore.getCollectionDocRefDocRef(
-          DBKey.DB_LOCATIONS,
-          curDate,
-          DBKey.DB_DB_DESTINATION,
-          'ePoint'
-      );
-      if (locationDocRef != null) {
-        await firestore.setDocument(locationDocRef, destinationInfo.toJson());
-      } else {
+      // 출발지 정보 get
+      final addressList = await _repo.getAllAddress();
+      _logger.i('Check All Address List -> ${addressList}');
+      if (addressList.isEmpty) {
         state = state.copyWith(
           isDataSaved: 'fail',
         );
+        return;
       }
+
+      // 출발지 정보 make List
+      for (var address in addressList) {
+        _logger.i('Check Address List -> ${address}');
+        startingPointList.add(address.toJson());
+      }
+      _logger.i('Check Address List -> ${startingPointList}');
+
+      // 목적지 정보 get
+      final destinationInfo = await _repo.getDestination();
+      _logger.i('Get destination -> ${destinationInfo}');
+      if(destinationInfo == null) {
+        state = state.copyWith(
+          isDataSaved: 'fail',
+        );
+        return;
+      }
+
+      // 목적지 정보 make Json
+      _logger.i('Check destination point -> ${destinationInfo.toJson()}');
+
+      final saveData = {
+        'location_id' : curDate.toString(),
+        'starting_point_list': startingPointList,
+        'destination_point': destinationInfo.toJson(),
+      };
+
+      await firestore.setDocument(locationDocRef, saveData);
 
       resetAddress();
       state = state.copyWith(
         isDataSaved: 'success',
       );
     } else {
+      _logger.e('locationDocRef is null..!!!');
       state = state.copyWith(
         isDataSaved: 'fail',
       );
+      return;
     }
   }
 
@@ -181,7 +183,6 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
   }
 }
 
-String getCurDate() {
-  DateTime now = DateTime.now();
-  return  now.toString();
+DateTime getCurDate() {
+  return  DateTime.now();
 }
