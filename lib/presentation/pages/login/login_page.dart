@@ -8,6 +8,7 @@ import '../../../core/utils/constant/tag.dart';
 import '../../../core/utils/logger.dart';
 import '../../../domain/model/display/login/auth_type.dart';
 import 'bloc/login_bloc.dart';
+import 'screens/dialog/login_dialog.dart';
 import 'screens/email/email_login_page.dart';
 import 'widgets/login_option_item.dart';
 
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               state.when(
                 initial: () {},
                 alreadyLoggedIn: () => _onAlreadyLoggedIn(),
-                emailDuplicateError: (email) => _onEmailDuplicateError(email),
+                emailDuplicateError: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
                 requireMoreUserInfo: () => _onRequireMoreUserInfo(),
                 navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
                 loggedIn: () => _onLoggedIn(),
@@ -110,38 +111,6 @@ class _LoginPageState extends State<LoginPage> {
     // 이미 로그인 된 경우 토스트 노출 후 이전 화면으로 복귀
     CommonUtils.showToastMsg('이미 로그인되어 있습니다.');
     Navigator.pop(context, true);
-  }
-
-  void _onEmailDuplicateError(String email) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        content: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "해당 계정($email)은 현재 시도한 로그인 방식과 연결되지 않았습니다. 다른 로그인 방법을 선택해 주세요.",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-              ),
-              TextSpan(
-                text: "\n\ntip: ",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
-              ),
-              TextSpan(
-                text: "로그인 방법을 추가하려면, 마이페이지의 내 정보에서 설정하실 수 있습니다.",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
-              ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text("확인"),
-          ),
-        ],
-      ),
-    );
   }
 
   void _onRequireMoreUserInfo() {
