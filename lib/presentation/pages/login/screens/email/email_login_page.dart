@@ -24,7 +24,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   final String _tag = Tag.EMAIL;
 
   late EmailBloc _emailBloc;
-  late TabController _tabController;
+  late PageController _pageController;
 
   // 이메일
   final TextEditingController _emailController = TextEditingController();
@@ -40,11 +40,13 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     super.initState();
     _emailBloc = EmailBloc();
     _emailBloc.add(EmailEvent.started());
-    _tabController = TabController(length: 2, vsync: this);
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
   void dispose() {
+    _pageController.dispose();
+
     _emailFocusNode.dispose();
     _emailController.dispose();
 
@@ -58,8 +60,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         child: Scaffold(
           appBar: AppBar(),
           body: BlocConsumer<EmailBloc, EmailState>(
-            builder: (context, state) => TabBarView(
-              controller: _tabController,
+            builder: (context, state) => PageView(
+              controller: _pageController,
               physics: NeverScrollableScrollPhysics(), // 스크롤 탭 전환 비활성화
               children: [
                 // Email 입력 화면
