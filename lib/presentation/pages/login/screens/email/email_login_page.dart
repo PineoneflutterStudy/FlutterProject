@@ -5,6 +5,7 @@ import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/constant/tag.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../bloc/email_bloc.dart';
+import '../dialog/login_dialog.dart';
 
 /// ## 이메일 로그인 화면
 ///
@@ -73,7 +74,6 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 16),
-
                       TextField(
                         controller: _emailController,
                         focusNode: _emailFocusNode,
@@ -133,6 +133,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
               state.when(
                 initial: () {},
+                emailDuplicated: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
                 userNotFound: () => _onEmailOrPasswordError(),
                 wrongPassword: () => _onEmailOrPasswordError(),
                 loggedIn: () => _onLoggedIn(),

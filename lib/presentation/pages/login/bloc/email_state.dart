@@ -4,6 +4,8 @@ part of 'email_bloc.dart';
 class EmailState with _$EmailState {
   const factory EmailState.initial() = _Initial;
 
+  const factory EmailState.emailDuplicated(String email) = _EmailDuplicated;
+
   const factory EmailState.userNotFound() = _UserNotFound;
 
   const factory EmailState.wrongPassword() = _WrongPassword;

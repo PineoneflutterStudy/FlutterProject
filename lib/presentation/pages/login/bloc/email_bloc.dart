@@ -2,10 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/constant/Tag.dart';
+import '../../../../core/utils/exception/email_duplicate_exception.dart';
 import '../../../../core/utils/firebase/firebase_auth_util.dart';
+import '../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../core/utils/logger.dart';
+import '../../../../domain/model/display/login/auth_type.dart';
+import '../../../../domain/model/display/login/user.model.dart' as kkul;
 
 part 'email_bloc.freezed.dart';
 part 'email_event.dart';
@@ -35,23 +38,36 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     });
   }
 
-  _onEmailSubmitted(Emitter<EmailState> emit, String email) {
-    submittedEmail = email;
-    // emit(Event);
-  }
+  _onEmailSubmitted(Emitter<EmailState> emit, String email) async {
+    final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
 
-  _onLoginButtonPressed(Emitter<EmailState> emit, String email, String password) async {
-    final bool isEmailEmpty = email.isEmpty;
-    final bool isEmailInvalid = !CommonUtils.isValidEmail(email);
-    final bool isPasswordEmpty = password.isEmpty;
-    if (isEmailEmpty || isEmailInvalid || isPasswordEmpty) {
+    try {
+      await authUtil.checkEmailDuplicate(email, AuthType.email.providerId);
+    } catch (error) {
+      CustomLogger.logger.e('$_tag `Error - $error');
+      if (error is EmailDuplicateException) {
+        emit(EmailState.emailDuplicated(error.email));
+      } else {
+        emit(EmailState.error());
+      }
       return;
     }
 
+    final String lowerCaseEmail = email.toLowerCase();
+    final kkul.User? user = await FirebaseFirestoreUtil().getUserByEmail(lowerCaseEmail);
+    if (user != null) {
+      // 이메일과 일치하는 계정이 있는 경우
+      // eff 비밀번호 입력 화면으로 이동
+    } else {
+      // 이메일과 일치하는 계정이 없는 경우
+      // eff 회원가입을 위해 이메일 인증 화면으로 이동
+    }
+  }
+
+  _onLoginButtonPressed(Emitter<EmailState> emit, String email, String password) async {
     try {
       final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
-      final UserCredential userCredential =
-      await authUtil.auth.signInWithEmailAndPassword(
+      final UserCredential userCredential = await authUtil.auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
