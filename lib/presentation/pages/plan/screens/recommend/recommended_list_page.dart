@@ -18,18 +18,16 @@ import 'place_view.dart';
 class RecommendedListPage extends StatelessWidget {
   final String location;
   final AddressBloc addressBloc;
+  final String categoryId;
 
-  const RecommendedListPage({required this.location, required this.addressBloc, super.key});
+  const RecommendedListPage({required this.location, required this.addressBloc, required this.categoryId, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CtgrBloc(locator<DisplayUsecase>())
-        ..add(CtgrInitialized(MenuType.plan)),
-      child: RecommendedListPageView(
-        location: location,
-        addressBloc: addressBloc,
-      ),
+        ..add(getCategoryListWithSelected(MenuType.plan, categoryId)),
+      child: RecommendedListPageView(location: location, addressBloc: addressBloc, isRcmnPage: (categoryId == 'FD6')),
     );
   }
 }
@@ -38,7 +36,9 @@ class RecommendedListPageView extends StatefulWidget {
   final String location;
   final AddressBloc addressBloc;
 
-  const RecommendedListPageView({required this.location, required this.addressBloc, super.key});
+  final bool isRcmnPage ;
+
+  const RecommendedListPageView({required this.location, required this.addressBloc, required this.isRcmnPage, super.key});
   @override
   State<RecommendedListPageView> createState() => _RecommendedListPageViewState();
 }
@@ -79,7 +79,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                             loading: () => CircularProgressIndicator(),
                             success: (addressInfo) {
                               CustomLogger.logger.i("현재 중심 위치 : $addressInfo");
-                              return PlaceView(categoryList : ctgrState.ctgrs, address : addressInfo);
+                              return PlaceView(categoryList : ctgrState.ctgrs, address : addressInfo, isRcmnPage: widget.isRcmnPage,);
                             },
                             error: (error) {
                               return Center(
@@ -111,7 +111,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
               CustomLogger.logger.e(state.error);
               final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
               if (result) {
-                context.read<CtgrBloc>().add(CtgrInitialized(MenuType.plan));
+                context.read<CtgrBloc>().add(getCategoryListByMenuType(MenuType.plan));
               }
             }
           },

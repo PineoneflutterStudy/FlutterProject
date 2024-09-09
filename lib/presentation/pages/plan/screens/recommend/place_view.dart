@@ -9,7 +9,8 @@ import '../../../../main/common/bloc/ctgr_bloc/ctgr_bloc.dart';
 class PlaceView extends StatelessWidget {
   final List<Category> categoryList;
   final Address address;
-  const PlaceView({ required this.categoryList, required this.address, super.key});
+  final bool isRcmnPage;
+  const PlaceView({ required this.categoryList, required this.address, required this.isRcmnPage, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class PlaceView extends StatelessWidget {
 
         return IndexedStack(
           index: selectedIndex,
-          children: List.generate(categoryList.length, (index) => PlaceListView(category : categoryList[index], address: address),
+          children: List.generate(categoryList.length, (index) => PlaceListView(category : categoryList[index], address: address, isRcmnPage: isRcmnPage),
           ),
         );
       },

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'address.model.dart';
@@ -23,7 +22,6 @@ class Planner with _$Planner {
 class PlannerPage with _$PlannerPage {
   @JsonSerializable(explicitToJson: true)
   const factory PlannerPage({
-    @Default('plan') String planner_title,
     @Default([]) List<PlannerItem> page_item_list,
   }) = _PlannerPage;
 
@@ -37,7 +35,6 @@ class PlannerItem with _$PlannerItem {
   @JsonSerializable(explicitToJson: true)
   const factory PlannerItem({
     Address? prev_address_info,
-    // String? prev_place_id,
     required Address cur_address_info,
     required String place_name,
     String? start_time,

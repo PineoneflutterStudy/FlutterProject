@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
+import '../../dialog/add_next_plan_popup.dart';
 import 'planner_loading_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -162,7 +163,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       icons: icons,
       onIconTapped: (index) {
         if (index == 0) { // add btn
-          // TODO: 다음날 계획 추가하기 팝업
+          _showAddPlanPopup(context, selected, selected.planner_page_list.length);
         } else { // delete btn
           CommonDialog.confirmDialog(
             context: context,
@@ -179,5 +180,16 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         }
       },
     );
+  }
+
+  void _showAddPlanPopup(BuildContext context, Planner selected, int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AddNextPlanPopup(plannerTitle: selected.planner_title, lastPlace: selected.planner_page_list[index-1].page_item_list.last.cur_address_info , index: index+1 , addressBloc: widget.addressBloc),
+    ).then((result) {
+      if (result != null) {
+        print(result);
+      }
+    });
   }
 }

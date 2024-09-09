@@ -17,8 +17,8 @@ class CategoryItemView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 13.0), // 텍스트 주변 내부 여백
-        margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+        padding: EdgeInsets.symmetric(horizontal: 15.0), // 텍스트 주변 내부 여백
+        margin: EdgeInsets.only(bottom: 7),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? AppColors.secondary : AppColors.onPrimary,

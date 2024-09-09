@@ -56,8 +56,7 @@ mixin PlanUtil {
 
   /// 여행지 입력 팝업
   // init_planner_page, planner_page 에서 사용
-  Future<Map<String, Planner>?> showGoPlanPopup(
-      {required BuildContext context, required AddressBloc addressBloc, required int index}) async {
+  Future<Map<String, Planner>?> showGoPlanPopup({required BuildContext context, required AddressBloc addressBloc, required int index}) async {
     final result = await showDialog<Map<String, Planner>>(
       context: context,
       barrierDismissible: false,

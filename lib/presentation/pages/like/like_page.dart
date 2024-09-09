@@ -41,7 +41,7 @@ class _LikePageState extends State<LikePage> {
         )),
         BlocProvider(create: ((context) =>
             CtgrBloc(locator<DisplayUsecase>())
-              ..add(CtgrInitialized(MenuType.like))
+              ..add(getCategoryListByMenuType(MenuType.like))
         )),
         BlocProvider(create: ((context) =>
             LikePlaceBloc(_likePlaceUsecase)

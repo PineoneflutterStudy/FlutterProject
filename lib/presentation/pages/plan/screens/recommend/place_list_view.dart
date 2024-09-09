@@ -14,7 +14,8 @@ import '../../bloc/place_bloc/place_bloc.dart';
 class PlaceListView extends StatelessWidget {
   final Category category;
   final Address address;
-  const PlaceListView({required this.category,required this.address, super.key});
+  final bool isRcmnPage;
+  const PlaceListView({required this.category,required this.address,required this.isRcmnPage, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class PlaceListView extends StatelessWidget {
       create: (_) => PlaceBloc(locator<PlannerUsecase>())
         ..add(PlaceInitialized(address.addressName, category.ctgrId, address.x,
             address.y, address.radius, 1, address.sort)),
-      child: PlaceListPageView(category, address),
+      child: PlaceListPageView(category, address, isRcmnPage),
     );
   }
 }
@@ -30,8 +31,9 @@ class PlaceListView extends StatelessWidget {
 class PlaceListPageView extends StatelessWidget {
   final Category category;
   final Address address;
+  final bool isRcmnPage;
 
-  const PlaceListPageView(this.category, this.address, {super.key});
+  const PlaceListPageView(this.category, this.address, this.isRcmnPage, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class PlaceListPageView extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: state.places.length,
                 itemBuilder: (context, index) {
-                  return PlaceItemView(place : state.places[index]);
+                  return PlaceItemView(place : state.places[index], isRcmnPage: isRcmnPage,);
                 },
               );
             }

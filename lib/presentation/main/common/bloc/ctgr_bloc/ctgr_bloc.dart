@@ -22,12 +22,15 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
   final DisplayUsecase _displayUsecase;
 
   CtgrBloc(this._displayUsecase) : super(CtgrState()){
-    on<CtgrInitialized>(_onCtgrInitialized);
+    on<getCategoryListByMenuType>(_onGetCategorys);
+    on<getCategoryListWithSelected>(_onGetCategorysWithSelected);
     on<CtgrCategorySelected>(_onCtgrCategorySelected);
   }
 
-  Future<void> _onCtgrInitialized(
-    CtgrInitialized event,
+  /// menutype에 따른 카테고리 리스트 불러오기
+  /// 처음 selected > 첫번째 카테고리
+  Future<void> _onGetCategorys(
+    getCategoryListByMenuType event,
     Emitter<CtgrState> emit,
   ) async {
     final menuType = event.menuType;
@@ -44,6 +47,32 @@ class CtgrBloc extends Bloc<CtgrEvent, CtgrState> {
     }
   }
 
+  /// menutype에 따른 카테고리 리스트 불러오기
+  /// 처음 selected > 입력된 category
+  Future<void> _onGetCategorysWithSelected(getCategoryListWithSelected event, Emitter<CtgrState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    final menuType = event.menuType;
+    final categoryId = event.selected;
+    print('menu : $menuType, cg : $categoryId');
+    try {
+      final response = await _fetch(menuType);
+      response.when(Success: (categorys) {
+        print('categorys : $categorys');
+        Category selected = (categorys as List<Category> ).firstWhere(
+              (category) => category.ctgrId == categoryId,
+          orElse: () => categorys.isNotEmpty ? categorys[0] : throw Exception('Category not found'), // 비어있지 않으면 첫 번째 카테고리 반환, 비어있으면 예외 발생
+        );
+        print('selected : $selected');
+        emit(state.copyWith(status: Status.success, ctgrs: categorys, menuType: menuType, selectedCategory: selected));
+      }, failure: (error) {
+        emit(state.copyWith(status: Status.error, error: error));
+      });
+    } catch (error) {
+      emit(state.copyWith(status: Status.error, error: CommonException.setError(error)));
+    }
+  }
+
+  /// 선택된 카테고리 update
   Future<void> _onCtgrCategorySelected(
       CtgrCategorySelected event,
       Emitter<CtgrState> emit,

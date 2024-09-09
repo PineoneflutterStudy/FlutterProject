@@ -11,13 +11,15 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
+import '../../../../main/common/component/dialog/common_dialog.dart';
 import '../../dialog/add_plan_popup.dart';
 import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
 class PlaceItemView extends StatefulWidget {
   final Place place;
-  const PlaceItemView({required this.place, super.key});
+  final bool isRcmnPage;
+  const PlaceItemView({required this.place, required this.isRcmnPage, super.key});
 
   @override
   State<PlaceItemView> createState() => _PlaceItemViewState();
@@ -49,7 +51,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {
-        _showAddPlanPopup(context, widget.place)
+        widget.isRcmnPage ? _showAddPlanPopup(context, widget.place) : _showSelectStartPlacePopup(context, widget.place)
       },
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
@@ -174,5 +176,25 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
         });
       }
     });
+  }
+
+  _showSelectStartPlacePopup(BuildContext context, Place place) {
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '${place.placeName}을\n출발지로 지정하시겠습니까?',
+      btn1Text: '아니요',
+      btn2Text: '네',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => {
+        context.pop(),
+        context.pop({
+          'address_info': Address(
+            addressName: widget.place.placeName,
+            x: widget.place.x,
+            y: widget.place.y,
+          )
+        })
+      },
+    );
   }
 }

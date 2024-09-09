@@ -26,7 +26,6 @@ Map<String, dynamic> _$$PlannerImplToJson(_$PlannerImpl instance) =>
 
 _$PlannerPageImpl _$$PlannerPageImplFromJson(Map<String, dynamic> json) =>
     _$PlannerPageImpl(
-      planner_title: json['planner_title'] as String? ?? 'plan',
       page_item_list: (json['page_item_list'] as List<dynamic>?)
               ?.map((e) => PlannerItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -35,7 +34,6 @@ _$PlannerPageImpl _$$PlannerPageImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PlannerPageImplToJson(_$PlannerPageImpl instance) =>
     <String, dynamic>{
-      'planner_title': instance.planner_title,
       'page_item_list': instance.page_item_list.map((e) => e.toJson()).toList(),
     };
 
