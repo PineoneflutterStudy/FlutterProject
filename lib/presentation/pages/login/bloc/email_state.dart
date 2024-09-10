@@ -6,6 +6,8 @@ class EmailState with _$EmailState {
 
   const factory EmailState.emailDuplicated(String email) = _EmailDuplicated;
 
+  const factory EmailState.navigateToPage(Pages page) = _NavigateToPage;
+
   const factory EmailState.wrongPassword() = _WrongPassword;
 
   const factory EmailState.loggedIn() = _LoggedIn;

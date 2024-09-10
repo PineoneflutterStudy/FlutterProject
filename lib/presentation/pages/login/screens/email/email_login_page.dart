@@ -25,6 +25,16 @@ enum ErrorState {
   passwordInvalid,
 }
 
+enum Pages {
+  emailInput(0),
+  passwordInput(1),
+  signIn(2);
+
+  const Pages(this.page);
+
+  final int page;
+}
+
 class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderStateMixin {
 //==============================================================================
 //  Fields
@@ -51,7 +61,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     super.initState();
     _emailBloc = EmailBloc();
     _emailBloc.add(EmailEvent.started());
-    _pageController = PageController(initialPage: 0);
+    _pageController = PageController(initialPage: Pages.emailInput.page);
   }
 
   @override
@@ -68,26 +78,25 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
         create: (_) => _emailBloc,
         child: Scaffold(
           appBar: AppBar(),
           body: BlocConsumer<EmailBloc, EmailState>(
-            builder: (context, state) =>
-                PageView(
-                  controller: _pageController,
-                  physics: NeverScrollableScrollPhysics(), // 스크롤 탭 전환 비활성화
-                  children: [
-                    _buildEmailInputPage(context),
-                    _buildPasswordInputPage(context),
-                  ],
-                ),
+            builder: (context, state) => PageView(
+              controller: _pageController,
+              physics: NeverScrollableScrollPhysics(), // 스크롤 탭 전환 비활성화
+              children: [
+                _buildEmailInputPage(context),
+                _buildPasswordInputPage(context),
+              ],
+            ),
             listener: (context, state) {
               CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
               state.when(
                 initial: () {},
                 emailDuplicated: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
+                navigateToPage: (page) => _navigateToPage(page),
                 wrongPassword: _onWrongPassword,
                 loggedIn: _onLoggedIn,
                 error: _onError,
@@ -100,8 +109,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
 //==============================================================================
 //  Layout
 //==============================================================================
-  Padding _buildEmailInputPage(BuildContext context) =>
-      Padding(
+  Padding _buildEmailInputPage(BuildContext context) => Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +134,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               keyboardType: TextInputType.emailAddress,
               autofocus: true,
               onChanged: _onEmailTextChanged,
-              onSubmitted: _onEmailSubmitted,
+              onSubmitted: (value) => _onEmailSubmitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
           ],
@@ -144,8 +152,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     }
   }
 
-  Padding _buildPasswordInputPage(BuildContext context) =>
-      Padding(
+  Padding _buildPasswordInputPage(BuildContext context) => Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +177,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               obscureText: true,
               autofocus: true,
               onChanged: _onPasswordTextChanged,
-              onSubmitted: _onPasswordSubmitted,
+              onSubmitted: (value) => _onPasswordSubmitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
           ],
@@ -188,8 +195,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     }
   }
 
-  Widget _buildClearButton({required TextEditingController controller}) =>
-      IconButton(
+  Widget _buildClearButton({required TextEditingController controller}) => IconButton(
         icon: Icon(Icons.clear_rounded),
         onPressed: () {
           controller.clear();
@@ -203,6 +209,12 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   EmailBloc _getBloc(BuildContext context) => context.read<EmailBloc>();
 
   void _onEmailTextChanged(String email) {
+    if (_emailErrorState != ErrorState.none) {
+      setState(() => _emailErrorState = ErrorState.none);
+    }
+  }
+
+  void _onEmailSubmitted(BuildContext context, String email) {
     setState(() {
       if (email.isEmpty) {
         _emailErrorState = ErrorState.emailEmpty;
@@ -212,17 +224,21 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         _emailErrorState = ErrorState.none;
       }
     });
-  }
 
-  void _onEmailSubmitted(String email) {
     if (_emailErrorState == ErrorState.none) {
-      _getBloc(context).add(EmailEvent.emailSubmitted(_emailController.text));
+      _getBloc(context).add(EmailEvent.emailSubmitted(email));
     } else {
       _emailFocusNode.requestFocus();
     }
   }
 
   void _onPasswordTextChanged(String password) {
+    if (_passwordErrorState != ErrorState.none) {
+      setState(() => _passwordErrorState = ErrorState.none);
+    }
+  }
+
+  void _onPasswordSubmitted(BuildContext context, String password) {
     setState(() {
       if (password.isEmpty) {
         _passwordErrorState = ErrorState.passwordEmpty;
@@ -230,14 +246,20 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         _passwordErrorState = ErrorState.none;
       }
     });
-  }
 
-  void _onPasswordSubmitted(String password) {
     if (_passwordErrorState == ErrorState.none) {
-      _getBloc(context).add(EmailEvent.passwordSubmitted(_passwordController.text));
+      _getBloc(context).add(EmailEvent.passwordSubmitted(password));
     } else {
       _passwordFocusNode.requestFocus();
     }
+  }
+
+  void _navigateToPage(Pages page) {
+    _pageController.animateToPage(
+      page.page,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   void _onWrongPassword() {
@@ -252,9 +274,5 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   void _onError() {
     //ett 토스트 불필요한 경우에도 노출될 수 있음 확인해야함.
     CommonUtils.showToastMsg('알 수 없는 오류가 발생했습니다.\n다른 방법으로 로그인하거나 다시 시도해 주세요.');
-  }
-
-  void a() {
-    // _pageController.animateToPage(page, duration: duration, curve: curve)
   }
 }

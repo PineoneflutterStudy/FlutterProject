@@ -476,6 +476,7 @@ mixin _$EmailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -485,6 +486,7 @@ mixin _$EmailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -494,6 +496,7 @@ mixin _$EmailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -504,6 +507,7 @@ mixin _$EmailState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -513,6 +517,7 @@ mixin _$EmailState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -522,6 +527,7 @@ mixin _$EmailState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
@@ -588,6 +594,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -600,6 +607,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -612,6 +620,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -628,6 +637,7 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -640,6 +650,7 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -652,6 +663,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
@@ -735,6 +747,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -747,6 +760,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -759,6 +773,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -775,6 +790,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -787,6 +803,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -799,6 +816,7 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
@@ -817,6 +835,164 @@ abstract class _EmailDuplicated implements EmailState {
   String get email;
   @JsonKey(ignore: true)
   _$$EmailDuplicatedImplCopyWith<_$EmailDuplicatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NavigateToPageImplCopyWith<$Res> {
+  factory _$$NavigateToPageImplCopyWith(_$NavigateToPageImpl value,
+          $Res Function(_$NavigateToPageImpl) then) =
+      __$$NavigateToPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Pages page});
+}
+
+/// @nodoc
+class __$$NavigateToPageImplCopyWithImpl<$Res>
+    extends _$EmailStateCopyWithImpl<$Res, _$NavigateToPageImpl>
+    implements _$$NavigateToPageImplCopyWith<$Res> {
+  __$$NavigateToPageImplCopyWithImpl(
+      _$NavigateToPageImpl _value, $Res Function(_$NavigateToPageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+  }) {
+    return _then(_$NavigateToPageImpl(
+      null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as Pages,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NavigateToPageImpl implements _NavigateToPage {
+  const _$NavigateToPageImpl(this.page);
+
+  @override
+  final Pages page;
+
+  @override
+  String toString() {
+    return 'EmailState.navigateToPage(page: $page)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NavigateToPageImpl &&
+            (identical(other.page, page) || other.page == page));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, page);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NavigateToPageImplCopyWith<_$NavigateToPageImpl> get copyWith =>
+      __$$NavigateToPageImplCopyWithImpl<_$NavigateToPageImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
+    required TResult Function() wrongPassword,
+    required TResult Function() loggedIn,
+    required TResult Function() error,
+  }) {
+    return navigateToPage(page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? loggedIn,
+    TResult? Function()? error,
+  }) {
+    return navigateToPage?.call(page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
+    TResult Function()? wrongPassword,
+    TResult Function()? loggedIn,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (navigateToPage != null) {
+      return navigateToPage(page);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
+    required TResult Function(_WrongPassword value) wrongPassword,
+    required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_Error value) error,
+  }) {
+    return navigateToPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
+    TResult? Function(_WrongPassword value)? wrongPassword,
+    TResult? Function(_LoggedIn value)? loggedIn,
+    TResult? Function(_Error value)? error,
+  }) {
+    return navigateToPage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
+    TResult Function(_WrongPassword value)? wrongPassword,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (navigateToPage != null) {
+      return navigateToPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NavigateToPage implements EmailState {
+  const factory _NavigateToPage(final Pages page) = _$NavigateToPageImpl;
+
+  Pages get page;
+  @JsonKey(ignore: true)
+  _$$NavigateToPageImplCopyWith<_$NavigateToPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -860,6 +1036,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -872,6 +1049,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -884,6 +1062,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -900,6 +1079,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -912,6 +1092,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -924,6 +1105,7 @@ class _$WrongPasswordImpl implements _WrongPassword {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
@@ -980,6 +1162,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -992,6 +1175,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -1004,6 +1188,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -1020,6 +1205,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -1032,6 +1218,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -1044,6 +1231,7 @@ class _$LoggedInImpl implements _LoggedIn {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
@@ -1100,6 +1288,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String email) emailDuplicated,
+    required TResult Function(Pages page) navigateToPage,
     required TResult Function() wrongPassword,
     required TResult Function() loggedIn,
     required TResult Function() error,
@@ -1112,6 +1301,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String email)? emailDuplicated,
+    TResult? Function(Pages page)? navigateToPage,
     TResult? Function()? wrongPassword,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
@@ -1124,6 +1314,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String email)? emailDuplicated,
+    TResult Function(Pages page)? navigateToPage,
     TResult Function()? wrongPassword,
     TResult Function()? loggedIn,
     TResult Function()? error,
@@ -1140,6 +1331,7 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
+    required TResult Function(_NavigateToPage value) navigateToPage,
     required TResult Function(_WrongPassword value) wrongPassword,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
@@ -1152,6 +1344,7 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
+    TResult? Function(_NavigateToPage value)? navigateToPage,
     TResult? Function(_WrongPassword value)? wrongPassword,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
@@ -1164,6 +1357,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
+    TResult Function(_NavigateToPage value)? navigateToPage,
     TResult Function(_WrongPassword value)? wrongPassword,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,

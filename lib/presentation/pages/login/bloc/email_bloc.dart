@@ -9,6 +9,7 @@ import '../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/login/auth_type.dart';
 import '../../../../domain/model/display/login/user.model.dart' as kkul;
+import '../screens/email/email_login_page.dart';
 
 part 'email_bloc.freezed.dart';
 part 'email_event.dart';
@@ -59,10 +60,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     final kkul.User? user = await FirebaseFirestoreUtil().getUserByEmail(email);
     if (user != null) {
       // 이메일과 일치하는 계정이 있는 경우
-      // eff 비밀번호 입력 화면으로 이동
+      // 비밀번호 입력 화면으로 이동
+      emit(EmailState.navigateToPage(Pages.passwordInput));
     } else {
       // 이메일과 일치하는 계정이 없는 경우
-      // eff 회원가입을 위해 이메일 인증 화면으로 이동
+      // 회원가입을 위해 이메일 인증 화면으로 이동
+      emit(EmailState.navigateToPage(Pages.signIn));
     }
   }
 
