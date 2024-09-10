@@ -34,6 +34,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       await event.when(
         started: () async => emit(EmailState.initial()),
         emailSubmitted: (email) => _onEmailSubmitted(emit, email),
+        passwordSubmitted: (password) => _onPasswordSubmitted(emit, password),
       );
     });
   }
@@ -46,15 +47,16 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     } catch (error) {
       CustomLogger.logger.e('$_tag `Error - $error');
       if (error is EmailDuplicateException) {
-        emit(EmailState.emailDuplicated(error.email));
+        _emitWithReset(emit, EmailState.emailDuplicated(error.email));
       } else {
-        emit(EmailState.error());
+        _emitWithReset(emit, EmailState.error());
       }
       return;
     }
 
-    final String lowerCaseEmail = email.toLowerCase();
-    final kkul.User? user = await FirebaseFirestoreUtil().getUserByEmail(lowerCaseEmail);
+    submittedEmail = email;
+
+    final kkul.User? user = await FirebaseFirestoreUtil().getUserByEmail(email);
     if (user != null) {
       // 이메일과 일치하는 계정이 있는 경우
       // eff 비밀번호 입력 화면으로 이동
@@ -64,11 +66,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
   }
 
-  _onLoginButtonPressed(Emitter<EmailState> emit, String email, String password) async {
+  _onPasswordSubmitted(Emitter<EmailState> emit, String password) async {
     try {
       final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
       final UserCredential userCredential = await authUtil.auth.signInWithEmailAndPassword(
-        email: email,
+        email: submittedEmail,
         password: password,
       );
       User? user = userCredential.user;
@@ -79,9 +81,10 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         _emitWithReset(emit, const EmailState.error());
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        _emitWithReset(emit, const EmailState.userNotFound());
-      } else if (e.code == 'wrong-password') {
+      // if (e.code == 'user-not-found') {
+      //   _emitWithReset(emit, const EmailState.userNotFound());
+      // } else
+      if (e.code == 'wrong-password') {
         _emitWithReset(emit, const EmailState.wrongPassword());
       } else {
         CustomLogger.logger.e('$_tag `Error - $e');
