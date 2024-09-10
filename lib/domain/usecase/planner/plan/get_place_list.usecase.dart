@@ -9,26 +9,21 @@ import '../../base/remote.usecase.dart';
  */
 class GetPlaceListUsecase extends RemoteUsecase<PlannerRepository> {
   final String search;
-  final String category;
+  final String? category;
+  final String? x;
+  final String? y;
+  final int? radius;
+  final int? page;
+  final String? sort;
 
-  final String x;
-  final String y;
-  final int radius;
-  final int page;
-  final String sort;
-
-  GetPlaceListUsecase(this.search, this.category, this.x, this.y, this.radius, this.page, this.sort);
+  GetPlaceListUsecase({required this.search, this.category, this.x, this.y, this.radius, this.page, this.sort});
 
   @override
   Future call(PlannerRepository repository) async {
     final result = await repository.getPlaceList(query: search, category: category, x: x, y: y, radius: radius, page: page, sort: sort);
-    return (result.status == 'success')
-        ? Result.Success(result.data ?? [])
-        : Result.failure(ErrorResponse(
-      status: result.status,
-      code: result.code,
-      message: result.message,
-    ));
-  }
 
+    return (result.status == 'success')
+        ? Result.success(result.data ?? [])
+        : Result.failure(ErrorResponse(status: result.status, code: result.code, message: result.message));
+  }
 }

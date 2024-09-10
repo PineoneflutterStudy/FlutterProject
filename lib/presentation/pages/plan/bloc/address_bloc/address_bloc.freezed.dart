@@ -910,23 +910,23 @@ mixin _$AddressState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(AddressLoading value) loading,
+    required TResult Function(AddressSuccess value) success,
+    required TResult Function(AddressError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(AddressLoading value)? loading,
+    TResult? Function(AddressSuccess value)? success,
+    TResult? Function(AddressError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(AddressLoading value)? loading,
+    TResult Function(AddressSuccess value)? success,
+    TResult Function(AddressError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -951,25 +951,25 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$AddressLoadingImplCopyWith<$Res> {
+  factory _$$AddressLoadingImplCopyWith(_$AddressLoadingImpl value,
+          $Res Function(_$AddressLoadingImpl) then) =
+      __$$AddressLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$AddressLoadingImplCopyWithImpl<$Res>
+    extends _$AddressStateCopyWithImpl<$Res, _$AddressLoadingImpl>
+    implements _$$AddressLoadingImplCopyWith<$Res> {
+  __$$AddressLoadingImplCopyWithImpl(
+      _$AddressLoadingImpl _value, $Res Function(_$AddressLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$AddressLoadingImpl implements AddressLoading {
+  const _$AddressLoadingImpl();
 
   @override
   String toString() {
@@ -979,7 +979,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$AddressLoadingImpl);
   }
 
   @override
@@ -1022,9 +1022,9 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(AddressLoading value) loading,
+    required TResult Function(AddressSuccess value) success,
+    required TResult Function(AddressError value) error,
   }) {
     return loading(this);
   }
@@ -1032,9 +1032,9 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(AddressLoading value)? loading,
+    TResult? Function(AddressSuccess value)? success,
+    TResult? Function(AddressError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -1042,9 +1042,9 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(AddressLoading value)? loading,
+    TResult Function(AddressSuccess value)? success,
+    TResult Function(AddressError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1054,15 +1054,15 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements AddressState {
-  const factory Loading() = _$LoadingImpl;
+abstract class AddressLoading implements AddressState {
+  const factory AddressLoading() = _$AddressLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$AddressSuccessImplCopyWith<$Res> {
+  factory _$$AddressSuccessImplCopyWith(_$AddressSuccessImpl value,
+          $Res Function(_$AddressSuccessImpl) then) =
+      __$$AddressSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Address addressInfo});
 
@@ -1070,11 +1070,11 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$AddressSuccessImplCopyWithImpl<$Res>
+    extends _$AddressStateCopyWithImpl<$Res, _$AddressSuccessImpl>
+    implements _$$AddressSuccessImplCopyWith<$Res> {
+  __$$AddressSuccessImplCopyWithImpl(
+      _$AddressSuccessImpl _value, $Res Function(_$AddressSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1082,7 +1082,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? addressInfo = null,
   }) {
-    return _then(_$SuccessImpl(
+    return _then(_$AddressSuccessImpl(
       null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
@@ -1101,8 +1101,8 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.addressInfo);
+class _$AddressSuccessImpl implements AddressSuccess {
+  const _$AddressSuccessImpl(this.addressInfo);
 
   @override
   final Address addressInfo;
@@ -1116,7 +1116,7 @@ class _$SuccessImpl implements _Success {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
+            other is _$AddressSuccessImpl &&
             (identical(other.addressInfo, addressInfo) ||
                 other.addressInfo == addressInfo));
   }
@@ -1127,8 +1127,9 @@ class _$SuccessImpl implements _Success {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+  _$$AddressSuccessImplCopyWith<_$AddressSuccessImpl> get copyWith =>
+      __$$AddressSuccessImplCopyWithImpl<_$AddressSuccessImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1167,9 +1168,9 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(AddressLoading value) loading,
+    required TResult Function(AddressSuccess value) success,
+    required TResult Function(AddressError value) error,
   }) {
     return success(this);
   }
@@ -1177,9 +1178,9 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(AddressLoading value)? loading,
+    TResult? Function(AddressSuccess value)? success,
+    TResult? Function(AddressError value)? error,
   }) {
     return success?.call(this);
   }
@@ -1187,9 +1188,9 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(AddressLoading value)? loading,
+    TResult Function(AddressSuccess value)? success,
+    TResult Function(AddressError value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1199,30 +1200,31 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements AddressState {
-  const factory _Success(final Address addressInfo) = _$SuccessImpl;
+abstract class AddressSuccess implements AddressState {
+  const factory AddressSuccess(final Address addressInfo) =
+      _$AddressSuccessImpl;
 
   Address get addressInfo;
   @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+  _$$AddressSuccessImplCopyWith<_$AddressSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$AddressErrorImplCopyWith<$Res> {
+  factory _$$AddressErrorImplCopyWith(
+          _$AddressErrorImpl value, $Res Function(_$AddressErrorImpl) then) =
+      __$$AddressErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ErrorResponse error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$AddressStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$AddressErrorImplCopyWithImpl<$Res>
+    extends _$AddressStateCopyWithImpl<$Res, _$AddressErrorImpl>
+    implements _$$AddressErrorImplCopyWith<$Res> {
+  __$$AddressErrorImplCopyWithImpl(
+      _$AddressErrorImpl _value, $Res Function(_$AddressErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1230,7 +1232,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$AddressErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1241,8 +1243,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
-  const _$ErrorImpl(this.error);
+class _$AddressErrorImpl implements AddressError {
+  const _$AddressErrorImpl(this.error);
 
   @override
   final ErrorResponse error;
@@ -1256,7 +1258,7 @@ class _$ErrorImpl implements _Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$AddressErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1266,8 +1268,8 @@ class _$ErrorImpl implements _Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$AddressErrorImplCopyWith<_$AddressErrorImpl> get copyWith =>
+      __$$AddressErrorImplCopyWithImpl<_$AddressErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1306,9 +1308,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
+    required TResult Function(AddressLoading value) loading,
+    required TResult Function(AddressSuccess value) success,
+    required TResult Function(AddressError value) error,
   }) {
     return error(this);
   }
@@ -1316,9 +1318,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
+    TResult? Function(AddressLoading value)? loading,
+    TResult? Function(AddressSuccess value)? success,
+    TResult? Function(AddressError value)? error,
   }) {
     return error?.call(this);
   }
@@ -1326,9 +1328,9 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
+    TResult Function(AddressLoading value)? loading,
+    TResult Function(AddressSuccess value)? success,
+    TResult Function(AddressError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1338,11 +1340,11 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements AddressState {
-  const factory _Error(final ErrorResponse error) = _$ErrorImpl;
+abstract class AddressError implements AddressState {
+  const factory AddressError(final ErrorResponse error) = _$AddressErrorImpl;
 
   ErrorResponse get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$AddressErrorImplCopyWith<_$AddressErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

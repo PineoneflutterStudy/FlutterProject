@@ -18,38 +18,38 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Result<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(T data) Success,
+    required TResult Function(T data) success,
     required TResult Function(ErrorResponse error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? Success,
+    TResult? Function(T data)? success,
     TResult? Function(ErrorResponse error)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? Success,
+    TResult Function(T data)? success,
     TResult Function(ErrorResponse error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Success<T> value) Success,
+    required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Success<T> value)? Success,
+    TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Success<T> value)? Success,
+    TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) =>
@@ -114,7 +114,7 @@ class _$SuccessImpl<T> implements Success<T> {
 
   @override
   String toString() {
-    return 'Result<$T>.Success(data: $data)';
+    return 'Result<$T>.success(data: $data)';
   }
 
   @override
@@ -138,30 +138,30 @@ class _$SuccessImpl<T> implements Success<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(T data) Success,
+    required TResult Function(T data) success,
     required TResult Function(ErrorResponse error) failure,
   }) {
-    return Success(data);
+    return success(data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? Success,
+    TResult? Function(T data)? success,
     TResult? Function(ErrorResponse error)? failure,
   }) {
-    return Success?.call(data);
+    return success?.call(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? Success,
+    TResult Function(T data)? success,
     TResult Function(ErrorResponse error)? failure,
     required TResult orElse(),
   }) {
-    if (Success != null) {
-      return Success(data);
+    if (success != null) {
+      return success(data);
     }
     return orElse();
   }
@@ -169,30 +169,30 @@ class _$SuccessImpl<T> implements Success<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Success<T> value) Success,
+    required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) failure,
   }) {
-    return Success(this);
+    return success(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Success<T> value)? Success,
+    TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? failure,
   }) {
-    return Success?.call(this);
+    return success?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Success<T> value)? Success,
+    TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) {
-    if (Success != null) {
-      return Success(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
@@ -271,7 +271,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(T data) Success,
+    required TResult Function(T data) success,
     required TResult Function(ErrorResponse error) failure,
   }) {
     return failure(error);
@@ -280,7 +280,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? Success,
+    TResult? Function(T data)? success,
     TResult? Function(ErrorResponse error)? failure,
   }) {
     return failure?.call(error);
@@ -289,7 +289,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? Success,
+    TResult Function(T data)? success,
     TResult Function(ErrorResponse error)? failure,
     required TResult orElse(),
   }) {
@@ -302,7 +302,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Success<T> value) Success,
+    required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) failure,
   }) {
     return failure(this);
@@ -311,7 +311,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Success<T> value)? Success,
+    TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? failure,
   }) {
     return failure?.call(this);
@@ -320,7 +320,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Success<T> value)? Success,
+    TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) {

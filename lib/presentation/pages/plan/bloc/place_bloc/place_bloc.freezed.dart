@@ -16,12 +16,55 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PlaceState {
-  Status get status => throw _privateConstructorUsedError;
-  List<Place> get places => throw _privateConstructorUsedError;
-  ErrorResponse? get error => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PlaceStateCopyWith<PlaceState> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<Place> places) success,
+    required TResult Function() empty,
+    required TResult Function(ErrorResponse error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<Place> places)? success,
+    TResult? Function()? empty,
+    TResult? Function(ErrorResponse error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<Place> places)? success,
+    TResult Function()? empty,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceLoading value) loading,
+    required TResult Function(PlaceSuccess value) success,
+    required TResult Function(PlaceEmpty value) empty,
+    required TResult Function(PlaceError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceLoading value)? loading,
+    TResult? Function(PlaceSuccess value)? success,
+    TResult? Function(PlaceEmpty value)? empty,
+    TResult? Function(PlaceError value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceLoading value)? loading,
+    TResult Function(PlaceSuccess value)? success,
+    TResult Function(PlaceEmpty value)? empty,
+    TResult Function(PlaceError value)? error,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -30,8 +73,6 @@ abstract class $PlaceStateCopyWith<$Res> {
   factory $PlaceStateCopyWith(
           PlaceState value, $Res Function(PlaceState) then) =
       _$PlaceStateCopyWithImpl<$Res, PlaceState>;
-  @useResult
-  $Res call({Status status, List<Place> places, ErrorResponse? error});
 }
 
 /// @nodoc
@@ -43,89 +84,166 @@ class _$PlaceStateCopyWithImpl<$Res, $Val extends PlaceState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
 
-  @pragma('vm:prefer-inline')
+/// @nodoc
+abstract class _$$PlaceLoadingImplCopyWith<$Res> {
+  factory _$$PlaceLoadingImplCopyWith(
+          _$PlaceLoadingImpl value, $Res Function(_$PlaceLoadingImpl) then) =
+      __$$PlaceLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PlaceLoadingImplCopyWithImpl<$Res>
+    extends _$PlaceStateCopyWithImpl<$Res, _$PlaceLoadingImpl>
+    implements _$$PlaceLoadingImplCopyWith<$Res> {
+  __$$PlaceLoadingImplCopyWithImpl(
+      _$PlaceLoadingImpl _value, $Res Function(_$PlaceLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PlaceLoadingImpl with DiagnosticableTreeMixin implements PlaceLoading {
+  const _$PlaceLoadingImpl();
+
   @override
-  $Res call({
-    Object? status = null,
-    Object? places = null,
-    Object? error = freezed,
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'PlaceState.loading'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PlaceLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<Place> places) success,
+    required TResult Function() empty,
+    required TResult Function(ErrorResponse error) error,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as Status,
-      places: null == places
-          ? _value.places
-          : places // ignore: cast_nullable_to_non_nullable
-              as List<Place>,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as ErrorResponse?,
-    ) as $Val);
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<Place> places)? success,
+    TResult? Function()? empty,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<Place> places)? success,
+    TResult Function()? empty,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceLoading value) loading,
+    required TResult Function(PlaceSuccess value) success,
+    required TResult Function(PlaceEmpty value) empty,
+    required TResult Function(PlaceError value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceLoading value)? loading,
+    TResult? Function(PlaceSuccess value)? success,
+    TResult? Function(PlaceEmpty value)? empty,
+    TResult? Function(PlaceError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceLoading value)? loading,
+    TResult Function(PlaceSuccess value)? success,
+    TResult Function(PlaceEmpty value)? empty,
+    TResult Function(PlaceError value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
   }
 }
 
-/// @nodoc
-abstract class _$$PlaceStateImplCopyWith<$Res>
-    implements $PlaceStateCopyWith<$Res> {
-  factory _$$PlaceStateImplCopyWith(
-          _$PlaceStateImpl value, $Res Function(_$PlaceStateImpl) then) =
-      __$$PlaceStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Status status, List<Place> places, ErrorResponse? error});
+abstract class PlaceLoading implements PlaceState {
+  const factory PlaceLoading() = _$PlaceLoadingImpl;
 }
 
 /// @nodoc
-class __$$PlaceStateImplCopyWithImpl<$Res>
-    extends _$PlaceStateCopyWithImpl<$Res, _$PlaceStateImpl>
-    implements _$$PlaceStateImplCopyWith<$Res> {
-  __$$PlaceStateImplCopyWithImpl(
-      _$PlaceStateImpl _value, $Res Function(_$PlaceStateImpl) _then)
+abstract class _$$PlaceSuccessImplCopyWith<$Res> {
+  factory _$$PlaceSuccessImplCopyWith(
+          _$PlaceSuccessImpl value, $Res Function(_$PlaceSuccessImpl) then) =
+      __$$PlaceSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Place> places});
+}
+
+/// @nodoc
+class __$$PlaceSuccessImplCopyWithImpl<$Res>
+    extends _$PlaceStateCopyWithImpl<$Res, _$PlaceSuccessImpl>
+    implements _$$PlaceSuccessImplCopyWith<$Res> {
+  __$$PlaceSuccessImplCopyWithImpl(
+      _$PlaceSuccessImpl _value, $Res Function(_$PlaceSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? places = null,
-    Object? error = freezed,
   }) {
-    return _then(_$PlaceStateImpl(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as Status,
-      places: null == places
+    return _then(_$PlaceSuccessImpl(
+      null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
               as List<Place>,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as ErrorResponse?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$PlaceStateImpl implements _PlaceState {
-  _$PlaceStateImpl(
-      {this.status = Status.initial,
-      final List<Place> places = const <Place>[],
-      this.error})
-      : _places = places;
+class _$PlaceSuccessImpl with DiagnosticableTreeMixin implements PlaceSuccess {
+  const _$PlaceSuccessImpl(final List<Place> places) : _places = places;
 
-  @override
-  @JsonKey()
-  final Status status;
   final List<Place> _places;
   @override
-  @JsonKey()
   List<Place> get places {
     if (_places is EqualUnmodifiableListView) return _places;
     // ignore: implicit_dynamic_type
@@ -133,48 +251,825 @@ class _$PlaceStateImpl implements _PlaceState {
   }
 
   @override
-  final ErrorResponse? error;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceState.success(places: $places)';
+  }
 
   @override
-  String toString() {
-    return 'PlaceState(status: $status, places: $places, error: $error)';
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlaceState.success'))
+      ..add(DiagnosticsProperty('places', places));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PlaceStateImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other._places, _places) &&
-            (identical(other.error, error) || other.error == error));
+            other is _$PlaceSuccessImpl &&
+            const DeepCollectionEquality().equals(other._places, _places));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_places), error);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_places));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PlaceStateImplCopyWith<_$PlaceStateImpl> get copyWith =>
-      __$$PlaceStateImplCopyWithImpl<_$PlaceStateImpl>(this, _$identity);
+  _$$PlaceSuccessImplCopyWith<_$PlaceSuccessImpl> get copyWith =>
+      __$$PlaceSuccessImplCopyWithImpl<_$PlaceSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<Place> places) success,
+    required TResult Function() empty,
+    required TResult Function(ErrorResponse error) error,
+  }) {
+    return success(places);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<Place> places)? success,
+    TResult? Function()? empty,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return success?.call(places);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<Place> places)? success,
+    TResult Function()? empty,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(places);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceLoading value) loading,
+    required TResult Function(PlaceSuccess value) success,
+    required TResult Function(PlaceEmpty value) empty,
+    required TResult Function(PlaceError value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceLoading value)? loading,
+    TResult? Function(PlaceSuccess value)? success,
+    TResult? Function(PlaceEmpty value)? empty,
+    TResult? Function(PlaceError value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceLoading value)? loading,
+    TResult Function(PlaceSuccess value)? success,
+    TResult Function(PlaceEmpty value)? empty,
+    TResult Function(PlaceError value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _PlaceState implements PlaceState {
-  factory _PlaceState(
-      {final Status status,
-      final List<Place> places,
-      final ErrorResponse? error}) = _$PlaceStateImpl;
+abstract class PlaceSuccess implements PlaceState {
+  const factory PlaceSuccess(final List<Place> places) = _$PlaceSuccessImpl;
+
+  List<Place> get places;
+  @JsonKey(ignore: true)
+  _$$PlaceSuccessImplCopyWith<_$PlaceSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PlaceEmptyImplCopyWith<$Res> {
+  factory _$$PlaceEmptyImplCopyWith(
+          _$PlaceEmptyImpl value, $Res Function(_$PlaceEmptyImpl) then) =
+      __$$PlaceEmptyImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PlaceEmptyImplCopyWithImpl<$Res>
+    extends _$PlaceStateCopyWithImpl<$Res, _$PlaceEmptyImpl>
+    implements _$$PlaceEmptyImplCopyWith<$Res> {
+  __$$PlaceEmptyImplCopyWithImpl(
+      _$PlaceEmptyImpl _value, $Res Function(_$PlaceEmptyImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PlaceEmptyImpl with DiagnosticableTreeMixin implements PlaceEmpty {
+  const _$PlaceEmptyImpl();
 
   @override
-  Status get status;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceState.empty()';
+  }
+
   @override
-  List<Place> get places;
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'PlaceState.empty'));
+  }
+
   @override
-  ErrorResponse? get error;
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PlaceEmptyImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<Place> places) success,
+    required TResult Function() empty,
+    required TResult Function(ErrorResponse error) error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<Place> places)? success,
+    TResult? Function()? empty,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<Place> places)? success,
+    TResult Function()? empty,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceLoading value) loading,
+    required TResult Function(PlaceSuccess value) success,
+    required TResult Function(PlaceEmpty value) empty,
+    required TResult Function(PlaceError value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceLoading value)? loading,
+    TResult? Function(PlaceSuccess value)? success,
+    TResult? Function(PlaceEmpty value)? empty,
+    TResult? Function(PlaceError value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceLoading value)? loading,
+    TResult Function(PlaceSuccess value)? success,
+    TResult Function(PlaceEmpty value)? empty,
+    TResult Function(PlaceError value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlaceEmpty implements PlaceState {
+  const factory PlaceEmpty() = _$PlaceEmptyImpl;
+}
+
+/// @nodoc
+abstract class _$$PlaceErrorImplCopyWith<$Res> {
+  factory _$$PlaceErrorImplCopyWith(
+          _$PlaceErrorImpl value, $Res Function(_$PlaceErrorImpl) then) =
+      __$$PlaceErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ErrorResponse error});
+}
+
+/// @nodoc
+class __$$PlaceErrorImplCopyWithImpl<$Res>
+    extends _$PlaceStateCopyWithImpl<$Res, _$PlaceErrorImpl>
+    implements _$$PlaceErrorImplCopyWith<$Res> {
+  __$$PlaceErrorImplCopyWithImpl(
+      _$PlaceErrorImpl _value, $Res Function(_$PlaceErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$PlaceErrorImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as ErrorResponse,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PlaceErrorImpl with DiagnosticableTreeMixin implements PlaceError {
+  const _$PlaceErrorImpl(this.error);
+
+  @override
+  final ErrorResponse error;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceState.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlaceState.error'))
+      ..add(DiagnosticsProperty('error', error));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlaceErrorImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlaceErrorImplCopyWith<_$PlaceErrorImpl> get copyWith =>
+      __$$PlaceErrorImplCopyWithImpl<_$PlaceErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<Place> places) success,
+    required TResult Function() empty,
+    required TResult Function(ErrorResponse error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<Place> places)? success,
+    TResult? Function()? empty,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<Place> places)? success,
+    TResult Function()? empty,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceLoading value) loading,
+    required TResult Function(PlaceSuccess value) success,
+    required TResult Function(PlaceEmpty value) empty,
+    required TResult Function(PlaceError value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceLoading value)? loading,
+    TResult? Function(PlaceSuccess value)? success,
+    TResult? Function(PlaceEmpty value)? empty,
+    TResult? Function(PlaceError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceLoading value)? loading,
+    TResult Function(PlaceSuccess value)? success,
+    TResult Function(PlaceEmpty value)? empty,
+    TResult Function(PlaceError value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlaceError implements PlaceState {
+  const factory PlaceError(final ErrorResponse error) = _$PlaceErrorImpl;
+
+  ErrorResponse get error;
+  @JsonKey(ignore: true)
+  _$$PlaceErrorImplCopyWith<_$PlaceErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$PlaceEvent {
+  String get search => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String search) search,
+    required TResult Function(
+            String search, String? category, Address address, int? page)
+        searchXY,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String search)? search,
+    TResult? Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String search)? search,
+    TResult Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceSearched value) search,
+    required TResult Function(PlaceSearchedXY value) searchXY,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceSearched value)? search,
+    TResult? Function(PlaceSearchedXY value)? searchXY,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceSearched value)? search,
+    TResult Function(PlaceSearchedXY value)? searchXY,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PlaceEventCopyWith<PlaceEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PlaceEventCopyWith<$Res> {
+  factory $PlaceEventCopyWith(
+          PlaceEvent value, $Res Function(PlaceEvent) then) =
+      _$PlaceEventCopyWithImpl<$Res, PlaceEvent>;
+  @useResult
+  $Res call({String search});
+}
+
+/// @nodoc
+class _$PlaceEventCopyWithImpl<$Res, $Val extends PlaceEvent>
+    implements $PlaceEventCopyWith<$Res> {
+  _$PlaceEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? search = null,
+  }) {
+    return _then(_value.copyWith(
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PlaceSearchedImplCopyWith<$Res>
+    implements $PlaceEventCopyWith<$Res> {
+  factory _$$PlaceSearchedImplCopyWith(
+          _$PlaceSearchedImpl value, $Res Function(_$PlaceSearchedImpl) then) =
+      __$$PlaceSearchedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String search});
+}
+
+/// @nodoc
+class __$$PlaceSearchedImplCopyWithImpl<$Res>
+    extends _$PlaceEventCopyWithImpl<$Res, _$PlaceSearchedImpl>
+    implements _$$PlaceSearchedImplCopyWith<$Res> {
+  __$$PlaceSearchedImplCopyWithImpl(
+      _$PlaceSearchedImpl _value, $Res Function(_$PlaceSearchedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? search = null,
+  }) {
+    return _then(_$PlaceSearchedImpl(
+      null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PlaceSearchedImpl
+    with DiagnosticableTreeMixin
+    implements PlaceSearched {
+  const _$PlaceSearchedImpl(this.search);
+
+  @override
+  final String search;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceEvent.search(search: $search)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlaceEvent.search'))
+      ..add(DiagnosticsProperty('search', search));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlaceSearchedImpl &&
+            (identical(other.search, search) || other.search == search));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, search);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlaceSearchedImplCopyWith<_$PlaceSearchedImpl> get copyWith =>
+      __$$PlaceSearchedImplCopyWithImpl<_$PlaceSearchedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String search) search,
+    required TResult Function(
+            String search, String? category, Address address, int? page)
+        searchXY,
+  }) {
+    return search(this.search);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String search)? search,
+    TResult? Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+  }) {
+    return search?.call(this.search);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String search)? search,
+    TResult Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(this.search);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceSearched value) search,
+    required TResult Function(PlaceSearchedXY value) searchXY,
+  }) {
+    return search(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceSearched value)? search,
+    TResult? Function(PlaceSearchedXY value)? searchXY,
+  }) {
+    return search?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceSearched value)? search,
+    TResult Function(PlaceSearchedXY value)? searchXY,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlaceSearched implements PlaceEvent {
+  const factory PlaceSearched(final String search) = _$PlaceSearchedImpl;
+
+  @override
+  String get search;
   @override
   @JsonKey(ignore: true)
-  _$$PlaceStateImplCopyWith<_$PlaceStateImpl> get copyWith =>
+  _$$PlaceSearchedImplCopyWith<_$PlaceSearchedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PlaceSearchedXYImplCopyWith<$Res>
+    implements $PlaceEventCopyWith<$Res> {
+  factory _$$PlaceSearchedXYImplCopyWith(_$PlaceSearchedXYImpl value,
+          $Res Function(_$PlaceSearchedXYImpl) then) =
+      __$$PlaceSearchedXYImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String search, String? category, Address address, int? page});
+
+  $AddressCopyWith<$Res> get address;
+}
+
+/// @nodoc
+class __$$PlaceSearchedXYImplCopyWithImpl<$Res>
+    extends _$PlaceEventCopyWithImpl<$Res, _$PlaceSearchedXYImpl>
+    implements _$$PlaceSearchedXYImplCopyWith<$Res> {
+  __$$PlaceSearchedXYImplCopyWithImpl(
+      _$PlaceSearchedXYImpl _value, $Res Function(_$PlaceSearchedXYImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? search = null,
+    Object? category = freezed,
+    Object? address = null,
+    Object? page = freezed,
+  }) {
+    return _then(_$PlaceSearchedXYImpl(
+      null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
+      freezed == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$PlaceSearchedXYImpl
+    with DiagnosticableTreeMixin
+    implements PlaceSearchedXY {
+  const _$PlaceSearchedXYImpl(
+      this.search, this.category, this.address, this.page);
+
+  @override
+  final String search;
+  @override
+  final String? category;
+  @override
+  final Address address;
+  @override
+  final int? page;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PlaceEvent.searchXY(search: $search, category: $category, address: $address, page: $page)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PlaceEvent.searchXY'))
+      ..add(DiagnosticsProperty('search', search))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('page', page));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlaceSearchedXYImpl &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.page, page) || other.page == page));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, search, category, address, page);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PlaceSearchedXYImplCopyWith<_$PlaceSearchedXYImpl> get copyWith =>
+      __$$PlaceSearchedXYImplCopyWithImpl<_$PlaceSearchedXYImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String search) search,
+    required TResult Function(
+            String search, String? category, Address address, int? page)
+        searchXY,
+  }) {
+    return searchXY(this.search, category, address, page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String search)? search,
+    TResult? Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+  }) {
+    return searchXY?.call(this.search, category, address, page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String search)? search,
+    TResult Function(
+            String search, String? category, Address address, int? page)?
+        searchXY,
+    required TResult orElse(),
+  }) {
+    if (searchXY != null) {
+      return searchXY(this.search, category, address, page);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlaceSearched value) search,
+    required TResult Function(PlaceSearchedXY value) searchXY,
+  }) {
+    return searchXY(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlaceSearched value)? search,
+    TResult? Function(PlaceSearchedXY value)? searchXY,
+  }) {
+    return searchXY?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlaceSearched value)? search,
+    TResult Function(PlaceSearchedXY value)? searchXY,
+    required TResult orElse(),
+  }) {
+    if (searchXY != null) {
+      return searchXY(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlaceSearchedXY implements PlaceEvent {
+  const factory PlaceSearchedXY(final String search, final String? category,
+      final Address address, final int? page) = _$PlaceSearchedXYImpl;
+
+  @override
+  String get search;
+  String? get category;
+  Address get address;
+  int? get page;
+  @override
+  @JsonKey(ignore: true)
+  _$$PlaceSearchedXYImplCopyWith<_$PlaceSearchedXYImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

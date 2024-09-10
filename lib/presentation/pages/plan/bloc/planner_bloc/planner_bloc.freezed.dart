@@ -1123,26 +1123,26 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1167,19 +1167,20 @@ class _$PlannerStateCopyWithImpl<$Res, $Val extends PlannerState>
 }
 
 /// @nodoc
-abstract class _$$InitImplCopyWith<$Res> {
-  factory _$$InitImplCopyWith(
-          _$InitImpl value, $Res Function(_$InitImpl) then) =
-      __$$InitImplCopyWithImpl<$Res>;
+abstract class _$$PlannerInitImplCopyWith<$Res> {
+  factory _$$PlannerInitImplCopyWith(
+          _$PlannerInitImpl value, $Res Function(_$PlannerInitImpl) then) =
+      __$$PlannerInitImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool isLogined});
 }
 
 /// @nodoc
-class __$$InitImplCopyWithImpl<$Res>
-    extends _$PlannerStateCopyWithImpl<$Res, _$InitImpl>
-    implements _$$InitImplCopyWith<$Res> {
-  __$$InitImplCopyWithImpl(_$InitImpl _value, $Res Function(_$InitImpl) _then)
+class __$$PlannerInitImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$PlannerInitImpl>
+    implements _$$PlannerInitImplCopyWith<$Res> {
+  __$$PlannerInitImplCopyWithImpl(
+      _$PlannerInitImpl _value, $Res Function(_$PlannerInitImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1187,7 +1188,7 @@ class __$$InitImplCopyWithImpl<$Res>
   $Res call({
     Object? isLogined = null,
   }) {
-    return _then(_$InitImpl(
+    return _then(_$PlannerInitImpl(
       null == isLogined
           ? _value.isLogined
           : isLogined // ignore: cast_nullable_to_non_nullable
@@ -1198,8 +1199,8 @@ class __$$InitImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitImpl implements Init {
-  const _$InitImpl(this.isLogined);
+class _$PlannerInitImpl implements PlannerInit {
+  const _$PlannerInitImpl(this.isLogined);
 
   @override
   final bool isLogined;
@@ -1213,7 +1214,7 @@ class _$InitImpl implements Init {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InitImpl &&
+            other is _$PlannerInitImpl &&
             (identical(other.isLogined, isLogined) ||
                 other.isLogined == isLogined));
   }
@@ -1224,8 +1225,8 @@ class _$InitImpl implements Init {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InitImplCopyWith<_$InitImpl> get copyWith =>
-      __$$InitImplCopyWithImpl<_$InitImpl>(this, _$identity);
+  _$$PlannerInitImplCopyWith<_$PlannerInitImpl> get copyWith =>
+      __$$PlannerInitImplCopyWithImpl<_$PlannerInitImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1268,10 +1269,10 @@ class _$InitImpl implements Init {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
   }) {
     return init(this);
   }
@@ -1279,10 +1280,10 @@ class _$InitImpl implements Init {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
   }) {
     return init?.call(this);
   }
@@ -1290,10 +1291,10 @@ class _$InitImpl implements Init {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -1303,35 +1304,35 @@ class _$InitImpl implements Init {
   }
 }
 
-abstract class Init implements PlannerState {
-  const factory Init(final bool isLogined) = _$InitImpl;
+abstract class PlannerInit implements PlannerState {
+  const factory PlannerInit(final bool isLogined) = _$PlannerInitImpl;
 
   bool get isLogined;
   @JsonKey(ignore: true)
-  _$$InitImplCopyWith<_$InitImpl> get copyWith =>
+  _$$PlannerInitImplCopyWith<_$PlannerInitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$PlannerLoadingImplCopyWith<$Res> {
+  factory _$$PlannerLoadingImplCopyWith(_$PlannerLoadingImpl value,
+          $Res Function(_$PlannerLoadingImpl) then) =
+      __$$PlannerLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$PlannerStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$PlannerLoadingImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$PlannerLoadingImpl>
+    implements _$$PlannerLoadingImplCopyWith<$Res> {
+  __$$PlannerLoadingImplCopyWithImpl(
+      _$PlannerLoadingImpl _value, $Res Function(_$PlannerLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$PlannerLoadingImpl implements PlannerLoading {
+  const _$PlannerLoadingImpl();
 
   @override
   String toString() {
@@ -1341,7 +1342,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$PlannerLoadingImpl);
   }
 
   @override
@@ -1388,10 +1389,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
   }) {
     return loading(this);
   }
@@ -1399,10 +1400,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -1410,10 +1411,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1423,25 +1424,25 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements PlannerState {
-  const factory Loading() = _$LoadingImpl;
+abstract class PlannerLoading implements PlannerState {
+  const factory PlannerLoading() = _$PlannerLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$PlannerSuccessImplCopyWith<$Res> {
+  factory _$$PlannerSuccessImplCopyWith(_$PlannerSuccessImpl value,
+          $Res Function(_$PlannerSuccessImpl) then) =
+      __$$PlannerSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Planner> plannerList, int selectedIndex});
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$PlannerStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$PlannerSuccessImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$PlannerSuccessImpl>
+    implements _$$PlannerSuccessImplCopyWith<$Res> {
+  __$$PlannerSuccessImplCopyWithImpl(
+      _$PlannerSuccessImpl _value, $Res Function(_$PlannerSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1450,7 +1451,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
     Object? plannerList = null,
     Object? selectedIndex = null,
   }) {
-    return _then(_$SuccessImpl(
+    return _then(_$PlannerSuccessImpl(
       null == plannerList
           ? _value._plannerList
           : plannerList // ignore: cast_nullable_to_non_nullable
@@ -1465,8 +1466,9 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements Success {
-  const _$SuccessImpl(final List<Planner> plannerList, this.selectedIndex)
+class _$PlannerSuccessImpl implements PlannerSuccess {
+  const _$PlannerSuccessImpl(
+      final List<Planner> plannerList, this.selectedIndex)
       : _plannerList = plannerList;
 
   final List<Planner> _plannerList;
@@ -1489,7 +1491,7 @@ class _$SuccessImpl implements Success {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
+            other is _$PlannerSuccessImpl &&
             const DeepCollectionEquality()
                 .equals(other._plannerList, _plannerList) &&
             (identical(other.selectedIndex, selectedIndex) ||
@@ -1503,8 +1505,9 @@ class _$SuccessImpl implements Success {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+  _$$PlannerSuccessImplCopyWith<_$PlannerSuccessImpl> get copyWith =>
+      __$$PlannerSuccessImplCopyWithImpl<_$PlannerSuccessImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1547,10 +1550,10 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
   }) {
     return success(this);
   }
@@ -1558,10 +1561,10 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
   }) {
     return success?.call(this);
   }
@@ -1569,10 +1572,10 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1582,32 +1585,33 @@ class _$SuccessImpl implements Success {
   }
 }
 
-abstract class Success implements PlannerState {
-  const factory Success(
-      final List<Planner> plannerList, final int selectedIndex) = _$SuccessImpl;
+abstract class PlannerSuccess implements PlannerState {
+  const factory PlannerSuccess(
+          final List<Planner> plannerList, final int selectedIndex) =
+      _$PlannerSuccessImpl;
 
   List<Planner> get plannerList;
   int get selectedIndex;
   @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+  _$$PlannerSuccessImplCopyWith<_$PlannerSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$PlannerErrorImplCopyWith<$Res> {
+  factory _$$PlannerErrorImplCopyWith(
+          _$PlannerErrorImpl value, $Res Function(_$PlannerErrorImpl) then) =
+      __$$PlannerErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ErrorResponse error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$PlannerStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$PlannerErrorImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$PlannerErrorImpl>
+    implements _$$PlannerErrorImplCopyWith<$Res> {
+  __$$PlannerErrorImplCopyWithImpl(
+      _$PlannerErrorImpl _value, $Res Function(_$PlannerErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1615,7 +1619,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$PlannerErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1626,8 +1630,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl(this.error);
+class _$PlannerErrorImpl implements PlannerError {
+  const _$PlannerErrorImpl(this.error);
 
   @override
   final ErrorResponse error;
@@ -1641,7 +1645,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$PlannerErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1651,8 +1655,8 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$PlannerErrorImplCopyWith<_$PlannerErrorImpl> get copyWith =>
+      __$$PlannerErrorImplCopyWithImpl<_$PlannerErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1695,10 +1699,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
   }) {
     return error(this);
   }
@@ -1706,10 +1710,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
   }) {
     return error?.call(this);
   }
@@ -1717,10 +1721,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1730,11 +1734,11 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements PlannerState {
-  const factory Error(final ErrorResponse error) = _$ErrorImpl;
+abstract class PlannerError implements PlannerState {
+  const factory PlannerError(final ErrorResponse error) = _$PlannerErrorImpl;
 
   ErrorResponse get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$PlannerErrorImplCopyWith<_$PlannerErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

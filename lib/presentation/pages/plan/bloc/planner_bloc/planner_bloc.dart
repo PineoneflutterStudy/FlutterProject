@@ -54,7 +54,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
         emit(PlannerState.init(true));
       }
     } catch (error) {
-      emit(PlannerState.error(ErrorResponse(status: '1', code: '9999', message: 'get firestore planner list error')));
+      emit(PlannerState.error(ErrorResponse(status: '1', code: '9999', message: '플래너 목록을 불러오는데 실패하였습니다.\n앱을 다시 실행해주세요.')));
     }
   }
 
@@ -100,7 +100,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
           pages[pageIndex]['page_item_list'] = pageItemList;
 
           await plannerDocRef.update({'planner_page_list': pages});
-          await _onGetPlannerList(emit,plannerIndex); // todo planner index로 수정 // list 갱신
+          await _onGetPlannerList(emit,plannerIndex);
         } else {
           CustomLogger.logger.e('해당 페이지 인덱스가 유효하지 않습니다.');
         }

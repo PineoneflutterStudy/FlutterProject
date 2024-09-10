@@ -15,14 +15,15 @@ class PlannerRepositoryImpl implements PlannerRepository {
   PlannerRepositoryImpl(this._kakaoApi);
 
   @override
-  Future<ResponseWrapper<List<Place>>> getPlaceList(
-      {required String query,
-      required String category,
-      required String x,
-      required String y,
-      required int radius,
-      required int page,
-      required String sort}) async {
+  Future<ResponseWrapper<List<Place>>> getPlaceList({
+    required String query,
+    String? category,
+    String? x,
+    String? y,
+    int? radius,
+    int? page,
+    String? sort,
+  }) async {
     try {
       final response = await _kakaoApi.getPlaceList(query, category, x, y, radius, page, sort);
       final places = response.documents.map((item) => item.toModel()).toList();
@@ -32,6 +33,7 @@ class PlannerRepositoryImpl implements PlannerRepository {
       return ResponseWrapper<List<Place>>(status: 'error', code: '9999', message: e.toString(), data: []);
     }
   }
+
 
   @override
   Future<ResponseWrapper<Address>> getAddressInfo({required String query}) async {

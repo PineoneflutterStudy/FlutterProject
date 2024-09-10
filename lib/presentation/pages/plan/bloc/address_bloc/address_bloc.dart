@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/exception/common_exception.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/common/result.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../../domain/usecase/planner/plan/get_address_info.usecase.dart';
@@ -35,7 +36,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       final response = await _fetch(location);
       response.when(
-        Success: (address) {
+        success: (address) {
           if (address == null) {
             emit(AddressState.error(ErrorResponse(status: '1', code: '9999', message: '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.'),));
           } else {
@@ -64,7 +65,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       final response = await _fetch(location);
       response.when(
-        Success: (address) {
+        success: (address) {
+          CustomLogger.logger.i('success address : $address');
           if (address == null) {
             emit(AddressState.error(ErrorResponse(status: '1', code: '9999', message: '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.')));
           } else {
@@ -73,8 +75,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
               addressName: address.addressName,
               x: address.x,
               y: address.y,
-              radius: currentState is _Success ? currentState.addressInfo.radius : 10000,
-              sort: currentState is _Success ? currentState.addressInfo.sort : 'distance',
+              radius: currentState is AddressSuccess ? currentState.addressInfo.radius : 10000,
+              sort: currentState is AddressSuccess ? currentState.addressInfo.sort : 'distance',
             );
             emit(AddressState.success(updatedAddress));
           }

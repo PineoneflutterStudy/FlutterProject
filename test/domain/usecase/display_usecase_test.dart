@@ -25,7 +25,7 @@ void main() {
   test('의존성 주입 성공', ()=> expect(displayUsecase, isNotNull));
 
   test('카테고리 리스트 불러오기 성공', () async{
-    final result = Result.Success([Category(ctgrId: 'FD6', ctgrName: '카테고리 테스트')]);
+    final result = Result.success([Category(ctgrId: 'FD6', ctgrName: '카테고리 테스트')]);
     final usecase = MockGetCategoryUsecase();
 
     when(()=>usecase.menuType).thenThrow(MenuType.plan);

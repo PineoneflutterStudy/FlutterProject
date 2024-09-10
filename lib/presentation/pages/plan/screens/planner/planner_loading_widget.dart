@@ -13,7 +13,6 @@ class PlannerLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppbar(title: '나만의 여행플래너'),
       body: Center(child: CircularProgressIndicator()),
     );
   }

@@ -10,9 +10,9 @@ part of 'kakao.api.dart';
 
 class _KakaoApi implements KakaoApi {
   _KakaoApi(
-      this._dio, {
-        this.baseUrl,
-      });
+    this._dio, {
+    this.baseUrl,
+  });
 
   final Dio _dio;
 
@@ -20,14 +20,14 @@ class _KakaoApi implements KakaoApi {
 
   @override
   Future<KakaoResponseWrapper<PlaceDto>> getPlaceList(
-      String query,
-      String category,
-      String x,
-      String y,
-      int radius,
-      int page,
-      String sort,
-      ) async {
+    String query,
+    String? category,
+    String? x,
+    String? y,
+    int? radius,
+    int? page,
+    String? sort,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,
@@ -38,28 +38,29 @@ class _KakaoApi implements KakaoApi {
       r'page': page,
       r'sort': sort,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<KakaoResponseWrapper<PlaceDto>>(Options(
-          method: 'GET',
-          headers: _headers,
-          extra: _extra,
-        )
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
             .compose(
-          _dio.options,
-          '/keyword.json?',
-          queryParameters: queryParameters,
-          data: _data,
-        )
+              _dio.options,
+              '/keyword.json?',
+              queryParameters: queryParameters,
+              data: _data,
+            )
             .copyWith(
-            baseUrl: _combineBaseUrls(
+                baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
             ))));
     final _value = KakaoResponseWrapper<PlaceDto>.fromJson(
       _result.data!,
-          (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
+      (json) => PlaceDto.fromJson(json as Map<String, dynamic>),
     );
     return _value;
   }
@@ -72,24 +73,24 @@ class _KakaoApi implements KakaoApi {
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<KakaoResponseWrapper<AddressDto>>(Options(
-          method: 'GET',
-          headers: _headers,
-          extra: _extra,
-        )
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
             .compose(
-          _dio.options,
-          '/address.json?',
-          queryParameters: queryParameters,
-          data: _data,
-        )
+              _dio.options,
+              '/address.json?',
+              queryParameters: queryParameters,
+              data: _data,
+            )
             .copyWith(
-            baseUrl: _combineBaseUrls(
+                baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
             ))));
     final _value = KakaoResponseWrapper<AddressDto>.fromJson(
       _result.data!,
-          (json) => AddressDto.fromJson(json as Map<String, dynamic>),
+      (json) => AddressDto.fromJson(json as Map<String, dynamic>),
     );
     return _value;
   }
@@ -108,9 +109,9 @@ class _KakaoApi implements KakaoApi {
   }
 
   String _combineBaseUrls(
-      String dioBaseUrl,
-      String? baseUrl,
-      ) {
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/logger.dart';
-import '../../main/common/component/dialog/common_dialog.dart';
 import 'screens/planner/init_planner_page.dart';
-import '../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../service_locator.dart';
 import 'bloc/address_bloc/address_bloc.dart';
@@ -21,7 +19,6 @@ class PlanPage extends StatefulWidget {
 }
 
 class _PlanPageState extends State<PlanPage> with PlanUtil{
-  final auth = FirebaseAuthUtil();
   late AddressBloc _addressBloc;
   late PlannerBloc _plannerBloc;
 
@@ -36,6 +33,7 @@ class _PlanPageState extends State<PlanPage> with PlanUtil{
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    CustomLogger.logger.i('plan page didChangeDependencies');
     _plannerBloc.add(PlannerEvent.checkLoginState());
   }
 
@@ -50,29 +48,19 @@ class _PlanPageState extends State<PlanPage> with PlanUtil{
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => _addressBloc),
-          BlocProvider(create: (_) => _plannerBloc),
+          BlocProvider.value(value: _addressBloc),
+          BlocProvider.value(value: _plannerBloc),
         ],
-        child: BlocConsumer<PlannerBloc, PlannerState>(
+        child: BlocBuilder<PlannerBloc, PlannerState>(
           bloc: _plannerBloc,
           builder: (_, state) {
             return state.when(
               loading: () => PlannerLoadingWidget(),
               init: (isLogined) => InitPlannerPage(isLogin: isLogined, addressBloc: _addressBloc, plannerBloc: _plannerBloc),
               success: (plannerList, selected) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),
-              error: (error) => Container(),
+              error: (error) => Center(child: Text('Error: ${error.message}')),
             );
           },
-          listener: (context, state) async {
-            if (state is Error) {
-              CustomLogger.logger.e(state.error);
-              final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
-              if (result) {
-                _plannerBloc..add(PlannerEvent.checkLoginState());
-              }
-            }
-          },
-          listenWhen: (prev, curr) => prev.runtimeType != curr.runtimeType,
         ),
     );
   }

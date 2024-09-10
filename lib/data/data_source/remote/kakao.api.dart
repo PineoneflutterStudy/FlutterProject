@@ -15,12 +15,12 @@ abstract class KakaoApi {
   @GET('/keyword.json?')
   Future<KakaoResponseWrapper<PlaceDto>> getPlaceList(
     @Query('query') String query,
-    @Query('category_group_code') String category,
-    @Query('x') String x,
-    @Query('y') String y,
-    @Query('radius') int radius,
-    @Query('page') int page,
-    @Query('sort') String sort,
+    @Query('category_group_code') String? category,
+    @Query('x') String? x,
+    @Query('y') String? y,
+    @Query('radius') int? radius,
+    @Query('page') int? page,
+    @Query('sort') String? sort,
   );
 
   @GET('/address.json?')
