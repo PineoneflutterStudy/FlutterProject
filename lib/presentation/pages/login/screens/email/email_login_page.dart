@@ -17,6 +17,14 @@ class EmailLoginPage extends StatefulWidget {
   State<EmailLoginPage> createState() => _EmailLoginPage();
 }
 
+enum ErrorState {
+  none,
+  emailEmpty,
+  emailInvalid,
+  passwordEmpty,
+  passwordInvalid,
+}
+
 class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderStateMixin {
 //==============================================================================
 //  Fields
@@ -30,10 +38,13 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   final TextEditingController _emailController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
 
-  // 플래그
-  bool _isEmailEmpty = true;
-  bool _showEmailEmptyMessage = false;
-  bool _showEmailInvalidMessage = false;
+  // 비밀번호
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  // 에러 상태 관리
+  ErrorState _emailErrorState = ErrorState.none;
+  ErrorState _passwordErrorState = ErrorState.none;
 
   @override
   void initState() {
@@ -45,11 +56,13 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _passwordFocusNode.dispose();
+    _passwordController.dispose();
 
     _emailFocusNode.dispose();
     _emailController.dispose();
 
+    _pageController.dispose();
     _emailBloc.close();
     super.dispose();
   }
@@ -68,7 +81,6 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -83,49 +95,47 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
                           labelText: '이메일',
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                           contentPadding: EdgeInsets.only(left: 20),
-                          errorText: _getErrorTextForEmail(_showEmailEmptyMessage, _showEmailInvalidMessage),
-                          suffixIcon: _isEmailEmpty
+                          errorText: _getErrorTextForEmail(_emailErrorState),
+                          suffixIcon: _emailController.text.isEmpty
                               ? null
                               : _buildClearButton(controller: _emailController),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         autofocus: true,
-                        onChanged: (value) => onEmailTextChanged(value),
-                        onSubmitted: (value) {
-                          setState(() {
-                            if (_isEmailEmpty) {
-                              _showEmailEmptyMessage = true;
-                              _showEmailInvalidMessage = false;
-                            } else if (!CommonUtils.isValidEmail(value)) {
-                              _showEmailEmptyMessage = false;
-                              _showEmailInvalidMessage = true;
-                            }
-                          });
-
-                          if (_showEmailEmptyMessage || _showEmailInvalidMessage) {
-                            _emailFocusNode.requestFocus();
-                            return;
-                          }
-
-                          _getBloc(context).add(EmailEvent.emailSubmitted(value));
-                        },
+                        onChanged: _onEmailTextChanged,
+                        onSubmitted: (value) => _submitEmail(),
                         onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
                       ),
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '로그인을 위해 비밀번호를 입력해 주세요.',
+                        '${_emailController.text}에 로그인하려면 비밀번호를 입력해 주세요.',
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        focusNode: _passwordFocusNode,
+                        decoration: InputDecoration(
+                          labelText: '비밀번호',
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
+                          contentPadding: EdgeInsets.only(left: 20),
+                          errorText: _getErrorTextForPassword(_passwordErrorState),
+                          suffixIcon: _passwordController.text.isEmpty
+                              ? null
+                              : _buildClearButton(controller: _passwordController),
+                        ),
+                        obscureText: true,
+                        onChanged: _onPasswordTextChanged,
+                        onSubmitted: (value) => _submitPassword(),
+                        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                      ),
                     ],
                   ),
                 ),
@@ -136,8 +146,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               state.when(
                 initial: () {},
                 emailDuplicated: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
-                userNotFound: () => _onEmailOrPasswordError(),
-                wrongPassword: () => _onEmailOrPasswordError(),
+                userNotFound: () => {},
+                wrongPassword: () => _onWrongPassword(),
                 loggedIn: () => _onLoggedIn(),
                 error: () => _onError(),
               );
@@ -151,46 +161,73 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
 //==============================================================================
   EmailBloc _getBloc(BuildContext context) => context.read<EmailBloc>();
 
-  String? _getErrorTextForEmail(bool showEmailEmptyMessage, bool showEmailInvalidMessage) {
-    final String? errorText;
-    if (showEmailEmptyMessage) {
-      errorText = '이메일 주소를 입력해 주세요.';
-    } else if (showEmailInvalidMessage) {
-      errorText = '올바른 이메일 주소를 입력해 주세요.';
-    } else {
-      errorText = null;
+  String? _getErrorTextForEmail(ErrorState state) {
+    switch (state) {
+      case ErrorState.emailEmpty:
+        return '이메일 주소를 입력해 주세요.';
+      case ErrorState.emailInvalid:
+        return '올바른 이메일 주소를 입력해 주세요.';
+      default:
+        return null;
     }
-    return errorText;
+  }
+
+  String? _getErrorTextForPassword(ErrorState state) {
+    switch (state) {
+      case ErrorState.passwordEmpty:
+        return '비밀번호를 입력해 주세요.';
+      case ErrorState.passwordInvalid:
+        return '비밀번호가 일치하지 않습니다. 다시 시도해 주세요.';
+      default:
+        return null;
+    }
   }
 
   Widget _buildClearButton({required TextEditingController controller}) => IconButton(
         icon: Icon(Icons.clear_rounded),
         onPressed: () {
           controller.clear();
-          onEmailTextChanged(controller.text);
+          _onEmailTextChanged(controller.text);
         },
       );
-
-  onEmailTextChanged(String value) {
-    setState(() {
-      _isEmailEmpty = value.isEmpty;
-      if (_showEmailEmptyMessage || _showEmailInvalidMessage) {
-        _showEmailEmptyMessage = false;
-        _showEmailInvalidMessage = false;
-      }
-    });
-  }
-
-  String? _getErrorTextForPassword(EmailState state) {
-    //     return isPasswordEmpty ? '비밀번호를 입력해 주세요' : null;
-    return null;
-  }
 
 //==============================================================================
 //  Methods
 //==============================================================================
-  _onEmailOrPasswordError() {
-    CommonUtils.showToastMsg('이메일 또는 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.');
+  _onEmailTextChanged(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        _emailErrorState = ErrorState.emailEmpty;
+      } else if (!CommonUtils.isValidEmail(value)) {
+        _emailErrorState = ErrorState.emailInvalid;
+      } else {
+        _emailErrorState = ErrorState.none;
+      }
+    });
+  }
+
+  _submitEmail() {
+    if (_emailErrorState == ErrorState.none) {
+      _getBloc(context).add(EmailEvent.emailSubmitted(_emailController.text));
+    } else {
+      _emailFocusNode.requestFocus();
+    }
+  }
+
+  _onPasswordTextChanged(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        _passwordErrorState = ErrorState.passwordEmpty;
+      } else {
+        _passwordErrorState = ErrorState.none;
+      }
+    });
+  }
+
+  _submitPassword() {
+  }
+
+  _onWrongPassword() {
   }
 
   _onLoggedIn() {

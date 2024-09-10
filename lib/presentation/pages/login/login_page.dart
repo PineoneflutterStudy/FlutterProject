@@ -60,8 +60,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Image.asset(AppIcons.ImgBeeLaugh, width: 200, height: 200),
                       SizedBox(height: 20),
-                      Text('나만의 여행 플래너', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                      Text('개꿀트립🍯', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold)),
+                      Text(
+                        '나만의 여행 플래너',
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '개꿀트립🍯',
+                        style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
 
@@ -87,12 +93,12 @@ class _LoginPageState extends State<LoginPage> {
               CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
               state.when(
                 initial: () {},
-                alreadyLoggedIn: () => _onAlreadyLoggedIn(),
+                alreadyLoggedIn: _onAlreadyLoggedIn,
                 emailDuplicateError: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
-                requireMoreUserInfo: () => _onRequireMoreUserInfo(),
-                navigateToEmailSignIn: () => _onNavigateToEmailSignIn(),
-                loggedIn: () => _onLoggedIn(),
-                error: () => _onError(),
+                requireMoreUserInfo: _onRequireMoreUserInfo,
+                navigateToEmailSignIn: _onNavigateToEmailSignIn,
+                loggedIn: _onLoggedIn,
+                error: _onError,
               );
             },
           ),
@@ -107,7 +113,6 @@ class _LoginPageState extends State<LoginPage> {
 //  Methods
 //==============================================================================
   void _onAlreadyLoggedIn() {
-    //ett 로그아웃하고 다른 계정으로 로그인할 건지 팝업을 띄울수도?
     // 이미 로그인 된 경우 토스트 노출 후 이전 화면으로 복귀
     CommonUtils.showToastMsg('이미 로그인되어 있습니다.');
     Navigator.pop(context, true);

@@ -51,7 +51,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
   }
 
-  _onStarted(Emitter<LoginState> emit) {
+  Future<void> _onStarted(Emitter<LoginState> emit) async {
     // 로그인 여부 확인
     if (FirebaseAuthUtil().auth.currentUser != null) {
       CustomLogger.logger.w('$_tag Already logged in. Exiting the login page.');
@@ -116,7 +116,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   /// ## 현재와 동일한 상태(state)인 경우 초기화 후 변경
-  _emitWithReset(Emitter<LoginState> emit, LoginState loginState) {
+  void _emitWithReset(Emitter<LoginState> emit, LoginState loginState) {
     if (loginState == state) {
       emit(LoginState.initial());
     }
@@ -125,7 +125,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   /// ## 네이버 로그인 결과를 받기 위한 [StreamSubscription] 초기화
   /// [FirebaseAuthUtil.signInWithNaver]의 결과를 받기 위해선 호출이 필요하다.
-  _initUriSubscription() {
+  void _initUriSubscription() {
     if (_uriSubscription != null) {
       return;
     }
@@ -147,11 +147,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   /// 파이어베이스 유저 변경 감지를 위한 [StreamSubscription] 초기화
-  _initUserSubscription() {
+  void _initUserSubscription() {
     if (_userSubscription != null) {
       return;
     }
 
-    _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) => add(LoginEvent.userChanged(user)));
+    _userSubscription = FirebaseAuthUtil().auth.userChanges().listen((user) {
+      add(LoginEvent.userChanged(user));
+    });
   }
 }
