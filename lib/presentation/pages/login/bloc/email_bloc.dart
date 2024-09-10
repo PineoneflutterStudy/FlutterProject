@@ -39,7 +39,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     });
   }
 
-  _onEmailSubmitted(Emitter<EmailState> emit, String email) async {
+  Future<void> _onEmailSubmitted(Emitter<EmailState> emit, String email) async {
     final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
 
     try {
@@ -66,7 +66,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
   }
 
-  _onPasswordSubmitted(Emitter<EmailState> emit, String password) async {
+  Future<void> _onPasswordSubmitted(Emitter<EmailState> emit, String password) async {
     try {
       final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
       final UserCredential userCredential = await authUtil.auth.signInWithEmailAndPassword(

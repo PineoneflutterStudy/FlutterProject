@@ -28,6 +28,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   StreamSubscription<Uri>? _uriSubscription;
   StreamSubscription<User?>? _userSubscription;
 
+  /// 카카오 비즈앱 심사를 통과해야 카카오 계정 이메일 가져올 수 있다.
+  final bool _isKakaoBizApp = false; // fixme 비즈앱 심사 통과 시 변경
+
 //==============================================================================
 //  Methods
 //==============================================================================
@@ -46,7 +49,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
           emailDuplicated: (email) async => _emitWithReset(emit, LoginState.emailDuplicateError(email)),
           userChanged: (user) => _onUserChanged(emit, user),
-          userInfoMissing: () async => _emitWithReset(emit, LoginState.requireMoreUserInfo()),
           errorOccurred: () async => _emitWithReset(emit, LoginState.error()));
     });
   }
@@ -77,11 +79,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           break;
 
         case AuthType.kakao:
-          await authUtil.signInWithKakao();
+          if (_isKakaoBizApp) {
+           _emitWithReset(emit, LoginState.requireMoreUserInfo());
+          } else {
+            await authUtil.signInWithKakao();
+          }
           break;
 
         case AuthType.email:
-          _emitWithReset(emit, LoginState.navigateToEmailSignIn());
+          _emitWithReset(emit, LoginState.navigateToEmailLogin());
           break;
       }
     } catch (error) {

@@ -22,7 +22,6 @@ mixin _$LoginEvent {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +31,6 @@ mixin _$LoginEvent {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
@@ -42,7 +40,6 @@ mixin _$LoginEvent {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) =>
@@ -54,7 +51,6 @@ mixin _$LoginEvent {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +60,6 @@ mixin _$LoginEvent {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,7 +69,6 @@ mixin _$LoginEvent {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) =>
@@ -141,7 +135,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) {
     return started();
@@ -154,7 +147,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) {
     return started?.call();
@@ -167,7 +159,6 @@ class _$StartedImpl implements _Started {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -185,7 +176,6 @@ class _$StartedImpl implements _Started {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return started(this);
@@ -198,7 +188,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return started?.call(this);
@@ -211,7 +200,6 @@ class _$StartedImpl implements _Started {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -298,7 +286,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) {
     return loginOptionItemPressed(authType);
@@ -311,7 +298,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) {
     return loginOptionItemPressed?.call(authType);
@@ -324,7 +310,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -342,7 +327,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return loginOptionItemPressed(this);
@@ -355,7 +339,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return loginOptionItemPressed?.call(this);
@@ -368,7 +351,6 @@ class _$LoginOptionItemPressedImpl implements _LoginOptionItemPressed {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -458,7 +440,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) {
     return emailDuplicated(email);
@@ -471,7 +452,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) {
     return emailDuplicated?.call(email);
@@ -484,7 +464,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -502,7 +481,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return emailDuplicated(this);
@@ -515,7 +493,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return emailDuplicated?.call(this);
@@ -528,7 +505,6 @@ class _$EmailDuplicatedImpl implements _EmailDuplicated {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -616,7 +592,6 @@ class _$UserChangedImpl implements _UserChanged {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) {
     return userChanged(user);
@@ -629,7 +604,6 @@ class _$UserChangedImpl implements _UserChanged {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) {
     return userChanged?.call(user);
@@ -642,7 +616,6 @@ class _$UserChangedImpl implements _UserChanged {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -660,7 +633,6 @@ class _$UserChangedImpl implements _UserChanged {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return userChanged(this);
@@ -673,7 +645,6 @@ class _$UserChangedImpl implements _UserChanged {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return userChanged?.call(this);
@@ -686,7 +657,6 @@ class _$UserChangedImpl implements _UserChanged {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -704,133 +674,6 @@ abstract class _UserChanged implements LoginEvent {
   @JsonKey(ignore: true)
   _$$UserChangedImplCopyWith<_$UserChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UserInfoMissingImplCopyWith<$Res> {
-  factory _$$UserInfoMissingImplCopyWith(_$UserInfoMissingImpl value,
-          $Res Function(_$UserInfoMissingImpl) then) =
-      __$$UserInfoMissingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UserInfoMissingImplCopyWithImpl<$Res>
-    extends _$LoginEventCopyWithImpl<$Res, _$UserInfoMissingImpl>
-    implements _$$UserInfoMissingImplCopyWith<$Res> {
-  __$$UserInfoMissingImplCopyWithImpl(
-      _$UserInfoMissingImpl _value, $Res Function(_$UserInfoMissingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$UserInfoMissingImpl implements _UserInfoMissing {
-  const _$UserInfoMissingImpl();
-
-  @override
-  String toString() {
-    return 'LoginEvent.userInfoMissing()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserInfoMissingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(AuthType authType) loginOptionItemPressed,
-    required TResult Function(String email) emailDuplicated,
-    required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
-    required TResult Function() errorOccurred,
-  }) {
-    return userInfoMissing();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(AuthType authType)? loginOptionItemPressed,
-    TResult? Function(String email)? emailDuplicated,
-    TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
-    TResult? Function()? errorOccurred,
-  }) {
-    return userInfoMissing?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(AuthType authType)? loginOptionItemPressed,
-    TResult Function(String email)? emailDuplicated,
-    TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
-    TResult Function()? errorOccurred,
-    required TResult orElse(),
-  }) {
-    if (userInfoMissing != null) {
-      return userInfoMissing();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoginOptionItemPressed value)
-        loginOptionItemPressed,
-    required TResult Function(_EmailDuplicated value) emailDuplicated,
-    required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
-    required TResult Function(_ErrorOccurred value) errorOccurred,
-  }) {
-    return userInfoMissing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
-    TResult? Function(_EmailDuplicated value)? emailDuplicated,
-    TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
-    TResult? Function(_ErrorOccurred value)? errorOccurred,
-  }) {
-    return userInfoMissing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
-    TResult Function(_EmailDuplicated value)? emailDuplicated,
-    TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
-    TResult Function(_ErrorOccurred value)? errorOccurred,
-    required TResult orElse(),
-  }) {
-    if (userInfoMissing != null) {
-      return userInfoMissing(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UserInfoMissing implements LoginEvent {
-  const factory _UserInfoMissing() = _$UserInfoMissingImpl;
 }
 
 /// @nodoc
@@ -875,7 +718,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
     required TResult Function(AuthType authType) loginOptionItemPressed,
     required TResult Function(String email) emailDuplicated,
     required TResult Function(User? user) userChanged,
-    required TResult Function() userInfoMissing,
     required TResult Function() errorOccurred,
   }) {
     return errorOccurred();
@@ -888,7 +730,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
     TResult? Function(AuthType authType)? loginOptionItemPressed,
     TResult? Function(String email)? emailDuplicated,
     TResult? Function(User? user)? userChanged,
-    TResult? Function()? userInfoMissing,
     TResult? Function()? errorOccurred,
   }) {
     return errorOccurred?.call();
@@ -901,7 +742,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
     TResult Function(AuthType authType)? loginOptionItemPressed,
     TResult Function(String email)? emailDuplicated,
     TResult Function(User? user)? userChanged,
-    TResult Function()? userInfoMissing,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -919,7 +759,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
         loginOptionItemPressed,
     required TResult Function(_EmailDuplicated value) emailDuplicated,
     required TResult Function(_UserChanged value) userChanged,
-    required TResult Function(_UserInfoMissing value) userInfoMissing,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return errorOccurred(this);
@@ -932,7 +771,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
     TResult? Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult? Function(_EmailDuplicated value)? emailDuplicated,
     TResult? Function(_UserChanged value)? userChanged,
-    TResult? Function(_UserInfoMissing value)? userInfoMissing,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return errorOccurred?.call(this);
@@ -945,7 +783,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
     TResult Function(_LoginOptionItemPressed value)? loginOptionItemPressed,
     TResult Function(_EmailDuplicated value)? emailDuplicated,
     TResult Function(_UserChanged value)? userChanged,
-    TResult Function(_UserInfoMissing value)? userInfoMissing,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -968,7 +805,7 @@ mixin _$LoginState {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) =>
@@ -979,7 +816,7 @@ mixin _$LoginState {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) =>
@@ -990,7 +827,7 @@ mixin _$LoginState {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1002,8 +839,7 @@ mixin _$LoginState {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) =>
@@ -1014,7 +850,7 @@ mixin _$LoginState {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) =>
@@ -1025,7 +861,7 @@ mixin _$LoginState {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1093,7 +929,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1107,7 +943,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1121,7 +957,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1139,8 +975,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1154,7 +989,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -1168,7 +1003,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1226,7 +1061,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1240,7 +1075,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1254,7 +1089,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1272,8 +1107,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1287,7 +1121,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -1301,7 +1135,7 @@ class _$AlreadyLoggedInImpl implements _AlreadyLoggedIn {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1386,7 +1220,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1400,7 +1234,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1414,7 +1248,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1432,8 +1266,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1447,7 +1280,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -1461,7 +1294,7 @@ class _$EmailDuplicateErrorImpl implements _EmailDuplicateError {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1526,7 +1359,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1540,7 +1373,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1554,7 +1387,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1572,8 +1405,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1587,7 +1419,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -1601,7 +1433,7 @@ class _$RequireMoreUserInfoImpl implements _RequireMoreUserInfo {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1618,37 +1450,36 @@ abstract class _RequireMoreUserInfo implements LoginState {
 }
 
 /// @nodoc
-abstract class _$$NavigateToEmailSignInImplCopyWith<$Res> {
-  factory _$$NavigateToEmailSignInImplCopyWith(
-          _$NavigateToEmailSignInImpl value,
-          $Res Function(_$NavigateToEmailSignInImpl) then) =
-      __$$NavigateToEmailSignInImplCopyWithImpl<$Res>;
+abstract class _$$NavigateToEmailLoginImplCopyWith<$Res> {
+  factory _$$NavigateToEmailLoginImplCopyWith(_$NavigateToEmailLoginImpl value,
+          $Res Function(_$NavigateToEmailLoginImpl) then) =
+      __$$NavigateToEmailLoginImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NavigateToEmailSignInImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$NavigateToEmailSignInImpl>
-    implements _$$NavigateToEmailSignInImplCopyWith<$Res> {
-  __$$NavigateToEmailSignInImplCopyWithImpl(_$NavigateToEmailSignInImpl _value,
-      $Res Function(_$NavigateToEmailSignInImpl) _then)
+class __$$NavigateToEmailLoginImplCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$NavigateToEmailLoginImpl>
+    implements _$$NavigateToEmailLoginImplCopyWith<$Res> {
+  __$$NavigateToEmailLoginImplCopyWithImpl(_$NavigateToEmailLoginImpl _value,
+      $Res Function(_$NavigateToEmailLoginImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
-  const _$NavigateToEmailSignInImpl();
+class _$NavigateToEmailLoginImpl implements _NavigateToEmailLogin {
+  const _$NavigateToEmailLoginImpl();
 
   @override
   String toString() {
-    return 'LoginState.navigateToEmailSignIn()';
+    return 'LoginState.navigateToEmailLogin()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NavigateToEmailSignInImpl);
+            other is _$NavigateToEmailLoginImpl);
   }
 
   @override
@@ -1661,11 +1492,11 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
-    return navigateToEmailSignIn();
+    return navigateToEmailLogin();
   }
 
   @override
@@ -1675,11 +1506,11 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
-    return navigateToEmailSignIn?.call();
+    return navigateToEmailLogin?.call();
   }
 
   @override
@@ -1689,13 +1520,13 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (navigateToEmailSignIn != null) {
-      return navigateToEmailSignIn();
+    if (navigateToEmailLogin != null) {
+      return navigateToEmailLogin();
     }
     return orElse();
   }
@@ -1707,12 +1538,11 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
-    return navigateToEmailSignIn(this);
+    return navigateToEmailLogin(this);
   }
 
   @override
@@ -1722,11 +1552,11 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
-    return navigateToEmailSignIn?.call(this);
+    return navigateToEmailLogin?.call(this);
   }
 
   @override
@@ -1736,20 +1566,20 @@ class _$NavigateToEmailSignInImpl implements _NavigateToEmailSignIn {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (navigateToEmailSignIn != null) {
-      return navigateToEmailSignIn(this);
+    if (navigateToEmailLogin != null) {
+      return navigateToEmailLogin(this);
     }
     return orElse();
   }
 }
 
-abstract class _NavigateToEmailSignIn implements LoginState {
-  const factory _NavigateToEmailSignIn() = _$NavigateToEmailSignInImpl;
+abstract class _NavigateToEmailLogin implements LoginState {
+  const factory _NavigateToEmailLogin() = _$NavigateToEmailLoginImpl;
 }
 
 /// @nodoc
@@ -1794,7 +1624,7 @@ class _$LoggedInImpl implements _LoggedIn {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1808,7 +1638,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1822,7 +1652,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1840,8 +1670,7 @@ class _$LoggedInImpl implements _LoggedIn {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1855,7 +1684,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -1869,7 +1698,7 @@ class _$LoggedInImpl implements _LoggedIn {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -1927,7 +1756,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() alreadyLoggedIn,
     required TResult Function(String email) emailDuplicateError,
     required TResult Function() requireMoreUserInfo,
-    required TResult Function() navigateToEmailSignIn,
+    required TResult Function() navigateToEmailLogin,
     required TResult Function() loggedIn,
     required TResult Function() error,
   }) {
@@ -1941,7 +1770,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? alreadyLoggedIn,
     TResult? Function(String email)? emailDuplicateError,
     TResult? Function()? requireMoreUserInfo,
-    TResult? Function()? navigateToEmailSignIn,
+    TResult? Function()? navigateToEmailLogin,
     TResult? Function()? loggedIn,
     TResult? Function()? error,
   }) {
@@ -1955,7 +1784,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? alreadyLoggedIn,
     TResult Function(String email)? emailDuplicateError,
     TResult Function()? requireMoreUserInfo,
-    TResult Function()? navigateToEmailSignIn,
+    TResult Function()? navigateToEmailLogin,
     TResult Function()? loggedIn,
     TResult Function()? error,
     required TResult orElse(),
@@ -1973,8 +1802,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_AlreadyLoggedIn value) alreadyLoggedIn,
     required TResult Function(_EmailDuplicateError value) emailDuplicateError,
     required TResult Function(_RequireMoreUserInfo value) requireMoreUserInfo,
-    required TResult Function(_NavigateToEmailSignIn value)
-        navigateToEmailSignIn,
+    required TResult Function(_NavigateToEmailLogin value) navigateToEmailLogin,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_Error value) error,
   }) {
@@ -1988,7 +1816,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult? Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult? Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult? Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult? Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult? Function(_LoggedIn value)? loggedIn,
     TResult? Function(_Error value)? error,
   }) {
@@ -2002,7 +1830,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_AlreadyLoggedIn value)? alreadyLoggedIn,
     TResult Function(_EmailDuplicateError value)? emailDuplicateError,
     TResult Function(_RequireMoreUserInfo value)? requireMoreUserInfo,
-    TResult Function(_NavigateToEmailSignIn value)? navigateToEmailSignIn,
+    TResult Function(_NavigateToEmailLogin value)? navigateToEmailLogin,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_Error value)? error,
     required TResult orElse(),

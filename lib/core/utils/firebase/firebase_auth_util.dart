@@ -175,33 +175,24 @@ class FirebaseAuthUtil {
     }
   }
 
-  /// 카카오 비즈앱 심사를 통과해야 카카오 계정 이메일 가져올 수 있다.
-  final bool isKakaoBizApp = false; // fixme 비즈앱 심사 통과 시 변경
-
   /// ## 카카오 로그인 성공 후 파이어베이스 로그인
   Future<void> _onKakaoLoginSucceeded(kakao.OAuthToken authToken) async {
-    if (isKakaoBizApp) {
-      final kakao.User user = await kakao.UserApi.instance.me();
-      final String? email = user.kakaoAccount?.email;
-      if (email == null || email.isEmpty) {
-        throw Exception('Kakao sign-in failed: email == null || email.isEmpty');
-      }
-
-      // 동일한 이메일로 가입된 계정 존재 여부 확인
-      await checkEmailDuplicate(email, AuthType.kakao.providerId);
-
-      // 인증 정보로 인증서 생성
-      final OAuthProvider provider = OAuthProvider('oidc.kakao');
-      final OAuthCredential credential = provider.credential(
-          accessToken: authToken.accessToken, idToken: authToken.idToken);
-
-      // 인증서로 파이어베이스 로그인
-      await auth.signInWithCredential(credential);
-    } else {
-      // 비즈앱 심사를 통과하지 않아 이메일을 가져올 수 없으므로
-      //eff 이메일 가입 화면으로 이동하는 등 시나리오 필요
-      // add(LoginEvent.userInfoMissing());
+    final kakao.User user = await kakao.UserApi.instance.me();
+    final String? email = user.kakaoAccount?.email;
+    if (email == null || email.isEmpty) {
+      throw Exception('Kakao sign-in failed: email == null || email.isEmpty');
     }
+
+    // 동일한 이메일로 가입된 계정 존재 여부 확인
+    await checkEmailDuplicate(email, AuthType.kakao.providerId);
+
+    // 인증 정보로 인증서 생성
+    final OAuthProvider provider = OAuthProvider('oidc.kakao');
+    final OAuthCredential credential = provider.credential(
+        accessToken: authToken.accessToken, idToken: authToken.idToken);
+
+    // 인증서로 파이어베이스 로그인
+    await auth.signInWithCredential(credential);
   }
 
   /// ## 전달받은 User의 ProviderId를 나열한 리스트 반환

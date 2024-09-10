@@ -13,7 +13,7 @@ class LoginState with _$LoginState {
 
   const factory LoginState.requireMoreUserInfo() = _RequireMoreUserInfo;
 
-  const factory LoginState.navigateToEmailSignIn() = _NavigateToEmailSignIn;
+  const factory LoginState.navigateToEmailLogin() = _NavigateToEmailLogin;
 
   const factory LoginState.loggedIn() = _LoggedIn;
 

@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 alreadyLoggedIn: _onAlreadyLoggedIn,
                 emailDuplicateError: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
                 requireMoreUserInfo: _onRequireMoreUserInfo,
-                navigateToEmailSignIn: _onNavigateToEmailSignIn,
+                navigateToEmailLogin: _navigateToEmailLogin,
                 loggedIn: _onLoggedIn,
                 error: _onError,
               );
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onRequireMoreUserInfo() {
-    //eff 이메일 정보 추가로 받던 이메일 로그인으로 전환하던 해야함
+    CommonUtils.showToastMsg('카카오 로그인은 곧 제공될 예정입니다. 잠시만 기다려 주세요!');
   }
 
   void _onLoggedIn() {
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
     CommonUtils.showToastMsg('알 수 없는 오류가 발생했습니다.\n다른 방법으로 로그인하거나 다시 시도해 주세요.');
   }
 
-  void _onNavigateToEmailSignIn() {
+  void _navigateToEmailLogin() {
     Navigator.push(
       context,
       MaterialPageRoute(
