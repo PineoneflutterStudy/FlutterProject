@@ -9,17 +9,17 @@ part of 'region_select.dart';
 _$RegionSelectModelImpl _$$RegionSelectModelImplFromJson(
         Map<String, dynamic> json) =>
     _$RegionSelectModelImpl(
-      first: json['first'] as String,
-      second: json['second'] as String,
-      last: json['last'] as String,
-      another: json['another'] as String?,
+      major: json['major'] as String,
+      middle: json['middle'] as String,
+      minor: json['minor'] as String,
+      current: (json['current'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$RegionSelectModelImplToJson(
         _$RegionSelectModelImpl instance) =>
     <String, dynamic>{
-      'first': instance.first,
-      'second': instance.second,
-      'last': instance.last,
-      'another': instance.another,
+      'major': instance.major,
+      'middle': instance.middle,
+      'minor': instance.minor,
+      'current': instance.current,
     };

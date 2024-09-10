@@ -20,9 +20,7 @@ RegionListModel _$RegionListModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegionListModel {
-  List<RegionModel>? get currentAddr => throw _privateConstructorUsedError;
-  List<RegionModel> get newAddr => throw _privateConstructorUsedError;
-  int? get selectedIdx => throw _privateConstructorUsedError;
+  List<RegionModel> get addrList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +34,7 @@ abstract class $RegionListModelCopyWith<$Res> {
           RegionListModel value, $Res Function(RegionListModel) then) =
       _$RegionListModelCopyWithImpl<$Res, RegionListModel>;
   @useResult
-  $Res call(
-      {List<RegionModel>? currentAddr,
-      List<RegionModel> newAddr,
-      int? selectedIdx});
+  $Res call({List<RegionModel> addrList});
 }
 
 /// @nodoc
@@ -55,23 +50,13 @@ class _$RegionListModelCopyWithImpl<$Res, $Val extends RegionListModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentAddr = freezed,
-    Object? newAddr = null,
-    Object? selectedIdx = freezed,
+    Object? addrList = null,
   }) {
     return _then(_value.copyWith(
-      currentAddr: freezed == currentAddr
-          ? _value.currentAddr
-          : currentAddr // ignore: cast_nullable_to_non_nullable
-              as List<RegionModel>?,
-      newAddr: null == newAddr
-          ? _value.newAddr
-          : newAddr // ignore: cast_nullable_to_non_nullable
+      addrList: null == addrList
+          ? _value.addrList
+          : addrList // ignore: cast_nullable_to_non_nullable
               as List<RegionModel>,
-      selectedIdx: freezed == selectedIdx
-          ? _value.selectedIdx
-          : selectedIdx // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -84,10 +69,7 @@ abstract class _$$RegionListModelImplCopyWith<$Res>
       __$$RegionListModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<RegionModel>? currentAddr,
-      List<RegionModel> newAddr,
-      int? selectedIdx});
+  $Res call({List<RegionModel> addrList});
 }
 
 /// @nodoc
@@ -101,23 +83,13 @@ class __$$RegionListModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentAddr = freezed,
-    Object? newAddr = null,
-    Object? selectedIdx = freezed,
+    Object? addrList = null,
   }) {
     return _then(_$RegionListModelImpl(
-      currentAddr: freezed == currentAddr
-          ? _value._currentAddr
-          : currentAddr // ignore: cast_nullable_to_non_nullable
-              as List<RegionModel>?,
-      newAddr: null == newAddr
-          ? _value._newAddr
-          : newAddr // ignore: cast_nullable_to_non_nullable
+      addrList: null == addrList
+          ? _value._addrList
+          : addrList // ignore: cast_nullable_to_non_nullable
               as List<RegionModel>,
-      selectedIdx: freezed == selectedIdx
-          ? _value.selectedIdx
-          : selectedIdx // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -125,40 +97,23 @@ class __$$RegionListModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$RegionListModelImpl implements _RegionListModel {
-  const _$RegionListModelImpl(
-      {required final List<RegionModel>? currentAddr,
-      required final List<RegionModel> newAddr,
-      required this.selectedIdx})
-      : _currentAddr = currentAddr,
-        _newAddr = newAddr;
+  const _$RegionListModelImpl({required final List<RegionModel> addrList})
+      : _addrList = addrList;
 
   factory _$RegionListModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegionListModelImplFromJson(json);
 
-  final List<RegionModel>? _currentAddr;
+  final List<RegionModel> _addrList;
   @override
-  List<RegionModel>? get currentAddr {
-    final value = _currentAddr;
-    if (value == null) return null;
-    if (_currentAddr is EqualUnmodifiableListView) return _currentAddr;
+  List<RegionModel> get addrList {
+    if (_addrList is EqualUnmodifiableListView) return _addrList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_addrList);
   }
-
-  final List<RegionModel> _newAddr;
-  @override
-  List<RegionModel> get newAddr {
-    if (_newAddr is EqualUnmodifiableListView) return _newAddr;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_newAddr);
-  }
-
-  @override
-  final int? selectedIdx;
 
   @override
   String toString() {
-    return 'RegionListModel(currentAddr: $currentAddr, newAddr: $newAddr, selectedIdx: $selectedIdx)';
+    return 'RegionListModel(addrList: $addrList)';
   }
 
   @override
@@ -166,20 +121,13 @@ class _$RegionListModelImpl implements _RegionListModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegionListModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other._currentAddr, _currentAddr) &&
-            const DeepCollectionEquality().equals(other._newAddr, _newAddr) &&
-            (identical(other.selectedIdx, selectedIdx) ||
-                other.selectedIdx == selectedIdx));
+            const DeepCollectionEquality().equals(other._addrList, _addrList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_currentAddr),
-      const DeepCollectionEquality().hash(_newAddr),
-      selectedIdx);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_addrList));
 
   @JsonKey(ignore: true)
   @override
@@ -197,20 +145,14 @@ class _$RegionListModelImpl implements _RegionListModel {
 }
 
 abstract class _RegionListModel implements RegionListModel {
-  const factory _RegionListModel(
-      {required final List<RegionModel>? currentAddr,
-      required final List<RegionModel> newAddr,
-      required final int? selectedIdx}) = _$RegionListModelImpl;
+  const factory _RegionListModel({required final List<RegionModel> addrList}) =
+      _$RegionListModelImpl;
 
   factory _RegionListModel.fromJson(Map<String, dynamic> json) =
       _$RegionListModelImpl.fromJson;
 
   @override
-  List<RegionModel>? get currentAddr;
-  @override
-  List<RegionModel> get newAddr;
-  @override
-  int? get selectedIdx;
+  List<RegionModel> get addrList;
   @override
   @JsonKey(ignore: true)
   _$$RegionListModelImplCopyWith<_$RegionListModelImpl> get copyWith =>

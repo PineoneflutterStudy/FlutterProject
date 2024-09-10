@@ -34,7 +34,7 @@ class _LikePageState extends State<LikePage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
+      providers: [
         BlocProvider(create: ((context) =>
             LoginCheckBloc()
               ..add(LoginCheckEvent.checkLogin())
@@ -51,7 +51,13 @@ class _LikePageState extends State<LikePage> {
       child: Scaffold(
         appBar: LikeAppbar(
           context: context,
-          title: '찜목록'
+          title: '나만의 장소',
+          onResult: (String? value) {
+            if (value != null) {
+              print('필터링된 장소 -> ${value}');
+            }
+
+          },
         ),
         body: BlocConsumer<LoginCheckBloc, LoginCheckState>(
           builder: (context, state) {

@@ -12,10 +12,13 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final double appbar_height = 70;
 
+  final ValueChanged<String?> onResult;
+
   LikeAppbar({
     super.key,
     required this.context,
     required this.title,
+    required this.onResult,
   });
 
   @override
@@ -23,15 +26,15 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<LoginCheckBloc, LoginCheckState>(
       builder: (context, state) {
         return state.maybeWhen(
-          loggedIn: () => initializeAppBar(context, true),
-          loggedOut: () => initializeAppBar(context, false),
+          loggedIn: () => initializeAppBar(context, true, onResult),
+          loggedOut: () => initializeAppBar(context, false, onResult),
           orElse: () => const SizedBox(),
         );
       },
     );
   }
 
-  Scaffold initializeAppBar(BuildContext context, bool isLoggedIn) {
+  Scaffold initializeAppBar(BuildContext context, bool isLoggedIn, ValueChanged<String?> onResult) {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
@@ -48,6 +51,7 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
                           fullscreenDialog: false
                       ),
                     );
+                    onResult(result);
                   },
                 ),
               ),

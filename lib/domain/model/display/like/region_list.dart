@@ -8,9 +8,7 @@ part 'region_list.g.dart';
 @freezed
 class RegionListModel with _$RegionListModel {
   const factory RegionListModel({
-    required List<RegionModel>? currentAddr,
-    required List<RegionModel> newAddr,
-    required int? selectedIdx,
+    required List<RegionModel> addrList,
   }) = _RegionListModel;
 
   factory RegionListModel.fromJson(Map<String, dynamic> json) =>

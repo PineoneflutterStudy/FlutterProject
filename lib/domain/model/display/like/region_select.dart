@@ -6,10 +6,10 @@ part 'region_select.g.dart';
 @freezed
 class RegionSelectModel with _$RegionSelectModel {
   const factory RegionSelectModel({
-    required String first,
-    required String second,
-    required String last,
-    required String? another,
+    required String major,
+    required String middle,
+    required String minor,
+    required int current,
   }) = _RegionSelectModel;
 
 

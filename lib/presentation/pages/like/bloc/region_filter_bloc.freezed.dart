@@ -19,36 +19,27 @@ mixin _$RegionFilterEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        major,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        middle,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
     required TResult Function(String result) finish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
     TResult? Function(String result)? finish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
     TResult Function(String result)? finish,
     required TResult orElse(),
   }) =>
@@ -58,6 +49,7 @@ mixin _$RegionFilterEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_Major value) major,
     required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
     required TResult Function(_Finish value) finish,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +58,7 @@ mixin _$RegionFilterEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_Major value)? major,
     TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
     TResult? Function(_Finish value)? finish,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +67,7 @@ mixin _$RegionFilterEvent {
     TResult Function(_Started value)? started,
     TResult Function(_Major value)? major,
     TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
     TResult Function(_Finish value)? finish,
     required TResult orElse(),
   }) =>
@@ -137,12 +131,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        major,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        middle,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
     required TResult Function(String result) finish,
   }) {
     return started();
@@ -152,12 +143,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
     TResult? Function(String result)? finish,
   }) {
     return started?.call();
@@ -167,12 +155,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
     TResult Function(String result)? finish,
     required TResult orElse(),
   }) {
@@ -188,6 +173,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_Major value) major,
     required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
     required TResult Function(_Finish value) finish,
   }) {
     return started(this);
@@ -199,6 +185,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_Major value)? major,
     TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
     TResult? Function(_Finish value)? finish,
   }) {
     return started?.call(this);
@@ -210,6 +197,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_Major value)? major,
     TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
     TResult Function(_Finish value)? finish,
     required TResult orElse(),
   }) {
@@ -230,8 +218,9 @@ abstract class _$$MajorImplCopyWith<$Res> {
           _$MajorImpl value, $Res Function(_$MajorImpl) then) =
       __$$MajorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {List<RegionModel> address, String cd, String current, String inputType});
+  $Res call({String cd, RegionSelectModel selectAddr});
+
+  $RegionSelectModelCopyWith<$Res> get selectAddr;
 }
 
 /// @nodoc
@@ -245,57 +234,43 @@ class __$$MajorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? address = null,
     Object? cd = null,
-    Object? current = null,
-    Object? inputType = null,
+    Object? selectAddr = null,
   }) {
     return _then(_$MajorImpl(
-      null == address
-          ? _value._address
-          : address // ignore: cast_nullable_to_non_nullable
-              as List<RegionModel>,
       null == cd
           ? _value.cd
           : cd // ignore: cast_nullable_to_non_nullable
               as String,
-      null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == inputType
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == selectAddr
+          ? _value.selectAddr
+          : selectAddr // ignore: cast_nullable_to_non_nullable
+              as RegionSelectModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RegionSelectModelCopyWith<$Res> get selectAddr {
+    return $RegionSelectModelCopyWith<$Res>(_value.selectAddr, (value) {
+      return _then(_value.copyWith(selectAddr: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$MajorImpl implements _Major {
-  const _$MajorImpl(
-      final List<RegionModel> address, this.cd, this.current, this.inputType)
-      : _address = address;
-
-  final List<RegionModel> _address;
-  @override
-  List<RegionModel> get address {
-    if (_address is EqualUnmodifiableListView) return _address;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_address);
-  }
+  const _$MajorImpl(this.cd, this.selectAddr);
 
   @override
   final String cd;
   @override
-  final String current;
-  @override
-  final String inputType;
+  final RegionSelectModel selectAddr;
 
   @override
   String toString() {
-    return 'RegionFilterEvent.major(address: $address, cd: $cd, current: $current, inputType: $inputType)';
+    return 'RegionFilterEvent.major(cd: $cd, selectAddr: $selectAddr)';
   }
 
   @override
@@ -303,16 +278,13 @@ class _$MajorImpl implements _Major {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MajorImpl &&
-            const DeepCollectionEquality().equals(other._address, _address) &&
             (identical(other.cd, cd) || other.cd == cd) &&
-            (identical(other.current, current) || other.current == current) &&
-            (identical(other.inputType, inputType) ||
-                other.inputType == inputType));
+            (identical(other.selectAddr, selectAddr) ||
+                other.selectAddr == selectAddr));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_address), cd, current, inputType);
+  int get hashCode => Object.hash(runtimeType, cd, selectAddr);
 
   @JsonKey(ignore: true)
   @override
@@ -324,47 +296,38 @@ class _$MajorImpl implements _Major {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        major,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        middle,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
     required TResult Function(String result) finish,
   }) {
-    return major(address, cd, current, inputType);
+    return major(cd, selectAddr);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
     TResult? Function(String result)? finish,
   }) {
-    return major?.call(address, cd, current, inputType);
+    return major?.call(cd, selectAddr);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
     TResult Function(String result)? finish,
     required TResult orElse(),
   }) {
     if (major != null) {
-      return major(address, cd, current, inputType);
+      return major(cd, selectAddr);
     }
     return orElse();
   }
@@ -375,6 +338,7 @@ class _$MajorImpl implements _Major {
     required TResult Function(_Started value) started,
     required TResult Function(_Major value) major,
     required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
     required TResult Function(_Finish value) finish,
   }) {
     return major(this);
@@ -386,6 +350,7 @@ class _$MajorImpl implements _Major {
     TResult? Function(_Started value)? started,
     TResult? Function(_Major value)? major,
     TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
     TResult? Function(_Finish value)? finish,
   }) {
     return major?.call(this);
@@ -397,6 +362,7 @@ class _$MajorImpl implements _Major {
     TResult Function(_Started value)? started,
     TResult Function(_Major value)? major,
     TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
     TResult Function(_Finish value)? finish,
     required TResult orElse(),
   }) {
@@ -408,13 +374,11 @@ class _$MajorImpl implements _Major {
 }
 
 abstract class _Major implements RegionFilterEvent {
-  const factory _Major(final List<RegionModel> address, final String cd,
-      final String current, final String inputType) = _$MajorImpl;
+  const factory _Major(final String cd, final RegionSelectModel selectAddr) =
+      _$MajorImpl;
 
-  List<RegionModel> get address;
   String get cd;
-  String get current;
-  String get inputType;
+  RegionSelectModel get selectAddr;
   @JsonKey(ignore: true)
   _$$MajorImplCopyWith<_$MajorImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -426,8 +390,9 @@ abstract class _$$MiddleImplCopyWith<$Res> {
           _$MiddleImpl value, $Res Function(_$MiddleImpl) then) =
       __$$MiddleImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {List<RegionModel> address, String cd, String current, String inputType});
+  $Res call({String cd, RegionSelectModel selectAddr});
+
+  $RegionSelectModelCopyWith<$Res> get selectAddr;
 }
 
 /// @nodoc
@@ -441,57 +406,43 @@ class __$$MiddleImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? address = null,
     Object? cd = null,
-    Object? current = null,
-    Object? inputType = null,
+    Object? selectAddr = null,
   }) {
     return _then(_$MiddleImpl(
-      null == address
-          ? _value._address
-          : address // ignore: cast_nullable_to_non_nullable
-              as List<RegionModel>,
       null == cd
           ? _value.cd
           : cd // ignore: cast_nullable_to_non_nullable
               as String,
-      null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == inputType
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == selectAddr
+          ? _value.selectAddr
+          : selectAddr // ignore: cast_nullable_to_non_nullable
+              as RegionSelectModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RegionSelectModelCopyWith<$Res> get selectAddr {
+    return $RegionSelectModelCopyWith<$Res>(_value.selectAddr, (value) {
+      return _then(_value.copyWith(selectAddr: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$MiddleImpl implements _Middle {
-  const _$MiddleImpl(
-      final List<RegionModel> address, this.cd, this.current, this.inputType)
-      : _address = address;
-
-  final List<RegionModel> _address;
-  @override
-  List<RegionModel> get address {
-    if (_address is EqualUnmodifiableListView) return _address;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_address);
-  }
+  const _$MiddleImpl(this.cd, this.selectAddr);
 
   @override
   final String cd;
   @override
-  final String current;
-  @override
-  final String inputType;
+  final RegionSelectModel selectAddr;
 
   @override
   String toString() {
-    return 'RegionFilterEvent.middle(address: $address, cd: $cd, current: $current, inputType: $inputType)';
+    return 'RegionFilterEvent.middle(cd: $cd, selectAddr: $selectAddr)';
   }
 
   @override
@@ -499,16 +450,13 @@ class _$MiddleImpl implements _Middle {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MiddleImpl &&
-            const DeepCollectionEquality().equals(other._address, _address) &&
             (identical(other.cd, cd) || other.cd == cd) &&
-            (identical(other.current, current) || other.current == current) &&
-            (identical(other.inputType, inputType) ||
-                other.inputType == inputType));
+            (identical(other.selectAddr, selectAddr) ||
+                other.selectAddr == selectAddr));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_address), cd, current, inputType);
+  int get hashCode => Object.hash(runtimeType, cd, selectAddr);
 
   @JsonKey(ignore: true)
   @override
@@ -520,47 +468,38 @@ class _$MiddleImpl implements _Middle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        major,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        middle,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
     required TResult Function(String result) finish,
   }) {
-    return middle(address, cd, current, inputType);
+    return middle(cd, selectAddr);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
     TResult? Function(String result)? finish,
   }) {
-    return middle?.call(address, cd, current, inputType);
+    return middle?.call(cd, selectAddr);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
     TResult Function(String result)? finish,
     required TResult orElse(),
   }) {
     if (middle != null) {
-      return middle(address, cd, current, inputType);
+      return middle(cd, selectAddr);
     }
     return orElse();
   }
@@ -571,6 +510,7 @@ class _$MiddleImpl implements _Middle {
     required TResult Function(_Started value) started,
     required TResult Function(_Major value) major,
     required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
     required TResult Function(_Finish value) finish,
   }) {
     return middle(this);
@@ -582,6 +522,7 @@ class _$MiddleImpl implements _Middle {
     TResult? Function(_Started value)? started,
     TResult? Function(_Major value)? major,
     TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
     TResult? Function(_Finish value)? finish,
   }) {
     return middle?.call(this);
@@ -593,6 +534,7 @@ class _$MiddleImpl implements _Middle {
     TResult Function(_Started value)? started,
     TResult Function(_Major value)? major,
     TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
     TResult Function(_Finish value)? finish,
     required TResult orElse(),
   }) {
@@ -604,15 +546,175 @@ class _$MiddleImpl implements _Middle {
 }
 
 abstract class _Middle implements RegionFilterEvent {
-  const factory _Middle(final List<RegionModel> address, final String cd,
-      final String current, final String inputType) = _$MiddleImpl;
+  const factory _Middle(final String cd, final RegionSelectModel selectAddr) =
+      _$MiddleImpl;
 
-  List<RegionModel> get address;
   String get cd;
-  String get current;
-  String get inputType;
+  RegionSelectModel get selectAddr;
   @JsonKey(ignore: true)
   _$$MiddleImplCopyWith<_$MiddleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MinorImplCopyWith<$Res> {
+  factory _$$MinorImplCopyWith(
+          _$MinorImpl value, $Res Function(_$MinorImpl) then) =
+      __$$MinorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({RegionSelectModel selectAddr});
+
+  $RegionSelectModelCopyWith<$Res> get selectAddr;
+}
+
+/// @nodoc
+class __$$MinorImplCopyWithImpl<$Res>
+    extends _$RegionFilterEventCopyWithImpl<$Res, _$MinorImpl>
+    implements _$$MinorImplCopyWith<$Res> {
+  __$$MinorImplCopyWithImpl(
+      _$MinorImpl _value, $Res Function(_$MinorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectAddr = null,
+  }) {
+    return _then(_$MinorImpl(
+      null == selectAddr
+          ? _value.selectAddr
+          : selectAddr // ignore: cast_nullable_to_non_nullable
+              as RegionSelectModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RegionSelectModelCopyWith<$Res> get selectAddr {
+    return $RegionSelectModelCopyWith<$Res>(_value.selectAddr, (value) {
+      return _then(_value.copyWith(selectAddr: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$MinorImpl implements _Minor {
+  const _$MinorImpl(this.selectAddr);
+
+  @override
+  final RegionSelectModel selectAddr;
+
+  @override
+  String toString() {
+    return 'RegionFilterEvent.minor(selectAddr: $selectAddr)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MinorImpl &&
+            (identical(other.selectAddr, selectAddr) ||
+                other.selectAddr == selectAddr));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectAddr);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MinorImplCopyWith<_$MinorImpl> get copyWith =>
+      __$$MinorImplCopyWithImpl<_$MinorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
+    required TResult Function(String result) finish,
+  }) {
+    return minor(selectAddr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
+    TResult? Function(String result)? finish,
+  }) {
+    return minor?.call(selectAddr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
+    TResult Function(String result)? finish,
+    required TResult orElse(),
+  }) {
+    if (minor != null) {
+      return minor(selectAddr);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Major value) major,
+    required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
+    required TResult Function(_Finish value) finish,
+  }) {
+    return minor(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Major value)? major,
+    TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
+    TResult? Function(_Finish value)? finish,
+  }) {
+    return minor?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Major value)? major,
+    TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
+    TResult Function(_Finish value)? finish,
+    required TResult orElse(),
+  }) {
+    if (minor != null) {
+      return minor(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Minor implements RegionFilterEvent {
+  const factory _Minor(final RegionSelectModel selectAddr) = _$MinorImpl;
+
+  RegionSelectModel get selectAddr;
+  @JsonKey(ignore: true)
+  _$$MinorImplCopyWith<_$MinorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -681,12 +783,9 @@ class _$FinishImpl implements _Finish {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        major,
-    required TResult Function(List<RegionModel> address, String cd,
-            String current, String inputType)
-        middle,
+    required TResult Function(String cd, RegionSelectModel selectAddr) major,
+    required TResult Function(String cd, RegionSelectModel selectAddr) middle,
+    required TResult Function(RegionSelectModel selectAddr) minor,
     required TResult Function(String result) finish,
   }) {
     return finish(result);
@@ -696,12 +795,9 @@ class _$FinishImpl implements _Finish {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult? Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult? Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult? Function(RegionSelectModel selectAddr)? minor,
     TResult? Function(String result)? finish,
   }) {
     return finish?.call(result);
@@ -711,12 +807,9 @@ class _$FinishImpl implements _Finish {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        major,
-    TResult Function(List<RegionModel> address, String cd, String current,
-            String inputType)?
-        middle,
+    TResult Function(String cd, RegionSelectModel selectAddr)? major,
+    TResult Function(String cd, RegionSelectModel selectAddr)? middle,
+    TResult Function(RegionSelectModel selectAddr)? minor,
     TResult Function(String result)? finish,
     required TResult orElse(),
   }) {
@@ -732,6 +825,7 @@ class _$FinishImpl implements _Finish {
     required TResult Function(_Started value) started,
     required TResult Function(_Major value) major,
     required TResult Function(_Middle value) middle,
+    required TResult Function(_Minor value) minor,
     required TResult Function(_Finish value) finish,
   }) {
     return finish(this);
@@ -743,6 +837,7 @@ class _$FinishImpl implements _Finish {
     TResult? Function(_Started value)? started,
     TResult? Function(_Major value)? major,
     TResult? Function(_Middle value)? middle,
+    TResult? Function(_Minor value)? minor,
     TResult? Function(_Finish value)? finish,
   }) {
     return finish?.call(this);
@@ -754,6 +849,7 @@ class _$FinishImpl implements _Finish {
     TResult Function(_Started value)? started,
     TResult Function(_Major value)? major,
     TResult Function(_Middle value)? middle,
+    TResult Function(_Minor value)? minor,
     TResult Function(_Finish value)? finish,
     required TResult orElse(),
   }) {
@@ -775,63 +871,12 @@ abstract class _Finish implements RegionFilterEvent {
 
 /// @nodoc
 mixin _$RegionFilterState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) =>
+  RegionStatus get status => throw _privateConstructorUsedError;
+  RegionListModel get model => throw _privateConstructorUsedError;
+  RegionSelectModel get select => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RegionFilterStateCopyWith<RegionFilterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -840,6 +885,12 @@ abstract class $RegionFilterStateCopyWith<$Res> {
   factory $RegionFilterStateCopyWith(
           RegionFilterState value, $Res Function(RegionFilterState) then) =
       _$RegionFilterStateCopyWithImpl<$Res, RegionFilterState>;
+  @useResult
+  $Res call(
+      {RegionStatus status, RegionListModel model, RegionSelectModel select});
+
+  $RegionListModelCopyWith<$Res> get model;
+  $RegionSelectModelCopyWith<$Res> get select;
 }
 
 /// @nodoc
@@ -851,792 +902,155 @@ class _$RegionFilterStateCopyWithImpl<$Res, $Val extends RegionFilterState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$RegionFilterStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'RegionFilterState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements RegionFilterState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$ShowMajorImplCopyWith<$Res> {
-  factory _$$ShowMajorImplCopyWith(
-          _$ShowMajorImpl value, $Res Function(_$ShowMajorImpl) then) =
-      __$$ShowMajorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({RegionListModel model});
-
-  $RegionListModelCopyWith<$Res> get model;
-}
-
-/// @nodoc
-class __$$ShowMajorImplCopyWithImpl<$Res>
-    extends _$RegionFilterStateCopyWithImpl<$Res, _$ShowMajorImpl>
-    implements _$$ShowMajorImplCopyWith<$Res> {
-  __$$ShowMajorImplCopyWithImpl(
-      _$ShowMajorImpl _value, $Res Function(_$ShowMajorImpl) _then)
-      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? model = null,
+    Object? select = null,
   }) {
-    return _then(_$ShowMajorImpl(
-      null == model
+    return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as RegionStatus,
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as RegionListModel,
-    ));
+      select: null == select
+          ? _value.select
+          : select // ignore: cast_nullable_to_non_nullable
+              as RegionSelectModel,
+    ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
   $RegionListModelCopyWith<$Res> get model {
     return $RegionListModelCopyWith<$Res>(_value.model, (value) {
-      return _then(_value.copyWith(model: value));
+      return _then(_value.copyWith(model: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RegionSelectModelCopyWith<$Res> get select {
+    return $RegionSelectModelCopyWith<$Res>(_value.select, (value) {
+      return _then(_value.copyWith(select: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-
-class _$ShowMajorImpl implements _ShowMajor {
-  const _$ShowMajorImpl(this.model);
-
+abstract class _$$RegionFilterStateImplCopyWith<$Res>
+    implements $RegionFilterStateCopyWith<$Res> {
+  factory _$$RegionFilterStateImplCopyWith(_$RegionFilterStateImpl value,
+          $Res Function(_$RegionFilterStateImpl) then) =
+      __$$RegionFilterStateImplCopyWithImpl<$Res>;
   @override
-  final RegionListModel model;
-
-  @override
-  String toString() {
-    return 'RegionFilterState.showMajor(model: $model)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShowMajorImpl &&
-            (identical(other.model, model) || other.model == model));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, model);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ShowMajorImplCopyWith<_$ShowMajorImpl> get copyWith =>
-      __$$ShowMajorImplCopyWithImpl<_$ShowMajorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) {
-    return showMajor(model);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) {
-    return showMajor?.call(model);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMajor != null) {
-      return showMajor(model);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) {
-    return showMajor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) {
-    return showMajor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMajor != null) {
-      return showMajor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ShowMajor implements RegionFilterState {
-  const factory _ShowMajor(final RegionListModel model) = _$ShowMajorImpl;
-
-  RegionListModel get model;
-  @JsonKey(ignore: true)
-  _$$ShowMajorImplCopyWith<_$ShowMajorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ShowMiddleImplCopyWith<$Res> {
-  factory _$$ShowMiddleImplCopyWith(
-          _$ShowMiddleImpl value, $Res Function(_$ShowMiddleImpl) then) =
-      __$$ShowMiddleImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({RegionListModel model, String currentRegion});
+  $Res call(
+      {RegionStatus status, RegionListModel model, RegionSelectModel select});
 
+  @override
   $RegionListModelCopyWith<$Res> get model;
+  @override
+  $RegionSelectModelCopyWith<$Res> get select;
 }
 
 /// @nodoc
-class __$$ShowMiddleImplCopyWithImpl<$Res>
-    extends _$RegionFilterStateCopyWithImpl<$Res, _$ShowMiddleImpl>
-    implements _$$ShowMiddleImplCopyWith<$Res> {
-  __$$ShowMiddleImplCopyWithImpl(
-      _$ShowMiddleImpl _value, $Res Function(_$ShowMiddleImpl) _then)
+class __$$RegionFilterStateImplCopyWithImpl<$Res>
+    extends _$RegionFilterStateCopyWithImpl<$Res, _$RegionFilterStateImpl>
+    implements _$$RegionFilterStateImplCopyWith<$Res> {
+  __$$RegionFilterStateImplCopyWithImpl(_$RegionFilterStateImpl _value,
+      $Res Function(_$RegionFilterStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? model = null,
-    Object? currentRegion = null,
+    Object? select = null,
   }) {
-    return _then(_$ShowMiddleImpl(
-      null == model
+    return _then(_$RegionFilterStateImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as RegionStatus,
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as RegionListModel,
-      null == currentRegion
-          ? _value.currentRegion
-          : currentRegion // ignore: cast_nullable_to_non_nullable
-              as String,
+      select: null == select
+          ? _value.select
+          : select // ignore: cast_nullable_to_non_nullable
+              as RegionSelectModel,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RegionListModelCopyWith<$Res> get model {
-    return $RegionListModelCopyWith<$Res>(_value.model, (value) {
-      return _then(_value.copyWith(model: value));
-    });
   }
 }
 
 /// @nodoc
 
-class _$ShowMiddleImpl implements _ShowMiddle {
-  const _$ShowMiddleImpl(this.model, this.currentRegion);
+class _$RegionFilterStateImpl implements _RegionFilterState {
+  const _$RegionFilterStateImpl(
+      {this.status = RegionStatus.initial,
+      this.model = const RegionListModel(addrList: []),
+      this.select = const RegionSelectModel(
+          major: '', middle: '', minor: '', current: 0)});
 
   @override
+  @JsonKey()
+  final RegionStatus status;
+  @override
+  @JsonKey()
   final RegionListModel model;
   @override
-  final String currentRegion;
+  @JsonKey()
+  final RegionSelectModel select;
 
   @override
   String toString() {
-    return 'RegionFilterState.showMiddle(model: $model, currentRegion: $currentRegion)';
+    return 'RegionFilterState(status: $status, model: $model, select: $select)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ShowMiddleImpl &&
+            other is _$RegionFilterStateImpl &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.model, model) || other.model == model) &&
-            (identical(other.currentRegion, currentRegion) ||
-                other.currentRegion == currentRegion));
+            (identical(other.select, select) || other.select == select));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, model, currentRegion);
+  int get hashCode => Object.hash(runtimeType, status, model, select);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ShowMiddleImplCopyWith<_$ShowMiddleImpl> get copyWith =>
-      __$$ShowMiddleImplCopyWithImpl<_$ShowMiddleImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) {
-    return showMiddle(model, currentRegion);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) {
-    return showMiddle?.call(model, currentRegion);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMiddle != null) {
-      return showMiddle(model, currentRegion);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) {
-    return showMiddle(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) {
-    return showMiddle?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMiddle != null) {
-      return showMiddle(this);
-    }
-    return orElse();
-  }
+  _$$RegionFilterStateImplCopyWith<_$RegionFilterStateImpl> get copyWith =>
+      __$$RegionFilterStateImplCopyWithImpl<_$RegionFilterStateImpl>(
+          this, _$identity);
 }
 
-abstract class _ShowMiddle implements RegionFilterState {
-  const factory _ShowMiddle(
-          final RegionListModel model, final String currentRegion) =
-      _$ShowMiddleImpl;
+abstract class _RegionFilterState implements RegionFilterState {
+  const factory _RegionFilterState(
+      {final RegionStatus status,
+      final RegionListModel model,
+      final RegionSelectModel select}) = _$RegionFilterStateImpl;
 
+  @override
+  RegionStatus get status;
+  @override
   RegionListModel get model;
-  String get currentRegion;
+  @override
+  RegionSelectModel get select;
+  @override
   @JsonKey(ignore: true)
-  _$$ShowMiddleImplCopyWith<_$ShowMiddleImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ShowMinorImplCopyWith<$Res> {
-  factory _$$ShowMinorImplCopyWith(
-          _$ShowMinorImpl value, $Res Function(_$ShowMinorImpl) then) =
-      __$$ShowMinorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({RegionListModel model, String currentRegion});
-
-  $RegionListModelCopyWith<$Res> get model;
-}
-
-/// @nodoc
-class __$$ShowMinorImplCopyWithImpl<$Res>
-    extends _$RegionFilterStateCopyWithImpl<$Res, _$ShowMinorImpl>
-    implements _$$ShowMinorImplCopyWith<$Res> {
-  __$$ShowMinorImplCopyWithImpl(
-      _$ShowMinorImpl _value, $Res Function(_$ShowMinorImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? model = null,
-    Object? currentRegion = null,
-  }) {
-    return _then(_$ShowMinorImpl(
-      null == model
-          ? _value.model
-          : model // ignore: cast_nullable_to_non_nullable
-              as RegionListModel,
-      null == currentRegion
-          ? _value.currentRegion
-          : currentRegion // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RegionListModelCopyWith<$Res> get model {
-    return $RegionListModelCopyWith<$Res>(_value.model, (value) {
-      return _then(_value.copyWith(model: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$ShowMinorImpl implements _ShowMinor {
-  const _$ShowMinorImpl(this.model, this.currentRegion);
-
-  @override
-  final RegionListModel model;
-  @override
-  final String currentRegion;
-
-  @override
-  String toString() {
-    return 'RegionFilterState.showMinor(model: $model, currentRegion: $currentRegion)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShowMinorImpl &&
-            (identical(other.model, model) || other.model == model) &&
-            (identical(other.currentRegion, currentRegion) ||
-                other.currentRegion == currentRegion));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, model, currentRegion);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ShowMinorImplCopyWith<_$ShowMinorImpl> get copyWith =>
-      __$$ShowMinorImplCopyWithImpl<_$ShowMinorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) {
-    return showMinor(model, currentRegion);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) {
-    return showMinor?.call(model, currentRegion);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMinor != null) {
-      return showMinor(model, currentRegion);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) {
-    return showMinor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) {
-    return showMinor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) {
-    if (showMinor != null) {
-      return showMinor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ShowMinor implements RegionFilterState {
-  const factory _ShowMinor(
-          final RegionListModel model, final String currentRegion) =
-      _$ShowMinorImpl;
-
-  RegionListModel get model;
-  String get currentRegion;
-  @JsonKey(ignore: true)
-  _$$ShowMinorImplCopyWith<_$ShowMinorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$onFinishImplCopyWith<$Res> {
-  factory _$$onFinishImplCopyWith(
-          _$onFinishImpl value, $Res Function(_$onFinishImpl) then) =
-      __$$onFinishImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String result});
-}
-
-/// @nodoc
-class __$$onFinishImplCopyWithImpl<$Res>
-    extends _$RegionFilterStateCopyWithImpl<$Res, _$onFinishImpl>
-    implements _$$onFinishImplCopyWith<$Res> {
-  __$$onFinishImplCopyWithImpl(
-      _$onFinishImpl _value, $Res Function(_$onFinishImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? result = null,
-  }) {
-    return _then(_$onFinishImpl(
-      null == result
-          ? _value.result
-          : result // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$onFinishImpl implements _onFinish {
-  const _$onFinishImpl(this.result);
-
-  @override
-  final String result;
-
-  @override
-  String toString() {
-    return 'RegionFilterState.finish(result: $result)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$onFinishImpl &&
-            (identical(other.result, result) || other.result == result));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, result);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$onFinishImplCopyWith<_$onFinishImpl> get copyWith =>
-      __$$onFinishImplCopyWithImpl<_$onFinishImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(RegionListModel model) showMajor,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMiddle,
-    required TResult Function(RegionListModel model, String currentRegion)
-        showMinor,
-    required TResult Function(String result) finish,
-  }) {
-    return finish(result);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(RegionListModel model)? showMajor,
-    TResult? Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult? Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult? Function(String result)? finish,
-  }) {
-    return finish?.call(result);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(RegionListModel model)? showMajor,
-    TResult Function(RegionListModel model, String currentRegion)? showMiddle,
-    TResult Function(RegionListModel model, String currentRegion)? showMinor,
-    TResult Function(String result)? finish,
-    required TResult orElse(),
-  }) {
-    if (finish != null) {
-      return finish(result);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ShowMajor value) showMajor,
-    required TResult Function(_ShowMiddle value) showMiddle,
-    required TResult Function(_ShowMinor value) showMinor,
-    required TResult Function(_onFinish value) finish,
-  }) {
-    return finish(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ShowMajor value)? showMajor,
-    TResult? Function(_ShowMiddle value)? showMiddle,
-    TResult? Function(_ShowMinor value)? showMinor,
-    TResult? Function(_onFinish value)? finish,
-  }) {
-    return finish?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ShowMajor value)? showMajor,
-    TResult Function(_ShowMiddle value)? showMiddle,
-    TResult Function(_ShowMinor value)? showMinor,
-    TResult Function(_onFinish value)? finish,
-    required TResult orElse(),
-  }) {
-    if (finish != null) {
-      return finish(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _onFinish implements RegionFilterState {
-  const factory _onFinish(final String result) = _$onFinishImpl;
-
-  String get result;
-  @JsonKey(ignore: true)
-  _$$onFinishImplCopyWith<_$onFinishImpl> get copyWith =>
+  _$$RegionFilterStateImplCopyWith<_$RegionFilterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

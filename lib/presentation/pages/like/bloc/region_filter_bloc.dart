@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../../../../domain/repository/like/region_repository.dart';
+import '../../../../core/utils/constant.dart';
 import '../../../../domain/model/display/like/access_token.dart';
 import '../../../../domain/model/display/like/region.dart';
 import '../../../../domain/model/display/like/region_list.dart';
@@ -14,12 +15,13 @@ part 'region_filter_bloc.freezed.dart';
 class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
   final RegionRepository repository;
 
-  RegionFilterBloc({required this.repository}) : super(const RegionFilterState.initial()) {
+  RegionFilterBloc({required this.repository}) : super(RegionFilterState()) {
     on<RegionFilterEvent>((event, emit) async {
       await event.map(
         started: (e) async => await _onStarted(emit),
-        major: (e) async => await _onSelectMajor(emit, e.address, e.cd, e.current, e.inputType),
-        middle: (e) async =>  await _onSelectMiddle(emit,  e.address, e.cd, e.current, e.inputType),
+        major: (e) async => await _onSelectMajor(emit, e.cd, e.selectAddr),
+        middle: (e) async =>  await _onSelectMiddle(emit, e.cd, e.selectAddr),
+        minor: (e) => _onSelectMinor(emit,e.selectAddr),
         finish: (e) => _onFinish(emit, e.result),
       );
     });
@@ -28,75 +30,57 @@ class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
   Future<void> _onStarted(Emitter<RegionFilterState> emit) async {
     print('on Started');
     AccessTokenModel accessToken = await repository.getAccessToken();
-    List<RegionModel> regionAddrList =
-      await repository.getRegionAddr(
-          accessToken.accessToken,
-          null
-      );
+    List<RegionModel> responseAddress =
+      await repository.getRegionAddr(accessToken.accessToken,null);
 
-    emit(RegionFilterState.showMajor(RegionListModel(
-        currentAddr: null,
-        newAddr: regionAddrList,
-        selectedIdx: 0,
-    )));
+    emit(state.copyWith(
+      status: RegionStatus.showMajor,
+      model: RegionListModel(addrList: responseAddress),
+      select: RegionSelectModel(major: '', middle: '', minor: '', current: 1),
+    ));
   }
 
   Future<void> _onSelectMajor(
     Emitter<RegionFilterState> emit,
-    List<RegionModel> middle,
     String cd,
-    String current,
-    String inputType,
+    RegionSelectModel selectAddr,
   ) async {
+    print('Major 선택');
 
     AccessTokenModel accessToken = await repository.getAccessToken();
     List<RegionModel> responseAddress =
-    await repository.getRegionAddr(
-      accessToken.accessToken,
-      cd,
-    );
+      await repository.getRegionAddr(accessToken.accessToken, cd,);
 
-    emit(RegionFilterState.showMiddle(RegionListModel(
-      currentAddr: middle,
-      newAddr: responseAddress,
-      selectedIdx: 0,
-    ),
-      current,
+    emit(state.copyWith(
+      status: RegionStatus.showMiddle,
+      model: RegionListModel(addrList: responseAddress),
+      select: selectAddr,
     ));
   }
 
   Future<void> _onSelectMiddle(
     Emitter<RegionFilterState> emit,
-    List<RegionModel> minor,
     String cd,
-    String current,
-    String inputType
+    RegionSelectModel selectAddr,
   ) async {
     AccessTokenModel accessToken = await repository.getAccessToken();
     List<RegionModel> responseAddress =
-    await repository.getRegionAddr(
-      accessToken.accessToken,
-      cd,
-    );
+      await repository.getRegionAddr(accessToken.accessToken, cd,);
 
-    // if (inputType == 'middle') {
-    //   emit(RegionFilterState.showMiddle(RegionListModel(
-    //     currentAddr: minor,
-    //     newAddr: responseAddress,
-    //     selectedIdx: 0,
-    //   ),
-    //     current,
-    //   ));
-    // } else {
-    //
-    // }
+    emit(state.copyWith(
+      status: RegionStatus.showMinor,
+      model: RegionListModel(addrList: responseAddress),
+      select: selectAddr,
+    ));
+  }
 
-    emit(RegionFilterState.showMinor(RegionListModel(
-      currentAddr: minor,
-      newAddr: responseAddress,
-      selectedIdx: 0,
-    ),
-      current,
+  Future<void> _onSelectMinor(
+      Emitter<RegionFilterState> emit,
+      RegionSelectModel selectAddr,
+  ) async {
+    emit(state.copyWith(
+      status: RegionStatus.finish,
+      select: selectAddr,
     ));
   }
 
@@ -104,6 +88,9 @@ class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
       Emitter<RegionFilterState> emit,
       String result,
   ) async {
-    emit(RegionFilterState.finish(result));
+
+    emit (state.copyWith(
+
+    ));
   }
 }

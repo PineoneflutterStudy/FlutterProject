@@ -20,10 +20,10 @@ RegionSelectModel _$RegionSelectModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegionSelectModel {
-  String get first => throw _privateConstructorUsedError;
-  String get second => throw _privateConstructorUsedError;
-  String get last => throw _privateConstructorUsedError;
-  String? get another => throw _privateConstructorUsedError;
+  String get major => throw _privateConstructorUsedError;
+  String get middle => throw _privateConstructorUsedError;
+  String get minor => throw _privateConstructorUsedError;
+  int get current => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $RegionSelectModelCopyWith<$Res> {
           RegionSelectModel value, $Res Function(RegionSelectModel) then) =
       _$RegionSelectModelCopyWithImpl<$Res, RegionSelectModel>;
   @useResult
-  $Res call({String first, String second, String last, String? another});
+  $Res call({String major, String middle, String minor, int current});
 }
 
 /// @nodoc
@@ -53,28 +53,28 @@ class _$RegionSelectModelCopyWithImpl<$Res, $Val extends RegionSelectModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
-    Object? last = null,
-    Object? another = freezed,
+    Object? major = null,
+    Object? middle = null,
+    Object? minor = null,
+    Object? current = null,
   }) {
     return _then(_value.copyWith(
-      first: null == first
-          ? _value.first
-          : first // ignore: cast_nullable_to_non_nullable
+      major: null == major
+          ? _value.major
+          : major // ignore: cast_nullable_to_non_nullable
               as String,
-      second: null == second
-          ? _value.second
-          : second // ignore: cast_nullable_to_non_nullable
+      middle: null == middle
+          ? _value.middle
+          : middle // ignore: cast_nullable_to_non_nullable
               as String,
-      last: null == last
-          ? _value.last
-          : last // ignore: cast_nullable_to_non_nullable
+      minor: null == minor
+          ? _value.minor
+          : minor // ignore: cast_nullable_to_non_nullable
               as String,
-      another: freezed == another
-          ? _value.another
-          : another // ignore: cast_nullable_to_non_nullable
-              as String?,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -87,7 +87,7 @@ abstract class _$$RegionSelectModelImplCopyWith<$Res>
       __$$RegionSelectModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String first, String second, String last, String? another});
+  $Res call({String major, String middle, String minor, int current});
 }
 
 /// @nodoc
@@ -101,28 +101,28 @@ class __$$RegionSelectModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? first = null,
-    Object? second = null,
-    Object? last = null,
-    Object? another = freezed,
+    Object? major = null,
+    Object? middle = null,
+    Object? minor = null,
+    Object? current = null,
   }) {
     return _then(_$RegionSelectModelImpl(
-      first: null == first
-          ? _value.first
-          : first // ignore: cast_nullable_to_non_nullable
+      major: null == major
+          ? _value.major
+          : major // ignore: cast_nullable_to_non_nullable
               as String,
-      second: null == second
-          ? _value.second
-          : second // ignore: cast_nullable_to_non_nullable
+      middle: null == middle
+          ? _value.middle
+          : middle // ignore: cast_nullable_to_non_nullable
               as String,
-      last: null == last
-          ? _value.last
-          : last // ignore: cast_nullable_to_non_nullable
+      minor: null == minor
+          ? _value.minor
+          : minor // ignore: cast_nullable_to_non_nullable
               as String,
-      another: freezed == another
-          ? _value.another
-          : another // ignore: cast_nullable_to_non_nullable
-              as String?,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -131,26 +131,26 @@ class __$$RegionSelectModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RegionSelectModelImpl implements _RegionSelectModel {
   const _$RegionSelectModelImpl(
-      {required this.first,
-      required this.second,
-      required this.last,
-      required this.another});
+      {required this.major,
+      required this.middle,
+      required this.minor,
+      required this.current});
 
   factory _$RegionSelectModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegionSelectModelImplFromJson(json);
 
   @override
-  final String first;
+  final String major;
   @override
-  final String second;
+  final String middle;
   @override
-  final String last;
+  final String minor;
   @override
-  final String? another;
+  final int current;
 
   @override
   String toString() {
-    return 'RegionSelectModel(first: $first, second: $second, last: $last, another: $another)';
+    return 'RegionSelectModel(major: $major, middle: $middle, minor: $minor, current: $current)';
   }
 
   @override
@@ -158,15 +158,15 @@ class _$RegionSelectModelImpl implements _RegionSelectModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegionSelectModelImpl &&
-            (identical(other.first, first) || other.first == first) &&
-            (identical(other.second, second) || other.second == second) &&
-            (identical(other.last, last) || other.last == last) &&
-            (identical(other.another, another) || other.another == another));
+            (identical(other.major, major) || other.major == major) &&
+            (identical(other.middle, middle) || other.middle == middle) &&
+            (identical(other.minor, minor) || other.minor == minor) &&
+            (identical(other.current, current) || other.current == current));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, first, second, last, another);
+  int get hashCode => Object.hash(runtimeType, major, middle, minor, current);
 
   @JsonKey(ignore: true)
   @override
@@ -185,22 +185,22 @@ class _$RegionSelectModelImpl implements _RegionSelectModel {
 
 abstract class _RegionSelectModel implements RegionSelectModel {
   const factory _RegionSelectModel(
-      {required final String first,
-      required final String second,
-      required final String last,
-      required final String? another}) = _$RegionSelectModelImpl;
+      {required final String major,
+      required final String middle,
+      required final String minor,
+      required final int current}) = _$RegionSelectModelImpl;
 
   factory _RegionSelectModel.fromJson(Map<String, dynamic> json) =
       _$RegionSelectModelImpl.fromJson;
 
   @override
-  String get first;
+  String get major;
   @override
-  String get second;
+  String get middle;
   @override
-  String get last;
+  String get minor;
   @override
-  String? get another;
+  int get current;
   @override
   @JsonKey(ignore: true)
   _$$RegionSelectModelImplCopyWith<_$RegionSelectModelImpl> get copyWith =>

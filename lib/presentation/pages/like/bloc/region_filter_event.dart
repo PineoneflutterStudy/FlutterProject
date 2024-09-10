@@ -5,20 +5,21 @@ class RegionFilterEvent with _$RegionFilterEvent {
   const factory RegionFilterEvent.started() = _Started;
 
   const factory RegionFilterEvent.major(
-    List<RegionModel> address,
     String cd,
-    String current,
-    String inputType,
+    RegionSelectModel selectAddr,
   ) = _Major;
 
   const factory RegionFilterEvent.middle(
-    List<RegionModel> address,
     String cd,
-    String current,
-    String inputType,
+    RegionSelectModel selectAddr,
   ) = _Middle;
 
+  const factory RegionFilterEvent.minor(
+    RegionSelectModel selectAddr,
+  ) = _Minor;
+
   const factory RegionFilterEvent.finish(
+
     String result,
   ) = _Finish;
 }
