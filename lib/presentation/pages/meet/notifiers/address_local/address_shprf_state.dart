@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/meet_address.model.dart';
+
 
 enum AddressShprfStatus { initial, loading, success, failure }
 
@@ -14,13 +15,13 @@ class AddressShprfState extends Equatable {
   });
 
   final AddressShprfStatus status;
-  final List<AddressModel> addressList;
+  final List<MeetAddressModel> addressList;
   final bool isMaxInput;
   final String isDataSaved;
 
   AddressShprfState copyWith({
     AddressShprfStatus? status,
-    List<AddressModel>? addresses,
+    List<MeetAddressModel>? addresses,
     bool? isMaxInput,
     String? isDataSaved,
   }) {

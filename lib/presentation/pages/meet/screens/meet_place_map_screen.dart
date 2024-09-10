@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/display/meet/address_model.dart';
+import '../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
 import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
@@ -31,7 +32,7 @@ import '../widgets/common/map_loading_widget.dart';
 
 final Logger _logger = CustomLogger.logger;
 late String apiKey = '';
-late List<AddressModel> addressList;
+late List<MeetAddressModel> addressList;
 // 라인 컬러 리스트
 final List<Color> lineColors = [
   AppColors.greenPolyLine80,
@@ -47,7 +48,7 @@ final List<Color> lineColors = [
 class MeetPlaceMapScreen extends StatelessWidget {
   const MeetPlaceMapScreen({required this.addresses, super.key});
 
-  final List<AddressModel> addresses;
+  final List<MeetAddressModel> addresses;
 
   @override
   Widget build(BuildContext context) {
@@ -201,34 +202,40 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                     btn1Text: '아니오',
                                     btn2Text: '네',
                                     onBtn1Pressed: (context) {
-                                      Navigator.of(context).pop();
+                                      context.pop();
                                     },
-                                    onBtn2Pressed: (context) {
+                                    onBtn2Pressed: (context) async {
                                       ref.read(addressShprfNotifierProvider.notifier).resetAddress();
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
+                                      context.pop();
+                                      context.pop({
+                                        'update': false,
+                                      });
                                     });
                               }
                             case MeetLoginStatus.login:
                               {
                                 // 로그인 시 -> 출발지 정보를 묻는 Dialog
-                                CommonDialog.confirmDialog(
+                                CommonDialog.confirmDialog (
                                     context: context,
                                     title: '약속장소 찾기 종료',
                                     content: '약속장소 찾기를 종료합니다.\n데이터를 저장 하시겠습니까?',
                                     btn1Text: '아니오',
                                     btn2Text: '네',
-                                    onBtn1Pressed: (context) {
+                                    onBtn1Pressed: (context) async {
                                       ref.read(addressShprfNotifierProvider.notifier).resetAddress();
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
+                                      context.pop();
+                                      context.pop({
+                                        'update': false,
+                                      });
                                     },
-                                    onBtn2Pressed: (context) {
+                                    onBtn2Pressed: (context) async {
                                       _logger.i('FireStore DB Data Save!');
                                       ref.read(addressShprfNotifierProvider.notifier).saveLocationsData();
                                       CommonUtils.showToastMsg('약속장소 정보를 저장합니다!');
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
+                                      context.pop();
+                                      context.pop({
+                                        'update': true,
+                                      });
                                     });
                               }
                           }
@@ -275,6 +282,17 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                   .directionsModel[i].latitudePaths);
                               var longitudeList = jsonDecode(mobilityState
                                   .directionsModel[i].longitudePaths);
+
+                              // 주소 정보 업데이트
+                              ref.read(addressShprfNotifierProvider.notifier).addAddressInput(
+                                  MeetAddressModel(
+                                      index: addressList[i].index,
+                                      address: addressList[i].address,
+                                      latitude: addressList[i].latitude,
+                                      longitude: addressList[i].longitude,
+                                      totalDuration: mobilityState.directionsModel[i].duration,
+                                      totalDistance: mobilityState.directionsModel[i].distance
+                                  ));
 
                               // DirectionDto의 경도 리스트 길이만큼 실행...
                               for (int j = 0; j < latitudeList.length; j++) {

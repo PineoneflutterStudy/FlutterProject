@@ -11,7 +11,7 @@ _$LocationDbModelImpl _$$LocationDbModelImplFromJson(
     _$LocationDbModelImpl(
       location_id: json['location_id'] as String,
       starting_point_list: (json['starting_point_list'] as List<dynamic>?)
-              ?.map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => MeetAddressModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       destination_point: (json['destination_point'] as List<dynamic>?)

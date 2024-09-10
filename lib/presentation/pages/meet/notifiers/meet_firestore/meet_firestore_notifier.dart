@@ -2,8 +2,8 @@ import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/meet/address_model.dart';
 import '../../../../../domain/model/display/meet/location_db.model.dart';
+import '../../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/meet/location_firestore.repository.dart';
 import '../../providers.dart';
@@ -43,19 +43,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
     _logger.i('Current User is Login Success!!');
 
     // todo 로그인 시 DB에 정보 가져오는 로직 추가...
-    final getDbData = await getLocationDB();
-
-    if (getDbData.isEmpty) {
-      state = state.copyWith(
-        status: MeetFireStoreStatus.failure, // 데이터가 없으므로 failure
-      );
-    } else {
-      state = state.copyWith(
-        getLocationInfo: getDbData,
-        status: MeetFireStoreStatus.success, // 데이터가 없으므로 failure
-      );
-    }
-
+    //await getLocationDB();
   }
   /// 로그인 상태 Update
   Future<void> updateLoginState(bool isLogin) async => isLogin
@@ -68,7 +56,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   );
 
   /// ## Firestore Database Get Locations Info
-  Future<List<LocationDbModel>> getLocationDB() async {
+  Future<void> getLocationDB() async {
     state = state.copyWith(
       status: MeetFireStoreStatus.loading,
     );
@@ -76,8 +64,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
     final getAllLocations = await _locationRepo.getLocationAllInfo(DBKey.DB_LOCATIONS);
     _logger.i('Check get All Address ( firebase DB ) -> ${getAllLocations}');
 
-    if (getAllLocations != null || getAllLocations!.isNotEmpty) {
-      
+    if (getAllLocations != null && getAllLocations.isNotEmpty) {
       List<LocationDbModel> locations = getAllLocations.map((locationJson) {
         // JSON에서 starting_point_list와 destination_point를 추출
         final startingPointsJson = locationJson['starting_point_list'] as List<dynamic>;
@@ -85,8 +72,8 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
         final locationId = locationJson['location_id'];
 
         // AddressModel 리스트로 변환
-        List<AddressModel> startingPoints = startingPointsJson
-            .map((point) => AddressModel.fromJson(point as Map<String, dynamic>))
+        List<MeetAddressModel> startingPoints = startingPointsJson
+            .map((point) => MeetAddressModel.fromJson(point as Map<String, dynamic>))
             .toList();
 
         // TourLocationModel로 변환
@@ -99,10 +86,16 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
           location_id: locationId, // destination_point는 리스트로 감싸야 함
         );
       }).toList();
-      
-      return locations;
+
+      state = state.copyWith(
+        getLocationInfo: locations,
+        status: MeetFireStoreStatus.success, // 데이터가 없으므로 failure
+      );
+    } else {
+      state = state.copyWith(
+        status: MeetFireStoreStatus.failure, // 데이터가 없으므로 failure
+      );
     }
-    return List.empty();
   }
 
 

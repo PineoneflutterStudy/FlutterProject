@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/kakao_mobility/kakao_mobility_data.dart';
-import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../../../domain/model/display/meet/meet_directions.model.dart';
 import '../../../../../domain/model/display/meet/mobility_directions.model.dart';
 import '../../../../../domain/repository/meet/mobility_directions_repository.dart';
@@ -25,8 +25,7 @@ class MeetMobilityNotifier extends _$MeetMobilityNotifier {
 
   MobilityDirectionsRepository get _repo => ref.read(kakaoMobilityApiProvider);
 
-  Future<void> getAllRouteData(
-      List<AddressModel> addressList, String longitude, String latitude) async {
+  Future<void> getAllRouteData(List<MeetAddressModel> addressList, String longitude, String latitude) async {
     state = state.copyWith(status: MeetMobilityStatus.loading);
     final List<MeetDirectionsModel> routes = [];
     _logger.i('Confirm AdderessList Data -> $addressList');
@@ -53,6 +52,7 @@ class MeetMobilityNotifier extends _$MeetMobilityNotifier {
       }
 
       _logger.i('Check Result Directions Data Length -> ${resultDirectionInfo.length}');
+
       final routeModel = await getRouteData(resultDirectionInfo);
 
       if (routeModel.duration == 0 || routeModel.distance == 0) {
@@ -74,8 +74,7 @@ class MeetMobilityNotifier extends _$MeetMobilityNotifier {
     );
   }
 
-  Future<List<MobilityDirectionsModel>?> getDirectionsData(
-      AddressModel addressList, String endMapX, String endMapY) async {
+  Future<List<MobilityDirectionsModel>?> getDirectionsData(MeetAddressModel addressList, String endMapX, String endMapY) async {
     state = state.copyWith(status: MeetMobilityStatus.loading);
 
     // 출발지 개수 만큼 구하기

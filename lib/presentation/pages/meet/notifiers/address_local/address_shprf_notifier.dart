@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/meet/start_address_repository.dart';
 import '../../providers.dart';
@@ -40,7 +40,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
   }
 
   /// ## 출발지 정보 Update
-  Future<void> addAddressInput(AddressModel addressModel) async {
+  Future<void> addAddressInput(MeetAddressModel addressModel) async {
     state = state.copyWith(status: AddressShprfStatus.loading);
 
     await _repo.updateAddress(addressModel);
@@ -57,7 +57,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
   Future<void> addEmptyAddress(int index) async {
     state = state.copyWith(status: AddressShprfStatus.loading);
 
-    await _repo.updateAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+    await _repo.updateAddress(MeetAddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0, totalDistance: 0, totalDuration: 0));
 
     final list = await _repo.getAllAddress();
     state = state.copyWith(
@@ -71,7 +71,7 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
   Future<void> deleteAddress(int index) async {
     state = state.copyWith(status: AddressShprfStatus.loading);
 
-    await _repo.deleteAddress(AddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0));
+    await _repo.deleteAddress(MeetAddressModel(index: index, address: '', latitude: 0.0, longitude: 0.0, totalDuration: 0, totalDistance: 0));
 
     final list = await _repo.getAllAddress();
     state = state.copyWith(
@@ -166,15 +166,17 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
     }
   }
 
-  Future<List<AddressModel>> getFireStoreDBData(List<Map<String, dynamic>>? getAllLocations) async {
+  Future<List<MeetAddressModel>> getFireStoreDBData(List<Map<String, dynamic>>? getAllLocations) async {
     // 파이어베이스 조회 시 데이터가 있다면 ->
     if (getAllLocations!.isNotEmpty) {
       _logger.i('Get Firebase DB Data Success');
-      return getAllLocations.map((location) => AddressModel(
+      return getAllLocations.map((location) => MeetAddressModel(
         index: location['index'] as int,
         address: location['address'] as String,
         latitude: location['latitude'] as double,
         longitude: location['longitude'] as double,
+        totalDistance: location['totalDistance'] as int,
+        totalDuration: location['totalDuration'] as int,
       )).toList();
     } else {
       _logger.e('Get Firebase DB Data Fail -> Empty..!');

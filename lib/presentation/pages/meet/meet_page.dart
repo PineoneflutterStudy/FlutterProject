@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
-import 'screens/empty_meet_screen.dart';
+import 'screens/meet_main_screen.dart';
 import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
 import 'notifiers/meet_firestore/meet_firestore_state.dart';
 
@@ -46,13 +46,23 @@ class MeetMainView extends ConsumerStatefulWidget {
 class _MeetMainView extends ConsumerState<MeetMainView> {
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ref.read(meetFireStoreNotifierProvider.notifier).getLoginState();
+  }
+
+  @override
   void initState() {
     super.initState();
     _logger.i('[ MeetMainView ] -> initState');
-    // todo initState상태에서 바로 로그인 체크 -> 상태관리로 확인하여 비로그인 / 로그인 / 로그인했는데 DB 비었을떄 에 따라 화면 다르게 출력되도록 실행
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(meetFireStoreNotifierProvider.notifier).getLoginState();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -73,20 +83,20 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
             }
           case MeetLoginStatus.nonLogin:
             {
-              // todo -> 바로 비어잇는 화면 보여주지 않고 로그인중이지 확인함 -> 로그인해고 db 조회햇는데 없다면 비어있는 화면 출력 / 비로그인 시에도 비어있는 화면 출력
               // 비로그인 -> EmptyMeetScreen
-              return EmptyMeetScreen();
+              return MeetMainScreen();
             }
           case MeetLoginStatus.failure:
             {
               // 간단 토스트 팝업 제공 후 -> EmptyMeetScreen
               CommonUtils.showToastMsg('로그인 정보가 확인되지 않습니다.');
-              return EmptyMeetScreen();
+              return MeetMainScreen();
             }
           case MeetLoginStatus.login:
             {
               _logger.i('[ MeetPage ] Current FireStore Database Status Info -> ${dbStatus}');
-              switch (dbStatus) {
+              return MeetMainScreen();
+              /*switch (dbStatus) {
                 case MeetFireStoreStatus.initial:
                 case MeetFireStoreStatus.loading:
                   {
@@ -97,21 +107,14 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
                   {
                     // DB 데이터 조회 실패 -> 저장된 약속정보를 가져오는데 실패하였습니다. ( Toast ) -> EmptyMeetScreen
                     CommonUtils.showToastMsg('저장된 약속정보를 가져오는데 실패하였습니다.');
-                    return EmptyMeetScreen();
+                    return MeetMainScreen();
                   }
                 case MeetFireStoreStatus.success:
                   {
                     // 저장된 약속장소 데이터가 있는지 DB Select Run! -> ListView 출력
-                    return Container(
-                      child: Center(
-                        child: Text(
-                          'FireStore Database에 데이터가 존재합니다..!!',
-                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    );
+                    return MeetMainScreen();
                   }
-              }
+              }*/
             }
         }
       }),

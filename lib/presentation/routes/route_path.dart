@@ -8,7 +8,10 @@ class RoutePath{
   static const String plan = '/plan';
   static const String rcmn = '/rcmn';
   static const String like = '/like';
+  // ========== Meet ==========
   static const String meet = '/meet';
+  static const String meetMap = '/meetMap';
+  // ========== Meet ==========
   static const String user = '/user';
   static const String login = '/login';
 }

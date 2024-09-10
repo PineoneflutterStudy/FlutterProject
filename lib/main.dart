@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/theme_data.dart';
 import 'firebase_options.dart';

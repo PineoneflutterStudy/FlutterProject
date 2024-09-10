@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/utils/logger.dart';
-import '../../model/display/meet/address_model.dart';
+import '../../model/display/meet/meet_address.model.dart';
 import '../../model/display/meet/tour_location.model.dart';
 
 part 'start_address_repository.g.dart';
@@ -16,9 +16,9 @@ final Logger _logger = CustomLogger.logger;
 final String listSaveName = "addressList"; // 출발지 List
 final String destinationSaveName = "destination"; // 목적지
 
-List<AddressModel> defaultAddress = [
-  AddressModel(index: 0, address: '', latitude: 0.0, longitude: 0.0),
-  AddressModel(index: 1, address: '', latitude: 0.0, longitude: 0.0),
+List<MeetAddressModel> defaultAddress = [
+  MeetAddressModel(index: 0, address: '', latitude: 0.0, longitude: 0.0, totalDistance: 0, totalDuration: 0),
+  MeetAddressModel(index: 1, address: '', latitude: 0.0, longitude: 0.0, totalDistance: 0, totalDuration: 0),
 ];
 
 @riverpod
@@ -27,10 +27,10 @@ AddressShrefRepository startAddressRepository(StartAddressRepositoryRef ref) {
 }
 
 abstract class AddressShrefRepository {
-  Future<List<AddressModel>> getAllAddress();
+  Future<List<MeetAddressModel>> getAllAddress();
   Future<void> setDefaultData();
-  Future<void> updateAddress(AddressModel addressModel);
-  Future<void> deleteAddress(AddressModel addressModel);
+  Future<void> updateAddress(MeetAddressModel addressModel);
+  Future<void> deleteAddress(MeetAddressModel addressModel);
   Future<void> deleteAddressInput(int index);
   Future<void> resetAddress();
   Future<void> setDestination(TourLocationModel tourDto);
@@ -48,14 +48,14 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
 
   /// ## { Read } 저장되어 있는 출발지 정보 획득
   @override
-  Future<List<AddressModel>> getAllAddress() async {
+  Future<List<MeetAddressModel>> getAllAddress() async {
     await _initSharedPreferences();
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
     if (addressInfo.isNotEmpty ) {
-      List<AddressModel> addressInfoList = [];
+      List<MeetAddressModel> addressInfoList = [];
       for (int i = 0; i < addressInfo.length; i++) {
         var addressMap = jsonDecode(addressInfo[i]);
-        var getAddress = AddressModel.fromJson(addressMap);
+        var getAddress = MeetAddressModel.fromJson(addressMap);
         addressInfoList.add(getAddress);
       }
       _logger.i('SharedPreference Init Data is => ${addressInfoList.toString()}');
@@ -80,7 +80,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
 
   /// ## { Update } 출발지 정보 업데이트 ( add / update )
   @override
-  Future<void> updateAddress(AddressModel addressModel) async {
+  Future<void> updateAddress(MeetAddressModel addressModel) async {
     await _initSharedPreferences();
     _logger.i('Confirm Date(Before Update..) -> ${addressModel.toString()}');
     // 현재 저장되어 있는 출발지 정보 리스트 획득
@@ -91,7 +91,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     List<String> addressInfoList = [];
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
-      AddressModel getAddress = AddressModel.fromJson(addressMap);
+      MeetAddressModel getAddress = MeetAddressModel.fromJson(addressMap);
       currentIndex.add(getAddress.index);
       if (getAddress.index == updateIndex) {
         // 동일한 index 존재한다면 새로운 Model Update
@@ -113,7 +113,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
 
   /// ## { Delete } X 버튼으로 입력된  주소 정보 Delete
   @override
-  Future<void> deleteAddress(AddressModel addressModel) async {
+  Future<void> deleteAddress(MeetAddressModel addressModel) async {
     await _initSharedPreferences();
     List<String> addressInfo = _sharedPref.getStringList(listSaveName) ?? [];
     int targetIndex = addressModel.index;
@@ -121,7 +121,7 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     List<String> addressInfoList = []; //
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
-      AddressModel getAddress = AddressModel.fromJson(addressMap);
+      MeetAddressModel getAddress = MeetAddressModel.fromJson(addressMap);
       if (getAddress.index == targetIndex) {
         // 동일한 index 존재한다면 해당 값 초기화 후 저장
         addressInfoList.add(jsonEncode(addressModel.toJson()));
@@ -145,10 +145,17 @@ class AddressShrefRepositoryImpl implements AddressShrefRepository {
     List<String> addressInfoList = [];
     for(int i = 0; i < addressInfo.length; i++) {
       var addressMap = jsonDecode(addressInfo[i]);
-      AddressModel getAddress = AddressModel.fromJson(addressMap);
+      MeetAddressModel getAddress = MeetAddressModel.fromJson(addressMap);
       if (getAddress.index != index) {
         // 동일한 index 존재한다면 해당 값 초기화 후 저장
-        AddressModel updateModel = AddressModel(index: updateIndexNum++, address: getAddress.address, latitude: getAddress.latitude, longitude: getAddress.longitude);
+        MeetAddressModel updateModel = MeetAddressModel(
+            index: updateIndexNum++,
+            address: getAddress.address,
+            latitude: getAddress.latitude,
+            longitude: getAddress.longitude,
+            totalDuration: getAddress.totalDuration,
+            totalDistance: getAddress.totalDistance
+        );
         addressInfoList.add(jsonEncode(updateModel.toJson()));
       }
 

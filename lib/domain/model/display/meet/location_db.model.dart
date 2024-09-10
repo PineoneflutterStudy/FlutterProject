@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'address_model.dart';
+import 'meet_address.model.dart';
 import 'tour_location.model.dart';
 
 part 'location_db.model.freezed.dart';
@@ -10,7 +10,7 @@ part 'location_db.model.g.dart';
 class LocationDbModel with _$LocationDbModel {
   const factory LocationDbModel({
     required String location_id,
-    @Default([]) List<AddressModel> starting_point_list,
+    @Default([]) List<MeetAddressModel> starting_point_list,
     @Default([]) List<TourLocationModel> destination_point,
   }) = _LocationDbModel;
 

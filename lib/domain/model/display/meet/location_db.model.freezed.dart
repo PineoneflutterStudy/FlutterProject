@@ -21,7 +21,7 @@ LocationDbModel _$LocationDbModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$LocationDbModel {
   String get location_id => throw _privateConstructorUsedError;
-  List<AddressModel> get starting_point_list =>
+  List<MeetAddressModel> get starting_point_list =>
       throw _privateConstructorUsedError;
   List<TourLocationModel> get destination_point =>
       throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $LocationDbModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String location_id,
-      List<AddressModel> starting_point_list,
+      List<MeetAddressModel> starting_point_list,
       List<TourLocationModel> destination_point});
 }
 
@@ -75,7 +75,7 @@ class _$LocationDbModelCopyWithImpl<$Res, $Val extends LocationDbModel>
       starting_point_list: null == starting_point_list
           ? _value.starting_point_list
           : starting_point_list // ignore: cast_nullable_to_non_nullable
-              as List<AddressModel>,
+              as List<MeetAddressModel>,
       destination_point: null == destination_point
           ? _value.destination_point
           : destination_point // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ abstract class _$$LocationDbModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String location_id,
-      List<AddressModel> starting_point_list,
+      List<MeetAddressModel> starting_point_list,
       List<TourLocationModel> destination_point});
 }
 
@@ -123,7 +123,7 @@ class __$$LocationDbModelImplCopyWithImpl<$Res>
       starting_point_list: null == starting_point_list
           ? _value._starting_point_list
           : starting_point_list // ignore: cast_nullable_to_non_nullable
-              as List<AddressModel>,
+              as List<MeetAddressModel>,
       destination_point: null == destination_point
           ? _value._destination_point
           : destination_point // ignore: cast_nullable_to_non_nullable
@@ -137,7 +137,7 @@ class __$$LocationDbModelImplCopyWithImpl<$Res>
 class _$LocationDbModelImpl implements _LocationDbModel {
   const _$LocationDbModelImpl(
       {required this.location_id,
-      final List<AddressModel> starting_point_list = const [],
+      final List<MeetAddressModel> starting_point_list = const [],
       final List<TourLocationModel> destination_point = const []})
       : _starting_point_list = starting_point_list,
         _destination_point = destination_point;
@@ -147,10 +147,10 @@ class _$LocationDbModelImpl implements _LocationDbModel {
 
   @override
   final String location_id;
-  final List<AddressModel> _starting_point_list;
+  final List<MeetAddressModel> _starting_point_list;
   @override
   @JsonKey()
-  List<AddressModel> get starting_point_list {
+  List<MeetAddressModel> get starting_point_list {
     if (_starting_point_list is EqualUnmodifiableListView)
       return _starting_point_list;
     // ignore: implicit_dynamic_type
@@ -213,7 +213,7 @@ class _$LocationDbModelImpl implements _LocationDbModel {
 abstract class _LocationDbModel implements LocationDbModel {
   const factory _LocationDbModel(
       {required final String location_id,
-      final List<AddressModel> starting_point_list,
+      final List<MeetAddressModel> starting_point_list,
       final List<TourLocationModel> destination_point}) = _$LocationDbModelImpl;
 
   factory _LocationDbModel.fromJson(Map<String, dynamic> json) =
@@ -222,7 +222,7 @@ abstract class _LocationDbModel implements LocationDbModel {
   @override
   String get location_id;
   @override
-  List<AddressModel> get starting_point_list;
+  List<MeetAddressModel> get starting_point_list;
   @override
   List<TourLocationModel> get destination_point;
 

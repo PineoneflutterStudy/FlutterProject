@@ -1,17 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
+import '../../core/utils/logger.dart';
+import '../../domain/model/display/meet/meet_address.model.dart';
 import '../main/main_screen.dart';
 import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
 import '../pages/meet/meet_page.dart';
+import '../pages/meet/screens/meet_place_map_screen.dart';
 import '../pages/plan/bloc/address_bloc/address_bloc.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/plan/screens/recommend/recommended_list_page.dart';
 import '../pages/splash/splash_page.dart';
 import '../pages/user/user_page.dart';
 import 'route_path.dart';
+
+final Logger _logger = CustomLogger.logger;
 
 final GoRouter router = GoRouter(routes: [
   GoRoute(
@@ -51,11 +57,21 @@ final GoRouter router = GoRouter(routes: [
     name: 'like',
     builder: (context, state) => const LikePage(),
   ),
+  // ==================== Meet ====================
   GoRoute(
     path: RoutePath.meet,
     name: 'meet',
     builder: (context, state) => const MeetPage(),
   ),
+  GoRoute(
+    path: RoutePath.meetMap,
+    name: 'meetMap',
+    builder: (context, state){
+      final addresses = state.extra as List<MeetAddressModel>;
+      return MeetPlaceMapScreen(addresses: addresses);
+    },
+  ),
+  // ==================== Meet ====================
   GoRoute(
     path: RoutePath.user,
     name: 'user',

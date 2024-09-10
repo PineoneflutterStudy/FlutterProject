@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
-import '../../../../../domain/model/display/meet/address_model.dart';
+import '../../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/tour_service.repository.dart';
 import '../../providers.dart';
@@ -24,7 +24,7 @@ class MeetTourServiceNotifier extends _$MeetTourServiceNotifier {
 
   TourServiceRepository get _repo => ref.read(tourServiceApiProvider);
 
-  Future<void> getTourLocationService(List<AddressModel> addressList) async {
+  Future<void> getTourLocationService(List<MeetAddressModel> addressList) async {
     state = state.copyWith(status: MeetTourServiceStatus.loading);
 
     final resultLocationInfo = await getTourLocationData(addressList);
@@ -47,7 +47,7 @@ class MeetTourServiceNotifier extends _$MeetTourServiceNotifier {
 
   /// # 위치 기반 관광정보 api 실행
   Future<List<TourLocationModel>?> getTourLocationData(
-      List<AddressModel> addressList) async {
+      List<MeetAddressModel> addressList) async {
     final centerValue = getCenter(addressList);
 
     _logger.i('Start Api -> Tour Location Service Api');
@@ -104,7 +104,7 @@ class MeetTourServiceNotifier extends _$MeetTourServiceNotifier {
   /// # 중앙 좌표 정보
   /// ### index 0 : 경도 평균 ( longitude )
   /// ### index 1 : 위도 평균 ( latitude )
-  List<double> getCenter(List<AddressModel> addressList) {
+  List<double> getCenter(List<MeetAddressModel> addressList) {
     List<double> centers = [];
     double longitudes = 0.0;
     double latitudes = 0.0;

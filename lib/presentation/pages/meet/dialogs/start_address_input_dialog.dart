@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/display/meet/address_model.dart';
+import '../../../../domain/model/display/meet/meet_address.model.dart';
 import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/address_local/address_shprf_state.dart';
 import '../widgets/common/select_move_step_widget.dart';
 import '../widgets/common/text_content_area_widget.dart';
-import '../screens/meet_place_map_screen.dart';
 import '../widgets/common/title_text_area_widget.dart';
 import '../widgets/address_input_add_item_widget.dart';
 import '../widgets/address_input_basic_item_widget.dart';
@@ -175,7 +174,7 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                     onBackPress: () {
                       Navigator.of(context).pop();
                     },
-                    onNextPress: () {
+                    onNextPress: () async {
                       List<String> indices = state.addressList.map((address) => address.address).toList();
                       _logger.i('Confirm Current AddressList Info -> $indices}');
                       if (indices.contains('')) {
@@ -183,14 +182,15 @@ class __ContentViewState extends ConsumerState<_ContentView> {
                         CommonUtils.showToastMsg('비어있는 출발지가 있습니다!');
                       } else {
                         // 주소가 모두 입력
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MeetPlaceMapScreen(addresses: state.addressList),
-                            fullscreenDialog: true,
-                          ),
-                        );
+                        await context.pushNamed('meetMap', extra: state.addressList).then((value) {
+                          if (value != null) {
+                            var result = value as Map<String,dynamic>;
+
+                            final isUpdate = result['update'];
+
+                            context.pop({'update': isUpdate});
+                          }
+                        });
                       }
                     },
                   ),
@@ -272,11 +272,14 @@ class __ContentViewState extends ConsumerState<_ContentView> {
           builder: (_) => KpostalView(
             callback: (Kpostal result) {
               ref.read(addressShprfNotifierProvider.notifier).addAddressInput(
-                AddressModel(
+                MeetAddressModel(
                     index: listIndex,
                     address: result.address,
                     latitude: result.latitude!,
-                    longitude: result.longitude!),
+                    longitude: result.longitude!,
+                    totalDuration: 0,
+                    totalDistance: 0
+                ),
               );
             },
           )),
