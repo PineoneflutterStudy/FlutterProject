@@ -61,4 +61,17 @@ abstract class TourServiceApi {
       @Query('eventStartDate') String eventStartDate, // !! 필수 : 행사시작일(형식 :YYYYMMDD)
  );
 
+  /// # 소개 정보 조회
+  @GET('/detailIntro1?')
+  Future<TourServiceResponseWrapper<TourFestivalInfoDto>> getTourDetailInfo(
+      @Query('serviceKey') String serviceKey, // !! 필수 인증키(서비스키)
+      @Query('numOfRows') int numOfRows, // 한 페이지 결과 수
+      @Query('pageNo') int pageNo, // 페이지 번호
+      @Query('MobileOS') String MobileOS, // !! 필수 : OS 구분 ( IOS / AND / WIN / ETC )
+      @Query('MobileApp') String MobileApp, // !! 필수 : 서비스명(어플명)
+      @Query('_type') String _type, // 응답메시지 형식 : REST 방식의 URL 호출 시 json 값 추가 ( 디폴트 응답베시지 형식은 XML )
+      @Query('contentId') String contentId, // 콘텐츠ID
+      @Query('contentTypeId') String contentTypeId, // 관광타입 ID
+      );
+
 }

@@ -86,7 +86,7 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
                                   Container(
                                     width: 150,
                                     height: 180,
-                                    child: posterImageWidget(provider.imageInfoDto[i]), // 포스터 Item
+                                    child: contentImageWidget(provider.festivalInfoDto[i].firstimage), // 포스터 Item
                                     clipBehavior: Clip.hardEdge,
                                     decoration: BoxDecoration(
                                         color: Colors.transparent,
@@ -118,8 +118,8 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
     );
   }
 
-  Widget posterImageWidget(List<TourImageInfoModel>? posterList) {
-    if (posterList == null || posterList.isEmpty) {
+  Widget contentImageWidget(String imgUrl) {
+    if (imgUrl.isEmpty) {
       return Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
@@ -144,11 +144,12 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
         ),
       );
     } else {
-      return Image.network(posterList[0].originimgurl,
+      return Image.network(imgUrl,
           fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
           headers: const {
             "User-Agent":
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
           });
     }
   }

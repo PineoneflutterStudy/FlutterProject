@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
 import '../../../core/utils/logger.dart';
+import '../../../domain/model/display/home/tour_detail_info.model.dart';
 import '../../../domain/model/display/home/tour_festival_info.model.dart';
 import '../../../domain/model/display/home/tour_image_info.model.dart';
 import '../../../domain/model/display/meet/tour_location.model.dart';
@@ -9,6 +10,7 @@ import '../../../domain/repository/tour_service.repository.dart';
 import '../../data_source/remote/tour_service.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
 
+import '../../dto/display/home/tour_detail_info.dto.dart';
 import '../../dto/display/home/tour_festival_info.dto.dart';
 import '../../dto/display/home/tour_image_info.dto.dart';
 import '../../dto/display/meet/tour_location.dto.dart';
@@ -145,6 +147,51 @@ class TourServiceRepositoryImpl extends TourServiceRepository {
       _logger.e('Error in getTourImageInfo: $e');
       _logger.e('Stack trace: $stackTrace');
       return ResponseWrapper<List<TourImageInfoModel>>(
+          status: 'error',
+          code: '9999',
+          message: e.toString(),
+          data: List.empty());
+    }
+  }
+
+  @override
+  Future<ResponseWrapper<List<TourDetailInfoModel>>> getTourDetailInfo(
+      {required String serviceKey,
+      required int numOfRows,
+      required int pageNo,
+      required String MobileOS,
+      required String MobileApp,
+      required String type,
+      required String contentId,
+      required String contentTypeId}) async {
+    try {
+      final dio = Dio();
+      dio.options.baseUrl = 'http://apis.data.go.kr/B551011/KorService1';
+      dio.interceptors.add(LogInterceptor(
+          responseBody: true, requestBody: true)); // Api 통신 과정 Logging
+      final _api = TourServiceApi(dio);
+
+      final response = await _api.getTourDetailInfo(serviceKey, numOfRows,
+          pageNo, MobileOS, MobileApp, type, contentId, contentTypeId);
+
+      _logger.i('Raw response: $response');
+
+      final items = response.response?.body?.items?.item;
+      _logger.i('Items: $items');
+      final transItem = items
+          ?.map((e) => TourDetailInfoDto.fromJson(e as Map<String, dynamic>))
+          .toList();
+
+      final images = transItem?.map((item) => item.toModel()).toList();
+      _logger.i('Check Response Data - item : $images');
+
+      return ResponseWrapper<List<TourDetailInfoModel>>(
+          status: 'success', code: '0000', message: '', data: images);
+    } catch (e, stackTrace) {
+      // 에러 확인...
+      _logger.e('Error in getTourImageInfo: $e');
+      _logger.e('Stack trace: $stackTrace');
+      return ResponseWrapper<List<TourDetailInfoModel>>(
           status: 'error',
           code: '9999',
           message: e.toString(),

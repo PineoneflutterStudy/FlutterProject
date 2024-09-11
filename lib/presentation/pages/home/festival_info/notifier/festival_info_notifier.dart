@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../data/data_source/api/tour_guide/tour_api_request_data.dart';
+import '../../../../../domain/model/display/home/tour_detail_info.model.dart';
 import '../../../../../domain/model/display/home/tour_festival_info.model.dart';
 import '../../../../../domain/model/display/home/tour_image_info.model.dart';
 import '../../../../../domain/repository/tour_service.repository.dart';
@@ -27,7 +28,7 @@ class FestivalInfoNotifier extends _$FestivalInfoNotifier {
   final String dt = DateFormat('yyyyMMdd').format(DateTime.now());
 
   List<TourFestivalInfoModel> festivalInfoDto =  [];
-  List<List<TourImageInfoModel>?> imageInfoDto =  [];
+  List<List<TourDetailInfoModel>?> detailInfoDto =  [];
 
   /**
    * 행사 정보 조회
@@ -56,16 +57,16 @@ class FestivalInfoNotifier extends _$FestivalInfoNotifier {
     if (model.data != null) {
       festivalInfoDto = model.data ?? [];
 
-      var image;
+      var detail;
       for (var i in festivalInfoDto) {
-        image = await getTourImageInfo(i.contentid);
-        imageInfoDto.add(image ?? []);
+        detail = await getTourDetailInfo(i.contentid, i.contenttypeid);
+        detailInfoDto.add(detail ?? []);
       }
 
       state = state.copyWith(
           status: HomeResponseStatus.success,
           festivalInfoDto: festivalInfoDto,
-          imageInfoDto: imageInfoDto);
+          detailInfoDto: detailInfoDto);
       return model.data;
     } else {
       state = state.copyWith(status: HomeResponseStatus.fail);
@@ -93,6 +94,29 @@ class FestivalInfoNotifier extends _$FestivalInfoNotifier {
     );
 
     _logger.i('Confirm getTourImageInfo ( model ) -> ${model.data}');
+
+    return model.data;
+  }
+
+  /**
+   * 콘텐츠 소개 정보 조회
+   */
+  Future<List<TourDetailInfoModel>?> getTourDetailInfo(String contentId, String contentType) async {
+    _logger.i('Start Api -> TourService ImageInfo Api');
+    state = state.copyWith(status: HomeResponseStatus.load);
+
+    var model = await _tourServiceRepo.getTourDetailInfo(
+      serviceKey: FlutterConfig.get('TOUR_GUIDE_SERVICE_API_KEY_D'),
+      MobileOS: CommonUtils().getOsInfo(),
+      MobileApp: TourApiRequestData().appName,
+      type: TourApiRequestData().responseType,
+      contentId: contentId,
+      contentTypeId: contentType,
+      numOfRows: 10,
+      pageNo: 1,
+    );
+
+    _logger.i('Confirm getTourDetailInfo ( model ) -> ${model.data}');
 
     return model.data;
   }

@@ -1,4 +1,5 @@
 import '../../data/data_source/response_wrapper/response_wrapper.dart';
+import '../model/display/home/tour_detail_info.model.dart';
 import '../model/display/home/tour_festival_info.model.dart';
 import '../model/display/home/tour_image_info.model.dart';
 import '../model/display/meet/tour_location.model.dart';
@@ -50,6 +51,17 @@ abstract class TourServiceRepository extends Repository {
     required String areaCode,
     required String sigunguCode,
     required String modifiedtime,
+  });
+
+  Future<ResponseWrapper<List<TourDetailInfoModel>>> getTourDetailInfo({
+    required String serviceKey,
+    required int numOfRows,
+    required int pageNo,
+    required String MobileOS,
+    required String MobileApp,
+    required String type,
+    required String contentId,
+    required String contentTypeId
   });
 
 }
