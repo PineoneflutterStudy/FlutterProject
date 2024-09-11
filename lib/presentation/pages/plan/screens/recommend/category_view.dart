@@ -49,6 +49,13 @@ class _CategoryViewState extends State<CategoryView> {
 
   @override
   Widget build(BuildContext context) {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.selectedIndex != -1) {
+        scrollToIndex(widget.selectedIndex);
+      }
+    });
+
     return SizedBox(
       height: 40,
       child: Padding(

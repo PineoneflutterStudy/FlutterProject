@@ -57,9 +57,10 @@ class _PageItemViewState extends State<PageItemView> {
                     itemCount: widget.planner.page_item_list.length,
                     itemBuilder: (context, index) {
                       return PlannerItemView(
-                          plannerIndex: widget.plannerIndex,
                           pageIndex: widget.pageIndex,
+                          plannerIndex: widget.plannerIndex,
                           plan: widget.planner.page_item_list[index],
+                          location: widget.planner.location,
                           curItemIndex: index,
                           lastIndex: widget.planner.page_item_list.length - 1,
                           addressBloc: widget.addressBloc,

@@ -32,18 +32,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   /// menutype에 따른 카테고리 리스트 불러오기
   /// 선택된 카테고리가 있으면 그 카테고리를 선택, 없으면 첫 번째 카테고리 선택
-  Future<void> _onGetCategorys(Emitter<CategoryState> emit, MenuType menuType, String? selectedId) async {
+  Future<void> _onGetCategorys(Emitter<CategoryState> emit, MenuType menuType, String selectedId) async {
     try {
       final response = await _fetch(menuType);
       response.when(success: (categorys) {
         Category selected;
 
-        if (selectedId != null) { // 선택된 카테고리가 있는 경우
-          selected = (categorys as List<Category>).firstWhere((category) => category.ctgrId == selectedId,
+        selected = (categorys as List<Category>).firstWhere((category) => category.ctgrId == selectedId,
             orElse: () => categorys.isNotEmpty ? categorys[0] : throw Exception('Category not found'));
-        } else { // 선택된 카테고리가 없는 경우
-          selected = categorys.isNotEmpty ? categorys[0] : null;
-        }
 
         print('selected  : ${selected}');
         emit(CategoryState.success(categorys, selected));

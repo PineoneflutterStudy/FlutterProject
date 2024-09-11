@@ -8,14 +8,15 @@ import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget with PlanUtil{
-  final int plannerIndex;
   final int pageIndex;
+  final int plannerIndex;
+  final String location;
   final PlannerItem plan;
   final int curItemIndex;
   final int lastIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.plan,required this.curItemIndex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.location, required this.plan, required this.curItemIndex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,29 +68,8 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
         SizedBox(height: (curItemIndex == lastIndex) ? 30 : 10 ),
         if (curItemIndex == lastIndex)
           ElevatedButton(
-            onPressed: () {
-              // 마지막 위치로 좌표 수정
-              var prevAddress = plan.cur_address_info;
-              addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
-
-              context.pushNamed('rcmn', queryParameters: {'location': plan.place_name}, extra: addressBloc).then((value) {
-                var result = value as Map<String,dynamic>;
-
-                var startTime = plan.end_time;
-                var plannerItem = PlannerItem(
-                  prev_address_info: prevAddress, // O
-                  cur_address_info: result['cur_address_info'], // X
-                  place_name: result['place_name'],
-                  start_time: addMinutesToTime(startTime, timeStringToMinutes(result['travel_time'])), //+ travel_time
-                  end_time: addMinutesToTime(startTime, result['selectedTime']), // start_time + stay_time
-                  stay_time: result['selectedTime'],
-                  distance: result['distance'],
-                  transportation: result['selectedTransportation'],
-                  travel_time: result['travel_time'],
-                );
-
-                plannerBloc.add(PlannerEvent.addPlannerItem(plannerIndex, pageIndex, plannerItem));
-              });
+            onPressed: (){
+              _handleAddNextPlace(context, addressBloc, plannerBloc, plannerIndex, pageIndex);
             },
             child: Text('Add Next Place'),
           ),
@@ -112,8 +92,8 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                 decoration: BoxDecoration(color: transportation.textColor, borderRadius: BorderRadius.circular(5)),
               ),
               SizedBox(width: 8),
-              Text(plan.transportation ?? '도보', style: TextStyle(fontSize: 16, color: transportation.textColor)),
-              SizedBox(width: 4),
+              // Text(transportation.name, style: TextStyle(fontSize: 16, color: transportation.textColor)),
+              // SizedBox(width: 4),
               Icon( transportation.icon,color: transportation.textColor, size: 16),
               Expanded(child: Container()),
               Expanded(flex : 3, child: Container()),
@@ -125,5 +105,33 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     } else {
       return SizedBox.shrink();
     }
+  }
+
+  // 추천 목록 페이지로 이동
+  void _handleAddNextPlace(BuildContext context, AddressBloc addressBloc, PlannerBloc plannerBloc, int plannerIndex, int pageIndex) {
+    // 마지막 위치로 좌표 수정
+    var prevAddress = plan.cur_address_info;
+    addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
+
+    // 다음 화면으로 이동 및 결과 처리
+    context.pushNamed('rcmn', queryParameters: {'location': location}, extra: addressBloc).then((value) {
+      var nextPlace = value as Map<String, dynamic>;
+
+      var startTime = plan.end_time;
+      var plannerItem = PlannerItem(
+        prev_address_info: prevAddress,
+        cur_address_info: nextPlace['cur_address_info'],
+        place_name: nextPlace['place_name'],
+        start_time: addMinutesToTime(startTime, timeStringToMinutes(nextPlace['travel_time'])),
+        end_time: addMinutesToTime(startTime, nextPlace['selectedTime']),
+        stay_time: nextPlace['selectedTime'],
+        distance: nextPlace['distance'],
+        transportation: nextPlace['selectedTransportation'],
+        travel_time: nextPlace['travel_time'],
+      );
+
+      // PlannerBloc에 이벤트 추가
+      plannerBloc.add(PlannerEvent.addPlannerItem(plannerIndex, pageIndex, plannerItem));
+    });
   }
 }

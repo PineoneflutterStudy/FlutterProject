@@ -183,9 +183,10 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
   }
 
   void _showAddPlanPopup(BuildContext context, Planner selected, int index) {
+    var currentPage = selected.planner_page_list[index-1];
     showDialog(
       context: context,
-      builder: (BuildContext context) => AddNextPlanPopup(plannerTitle: selected.planner_title, lastPlace: selected.planner_page_list[index-1].page_item_list.last.cur_address_info , index: index+1 , addressBloc: widget.addressBloc),
+      builder: (BuildContext context) => AddNextPlanPopup(location: currentPage.location, lastPlace: currentPage.page_item_list.last.cur_address_info , index: index+1 , addressBloc: widget.addressBloc),
     ).then((result) {
       if (result != null) {
         print(result);

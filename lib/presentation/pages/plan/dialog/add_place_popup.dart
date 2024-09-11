@@ -5,16 +5,17 @@ import '../../../../domain/model/display/plan/place.model.dart';
 import '../../../../domain/model/display/plan/transportation.dart';
 import '../utils/plan_util.dart';
 
-class AddPlanPopup extends StatefulWidget {
+/// 장소 추가하기 팝업
+class AddPlacePopup extends StatefulWidget {
   final Place place;
 
-  const AddPlanPopup({required this.place, super.key});
+  const AddPlacePopup({required this.place, super.key});
 
   @override
-  State<AddPlanPopup> createState() => _AddPlanPopupState();
+  State<AddPlacePopup> createState() => _AddPlacePopupState();
 }
 
-class _AddPlanPopupState extends State<AddPlanPopup> with PlanUtil {
+class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
   late TimeOfDay selectedTime;
   String _selectedOption = 'walk';
 
@@ -70,12 +71,8 @@ class _AddPlanPopupState extends State<AddPlanPopup> with PlanUtil {
                       value: selectedTime.hour,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.emailBg),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.emailBg),
-                        ),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
                       ),
                       items: List.generate(10, (index) => index + 1)
                           .map((int value) {
@@ -95,12 +92,8 @@ class _AddPlanPopupState extends State<AddPlanPopup> with PlanUtil {
                       value: selectedTime.minute,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.emailBg),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.emailBg),
-                        ),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
                       ),
                       items: [0, 30].map((int value) {
                         return DropdownMenuItem<int>(

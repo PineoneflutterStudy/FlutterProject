@@ -22,6 +22,7 @@ class Planner with _$Planner {
 class PlannerPage with _$PlannerPage {
   @JsonSerializable(explicitToJson: true)
   const factory PlannerPage({
+    required String location,
     @Default([]) List<PlannerItem> page_item_list,
   }) = _PlannerPage;
 

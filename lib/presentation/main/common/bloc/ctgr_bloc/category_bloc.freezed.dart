@@ -18,20 +18,20 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CategoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MenuType menuType, String? selectedCg)
+    required TResult Function(MenuType menuType, String selectedCg)
         getCategoryList,
     required TResult Function(Category selected) setCategorySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult? Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult? Function(Category selected)? setCategorySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult Function(Category selected)? setCategorySelected,
     required TResult orElse(),
   }) =>
@@ -81,7 +81,7 @@ abstract class _$$GetCategoryListImplCopyWith<$Res> {
           $Res Function(_$GetCategoryListImpl) then) =
       __$$GetCategoryListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({MenuType menuType, String? selectedCg});
+  $Res call({MenuType menuType, String selectedCg});
 }
 
 /// @nodoc
@@ -96,17 +96,17 @@ class __$$GetCategoryListImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? menuType = null,
-    Object? selectedCg = freezed,
+    Object? selectedCg = null,
   }) {
     return _then(_$GetCategoryListImpl(
       null == menuType
           ? _value.menuType
           : menuType // ignore: cast_nullable_to_non_nullable
               as MenuType,
-      selectedCg: freezed == selectedCg
+      selectedCg: null == selectedCg
           ? _value.selectedCg
           : selectedCg // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -114,12 +114,13 @@ class __$$GetCategoryListImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetCategoryListImpl implements GetCategoryList {
-  const _$GetCategoryListImpl(this.menuType, {this.selectedCg});
+  const _$GetCategoryListImpl(this.menuType, {this.selectedCg = ''});
 
   @override
   final MenuType menuType;
   @override
-  final String? selectedCg;
+  @JsonKey()
+  final String selectedCg;
 
   @override
   String toString() {
@@ -150,7 +151,7 @@ class _$GetCategoryListImpl implements GetCategoryList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MenuType menuType, String? selectedCg)
+    required TResult Function(MenuType menuType, String selectedCg)
         getCategoryList,
     required TResult Function(Category selected) setCategorySelected,
   }) {
@@ -160,7 +161,7 @@ class _$GetCategoryListImpl implements GetCategoryList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult? Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult? Function(Category selected)? setCategorySelected,
   }) {
     return getCategoryList?.call(menuType, selectedCg);
@@ -169,7 +170,7 @@ class _$GetCategoryListImpl implements GetCategoryList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult Function(Category selected)? setCategorySelected,
     required TResult orElse(),
   }) {
@@ -213,10 +214,10 @@ class _$GetCategoryListImpl implements GetCategoryList {
 
 abstract class GetCategoryList implements CategoryEvent {
   const factory GetCategoryList(final MenuType menuType,
-      {final String? selectedCg}) = _$GetCategoryListImpl;
+      {final String selectedCg}) = _$GetCategoryListImpl;
 
   MenuType get menuType;
-  String? get selectedCg;
+  String get selectedCg;
   @JsonKey(ignore: true)
   _$$GetCategoryListImplCopyWith<_$GetCategoryListImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -298,7 +299,7 @@ class _$SetCategorySelectedImpl implements SetCategorySelected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MenuType menuType, String? selectedCg)
+    required TResult Function(MenuType menuType, String selectedCg)
         getCategoryList,
     required TResult Function(Category selected) setCategorySelected,
   }) {
@@ -308,7 +309,7 @@ class _$SetCategorySelectedImpl implements SetCategorySelected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult? Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult? Function(Category selected)? setCategorySelected,
   }) {
     return setCategorySelected?.call(selected);
@@ -317,7 +318,7 @@ class _$SetCategorySelectedImpl implements SetCategorySelected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MenuType menuType, String? selectedCg)? getCategoryList,
+    TResult Function(MenuType menuType, String selectedCg)? getCategoryList,
     TResult Function(Category selected)? setCategorySelected,
     required TResult orElse(),
   }) {

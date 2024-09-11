@@ -5,6 +5,7 @@ import '../../../../core/utils/common_utils.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
+/// 계획 세우러 가기 팝업
 class GoPlanPopup extends StatefulWidget {
   final int index;
   final AddressBloc addressBloc;
@@ -47,9 +48,13 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
             final destination = destinationController.text ?? '';
             final arrivalTime = selectedTime.format(context);
             final pageFirstItem = PlannerItem(cur_address_info: addressInfo, place_name: destination, end_time: arrivalTime);
-            //todo planner_page_list[index] 에 pageFirstItem 추가
-            // print('planner to Json : ${planner.toJson()}');
-            // Navigator.of(context).pop({"planner": planner});
+            final plannerFirstPage = PlannerPage(location:destination, page_item_list: [pageFirstItem]);
+            final planner = Planner(
+              planner_index: widget.index,
+              planner_title: "$destination 여행",
+              planner_page_list: [plannerFirstPage],
+            );
+            Navigator.of(context).pop({"planner": planner});
           },
           orElse: () => CommonUtils.showToastMsg("여행지를 다시 입력해주세요."),
         );
@@ -88,7 +93,11 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
                       Expanded(
                         child: DropdownButtonFormField<int>(
                           value: selectedTime.hour,
-                          decoration: InputDecoration(border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                          ),
                           items: List.generate(25, (index) => index).map((int value) {
                             return DropdownMenuItem<int>(
                               value: value,
@@ -103,8 +112,12 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
                       SizedBox(width: 10),
                       Expanded(
                         child: DropdownButtonFormField<int>(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                          ),
                           value: selectedTime.minute,
-                          decoration: InputDecoration(border: OutlineInputBorder()),
                           items: [0, 30].map((int value) {
                             return DropdownMenuItem<int>(
                                 value: value,

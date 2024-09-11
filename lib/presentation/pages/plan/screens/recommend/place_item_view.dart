@@ -12,7 +12,7 @@ import '../../../../../core/utils/common_utils.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
-import '../../dialog/add_plan_popup.dart';
+import '../../dialog/add_place_popup.dart';
 import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
@@ -156,7 +156,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   void _showAddPlanPopup(BuildContext context, Place place) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => AddPlanPopup(place: place),
+      builder: (BuildContext context) => AddPlacePopup(place: place),
     ).then((result) {
       if (result != null) {
         final selectedTime = result['time'].toString();

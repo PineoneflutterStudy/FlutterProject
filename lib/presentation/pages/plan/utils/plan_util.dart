@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../domain/model/display/plan/transportation.dart';
 import '../bloc/address_bloc/address_bloc.dart';
@@ -12,13 +13,17 @@ mixin PlanUtil {
   /// 거리 format
   /// 1000 이상일 경우 km 단위, 1000 이하일 경우 m 단위로 표기
   String formatDistance(String? distanceStr) {
-    double distance = double.parse(distanceStr ?? '0');
+    if (distanceStr?.isNotEmpty == true) {
+      double distance = double.parse(distanceStr!);
 
-    if (distance >= 1000) {
-      double distanceInKm = distance / 1000;
-      return NumberFormat('#,##0.00').format(distanceInKm) + ' km';
-    } else {
-      return distance.toStringAsFixed(0) + ' m';
+      if (distance >= 1000) {
+        double distanceInKm = distance / 1000;
+        return NumberFormat('#,##0.00').format(distanceInKm) + ' km';
+      } else {
+        return distance.toStringAsFixed(0) + ' m';
+      }
+    } else{
+      return "";
     }
   }
 
@@ -86,15 +91,39 @@ mixin PlanUtil {
   /// 차량 이동 시간 계산
   /// 시속 60km = 분속 1km = 분속 1000m
   String getCarTravelTime(String distance) {
-    double timeInMinutes = double.parse(distance) / 1000;
-    return getTimeText(timeInMinutes);
+    if(distance.isEmpty){
+      return "";
+    } else{
+      try {
+        String trimmedDistance = distance.trim();
+        double parsedDistance = double.parse(trimmedDistance);
+
+        double timeInMinutes = (parsedDistance / 1000);
+        return getTimeText(timeInMinutes);
+      } catch (e) {
+        CustomLogger.logger.e('Error parsing distance: $distance, Exception: $e');
+        return ""; // 오류 시 빈 문자열 반환
+      }
+    }
   }
 
   /// 도보 이동 시간 계산
   /// 1km = 1000m 이동 시 15분 소요되는 것으로 가정
   String getWalkTravelTime(String distance) {
-    double timeInMinutes = (double.parse(distance) / 1000) * 15;
-    return getTimeText(timeInMinutes);
+    if(distance.isEmpty){
+      return "";
+    } else{
+      try {
+        String trimmedDistance = distance.trim();
+        double parsedDistance = double.parse(trimmedDistance);
+
+        double timeInMinutes = (parsedDistance / 1000) * 15;
+        return getTimeText(timeInMinutes);
+      } catch (e) {
+        CustomLogger.logger.e('Error parsing distance: $distance, Exception: $e');
+        return ""; // 오류 시 빈 문자열 반환
+      }
+    }
   }
 
   /// 이동수단 정보 반환 (텍스트, 색상, 아이콘)

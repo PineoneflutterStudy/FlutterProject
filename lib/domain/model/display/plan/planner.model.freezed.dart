@@ -220,6 +220,7 @@ PlannerPage _$PlannerPageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PlannerPage {
+  String get location => throw _privateConstructorUsedError;
   List<PlannerItem> get page_item_list => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -234,7 +235,7 @@ abstract class $PlannerPageCopyWith<$Res> {
           PlannerPage value, $Res Function(PlannerPage) then) =
       _$PlannerPageCopyWithImpl<$Res, PlannerPage>;
   @useResult
-  $Res call({List<PlannerItem> page_item_list});
+  $Res call({String location, List<PlannerItem> page_item_list});
 }
 
 /// @nodoc
@@ -250,9 +251,14 @@ class _$PlannerPageCopyWithImpl<$Res, $Val extends PlannerPage>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? location = null,
     Object? page_item_list = null,
   }) {
     return _then(_value.copyWith(
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
       page_item_list: null == page_item_list
           ? _value.page_item_list
           : page_item_list // ignore: cast_nullable_to_non_nullable
@@ -269,7 +275,7 @@ abstract class _$$PlannerPageImplCopyWith<$Res>
       __$$PlannerPageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<PlannerItem> page_item_list});
+  $Res call({String location, List<PlannerItem> page_item_list});
 }
 
 /// @nodoc
@@ -283,9 +289,14 @@ class __$$PlannerPageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? location = null,
     Object? page_item_list = null,
   }) {
     return _then(_$PlannerPageImpl(
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
       page_item_list: null == page_item_list
           ? _value._page_item_list
           : page_item_list // ignore: cast_nullable_to_non_nullable
@@ -298,12 +309,16 @@ class __$$PlannerPageImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
-  const _$PlannerPageImpl({final List<PlannerItem> page_item_list = const []})
+  const _$PlannerPageImpl(
+      {required this.location,
+      final List<PlannerItem> page_item_list = const []})
       : _page_item_list = page_item_list;
 
   factory _$PlannerPageImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlannerPageImplFromJson(json);
 
+  @override
+  final String location;
   final List<PlannerItem> _page_item_list;
   @override
   @JsonKey()
@@ -315,7 +330,7 @@ class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlannerPage(page_item_list: $page_item_list)';
+    return 'PlannerPage(location: $location, page_item_list: $page_item_list)';
   }
 
   @override
@@ -323,6 +338,7 @@ class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PlannerPage'))
+      ..add(DiagnosticsProperty('location', location))
       ..add(DiagnosticsProperty('page_item_list', page_item_list));
   }
 
@@ -331,14 +347,16 @@ class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlannerPageImpl &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             const DeepCollectionEquality()
                 .equals(other._page_item_list, _page_item_list));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_page_item_list));
+  int get hashCode => Object.hash(runtimeType, location,
+      const DeepCollectionEquality().hash(_page_item_list));
 
   @JsonKey(ignore: true)
   @override
@@ -355,12 +373,15 @@ class _$PlannerPageImpl with DiagnosticableTreeMixin implements _PlannerPage {
 }
 
 abstract class _PlannerPage implements PlannerPage {
-  const factory _PlannerPage({final List<PlannerItem> page_item_list}) =
-      _$PlannerPageImpl;
+  const factory _PlannerPage(
+      {required final String location,
+      final List<PlannerItem> page_item_list}) = _$PlannerPageImpl;
 
   factory _PlannerPage.fromJson(Map<String, dynamic> json) =
       _$PlannerPageImpl.fromJson;
 
+  @override
+  String get location;
   @override
   List<PlannerItem> get page_item_list;
   @override

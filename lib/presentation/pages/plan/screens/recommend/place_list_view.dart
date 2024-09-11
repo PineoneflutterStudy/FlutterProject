@@ -24,9 +24,9 @@ class PlaceListView extends StatelessWidget {
       create: (_) {
         final placeBloc = PlaceBloc(locator<PlannerUsecase>());
         if(isRcmnPage){
-          placeBloc.add(PlaceEvent.searchXY(address.addressName, category.ctgrId, address, 1));
+          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, 1));
         }else{
-          placeBloc.add(PlaceEvent.search(address.addressName));
+          placeBloc.add(PlaceEvent.search(search, category.ctgrId));
         }
         return placeBloc;
       },

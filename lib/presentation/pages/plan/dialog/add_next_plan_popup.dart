@@ -8,12 +8,13 @@ import '../../../../domain/model/display/plan/address.model.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
 import '../bloc/address_bloc/address_bloc.dart';
 
+/// 다음날 계획 시작하기 팝업
 class AddNextPlanPopup extends StatefulWidget {
-  final String plannerTitle;
+  final String location;
   final int index;
   final Address lastPlace;
   final AddressBloc addressBloc;
-  const AddNextPlanPopup({required this.plannerTitle, required this.index, required this.lastPlace, required this.addressBloc, super.key});
+  const AddNextPlanPopup({required this.location, required this.index, required this.lastPlace, required this.addressBloc, super.key});
 
   @override
   State<AddNextPlanPopup> createState() => _AddNextPlanPopupState();
@@ -46,11 +47,11 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> {
   }
 
   Future<void> _goRcmnPage() async {
-    context.pushNamed('rcmn', queryParameters: {'location': widget.lastPlace.addressName, 'category': 'AD5'}, extra: widget.addressBloc).then((value) {
+    context.pushNamed('rcmn', queryParameters: {'location': widget.location, 'category': 'AD5'}, extra: widget.addressBloc).then((value) {
       var result = value as Map<String,dynamic>;
-      var address = result['address_info'] as Address;
+      var address = result['address_info'] as Address?;
       setState(() {
-        destinationController.text = address.addressName;
+        destinationController.text = address?.addressName ?? widget.location;
       });
       //todo 2일차 출발위치로 셋팅
 
@@ -66,6 +67,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> {
         print('address state : $state');
         state.maybeWhen(
           success: (addressInfo) {
+
             FocusScope.of(context).unfocus(); // 키보드 닫기
             final destination = destinationController.text ?? '';
             final startTime = selectedTime.format(context);
@@ -78,7 +80,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> {
       child: AlertDialog(
         title: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("\'${widget.plannerTitle}\' ${widget.index}일차\n계획을 세우러 떠나볼까요~?", style: TextStyle(fontSize: 25)),
+          child: Text("\'${widget.location} 여행\' ${widget.index}일차\n계획을 세우러 떠나볼까요~?", style: TextStyle(fontSize: 25)),
         ),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -127,7 +129,11 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> {
                       Expanded(
                         child: DropdownButtonFormField<int>(
                           value: selectedTime.hour,
-                          decoration: InputDecoration(border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                          ),
                           items: List.generate(25, (index) => index).map((int value) {
                             return DropdownMenuItem<int>(
                               value: value,
@@ -143,7 +149,11 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> {
                       Expanded(
                         child: DropdownButtonFormField<int>(
                           value: selectedTime.minute,
-                          decoration: InputDecoration(border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.emailBg)),
+                          ),
                           items: [0, 30].map((int value) {
                             return DropdownMenuItem<int>(
                                 value: value,

@@ -641,9 +641,10 @@ abstract class PlaceError implements PlaceState {
 /// @nodoc
 mixin _$PlaceEvent {
   String get search => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String search) search,
+    required TResult Function(String search, String category) search,
     required TResult Function(
             String search, String? category, Address address, int? page)
         searchXY,
@@ -651,7 +652,7 @@ mixin _$PlaceEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? search,
+    TResult? Function(String search, String category)? search,
     TResult? Function(
             String search, String? category, Address address, int? page)?
         searchXY,
@@ -659,7 +660,7 @@ mixin _$PlaceEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String search)? search,
+    TResult Function(String search, String category)? search,
     TResult Function(
             String search, String? category, Address address, int? page)?
         searchXY,
@@ -697,7 +698,7 @@ abstract class $PlaceEventCopyWith<$Res> {
           PlaceEvent value, $Res Function(PlaceEvent) then) =
       _$PlaceEventCopyWithImpl<$Res, PlaceEvent>;
   @useResult
-  $Res call({String search});
+  $Res call({String search, String category});
 }
 
 /// @nodoc
@@ -714,11 +715,16 @@ class _$PlaceEventCopyWithImpl<$Res, $Val extends PlaceEvent>
   @override
   $Res call({
     Object? search = null,
+    Object? category = null,
   }) {
     return _then(_value.copyWith(
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category!
+          : category // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -732,7 +738,7 @@ abstract class _$$PlaceSearchedImplCopyWith<$Res>
       __$$PlaceSearchedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String search});
+  $Res call({String search, String category});
 }
 
 /// @nodoc
@@ -747,11 +753,16 @@ class __$$PlaceSearchedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? search = null,
+    Object? category = null,
   }) {
     return _then(_$PlaceSearchedImpl(
       null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -762,14 +773,16 @@ class __$$PlaceSearchedImplCopyWithImpl<$Res>
 class _$PlaceSearchedImpl
     with DiagnosticableTreeMixin
     implements PlaceSearched {
-  const _$PlaceSearchedImpl(this.search);
+  const _$PlaceSearchedImpl(this.search, this.category);
 
   @override
   final String search;
+  @override
+  final String category;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlaceEvent.search(search: $search)';
+    return 'PlaceEvent.search(search: $search, category: $category)';
   }
 
   @override
@@ -777,7 +790,8 @@ class _$PlaceSearchedImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PlaceEvent.search'))
-      ..add(DiagnosticsProperty('search', search));
+      ..add(DiagnosticsProperty('search', search))
+      ..add(DiagnosticsProperty('category', category));
   }
 
   @override
@@ -785,11 +799,13 @@ class _$PlaceSearchedImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlaceSearchedImpl &&
-            (identical(other.search, search) || other.search == search));
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, search);
+  int get hashCode => Object.hash(runtimeType, search, category);
 
   @JsonKey(ignore: true)
   @override
@@ -800,36 +816,36 @@ class _$PlaceSearchedImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String search) search,
+    required TResult Function(String search, String category) search,
     required TResult Function(
             String search, String? category, Address address, int? page)
         searchXY,
   }) {
-    return search(this.search);
+    return search(this.search, category);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? search,
+    TResult? Function(String search, String category)? search,
     TResult? Function(
             String search, String? category, Address address, int? page)?
         searchXY,
   }) {
-    return search?.call(this.search);
+    return search?.call(this.search, category);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String search)? search,
+    TResult Function(String search, String category)? search,
     TResult Function(
             String search, String? category, Address address, int? page)?
         searchXY,
     required TResult orElse(),
   }) {
     if (search != null) {
-      return search(this.search);
+      return search(this.search, category);
     }
     return orElse();
   }
@@ -867,10 +883,13 @@ class _$PlaceSearchedImpl
 }
 
 abstract class PlaceSearched implements PlaceEvent {
-  const factory PlaceSearched(final String search) = _$PlaceSearchedImpl;
+  const factory PlaceSearched(final String search, final String category) =
+      _$PlaceSearchedImpl;
 
   @override
   String get search;
+  @override
+  String get category;
   @override
   @JsonKey(ignore: true)
   _$$PlaceSearchedImplCopyWith<_$PlaceSearchedImpl> get copyWith =>
@@ -993,7 +1012,7 @@ class _$PlaceSearchedXYImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String search) search,
+    required TResult Function(String search, String category) search,
     required TResult Function(
             String search, String? category, Address address, int? page)
         searchXY,
@@ -1004,7 +1023,7 @@ class _$PlaceSearchedXYImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? search,
+    TResult? Function(String search, String category)? search,
     TResult? Function(
             String search, String? category, Address address, int? page)?
         searchXY,
@@ -1015,7 +1034,7 @@ class _$PlaceSearchedXYImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String search)? search,
+    TResult Function(String search, String category)? search,
     TResult Function(
             String search, String? category, Address address, int? page)?
         searchXY,
@@ -1065,6 +1084,7 @@ abstract class PlaceSearchedXY implements PlaceEvent {
 
   @override
   String get search;
+  @override
   String? get category;
   Address get address;
   int? get page;
