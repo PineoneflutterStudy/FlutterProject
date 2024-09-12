@@ -6,6 +6,7 @@ import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../../domain/model/display/plan/transportation.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
+import '../../dialog/edit_place_popup.dart';
 import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget with PlanUtil{
@@ -61,7 +62,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                         ),
                       ),
                       if (curItemIndex != 0)
-                        IconButton(icon: Icon(Icons.edit, color: AppColors.contentSecondary), iconSize: 20, padding: EdgeInsets.zero, onPressed: _showEditPlacePopup),
+                        IconButton(icon: Icon(Icons.edit, color: AppColors.contentSecondary), iconSize: 20, padding: EdgeInsets.zero, onPressed: () => _showEditPlacePopup(context)),
                     ],
                   ),
                 ],
@@ -141,9 +142,10 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     });
   }
 
-  void _showEditPlacePopup(){
-    // todo 해당 장소 수정 (고민중)
-    // todo 다음 장소와 이동 수단 및 이동시간 수정 (고민중)
-    // todo 장소 삭제 기능
+  void _showEditPlacePopup(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => EditPlacePopup(place: plan, plannerBloc: plannerBloc),
+    );
   }
 }
