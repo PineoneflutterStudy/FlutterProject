@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '개꿀트립🍯',
+                        '댕꿀트립🍯',
                         style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
                       ),
                     ],

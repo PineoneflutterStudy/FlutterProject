@@ -5,7 +5,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="flutter_project_team1"
+        android:label="댕꿀트립"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

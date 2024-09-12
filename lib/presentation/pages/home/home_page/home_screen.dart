@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppbar(title: '개꿀트립'),
+      appBar: const HomeAppbar(title: '댕꿀트립'),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

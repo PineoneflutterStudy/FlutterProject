@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
               Image.asset(images[currentIndex], width: 250, height: 250),
               SizedBox(height: 20),
               Text('나만의 여행 플래너', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-              Text('개꿀트립🍯', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
+              Text('댕꿀트립🍯', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
             ],
           ),
       )

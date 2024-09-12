@@ -27,7 +27,7 @@ class InitPlannerPage extends StatelessWidget with PlanUtil{
             child: Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: "개꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  TextSpan(text: "댕꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                   TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 25)),
                 ],
               ),
