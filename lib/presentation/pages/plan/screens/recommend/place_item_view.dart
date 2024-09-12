@@ -19,7 +19,10 @@ import '../../utils/plan_util.dart';
 class PlaceItemView extends StatefulWidget {
   final Place place;
   final bool isRcmnPage;
-  const PlaceItemView({required this.place, required this.isRcmnPage, super.key});
+  final int radius;
+  final String sort;
+
+  const PlaceItemView({required this.place, required this.isRcmnPage,required this.radius, required this.sort, super.key});
 
   @override
   State<PlaceItemView> createState() => _PlaceItemViewState();
@@ -71,24 +74,26 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
                         Expanded(child: Text(getLastTwoCategories(widget.place.categoryName ?? ''),
-                                style: TextStyle(color: AppColors.contentTertiary), overflow: TextOverflow.ellipsis, maxLines: 1)),
+                                style: TextStyle(color: AppColors.contentTertiary, fontSize: 16), overflow: TextOverflow.ellipsis, maxLines: 1)),
                       ],
                     ),
                     //주소
                     Row(
                       children: [
-                        Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
-                          child: Text(formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
-                        ),
-                        if ((widget.place.addressName ?? '').isNotEmpty)
+                        if(widget.place.distance.isNotEmpty)
+                          Image.asset(AppIcons.iconMapRed, width: 8, height: 8),
+                        if(widget.place.distance.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(3, 3, 5, 0),
+                            child: Text(formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
+                          ),
+                        if (widget.place.addressName.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text('${widget.place.addressName ?? ''}', style: TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis, maxLines: 1),
+                            child: Text(widget.place.addressName, style: TextStyle(fontSize: 20), overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                       ],
                     ),
@@ -96,24 +101,27 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
                     if ((widget.place.phone ?? '').isNotEmpty)
                       Row(
                         children: [
-                          Image.asset(AppIcons.iconTelecomBlue, width: 10, height: 10),
+                          Image.asset(AppIcons.iconTelecomBlue, width: 12, height: 12),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(3, 2, 0, 0),
                             child: Text(': ${widget.place.phone ?? ''}',
-                                style: TextStyle(fontSize: 18, color: AppColors.blue),
+                                style: TextStyle(fontSize: 20, color: AppColors.blue),
                                 overflow: TextOverflow.ellipsis, maxLines: 1),
                           ),
                         ],
                       ),
                     //이동시간
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        buildWalkTravelTime(widget.place.walkTravelTime),
-                        SizedBox(width: 5),
-                        buildCarTravelTime(widget.place.carTravelTime),
-                      ],
-                    ),
+                    if(widget.place.walkTravelTime.isNotEmpty || widget.place.carTravelTime.isNotEmpty)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if(widget.place.walkTravelTime.isNotEmpty)
+                            buildWalkTravelTime(widget.place.walkTravelTime),
+                          SizedBox(width: 5),
+                          if (widget.place.carTravelTime.isNotEmpty)
+                            buildCarTravelTime(widget.place.carTravelTime),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -168,10 +176,13 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
           'distance' : widget.place.distance,
           'travel_time' : getTravelTime(widget.place.distance, selectedTransportation),
           'place_name' : widget.place.placeName,
+          'place_id': widget.place.placeId,
           'cur_address_info' : Address(
             addressName: widget.place.placeName,
             x: widget.place.x,
             y: widget.place.y,
+            radius: widget.radius,
+            sort: widget.sort
           )
         });
       }
@@ -181,7 +192,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   _showSelectStartPlacePopup(BuildContext context, Place place) {
     CommonDialog.confirmDialog(
       context: context,
-      title: '${place.placeName}을\n출발지로 지정하시겠습니까?',
+      title: '${place.placeName}${getParticle(place.placeName)} \n출발지로 지정하시겠습니까?',
       btn1Text: '아니요',
       btn2Text: '네',
       onBtn1Pressed: (context) => context.pop(),
@@ -192,7 +203,10 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
             addressName: widget.place.placeName,
             x: widget.place.x,
             y: widget.place.y,
-          )
+            radius: widget.radius,
+            sort: widget.sort,
+          ),
+          'place_id' : place.placeId
         })
       },
     );

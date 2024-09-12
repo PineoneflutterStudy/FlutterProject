@@ -84,14 +84,14 @@ mixin PlanUtil {
     int seconds = ((timeInMinutes - timeInMinutes.floor()) * 60).toInt();
     String hText = (hours > 0) ? " ${hours.toString()}시" : "";
     String mText = (minutes > 0) ? " ${minutes.toString()}분" : "";
-    String sText = (hours ==0 && minutes == 0 && seconds > 0) ? "1분 미만" : " ${seconds.toString()}초";
+    String sText = (hours ==0 && minutes == 0 && seconds >= 0) ? "1분 미만" : " ${seconds.toString()}초";
     return "$hText$mText$sText";
   }
 
   /// 차량 이동 시간 계산
   /// 시속 60km = 분속 1km = 분속 1000m
   String getCarTravelTime(String distance) {
-    if(distance.isEmpty){
+    if(distance.isEmpty || distance == '0'){
       return "";
     } else{
       try {
@@ -110,7 +110,7 @@ mixin PlanUtil {
   /// 도보 이동 시간 계산
   /// 1km = 1000m 이동 시 15분 소요되는 것으로 가정
   String getWalkTravelTime(String distance) {
-    if(distance.isEmpty){
+    if(distance.isEmpty || distance == '0'){
       return "";
     } else{
       try {

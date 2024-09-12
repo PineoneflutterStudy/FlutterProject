@@ -57,7 +57,7 @@ class _PlanPageState extends State<PlanPage> with PlanUtil{
             return state.when(
               loading: () => PlannerLoadingWidget(),
               init: (isLogined) => InitPlannerPage(isLogin: isLogined, addressBloc: _addressBloc, plannerBloc: _plannerBloc),
-              success: (plannerList, selected) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),
+              success: (plannerList, selected, pageIndex) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),
               error: (error) => Center(child: Text('Error: ${error.message}')),
             );
           },

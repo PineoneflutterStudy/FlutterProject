@@ -28,8 +28,12 @@ class PlannerPage extends StatefulWidget {
 }
 
 class _PlannerPageState extends State<PlannerPage> with PlanUtil{
-  final PageController _pageController = PageController(viewportFraction: 0.93);
-
+  late PageController _pageController;
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(viewportFraction: 0.93);
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlannerBloc, PlannerState>(
@@ -38,9 +42,12 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         print("current state : $state");
         return state.when(
           loading: () => PlannerLoadingWidget(),
-          success: (plannerList, selectedIndex) {
+          success: (plannerList, selectedIndex, pageIndex) {
+            print('pageIndex : $pageIndex');
             final categoryWidgets = getCategoryViewList(context, plannerList, selectedIndex);
-
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _pageController.jumpToPage(pageIndex);
+            });
             return Scaffold(
               appBar: MainAppbar(title: '나만의 여행플래너'),
               body: Column(
@@ -100,7 +107,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                   Text('플래너를 불러오는 데 실패했습니다.'),
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList(0)),
+                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList(0,0)),
                     child: Text('다시 시도'),
                   ),
                 ],
@@ -163,7 +170,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       icons: icons,
       onIconTapped: (index) {
         if (index == 0) { // add btn
-          _showAddPlanPopup(context, selected, selected.planner_page_list.length);
+          _showAddNextPlanPopup(context, selected, selected.planner_page_list.length);
         } else { // delete btn
           CommonDialog.confirmDialog(
             context: context,
@@ -182,14 +189,16 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
     );
   }
 
-  void _showAddPlanPopup(BuildContext context, Planner selected, int index) {
+  void _showAddNextPlanPopup(BuildContext context, Planner selected, int index) {
     var currentPage = selected.planner_page_list[index-1];
+    var lastPlace = currentPage.page_item_list.last;
     showDialog(
       context: context,
-      builder: (BuildContext context) => AddNextPlanPopup(location: currentPage.location, lastPlace: currentPage.page_item_list.last.cur_address_info , index: index+1 , addressBloc: widget.addressBloc),
+      builder: (BuildContext context) => AddNextPlanPopup(location: currentPage.location, lastPlace: lastPlace.cur_address_info , lastPlaceId : lastPlace.cur_place_id ?? '' ,index: index+1 , addressBloc: widget.addressBloc),
     ).then((result) {
       if (result != null) {
         print(result);
+        widget.plannerBloc.add(PlannerEvent.addNextPage(selected.planner_index, currentPage.location, result['startPlace']));
       }
     });
   }

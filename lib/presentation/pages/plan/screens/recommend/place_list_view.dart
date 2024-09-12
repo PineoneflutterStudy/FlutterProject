@@ -3,20 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
 import 'place_item_view.dart';
 
-import '../../../../../core/utils/constant.dart';
-import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../../../service_locator.dart';
-import '../../../../main/common/component/dialog/common_dialog.dart';
 import '../../bloc/place_bloc/place_bloc.dart';
 
 class PlaceListView extends StatelessWidget {
   final Category category;
   final String search;
   final Address address;
+  final String prevPlaceId;
   final bool isRcmnPage;
-  const PlaceListView({required this.category, required this.search, required this.address,required this.isRcmnPage, super.key});
+  const PlaceListView({required this.category, required this.search, required this.address, required this.prevPlaceId, required this.isRcmnPage, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,7 @@ class PlaceListView extends StatelessWidget {
       create: (_) {
         final placeBloc = PlaceBloc(locator<PlannerUsecase>());
         if(isRcmnPage){
-          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, 1));
+          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, prevPlaceId, 1));
         }else{
           placeBloc.add(PlaceEvent.search(search, category.ctgrId));
         }
@@ -55,7 +53,7 @@ class PlaceListPageView extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: places.length,
                 itemBuilder: (context, index) {
-                  return PlaceItemView(place: places[index], isRcmnPage: isRcmnPage);
+                  return PlaceItemView(place: places[index], isRcmnPage: isRcmnPage, radius: address.radius ?? 10000, sort: address.sort ?? 'distance');
                   },
           ),
           error: (error) => Center(child: Text('${error.message}')));

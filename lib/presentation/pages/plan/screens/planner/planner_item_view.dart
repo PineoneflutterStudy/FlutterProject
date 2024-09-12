@@ -114,18 +114,20 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
 
     // 다음 화면으로 이동 및 결과 처리
-    context.pushNamed('rcmn', queryParameters: {'location': location}, extra: addressBloc).then((value) {
+    context.pushNamed('rcmn', queryParameters: {'location': location, 'placeId' : plan.cur_place_id ?? ''}, extra: addressBloc).then((value) {
       var nextPlace = value as Map<String, dynamic>;
 
       var startTime = plan.end_time;
       var plannerItem = PlannerItem(
         prev_address_info: prevAddress,
+        prev_place_id: plan.cur_place_id,
         cur_address_info: nextPlace['cur_address_info'],
         place_name: nextPlace['place_name'],
         start_time: addMinutesToTime(startTime, timeStringToMinutes(nextPlace['travel_time'])),
         end_time: addMinutesToTime(startTime, nextPlace['selectedTime']),
         stay_time: nextPlace['selectedTime'],
         distance: nextPlace['distance'],
+        cur_place_id: nextPlace['place_id'],
         transportation: nextPlace['selectedTransportation'],
         travel_time: nextPlace['travel_time'],
       );

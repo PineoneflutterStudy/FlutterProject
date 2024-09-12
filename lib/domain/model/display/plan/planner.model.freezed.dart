@@ -397,8 +397,10 @@ PlannerItem _$PlannerItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PlannerItem {
   Address? get prev_address_info => throw _privateConstructorUsedError;
+  String? get prev_place_id => throw _privateConstructorUsedError;
   Address get cur_address_info => throw _privateConstructorUsedError;
   String get place_name => throw _privateConstructorUsedError;
+  String? get cur_place_id => throw _privateConstructorUsedError;
   String? get start_time => throw _privateConstructorUsedError;
   String get end_time => throw _privateConstructorUsedError;
   String? get stay_time => throw _privateConstructorUsedError; // 이용시간
@@ -420,8 +422,10 @@ abstract class $PlannerItemCopyWith<$Res> {
   @useResult
   $Res call(
       {Address? prev_address_info,
+      String? prev_place_id,
       Address cur_address_info,
       String place_name,
+      String? cur_place_id,
       String? start_time,
       String end_time,
       String? stay_time,
@@ -447,8 +451,10 @@ class _$PlannerItemCopyWithImpl<$Res, $Val extends PlannerItem>
   @override
   $Res call({
     Object? prev_address_info = freezed,
+    Object? prev_place_id = freezed,
     Object? cur_address_info = null,
     Object? place_name = null,
+    Object? cur_place_id = freezed,
     Object? start_time = freezed,
     Object? end_time = null,
     Object? stay_time = freezed,
@@ -461,6 +467,10 @@ class _$PlannerItemCopyWithImpl<$Res, $Val extends PlannerItem>
           ? _value.prev_address_info
           : prev_address_info // ignore: cast_nullable_to_non_nullable
               as Address?,
+      prev_place_id: freezed == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
       cur_address_info: null == cur_address_info
           ? _value.cur_address_info
           : cur_address_info // ignore: cast_nullable_to_non_nullable
@@ -469,6 +479,10 @@ class _$PlannerItemCopyWithImpl<$Res, $Val extends PlannerItem>
           ? _value.place_name
           : place_name // ignore: cast_nullable_to_non_nullable
               as String,
+      cur_place_id: freezed == cur_place_id
+          ? _value.cur_place_id
+          : cur_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -527,8 +541,10 @@ abstract class _$$PlannerItemImplCopyWith<$Res>
   @useResult
   $Res call(
       {Address? prev_address_info,
+      String? prev_place_id,
       Address cur_address_info,
       String place_name,
+      String? cur_place_id,
       String? start_time,
       String end_time,
       String? stay_time,
@@ -554,8 +570,10 @@ class __$$PlannerItemImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? prev_address_info = freezed,
+    Object? prev_place_id = freezed,
     Object? cur_address_info = null,
     Object? place_name = null,
+    Object? cur_place_id = freezed,
     Object? start_time = freezed,
     Object? end_time = null,
     Object? stay_time = freezed,
@@ -568,6 +586,10 @@ class __$$PlannerItemImplCopyWithImpl<$Res>
           ? _value.prev_address_info
           : prev_address_info // ignore: cast_nullable_to_non_nullable
               as Address?,
+      prev_place_id: freezed == prev_place_id
+          ? _value.prev_place_id
+          : prev_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
       cur_address_info: null == cur_address_info
           ? _value.cur_address_info
           : cur_address_info // ignore: cast_nullable_to_non_nullable
@@ -576,6 +598,10 @@ class __$$PlannerItemImplCopyWithImpl<$Res>
           ? _value.place_name
           : place_name // ignore: cast_nullable_to_non_nullable
               as String,
+      cur_place_id: freezed == cur_place_id
+          ? _value.cur_place_id
+          : cur_place_id // ignore: cast_nullable_to_non_nullable
+              as String?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -610,8 +636,10 @@ class __$$PlannerItemImplCopyWithImpl<$Res>
 class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
   const _$PlannerItemImpl(
       {this.prev_address_info,
+      this.prev_place_id,
       required this.cur_address_info,
       required this.place_name,
+      this.cur_place_id,
       this.start_time,
       required this.end_time,
       this.stay_time,
@@ -625,9 +653,13 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
   @override
   final Address? prev_address_info;
   @override
+  final String? prev_place_id;
+  @override
   final Address cur_address_info;
   @override
   final String place_name;
+  @override
+  final String? cur_place_id;
   @override
   final String? start_time;
   @override
@@ -646,7 +678,7 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlannerItem(prev_address_info: $prev_address_info, cur_address_info: $cur_address_info, place_name: $place_name, start_time: $start_time, end_time: $end_time, stay_time: $stay_time, distance: $distance, transportation: $transportation, travel_time: $travel_time)';
+    return 'PlannerItem(prev_address_info: $prev_address_info, prev_place_id: $prev_place_id, cur_address_info: $cur_address_info, place_name: $place_name, cur_place_id: $cur_place_id, start_time: $start_time, end_time: $end_time, stay_time: $stay_time, distance: $distance, transportation: $transportation, travel_time: $travel_time)';
   }
 
   @override
@@ -655,8 +687,10 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
     properties
       ..add(DiagnosticsProperty('type', 'PlannerItem'))
       ..add(DiagnosticsProperty('prev_address_info', prev_address_info))
+      ..add(DiagnosticsProperty('prev_place_id', prev_place_id))
       ..add(DiagnosticsProperty('cur_address_info', cur_address_info))
       ..add(DiagnosticsProperty('place_name', place_name))
+      ..add(DiagnosticsProperty('cur_place_id', cur_place_id))
       ..add(DiagnosticsProperty('start_time', start_time))
       ..add(DiagnosticsProperty('end_time', end_time))
       ..add(DiagnosticsProperty('stay_time', stay_time))
@@ -672,10 +706,14 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
             other is _$PlannerItemImpl &&
             (identical(other.prev_address_info, prev_address_info) ||
                 other.prev_address_info == prev_address_info) &&
+            (identical(other.prev_place_id, prev_place_id) ||
+                other.prev_place_id == prev_place_id) &&
             (identical(other.cur_address_info, cur_address_info) ||
                 other.cur_address_info == cur_address_info) &&
             (identical(other.place_name, place_name) ||
                 other.place_name == place_name) &&
+            (identical(other.cur_place_id, cur_place_id) ||
+                other.cur_place_id == cur_place_id) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
@@ -695,8 +733,10 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
   int get hashCode => Object.hash(
       runtimeType,
       prev_address_info,
+      prev_place_id,
       cur_address_info,
       place_name,
+      cur_place_id,
       start_time,
       end_time,
       stay_time,
@@ -721,8 +761,10 @@ class _$PlannerItemImpl with DiagnosticableTreeMixin implements _PlannerItem {
 abstract class _PlannerItem implements PlannerItem {
   const factory _PlannerItem(
       {final Address? prev_address_info,
+      final String? prev_place_id,
       required final Address cur_address_info,
       required final String place_name,
+      final String? cur_place_id,
       final String? start_time,
       required final String end_time,
       final String? stay_time,
@@ -736,9 +778,13 @@ abstract class _PlannerItem implements PlannerItem {
   @override
   Address? get prev_address_info;
   @override
+  String? get prev_place_id;
+  @override
   Address get cur_address_info;
   @override
   String get place_name;
+  @override
+  String? get cur_place_id;
   @override
   String? get start_time;
   @override

@@ -21,7 +21,7 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     on<PlaceEvent>((event, emit) async {
       await event.when(
           search: (search, category) async => await _onPlaceSearch(emit, search, category),
-          searchXY: (search, category,address, page) async => await _onPlaceSearchXY(emit, search,category, address, page)
+          searchXY: (search, category,address, prevPlaceId, page) async => await _onPlaceSearchXY(emit, search,category, address, prevPlaceId, page)
       );
     });
   }
@@ -42,7 +42,7 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     }
   }
 
-  Future<void> _onPlaceSearchXY(Emitter<PlaceState> emit, String search, String? category, Address address, int? page) async {
+  Future<void> _onPlaceSearchXY(Emitter<PlaceState> emit, String search, String? category, Address address, String prevPlaceId, int? page) async {
     final _search = search;
     final _category = category ?? 'FD6';
     final _x = address.x;
@@ -53,8 +53,9 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     try {
       final response = await _fetch(search: _search, category: _category, x: _x, y: _y, radius: _radius, page: _page, sort: _sort);
       response.when(success: (result) {
-        (result.isNotEmpty == true)
-            ? emit(PlaceState.success(result))
+        final filteredResult = result.where((place) => (place as Place).placeId != prevPlaceId).toList();
+        (filteredResult.isNotEmpty == true)
+            ? emit(PlaceState.success(filteredResult))
             : emit(PlaceState.empty());
       }, failure: (error) {
         emit(PlaceState.error(ErrorResponse(status: '1', code: '9999', message: '목록을 불러오는데 실패하였습니다.')));

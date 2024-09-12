@@ -44,9 +44,11 @@ _$PlannerItemImpl _$$PlannerItemImplFromJson(Map<String, dynamic> json) =>
       prev_address_info: json['prev_address_info'] == null
           ? null
           : Address.fromJson(json['prev_address_info'] as Map<String, dynamic>),
+      prev_place_id: json['prev_place_id'] as String?,
       cur_address_info:
           Address.fromJson(json['cur_address_info'] as Map<String, dynamic>),
       place_name: json['place_name'] as String,
+      cur_place_id: json['cur_place_id'] as String?,
       start_time: json['start_time'] as String?,
       end_time: json['end_time'] as String,
       stay_time: json['stay_time'] as String?,
@@ -58,8 +60,10 @@ _$PlannerItemImpl _$$PlannerItemImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$PlannerItemImplToJson(_$PlannerItemImpl instance) =>
     <String, dynamic>{
       'prev_address_info': instance.prev_address_info?.toJson(),
+      'prev_place_id': instance.prev_place_id,
       'cur_address_info': instance.cur_address_info.toJson(),
       'place_name': instance.place_name,
+      'cur_place_id': instance.cur_place_id,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'stay_time': instance.stay_time,
