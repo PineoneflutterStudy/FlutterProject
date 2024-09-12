@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../../domain/model/display/plan/transportation.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
@@ -41,25 +42,28 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
               child: Stack(
                 alignment: Alignment.centerLeft,
                 children: [
-                  TextField( style: TextStyle(
-                    fontSize: 20, // 텍스트 크기 조정
-                  ),decoration: InputDecoration(labelText: plan.place_name, contentPadding: EdgeInsets.only(right: 50), border: UnderlineInputBorder())),
-                  if (curItemIndex != 0)
-                    Positioned(
-                      right: 0,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(icon: Icon(Icons.edit),
-                            iconSize: 20,
-                            padding: EdgeInsets.zero,
-                            onPressed: () {
-                              // todo 장소 수정, 삭제 팝업
-                            },
-                          ),
-                        ],
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 1,
+                        color: AppColors.emailBg,
                       ),
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                          child: Text(plan.place_name, style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 20)),
+                        ),
+                      ),
+                      if (curItemIndex != 0)
+                        IconButton(icon: Icon(Icons.edit, color: AppColors.contentSecondary), iconSize: 20, padding: EdgeInsets.zero, onPressed: _showEditPlacePopup),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -135,5 +139,11 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
       // PlannerBloc에 이벤트 추가
       plannerBloc.add(PlannerEvent.addPlannerItem(plannerIndex, pageIndex, plannerItem));
     });
+  }
+
+  void _showEditPlacePopup(){
+    // todo 해당 장소 수정 (고민중)
+    // todo 다음 장소와 이동 수단 및 이동시간 수정 (고민중)
+    // todo 장소 삭제 기능
   }
 }
