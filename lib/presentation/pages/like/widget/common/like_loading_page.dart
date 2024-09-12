@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../../../core/theme/constant/app_colors.dart';
 
 
 /**
@@ -11,11 +14,12 @@ class LikeLoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white
-      ),
+      width: double.infinity,
+      height: double.infinity,
+      color: AppColors.white,
       child: Center(
-        child: CircularProgressIndicator(),
+        child: LottieBuilder.asset(
+            'assets/images/honey_progress_indicator.json'),
       ),
     );
   }
