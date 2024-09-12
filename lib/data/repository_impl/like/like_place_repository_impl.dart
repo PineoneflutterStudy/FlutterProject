@@ -1,3 +1,4 @@
+import '../../../core/utils/db_key.dart';
 import '../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../domain/model/display/plan/place.model.dart';
 import '../../../domain/repository/like/like_place_repository.dart';
@@ -12,7 +13,7 @@ class LikePlaceRepositoryImpl implements LikePlaceRepository {
   Future<List<Place>> getLikePlaceList() async {
     final List<Place> placeList = [];
     final response =
-      await firestore.getSubCollectionListFromCollection('Likes');
+      await firestore.getSubCollectionListFromCollection(DBKey.DB_LIKES);
 
     if (response != null && response.isNotEmpty) {
       for (var data in response) {
