@@ -12,12 +12,12 @@ class FestivialState extends HomeState {
 
   final HomeResponseStatus status;
   final List<TourFestivalInfoModel> festivalInfoDto; // 행사 정보 조회 결과
-  final List<List<TourDetailInfoModel>?> detailInfoDto; // 콘텐츠 이미지 정보 조회 결과
+  final List<TourDetailInfoModel> detailInfoDto; // 콘텐츠 이미지 정보 조회 결과
 
   FestivialState copyWith({
     HomeResponseStatus? status,
     List<TourFestivalInfoModel>? festivalInfoDto,
-    List<List<TourDetailInfoModel>?>? detailInfoDto,
+    List<TourDetailInfoModel>? detailInfoDto,
   }) {
     return FestivialState(
         status: status ?? this.status,

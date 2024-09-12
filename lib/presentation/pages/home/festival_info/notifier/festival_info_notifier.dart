@@ -27,8 +27,8 @@ class FestivalInfoNotifier extends _$FestivalInfoNotifier {
   final Logger _logger = CustomLogger.logger;
   final String dt = DateFormat('yyyyMMdd').format(DateTime.now());
 
-  List<TourFestivalInfoModel> festivalInfoDto =  [];
-  List<List<TourDetailInfoModel>?> detailInfoDto =  [];
+  List<TourFestivalInfoModel> festivalInfoDto = [];
+  List<TourDetailInfoModel> detailInfoDto = [];
 
   /**
    * 행사 정보 조회
@@ -57,10 +57,12 @@ class FestivalInfoNotifier extends _$FestivalInfoNotifier {
     if (model.data != null) {
       festivalInfoDto = model.data ?? [];
 
-      var detail;
+      List<TourDetailInfoModel>? detail;
       for (var i in festivalInfoDto) {
-        detail = await getTourDetailInfo(i.contentid, i.contenttypeid);
-        detailInfoDto.add(detail ?? []);
+        detail = await getTourDetailInfo(i.contentid, i.contenttypeid) ?? [];
+
+        if (detail.length > 0)
+          detailInfoDto.add(detail[0]);
       }
 
       state = state.copyWith(

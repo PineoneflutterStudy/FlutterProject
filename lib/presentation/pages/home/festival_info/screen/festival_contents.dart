@@ -6,9 +6,12 @@ import 'package:logger/logger.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/home/tour_image_info.model.dart';
+import '../../../../../domain/model/display/home/tour_detail_info.model.dart';
+import '../../../../../domain/model/display/home/tour_festival_info.model.dart';
 import '../../home_state.dart';
+import '../festival_util.dart';
 import '../notifier/festival_info_notifier.dart';
+import 'festival_dialog_widget.dart';
 
 final Logger _logger = CustomLogger.logger;
 late String apiKey = '';
@@ -56,65 +59,142 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
               return const Dialog(child: Text("조회에 실패 했습니다.\n다시 시작해 주세요."));
             case HomeResponseStatus.success:
               return Padding(
-                padding: const EdgeInsets.fromLTRB(0,0,0,20),
-                child: Container(
-                  height: 300,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      for (var i = 0; i < provider.festivalInfoDto.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: AppColors.inversePrimary,
-                                // border: Border.all(),
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.primaryContainer, // 그림자 색상 (반투명한 검정색)
-                                    spreadRadius: 1, // 그림자의 확산 정도
-                                    blurRadius: 7, // 그림자의 흐림 정도
-                                    offset: Offset(7, 7), // 그림자의 위치 (x, y)
-                                  )
-                                ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 150,
-                                    height: 180,
-                                    child: contentImageWidget(provider.festivalInfoDto[i].firstimage), // 포스터 Item
-                                    clipBehavior: Clip.hardEdge,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(25)),
-                                  ),
-                                  Container(
-                                      width: 140,
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        provider.festivalInfoDto[i].title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ))
-                                ],
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        '전국 축제',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 30),
+                        maxLines: 2,
+                      ),
+                    ),
+                    Container(
+                      height: 300,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          for (var i = 0;
+                              i < provider.festivalInfoDto.length;
+                              i++)
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 10, 0, 20),
+                              child: GestureDetector(
+                                onTap: () {
+                                  var infoDto = provider.festivalInfoDto[i];
+                                  var detailDto = provider.detailInfoDto[i];
+                                  showGeneralDialog(
+                                    // Animate
+                                    barrierDismissible: true,
+                                    barrierLabel: "Barrier",
+                                    context: context,
+                                    transitionDuration:
+                                        const Duration(milliseconds: 400),
+                                    // dialog가 내려오는 속도
+                                    // dialog Animation
+                                    transitionBuilder:
+                                        (_, animation, __, child) {
+                                      Tween<Offset> tween;
+                                      // Offset x: 0, y :-1 즉 위에서 시작해 원상태(zero) 까지.
+                                      // 만약 1,-1 이라면 오른쪽 위에서 나온다.
+                                      tween = Tween(
+                                          begin: const Offset(0, 1),
+                                          end: Offset.zero);
+                                      // slide Animation
+                                      return SlideTransition(
+                                        position: tween.animate(
+                                          CurvedAnimation(
+                                              parent: animation,
+                                              curve: Curves.easeInOut),
+                                        ),
+                                        child: child,
+                                      );
+                                    },
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return FestivalDialogWidget(
+                                          infoDto, detailDto);
+                                    },
+                                  );
+                                },
+                                child: festivalContentWidget(
+                                    provider.festivalInfoDto[i],
+                                    provider.detailInfoDto[i]
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                    ],
-                  ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               );
           }
         },
       ),
+    );
+  }
+
+  Widget festivalContentWidget(TourFestivalInfoModel infoDto, TourDetailInfoModel detailDto) {
+    var address = '';
+    if (detailDto.eventplace.isNotEmpty == true)
+      address = detailDto.eventplace ?? '';
+    else
+      address = infoDto.addr1 ?? '';
+
+    return Column(
+      children: [
+        Container(
+          width: 150,
+          height: 160,
+          child: contentImageWidget(infoDto.firstimage),
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(25)),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+          child: Container(
+            width: 140,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  infoDto.title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 20, height: 0.9),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  address,
+                  style: TextStyle(
+                      color: AppColors.contentSecondary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      height: 1.5),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  FestivalUtil.getDate(infoDto),
+                  style: TextStyle(
+                      color: AppColors.contentPrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      height: 0.5),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -149,7 +229,7 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
           alignment: Alignment.topCenter,
           headers: const {
             "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
           });
     }
   }

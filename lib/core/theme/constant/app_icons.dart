@@ -29,6 +29,11 @@ class AppIcons {
   static const String iconEmptyHeart = '$assetIconPath/icon_empty_heart.png';
   static const String iconFullHeart = '$assetIconPath/icon_full_heart.png';
   static const String iconBeeHome = '$assetIconPath/icon_bee_home.png';
+  static const String iconBee = '$assetIconPath/icon_bee.png';
+  static const String iconHoneyBottle = '$assetIconPath/icon_honey_bottle.png';
+  static const String iconHoneyDrop = '$assetIconPath/icon_honey_drop.png';
+  static const String iconHoneyHexagon = '$assetIconPath/icon_honey_hexagon.png';
+  static const String iconHoneyStick = '$assetIconPath/icon_honey_stick.png';
 
   //image
   static const String assetImagePath = 'assets/images';
