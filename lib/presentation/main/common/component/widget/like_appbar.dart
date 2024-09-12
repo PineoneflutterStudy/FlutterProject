@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../pages/like/bloc/like_place/like_place_bloc.dart';
 import '../../../../pages/like/bloc/login/login_check_bloc.dart';
 import '../../../../pages/like/widget/region/region_widget.dart';
 
@@ -12,13 +13,10 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final double appbar_height = 70;
 
-  final ValueChanged<String?> onResult;
-
   LikeAppbar({
     super.key,
     required this.context,
     required this.title,
-    required this.onResult,
   });
 
   @override
@@ -26,15 +24,15 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<LoginCheckBloc, LoginCheckState>(
       builder: (context, state) {
         return state.maybeWhen(
-          loggedIn: () => initializeAppBar(context, true, onResult),
-          loggedOut: () => initializeAppBar(context, false, onResult),
+          loggedIn: () => initializeAppBar(context, true),
+          loggedOut: () => initializeAppBar(context, false),
           orElse: () => const SizedBox(),
         );
       },
     );
   }
 
-  Scaffold initializeAppBar(BuildContext context, bool isLoggedIn, ValueChanged<String?> onResult) {
+  Scaffold initializeAppBar(BuildContext context, bool isLoggedIn) {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
@@ -51,7 +49,8 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
                           fullscreenDialog: false
                       ),
                     );
-                    onResult(result);
+                    context.read<LikePlaceBloc>()
+                        .add(LikePlaceEvent.region(result));
                   },
                 ),
               ),

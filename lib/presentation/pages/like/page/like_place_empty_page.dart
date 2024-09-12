@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
+import '../../../../core/utils/constant.dart';
 import '../../login/login_page.dart';
+import '../bloc/like_place/like_place_bloc.dart';
 import '../bloc/login/login_check_bloc.dart';
 
 class LikePlaceEmptyPage extends StatelessWidget {
 
+  final LikeState state;
   LikePlaceEmptyPage({
     Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -29,6 +33,22 @@ class LikePlaceEmptyPage extends StatelessWidget {
             style: TextStyle(
               color: AppColors.onSurfaceVariant,
               fontSize: 18,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Visibility(
+            visible: (state == LikeState.filter) ? true : false,
+            child: IconButton(
+              onPressed: () {
+                context.read<LikePlaceBloc>()
+                    .add(LikePlaceEvent.started());
+              },
+              icon: Icon(Icons.refresh_rounded,
+                color: AppColors.black,
+                size: 40,
+              ),
             ),
           ),
         ],

@@ -999,7 +999,7 @@ class _$RegionFilterStateImpl implements _RegionFilterState {
       {this.status = RegionStatus.initial,
       this.model = const RegionListModel(addrList: []),
       this.select = const RegionSelectModel(
-          major: '', middle: '', minor: '', current: 0)});
+          major: '', middle: '', minor: '', current: 1)});
 
   @override
   @JsonKey()

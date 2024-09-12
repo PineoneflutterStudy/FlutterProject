@@ -31,7 +31,7 @@ class _LikePlaceItemWidgetState extends State<LikePlaceItemWidget> with PlanUtil
 
       },
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
+        margin: EdgeInsets.symmetric(vertical: 7),
         color: AppColors.onPrimary,
         borderOnForeground: true,
         elevation: 4,
@@ -107,10 +107,6 @@ class _LikePlaceItemWidgetState extends State<LikePlaceItemWidget> with PlanUtil
                     onPressed: () {
                       String placeId = widget.place.placeId;
                       context.read<LikePlaceBloc>().add(LikePlaceEvent.delete(placeId));
-                      // isLiked ? firestore.deleteDocument(placeDocRef!) : firestore.setDocument(placeDocRef!, widget.place.toJson());
-                      // setState(() {
-                      //   isLiked = !isLiked;
-                      // });
                     },
                   ),
                 ],

@@ -52,12 +52,6 @@ class _LikePageState extends State<LikePage> {
         appBar: LikeAppbar(
           context: context,
           title: '나만의 장소',
-          onResult: (String? value) {
-            if (value != null) {
-              print('필터링된 장소 -> ${value}');
-            }
-
-          },
         ),
         body: BlocConsumer<LoginCheckBloc, LoginCheckState>(
           builder: (context, state) {
@@ -109,8 +103,8 @@ class _LikePageState extends State<LikePage> {
     return BlocConsumer<LikePlaceBloc, LikePlaceState>(
       builder: (context, state) {
         return state.maybeWhen(
-          success: (placeList) => LikePlaceWidget(placeList: placeList),
-          empty: () => LikePlaceEmptyPage(),
+          success: (state, placeList) => LikePlaceWidget(state: state, placeList: placeList),
+          empty: (state) => LikePlaceEmptyPage(state: state),
           orElse: () => LikeEmptyPage(),
         );
       },
