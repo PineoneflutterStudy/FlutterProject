@@ -9,10 +9,13 @@ import '../utils/plan_util.dart';
 
 /// 장소 수정하기 팝업
 class EditPlacePopup extends StatefulWidget {
+  final int plannerIndex;
+  final int pageIndex;
+  final int placeIndex;
   final PlannerItem place;
   final PlannerBloc plannerBloc;
 
-  const EditPlacePopup({required this.place, required this.plannerBloc, super.key});
+  const EditPlacePopup({super.key, required this.plannerIndex, required this.pageIndex, required this.placeIndex, required this.place, required this.plannerBloc});
 
   @override
   State<EditPlacePopup> createState() => _EditPlacePopupState();
@@ -20,21 +23,40 @@ class EditPlacePopup extends StatefulWidget {
 
 class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
   late TimeOfDay selectedTime;
-  String _selectedOption = 'walk';
+  late String selectedOption;
+  late String walkTravelTime;
+  late String carTravelTime;
+  int hours = 1;
+  int minutes = 0;
 
   @override
   void initState() {
     super.initState();
-    selectedTime = TimeOfDay(hour: 1, minute: 0);
+
+    if(widget.place.stay_time?.isNotEmpty == true){
+      var stayTime = int.parse(widget.place.stay_time!);
+      hours = stayTime ~/ 60;
+      minutes = stayTime % 60;
+    }
+
+    selectedTime = TimeOfDay(hour: hours, minute: minutes);
+    selectedOption = widget.place.transportation ?? 'walk';
+    walkTravelTime = getWalkTravelTime(widget.place.distance ?? '');
+    carTravelTime = getCarTravelTime(widget.place.distance ?? '');
   }
 
   void _onConfirm() {
-    final selectedData = {
-      'time': convertTimeToMinutes(selectedTime),
-      'transportation': _selectedOption,
-    };
-    //todo plannerBloc 장소 수정 event
-    Navigator.of(context).pop(selectedData);
+    var newStayTime = convertTimeToMinutes(selectedTime).toString();
+    var newTransportation = selectedOption;
+
+    // 이동수단만 수정한 경우
+    if(newStayTime == widget.place.stay_time && newTransportation != widget.place.transportation){
+      widget.plannerBloc.add(PlannerEvent.updateTransportation(widget.plannerIndex, widget.pageIndex, widget.placeIndex, selectedOption, selectedOption=='walk' ? walkTravelTime : carTravelTime));
+    }
+    // todo 이용시간 수정
+    // todo 둘다 수정한 경우
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -102,14 +124,14 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                         scale: 0.8,
                         child: Radio<String>(
                           value: Transportation.walk.code,
-                          groupValue: _selectedOption,
+                          groupValue: selectedOption,
                           activeColor: Transportation.walk.textColor,
-                          onChanged: (String? value) => setState(() => _selectedOption = value!),
+                          onChanged: (String? value) => setState(() => selectedOption = value!),
                         ),
                       ),
                       Transform.translate(
                         offset: Offset(-5, 0),
-                        child: buildWalkTravelTime(getWalkTravelTime(widget.place.distance ?? '')),
+                        child: buildWalkTravelTime(walkTravelTime),
                       ),
                     ],
                   ),
@@ -122,14 +144,14 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                         scale: 0.8,
                         child: Radio<String>(
                           value: Transportation.car.code,
-                          groupValue: _selectedOption,
+                          groupValue: selectedOption,
                           activeColor: Transportation.car.textColor,
-                          onChanged: (String? value) => setState(() => _selectedOption = value!),
+                          onChanged: (String? value) => setState(() => selectedOption = value!),
                         ),
                       ),
                       Transform.translate(
                         offset: Offset(-6, 0),
-                        child: buildCarTravelTime(getCarTravelTime(widget.place.distance ?? '')),
+                        child: buildCarTravelTime(carTravelTime),
                       ),
                     ],
                   ),
@@ -139,7 +161,9 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
               Row(
                 children: [
                   Expanded(child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      //todo 추천 목록 이동 > 장소 수정 팝업 > 장소 수정 event
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -154,7 +178,9 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
               Row(
                 children: [
                   Expanded(child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      //todo 장소 삭제 event
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

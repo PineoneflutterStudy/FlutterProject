@@ -181,6 +181,21 @@ mixin PlanUtil {
     return timeFormat.format(updatedTime);
   }
 
+  /// [timeString] - "10:00 AM"과 같은 형식의 시간 문자열
+  /// [minutes] - 뺄 시간의 분 단위 (예: 120)
+  String subtractMinutesFromTime(String timeString, String minutes) {
+    final DateFormat timeFormat = DateFormat('h:mm a');
+
+    DateTime initialTime = timeFormat.parse(timeString);
+
+    int minutesToSubtract = int.tryParse(minutes) ?? 0;
+
+    DateTime updatedTime = initialTime.subtract(Duration(minutes: minutesToSubtract));
+
+    return timeFormat.format(updatedTime);
+  }
+
+
   //code, 거리 입력 시 이동 수단 정보 반환
   String getTravelTime(String distance, String code){
     return code == 'car' ? getCarTravelTime(distance) : getWalkTravelTime(distance);

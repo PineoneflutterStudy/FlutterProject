@@ -74,7 +74,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
         if (curItemIndex == lastIndex)
           ElevatedButton(
             onPressed: (){
-              _handleAddNextPlace(context, addressBloc, plannerBloc, plannerIndex, pageIndex);
+              _handleAddNextPlace(context, addressBloc, plannerBloc);
             },
             child: Text('Add Next Place'),
           ),
@@ -113,7 +113,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
   }
 
   // 추천 목록 페이지로 이동
-  void _handleAddNextPlace(BuildContext context, AddressBloc addressBloc, PlannerBloc plannerBloc, int plannerIndex, int pageIndex) {
+  void _handleAddNextPlace(BuildContext context, AddressBloc addressBloc, PlannerBloc plannerBloc) {
     // 마지막 위치로 좌표 수정
     var prevAddress = plan.cur_address_info;
     addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
@@ -145,7 +145,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
   void _showEditPlacePopup(BuildContext context){
     showDialog(
       context: context,
-      builder: (BuildContext context) => EditPlacePopup(place: plan, plannerBloc: plannerBloc),
+      builder: (BuildContext context) => EditPlacePopup(plannerIndex: plannerIndex,pageIndex: pageIndex, placeIndex: curItemIndex, place: plan, plannerBloc: plannerBloc),
     );
   }
 }

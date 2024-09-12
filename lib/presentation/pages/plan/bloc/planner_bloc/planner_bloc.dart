@@ -7,6 +7,7 @@ import '../../../../../core/utils/firebase/firebase_auth_util.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
+import '../../utils/plan_util.dart';
 
 part 'planner_event.dart';
 
@@ -14,7 +15,7 @@ part 'planner_state.dart';
 
 part 'planner_bloc.freezed.dart';
 
-class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
+class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   final firestore = FirebaseFirestoreUtil();
   final auth = FirebaseAuthUtil();
 
@@ -29,6 +30,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
         selected: (selectedIndex) async => await _onUpdateSelected(emit, selectedIndex),
         deletePlanner: (plannerIndex) async => await _onDeletePlanner(emit, plannerIndex),
         deletePage:(plannerIndex, pageIndex) async => await _onDeletePage(emit, plannerIndex, pageIndex),
+        deletePlace: (plannerIndex, pageIndex, placeIndex) async => await _onDeletePlace(emit, plannerIndex, pageIndex, placeIndex),
+        updateTransportation: (plannerIndex,pageIndex,placeIndex,transportation,travelTime) async => await _onUpdatePlaceTransportation(emit, plannerIndex, pageIndex, placeIndex, transportation, travelTime)
       );
     });
   }
@@ -165,5 +168,55 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
       success: (plannerList, selected, pageIndex) => emit(PlannerState.success(plannerList, selectedIndex,0)),
       orElse: () {},
     );
+  }
+
+  Future<void> _onDeletePlace(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex) async {
+    //todo placeIndex 장소 삭제
+    // 바로 직후 Place - start time, end time, distance, travel_time, prev_address_info 수정
+    // 그 이후 Place - start time, end time 수정
+  }
+
+  Future<void> _onUpdatePlaceStayTime(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex) async {
+    // todo placeIndex 장소 이용시간 수정
+    // placeIndex Place - end_time, stay_time 수정
+    // 그 이후 Place - start time, end time 수정
+  }
+
+  Future<void> _onUpdatePlaceTransportation(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String transportation, String newTravelTime) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+    if (plannerDocRef != null) {
+      Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
+      if (plannerData != null) {
+        List plannerPages = plannerData['planner_page_list'];
+        if (plannerPages.length > pageIndex) {
+          List pageItems = plannerPages[pageIndex]['page_item_list'];
+          if (pageItems.length > placeIndex) {
+
+            var travelTime = pageItems[placeIndex]['travel_time'] ?? '1분미만';
+            var startTime = subtractMinutesFromTime(pageItems[placeIndex]['start_time'], timeStringToMinutes(travelTime));
+            var newStartTime = addMinutesToTime(startTime, timeStringToMinutes(newTravelTime));
+
+            pageItems[placeIndex]['travel_time'] = newTravelTime;
+            pageItems[placeIndex]['transportation'] = transportation;
+            pageItems[placeIndex]['start_time'] = newStartTime;
+
+            await plannerDocRef.update({'planner_page_list': plannerPages,});
+            await _onGetPlannerList(emit, plannerIndex, pageIndex);
+          }
+        }
+      }else {
+        CustomLogger.logger.e("plannerDocRef is null");
+      }
+    }else {
+      CustomLogger.logger.e("plannerDocRef is null");
+    }
+  }
+
+  Future<void> _onUpdatePlace() async {
+    // todo placeIndex에 있는 장소 정보 수정
+    // todo 이전 장소와 distance 구하기
+    // placeIndex Place - cur_address_info, place_name, distance, travel_time, transportation, stay_time, start_time, end_time 수정
+    // 바로 직후 place - start time, end time, distance, travel_time, prev_address_info 수정
+    // 이후 place - start time, end time 수정
   }
 }
