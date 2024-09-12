@@ -29,6 +29,7 @@ mixin _$PlannerEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +44,7 @@ mixin _$PlannerEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +58,7 @@ mixin _$PlannerEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,6 +71,7 @@ mixin _$PlannerEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +83,7 @@ mixin _$PlannerEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +95,7 @@ mixin _$PlannerEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +168,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return checkLoginState();
   }
@@ -179,6 +186,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return checkLoginState?.call();
   }
@@ -195,6 +203,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (checkLoginState != null) {
@@ -213,6 +222,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return checkLoginState(this);
   }
@@ -227,6 +237,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return checkLoginState?.call(this);
   }
@@ -241,6 +252,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (checkLoginState != null) {
@@ -340,6 +352,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return getPlannerList(plannerIndex, pageIndex);
   }
@@ -357,6 +370,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return getPlannerList?.call(plannerIndex, pageIndex);
   }
@@ -373,6 +387,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (getPlannerList != null) {
@@ -391,6 +406,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return getPlannerList(this);
   }
@@ -405,6 +421,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return getPlannerList?.call(this);
   }
@@ -419,6 +436,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (getPlannerList != null) {
@@ -526,6 +544,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return addPlanner(plannerList);
   }
@@ -543,6 +562,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return addPlanner?.call(plannerList);
   }
@@ -559,6 +579,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (addPlanner != null) {
@@ -577,6 +598,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return addPlanner(this);
   }
@@ -591,6 +613,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return addPlanner?.call(this);
   }
@@ -605,6 +628,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (addPlanner != null) {
@@ -731,6 +755,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return addNextPage(plannerIndex, location, startPlace);
   }
@@ -748,6 +773,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return addNextPage?.call(plannerIndex, location, startPlace);
   }
@@ -764,6 +790,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (addNextPage != null) {
@@ -782,6 +809,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return addNextPage(this);
   }
@@ -796,6 +824,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return addNextPage?.call(this);
   }
@@ -810,6 +839,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (addNextPage != null) {
@@ -937,6 +967,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return addPlannerItem(plannerIndex, index, plannerList);
   }
@@ -954,6 +985,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return addPlannerItem?.call(plannerIndex, index, plannerList);
   }
@@ -970,6 +1002,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (addPlannerItem != null) {
@@ -988,6 +1021,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return addPlannerItem(this);
   }
@@ -1002,6 +1036,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return addPlannerItem?.call(this);
   }
@@ -1016,6 +1051,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (addPlannerItem != null) {
@@ -1115,6 +1151,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return selected(selectedIndex);
   }
@@ -1132,6 +1169,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return selected?.call(selectedIndex);
   }
@@ -1148,6 +1186,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -1166,6 +1205,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return selected(this);
   }
@@ -1180,6 +1220,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return selected?.call(this);
   }
@@ -1194,6 +1235,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -1290,6 +1332,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
         addPlannerItem,
     required TResult Function(int selectedIndex) selected,
     required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
   }) {
     return deletePlanner(plannerIndex);
   }
@@ -1307,6 +1350,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
         addPlannerItem,
     TResult? Function(int selectedIndex)? selected,
     TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
   }) {
     return deletePlanner?.call(plannerIndex);
   }
@@ -1323,6 +1367,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
         addPlannerItem,
     TResult Function(int selectedIndex)? selected,
     TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
     required TResult orElse(),
   }) {
     if (deletePlanner != null) {
@@ -1341,6 +1386,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
     required TResult Function(AddPlannerItemEvent value) addPlannerItem,
     required TResult Function(SelectedPlannerEvent value) selected,
     required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
   }) {
     return deletePlanner(this);
   }
@@ -1355,6 +1401,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
     TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult? Function(SelectedPlannerEvent value)? selected,
     TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
   }) {
     return deletePlanner?.call(this);
   }
@@ -1369,6 +1416,7 @@ class _$DeletedPlannerEventImpl implements DeletedPlannerEvent {
     TResult Function(AddPlannerItemEvent value)? addPlannerItem,
     TResult Function(SelectedPlannerEvent value)? selected,
     TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
     required TResult orElse(),
   }) {
     if (deletePlanner != null) {
@@ -1385,6 +1433,197 @@ abstract class DeletedPlannerEvent implements PlannerEvent {
   int get plannerIndex;
   @JsonKey(ignore: true)
   _$$DeletedPlannerEventImplCopyWith<_$DeletedPlannerEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeletedPageEventImplCopyWith<$Res> {
+  factory _$$DeletedPageEventImplCopyWith(_$DeletedPageEventImpl value,
+          $Res Function(_$DeletedPageEventImpl) then) =
+      __$$DeletedPageEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int plannerIndex, int pageIndex});
+}
+
+/// @nodoc
+class __$$DeletedPageEventImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$DeletedPageEventImpl>
+    implements _$$DeletedPageEventImplCopyWith<$Res> {
+  __$$DeletedPageEventImplCopyWithImpl(_$DeletedPageEventImpl _value,
+      $Res Function(_$DeletedPageEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plannerIndex = null,
+    Object? pageIndex = null,
+  }) {
+    return _then(_$DeletedPageEventImpl(
+      null == plannerIndex
+          ? _value.plannerIndex
+          : plannerIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == pageIndex
+          ? _value.pageIndex
+          : pageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeletedPageEventImpl implements DeletedPageEvent {
+  const _$DeletedPageEventImpl(this.plannerIndex, this.pageIndex);
+
+  @override
+  final int plannerIndex;
+  @override
+  final int pageIndex;
+
+  @override
+  String toString() {
+    return 'PlannerEvent.deletePage(plannerIndex: $plannerIndex, pageIndex: $pageIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeletedPageEventImpl &&
+            (identical(other.plannerIndex, plannerIndex) ||
+                other.plannerIndex == plannerIndex) &&
+            (identical(other.pageIndex, pageIndex) ||
+                other.pageIndex == pageIndex));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, plannerIndex, pageIndex);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeletedPageEventImplCopyWith<_$DeletedPageEventImpl> get copyWith =>
+      __$$DeletedPageEventImplCopyWithImpl<_$DeletedPageEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
+    required TResult Function(int plannerIndex, int pageIndex) getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(
+            int plannerIndex, String location, PlannerItem startPlace)
+        addNextPage,
+    required TResult Function(
+            int plannerIndex, int index, PlannerItem plannerList)
+        addPlannerItem,
+    required TResult Function(int selectedIndex) selected,
+    required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
+  }) {
+    return deletePage(plannerIndex, pageIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
+    TResult? Function(int plannerIndex, int pageIndex)? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(
+            int plannerIndex, String location, PlannerItem startPlace)?
+        addNextPage,
+    TResult? Function(int plannerIndex, int index, PlannerItem plannerList)?
+        addPlannerItem,
+    TResult? Function(int selectedIndex)? selected,
+    TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
+  }) {
+    return deletePage?.call(plannerIndex, pageIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
+    TResult Function(int plannerIndex, int pageIndex)? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(int plannerIndex, String location, PlannerItem startPlace)?
+        addNextPage,
+    TResult Function(int plannerIndex, int index, PlannerItem plannerList)?
+        addPlannerItem,
+    TResult Function(int selectedIndex)? selected,
+    TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
+    required TResult orElse(),
+  }) {
+    if (deletePage != null) {
+      return deletePage(plannerIndex, pageIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(AddNextPageEvent value) addNextPage,
+    required TResult Function(AddPlannerItemEvent value) addPlannerItem,
+    required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletedPlannerEvent value) deletePlanner,
+    required TResult Function(DeletedPageEvent value) deletePage,
+  }) {
+    return deletePage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(AddNextPageEvent value)? addNextPage,
+    TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
+    TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult? Function(DeletedPageEvent value)? deletePage,
+  }) {
+    return deletePage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(AddNextPageEvent value)? addNextPage,
+    TResult Function(AddPlannerItemEvent value)? addPlannerItem,
+    TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletedPlannerEvent value)? deletePlanner,
+    TResult Function(DeletedPageEvent value)? deletePage,
+    required TResult orElse(),
+  }) {
+    if (deletePage != null) {
+      return deletePage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeletedPageEvent implements PlannerEvent {
+  const factory DeletedPageEvent(final int plannerIndex, final int pageIndex) =
+      _$DeletedPageEventImpl;
+
+  int get plannerIndex;
+  int get pageIndex;
+  @JsonKey(ignore: true)
+  _$$DeletedPageEventImplCopyWith<_$DeletedPageEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

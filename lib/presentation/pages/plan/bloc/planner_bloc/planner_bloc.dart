@@ -28,6 +28,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
         addPlannerItem: (plannerIndex, index, plannerItem) async => await _onAddPlannerItem(emit, plannerIndex, index, plannerItem),
         selected: (selectedIndex) async => await _onUpdateSelected(emit, selectedIndex),
         deletePlanner: (plannerIndex) async => await _onDeletePlanner(emit, plannerIndex),
+        deletePage:(plannerIndex, pageIndex) async => await _onDeletePage(emit, plannerIndex, pageIndex),
       );
     });
   }
@@ -126,13 +127,6 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     }
   }
 
-  Future<void> _onUpdateSelected(Emitter<PlannerState> emit, int selectedIndex) async {
-    state.maybeWhen(
-      success: (plannerList, selected, pageIndex) => emit(PlannerState.success(plannerList, selectedIndex,0)),
-      orElse: () {},
-    );
-  }
-
   /// 현재 Planner 삭제 > 첫번째 item으로 포커스
   Future<void> _onDeletePlanner(Emitter<PlannerState> emit, int plannerIndex) async {
     var docRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
@@ -142,5 +136,34 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     } else {
       CustomLogger.logger.e("plannerDocRef is null");
     }
+  }
+
+  /// 현재 page 삭제 > 첫번째 Page로 포커스
+  Future<void> _onDeletePage(Emitter<PlannerState> emit, int plannerIndex, int pageIndex) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+    if (plannerDocRef != null) {
+      Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
+
+      if (plannerData != null) {
+        List<dynamic> pages = plannerData['planner_page_list'];
+        if (pageIndex >= 0 && pageIndex < pages.length) {
+          pages.removeAt(pageIndex);
+
+          await plannerDocRef.update({'planner_page_list': pages});
+          await _onGetPlannerList(emit,plannerIndex, 0);
+        } else {
+          CustomLogger.logger.e('해당 페이지 인덱스가 유효하지 않습니다.');
+        }
+      } else {
+        CustomLogger.logger.e("plannerDocRef is null");
+      }
+    }
+  }
+
+  Future<void> _onUpdateSelected(Emitter<PlannerState> emit, int selectedIndex) async {
+    state.maybeWhen(
+      success: (plannerList, selected, pageIndex) => emit(PlannerState.success(plannerList, selectedIndex,0)),
+      orElse: () {},
+    );
   }
 }

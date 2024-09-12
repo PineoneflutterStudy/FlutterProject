@@ -9,4 +9,5 @@ class PlannerEvent with _$PlannerEvent {
   const factory PlannerEvent.addPlannerItem(int plannerIndex, int index, PlannerItem plannerList) = AddPlannerItemEvent;
   const factory PlannerEvent.selected(int selectedIndex) = SelectedPlannerEvent;
   const factory PlannerEvent.deletePlanner(int plannerIndex) = DeletedPlannerEvent;
+  const factory PlannerEvent.deletePage(int plannerIndex, int pageIndex) = DeletedPageEvent;
 }

@@ -1,6 +1,8 @@
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
+import '../../../../main/common/component/dialog/common_dialog.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import 'planner_item_view.dart';
@@ -29,7 +31,20 @@ class _PageItemViewState extends State<PageItemView> {
     super.initState();
     _controller = ScrollController();
   }
-
+  void _showDeletePagePopup(BuildContext context) {
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '\'Day${widget.pageIndex+1}\' 일정을\n정말 삭제하시겠습니까?',
+      content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
+      btn1Text: '아니요',
+      btn2Text: '네',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => {
+        context.pop(),
+        widget.plannerBloc.add(PlannerEvent.deletePage(widget.plannerIndex, widget.pageIndex))
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,9 +57,12 @@ class _PageItemViewState extends State<PageItemView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Day ${widget.pageIndex + 1}",
-                style: TextStyle(fontSize: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(" Day ${widget.pageIndex + 1}", style: TextStyle(fontSize: 28)),
+                  IconButton(onPressed: ()=> _showDeletePagePopup(context), icon: Icon(Icons.delete_outline_rounded, color: AppColors.error), padding: EdgeInsets.zero)
+                ],
               ),
               SizedBox(height: 16), // Text와 ListView 사이의 간격
               Expanded(

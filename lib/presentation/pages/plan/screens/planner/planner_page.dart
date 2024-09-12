@@ -172,18 +172,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         if (index == 0) { // add btn
           _showAddNextPlanPopup(context, selected, selected.planner_page_list.length);
         } else { // delete btn
-          CommonDialog.confirmDialog(
-            context: context,
-            title: '\'${selected.planner_title}\' 계획을\n정말 삭제하시겠습니까?',
-            content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
-            btn1Text: '아니요',
-            btn2Text: '네',
-            onBtn1Pressed: (context) => context.pop(),
-            onBtn2Pressed: (context) => {
-              context.pop(),
-              widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index))
-            },
-          );
+          _showDeletePlanPopup(context, selected);
         }
       },
     );
@@ -201,5 +190,20 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
         widget.plannerBloc.add(PlannerEvent.addNextPage(selected.planner_index, currentPage.location, result['startPlace']));
       }
     });
+  }
+
+  void _showDeletePlanPopup(BuildContext context, Planner selected){
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '\'${selected.planner_title}\' 계획을\n정말 삭제하시겠습니까?',
+      content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
+      btn1Text: '아니요',
+      btn2Text: '네',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => {
+        context.pop(),
+        widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index))
+      },
+    );
   }
 }
