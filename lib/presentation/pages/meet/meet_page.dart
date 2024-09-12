@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
+import '../../main/common/component/widget/honey_progress_indicator.dart';
 import 'screens/meet_main_screen.dart';
 import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
 import 'notifiers/meet_firestore/meet_firestore_state.dart';
@@ -79,7 +80,7 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
           case MeetLoginStatus.initial:
             {
               // Init -> CircularProgress
-              return CircularProgressIndicator();
+              return HoneyProgressIndicator();
             }
           case MeetLoginStatus.nonLogin:
             {
@@ -96,25 +97,6 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
             {
               _logger.i('[ MeetPage ] Current FireStore Database Status Info -> ${dbStatus}');
               return MeetMainScreen();
-              /*switch (dbStatus) {
-                case MeetFireStoreStatus.initial:
-                case MeetFireStoreStatus.loading:
-                  {
-                    // initial, loading -> CircularProgress
-                    return CircularProgressIndicator();
-                  }
-                case MeetFireStoreStatus.failure:
-                  {
-                    // DB 데이터 조회 실패 -> 저장된 약속정보를 가져오는데 실패하였습니다. ( Toast ) -> EmptyMeetScreen
-                    CommonUtils.showToastMsg('저장된 약속정보를 가져오는데 실패하였습니다.');
-                    return MeetMainScreen();
-                  }
-                case MeetFireStoreStatus.success:
-                  {
-                    // 저장된 약속장소 데이터가 있는지 DB Select Run! -> ListView 출력
-                    return MeetMainScreen();
-                  }
-              }*/
             }
         }
       }),
