@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
@@ -145,7 +146,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 10),
                     ),
-                    child: Text("추천 목록 보러 가기 >", style: TextStyle(color: AppColors.contentSecondary, fontSize: 20)),
+                    child: Text("추천 목록 보러 가기", style: TextStyle(color: AppColors.contentSecondary, fontSize: 20)),
                   ))
                 ],
               ),
@@ -170,7 +171,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
       ),
       actions: [
         TextButton(
-            onPressed: () =>  Navigator.of(context).pop(),
+            onPressed: () =>  context.pop(),
             child: Text("취소", style: TextStyle(color: AppColors.black, fontSize: 20)),
         ),
         TextButton(
