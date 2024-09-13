@@ -31,7 +31,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
         deletePlanner: (plannerIndex) async => await _onDeletePlanner(emit, plannerIndex),
         deletePage:(plannerIndex, pageIndex) async => await _onDeletePage(emit, plannerIndex, pageIndex),
         deletePlace: (plannerIndex, pageIndex, placeIndex) async => await _onDeletePlace(emit, plannerIndex, pageIndex, placeIndex),
-        updateTransportation: (plannerIndex,pageIndex,placeIndex,transportation,travelTime) async => await _onUpdatePlaceTransportation(emit, plannerIndex, pageIndex, placeIndex, transportation, travelTime)
+        updateStayTime: (plannerIndex, pageIndex, placeIndex, newStayTime) async => await _onUpdatePlaceStayTime(emit, plannerIndex, pageIndex, placeIndex, newStayTime),
+        updateTransportation: (plannerIndex,pageIndex,placeIndex,transportation,travelTime, changeStay, stayTime) async => await _onUpdatePlaceTransportation(emit, plannerIndex, pageIndex, placeIndex, transportation, travelTime, changeStay, stayTime),
       );
     });
   }
@@ -163,26 +164,43 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     }
   }
 
-  Future<void> _onUpdateSelected(Emitter<PlannerState> emit, int selectedIndex) async {
-    state.maybeWhen(
-      success: (plannerList, selected, pageIndex) => emit(PlannerState.success(plannerList, selectedIndex,0)),
-      orElse: () {},
-    );
-  }
-
   Future<void> _onDeletePlace(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex) async {
     //todo placeIndex 장소 삭제
     // 바로 직후 Place - start time, end time, distance, travel_time, prev_address_info 수정
     // 그 이후 Place - start time, end time 수정
   }
 
-  Future<void> _onUpdatePlaceStayTime(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex) async {
-    // todo placeIndex 장소 이용시간 수정
-    // placeIndex Place - end_time, stay_time 수정
-    // 그 이후 Place - start time, end time 수정
+  Future<void> _onUpdatePlaceStayTime(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String newStayTime) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+    if (plannerDocRef != null) {
+      Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
+      if (plannerData != null) {
+        List plannerPages = plannerData['planner_page_list'];
+        if (plannerPages.length > pageIndex) {
+          List pageItems = plannerPages[pageIndex]['page_item_list'];
+          if (pageItems.length > placeIndex) {
+
+            var startTime = pageItems[placeIndex]['start_time'];
+            var newEndTime =  addMinutesToTime(startTime, newStayTime);
+
+            pageItems[placeIndex]['stay_time'] = newStayTime;
+            pageItems[placeIndex]['end_time'] = newEndTime;
+
+            updateFollowingPlaces(pageItems, placeIndex);
+
+            await plannerDocRef.update({'planner_page_list': plannerPages,});
+            await _onGetPlannerList(emit, plannerIndex, pageIndex);
+          }
+        }
+      }else {
+        CustomLogger.logger.e("plannerDocRef is null");
+      }
+    }else {
+      CustomLogger.logger.e("plannerDocRef is null");
+    }
   }
 
-  Future<void> _onUpdatePlaceTransportation(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String transportation, String newTravelTime) async {
+  Future<void> _onUpdatePlaceTransportation(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String transportation, String newTravelTime, bool changeStay, String newStayTime) async {
     final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
@@ -201,7 +219,12 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
             pageItems[placeIndex]['start_time'] = newStartTime;
 
             await plannerDocRef.update({'planner_page_list': plannerPages,});
-            await _onGetPlannerList(emit, plannerIndex, pageIndex);
+
+            if(changeStay){
+              await _onUpdatePlaceStayTime(emit, plannerIndex, pageIndex, placeIndex, newStayTime);
+            }else{
+              await _onGetPlannerList(emit, plannerIndex, pageIndex);
+            }
           }
         }
       }else {
@@ -219,4 +242,25 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     // 바로 직후 place - start time, end time, distance, travel_time, prev_address_info 수정
     // 이후 place - start time, end time 수정
   }
+
+  Future<void> _onUpdateSelected(Emitter<PlannerState> emit, int selectedIndex) async {
+    state.maybeWhen(
+      success: (plannerList, selected, pageIndex) => emit(PlannerState.success(plannerList, selectedIndex,0)),
+      orElse: () {},
+    );
+  }
+
+  void updateFollowingPlaces(List pageItems, int placeIndex) {
+    for (int i = placeIndex + 1; i < pageItems.length; i++) {
+      var prevEndTime = pageItems[i - 1]['end_time'];
+      var travelTime = pageItems[i]['travel_time'];
+      var stayTime = pageItems[i]['stay_time'];
+      var startTime = addMinutesToTime(prevEndTime, timeStringToMinutes(travelTime));
+      var endTime = addMinutesToTime(startTime, stayTime);
+
+      pageItems[i]['start_time'] = startTime;
+      pageItems[i]['end_time'] = endTime;
+    }
+  }
+
 }

@@ -48,14 +48,17 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
   void _onConfirm() {
     var newStayTime = convertTimeToMinutes(selectedTime).toString();
     var newTransportation = selectedOption;
+    var newTravelTime = selectedOption=='walk' ? walkTravelTime : carTravelTime;
+    var changeStay = (newStayTime != widget.place.stay_time);
+    var changeTrans = (newTransportation != widget.place.transportation);
 
-    // 이동수단만 수정한 경우
-    if(newStayTime == widget.place.stay_time && newTransportation != widget.place.transportation){
-      widget.plannerBloc.add(PlannerEvent.updateTransportation(widget.plannerIndex, widget.pageIndex, widget.placeIndex, selectedOption, selectedOption=='walk' ? walkTravelTime : carTravelTime));
+    if(changeStay || changeTrans){
+      if(changeStay && !changeTrans){
+        widget.plannerBloc.add(PlannerEvent.updateStayTime(widget.plannerIndex, widget.pageIndex, widget.placeIndex, newStayTime));
+      }else{
+        widget.plannerBloc.add(PlannerEvent.updateTransportation(widget.plannerIndex, widget.pageIndex, widget.placeIndex, newTransportation, newTravelTime, changeStay ,newStayTime));
+      }
     }
-    // todo 이용시간 수정
-    // todo 둘다 수정한 경우
-
     Navigator.of(context).pop();
   }
 

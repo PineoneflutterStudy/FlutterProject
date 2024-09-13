@@ -32,8 +32,17 @@ mixin _$PlannerEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,7 +62,16 @@ mixin _$PlannerEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,7 +90,16 @@ mixin _$PlannerEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) =>
@@ -88,6 +115,7 @@ mixin _$PlannerEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) =>
       throw _privateConstructorUsedError;
@@ -102,6 +130,7 @@ mixin _$PlannerEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) =>
       throw _privateConstructorUsedError;
@@ -116,6 +145,7 @@ mixin _$PlannerEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) =>
@@ -192,8 +222,17 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return checkLoginState();
@@ -216,7 +255,16 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return checkLoginState?.call();
@@ -238,7 +286,16 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -260,6 +317,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return checkLoginState(this);
@@ -277,6 +335,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return checkLoginState?.call(this);
@@ -294,6 +353,7 @@ class _$CheckLoginStateImpl implements CheckLoginState {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -397,8 +457,17 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return getPlannerList(plannerIndex, pageIndex);
@@ -421,7 +490,16 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return getPlannerList?.call(plannerIndex, pageIndex);
@@ -443,7 +521,16 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -465,6 +552,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return getPlannerList(this);
@@ -482,6 +570,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return getPlannerList?.call(this);
@@ -499,6 +588,7 @@ class _$GetPlannerListEventImpl implements GetPlannerListEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -610,8 +700,17 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return addPlanner(plannerList);
@@ -634,7 +733,16 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return addPlanner?.call(plannerList);
@@ -656,7 +764,16 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -678,6 +795,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return addPlanner(this);
@@ -695,6 +813,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return addPlanner?.call(this);
@@ -712,6 +831,7 @@ class _$AddPlannerEventImpl implements AddPlannerEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -842,8 +962,17 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return addNextPage(plannerIndex, location, startPlace);
@@ -866,7 +995,16 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return addNextPage?.call(plannerIndex, location, startPlace);
@@ -888,7 +1026,16 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -910,6 +1057,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return addNextPage(this);
@@ -927,6 +1075,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return addNextPage?.call(this);
@@ -944,6 +1093,7 @@ class _$AddNextPageEventImpl implements AddNextPageEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -1075,8 +1225,17 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return addPlannerItem(plannerIndex, index, plannerList);
@@ -1099,7 +1258,16 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return addPlannerItem?.call(plannerIndex, index, plannerList);
@@ -1121,7 +1289,16 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -1143,6 +1320,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return addPlannerItem(this);
@@ -1160,6 +1338,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return addPlannerItem?.call(this);
@@ -1177,6 +1356,7 @@ class _$AddPlannerItemEventImpl implements AddPlannerItemEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -1280,8 +1460,17 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return selected(selectedIndex);
@@ -1304,7 +1493,16 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return selected?.call(selectedIndex);
@@ -1326,7 +1524,16 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -1348,6 +1555,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return selected(this);
@@ -1365,6 +1573,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return selected?.call(this);
@@ -1382,6 +1591,7 @@ class _$SelectedPlannerEventImpl implements SelectedPlannerEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -1482,8 +1692,17 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return deletePlanner(plannerIndex);
@@ -1506,7 +1725,16 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return deletePlanner?.call(plannerIndex);
@@ -1528,7 +1756,16 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -1550,6 +1787,7 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return deletePlanner(this);
@@ -1567,6 +1805,7 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return deletePlanner?.call(this);
@@ -1584,6 +1823,7 @@ class _$DeletePlannerEventImpl implements DeletePlannerEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -1693,8 +1933,17 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return deletePage(plannerIndex, pageIndex);
@@ -1717,7 +1966,16 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return deletePage?.call(plannerIndex, pageIndex);
@@ -1739,7 +1997,16 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -1761,6 +2028,7 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return deletePage(this);
@@ -1778,6 +2046,7 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return deletePage?.call(this);
@@ -1795,6 +2064,7 @@ class _$DeletePageEventImpl implements DeletePageEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -1916,8 +2186,17 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
     return deletePlace(plannerIndex, pageIndex, placeIndex);
@@ -1940,7 +2219,16 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
     return deletePlace?.call(plannerIndex, pageIndex, placeIndex);
@@ -1962,7 +2250,16 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
@@ -1984,6 +2281,7 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return deletePlace(this);
@@ -2001,6 +2299,7 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return deletePlace?.call(this);
@@ -2018,6 +2317,7 @@ class _$DeletePlaceEventImpl implements DeletePlaceEvent {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -2042,6 +2342,272 @@ abstract class DeletePlaceEvent implements PlannerEvent {
 }
 
 /// @nodoc
+abstract class _$$UpdateStayTimeImplCopyWith<$Res> {
+  factory _$$UpdateStayTimeImplCopyWith(_$UpdateStayTimeImpl value,
+          $Res Function(_$UpdateStayTimeImpl) then) =
+      __$$UpdateStayTimeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {int plannerIndex, int pageIndex, int placeIndex, String newStayTime});
+}
+
+/// @nodoc
+class __$$UpdateStayTimeImplCopyWithImpl<$Res>
+    extends _$PlannerEventCopyWithImpl<$Res, _$UpdateStayTimeImpl>
+    implements _$$UpdateStayTimeImplCopyWith<$Res> {
+  __$$UpdateStayTimeImplCopyWithImpl(
+      _$UpdateStayTimeImpl _value, $Res Function(_$UpdateStayTimeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plannerIndex = null,
+    Object? pageIndex = null,
+    Object? placeIndex = null,
+    Object? newStayTime = null,
+  }) {
+    return _then(_$UpdateStayTimeImpl(
+      null == plannerIndex
+          ? _value.plannerIndex
+          : plannerIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == pageIndex
+          ? _value.pageIndex
+          : pageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == placeIndex
+          ? _value.placeIndex
+          : placeIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == newStayTime
+          ? _value.newStayTime
+          : newStayTime // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateStayTimeImpl implements UpdateStayTime {
+  const _$UpdateStayTimeImpl(
+      this.plannerIndex, this.pageIndex, this.placeIndex, this.newStayTime);
+
+  @override
+  final int plannerIndex;
+  @override
+  final int pageIndex;
+  @override
+  final int placeIndex;
+  @override
+  final String newStayTime;
+
+  @override
+  String toString() {
+    return 'PlannerEvent.updateStayTime(plannerIndex: $plannerIndex, pageIndex: $pageIndex, placeIndex: $placeIndex, newStayTime: $newStayTime)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateStayTimeImpl &&
+            (identical(other.plannerIndex, plannerIndex) ||
+                other.plannerIndex == plannerIndex) &&
+            (identical(other.pageIndex, pageIndex) ||
+                other.pageIndex == pageIndex) &&
+            (identical(other.placeIndex, placeIndex) ||
+                other.placeIndex == placeIndex) &&
+            (identical(other.newStayTime, newStayTime) ||
+                other.newStayTime == newStayTime));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, plannerIndex, pageIndex, placeIndex, newStayTime);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateStayTimeImplCopyWith<_$UpdateStayTimeImpl> get copyWith =>
+      __$$UpdateStayTimeImplCopyWithImpl<_$UpdateStayTimeImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkLoginState,
+    required TResult Function(int plannerIndex, int pageIndex) getPlannerList,
+    required TResult Function(Planner plannerList) addPlanner,
+    required TResult Function(
+            int plannerIndex, String location, PlannerItem startPlace)
+        addNextPage,
+    required TResult Function(
+            int plannerIndex, int index, PlannerItem plannerList)
+        addPlannerItem,
+    required TResult Function(int selectedIndex) selected,
+    required TResult Function(int plannerIndex) deletePlanner,
+    required TResult Function(int plannerIndex, int pageIndex) deletePage,
+    required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
+        deletePlace,
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
+        updateTransportation,
+  }) {
+    return updateStayTime(plannerIndex, pageIndex, placeIndex, newStayTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkLoginState,
+    TResult? Function(int plannerIndex, int pageIndex)? getPlannerList,
+    TResult? Function(Planner plannerList)? addPlanner,
+    TResult? Function(
+            int plannerIndex, String location, PlannerItem startPlace)?
+        addNextPage,
+    TResult? Function(int plannerIndex, int index, PlannerItem plannerList)?
+        addPlannerItem,
+    TResult? Function(int selectedIndex)? selected,
+    TResult? Function(int plannerIndex)? deletePlanner,
+    TResult? Function(int plannerIndex, int pageIndex)? deletePage,
+    TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
+        deletePlace,
+    TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
+        updateTransportation,
+  }) {
+    return updateStayTime?.call(
+        plannerIndex, pageIndex, placeIndex, newStayTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkLoginState,
+    TResult Function(int plannerIndex, int pageIndex)? getPlannerList,
+    TResult Function(Planner plannerList)? addPlanner,
+    TResult Function(int plannerIndex, String location, PlannerItem startPlace)?
+        addNextPage,
+    TResult Function(int plannerIndex, int index, PlannerItem plannerList)?
+        addPlannerItem,
+    TResult Function(int selectedIndex)? selected,
+    TResult Function(int plannerIndex)? deletePlanner,
+    TResult Function(int plannerIndex, int pageIndex)? deletePage,
+    TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
+        deletePlace,
+    TResult Function(int plannerIndex, int pageIndex, int placeIndex,
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
+        updateTransportation,
+    required TResult orElse(),
+  }) {
+    if (updateStayTime != null) {
+      return updateStayTime(plannerIndex, pageIndex, placeIndex, newStayTime);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CheckLoginState value) checkLoginState,
+    required TResult Function(GetPlannerListEvent value) getPlannerList,
+    required TResult Function(AddPlannerEvent value) addPlanner,
+    required TResult Function(AddNextPageEvent value) addNextPage,
+    required TResult Function(AddPlannerItemEvent value) addPlannerItem,
+    required TResult Function(SelectedPlannerEvent value) selected,
+    required TResult Function(DeletePlannerEvent value) deletePlanner,
+    required TResult Function(DeletePageEvent value) deletePage,
+    required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
+    required TResult Function(UpdateTransportation value) updateTransportation,
+  }) {
+    return updateStayTime(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckLoginState value)? checkLoginState,
+    TResult? Function(GetPlannerListEvent value)? getPlannerList,
+    TResult? Function(AddPlannerEvent value)? addPlanner,
+    TResult? Function(AddNextPageEvent value)? addNextPage,
+    TResult? Function(AddPlannerItemEvent value)? addPlannerItem,
+    TResult? Function(SelectedPlannerEvent value)? selected,
+    TResult? Function(DeletePlannerEvent value)? deletePlanner,
+    TResult? Function(DeletePageEvent value)? deletePage,
+    TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
+    TResult? Function(UpdateTransportation value)? updateTransportation,
+  }) {
+    return updateStayTime?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckLoginState value)? checkLoginState,
+    TResult Function(GetPlannerListEvent value)? getPlannerList,
+    TResult Function(AddPlannerEvent value)? addPlanner,
+    TResult Function(AddNextPageEvent value)? addNextPage,
+    TResult Function(AddPlannerItemEvent value)? addPlannerItem,
+    TResult Function(SelectedPlannerEvent value)? selected,
+    TResult Function(DeletePlannerEvent value)? deletePlanner,
+    TResult Function(DeletePageEvent value)? deletePage,
+    TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
+    TResult Function(UpdateTransportation value)? updateTransportation,
+    required TResult orElse(),
+  }) {
+    if (updateStayTime != null) {
+      return updateStayTime(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateStayTime implements PlannerEvent {
+  const factory UpdateStayTime(final int plannerIndex, final int pageIndex,
+      final int placeIndex, final String newStayTime) = _$UpdateStayTimeImpl;
+
+  int get plannerIndex;
+  int get pageIndex;
+  int get placeIndex;
+  String get newStayTime;
+  @JsonKey(ignore: true)
+  _$$UpdateStayTimeImplCopyWith<_$UpdateStayTimeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$UpdateTransportationImplCopyWith<$Res> {
   factory _$$UpdateTransportationImplCopyWith(_$UpdateTransportationImpl value,
           $Res Function(_$UpdateTransportationImpl) then) =
@@ -2052,7 +2618,9 @@ abstract class _$$UpdateTransportationImplCopyWith<$Res> {
       int pageIndex,
       int placeIndex,
       String transportation,
-      String travelTime});
+      String travelTime,
+      bool changeStay,
+      String newStayTime});
 }
 
 /// @nodoc
@@ -2071,6 +2639,8 @@ class __$$UpdateTransportationImplCopyWithImpl<$Res>
     Object? placeIndex = null,
     Object? transportation = null,
     Object? travelTime = null,
+    Object? changeStay = null,
+    Object? newStayTime = null,
   }) {
     return _then(_$UpdateTransportationImpl(
       null == plannerIndex
@@ -2093,6 +2663,14 @@ class __$$UpdateTransportationImplCopyWithImpl<$Res>
           ? _value.travelTime
           : travelTime // ignore: cast_nullable_to_non_nullable
               as String,
+      null == changeStay
+          ? _value.changeStay
+          : changeStay // ignore: cast_nullable_to_non_nullable
+              as bool,
+      null == newStayTime
+          ? _value.newStayTime
+          : newStayTime // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -2100,8 +2678,14 @@ class __$$UpdateTransportationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateTransportationImpl implements UpdateTransportation {
-  const _$UpdateTransportationImpl(this.plannerIndex, this.pageIndex,
-      this.placeIndex, this.transportation, this.travelTime);
+  const _$UpdateTransportationImpl(
+      this.plannerIndex,
+      this.pageIndex,
+      this.placeIndex,
+      this.transportation,
+      this.travelTime,
+      this.changeStay,
+      this.newStayTime);
 
   @override
   final int plannerIndex;
@@ -2113,10 +2697,14 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
   final String transportation;
   @override
   final String travelTime;
+  @override
+  final bool changeStay;
+  @override
+  final String newStayTime;
 
   @override
   String toString() {
-    return 'PlannerEvent.updateTransportation(plannerIndex: $plannerIndex, pageIndex: $pageIndex, placeIndex: $placeIndex, transportation: $transportation, travelTime: $travelTime)';
+    return 'PlannerEvent.updateTransportation(plannerIndex: $plannerIndex, pageIndex: $pageIndex, placeIndex: $placeIndex, transportation: $transportation, travelTime: $travelTime, changeStay: $changeStay, newStayTime: $newStayTime)';
   }
 
   @override
@@ -2133,12 +2721,16 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
             (identical(other.transportation, transportation) ||
                 other.transportation == transportation) &&
             (identical(other.travelTime, travelTime) ||
-                other.travelTime == travelTime));
+                other.travelTime == travelTime) &&
+            (identical(other.changeStay, changeStay) ||
+                other.changeStay == changeStay) &&
+            (identical(other.newStayTime, newStayTime) ||
+                other.newStayTime == newStayTime));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, plannerIndex, pageIndex,
-      placeIndex, transportation, travelTime);
+      placeIndex, transportation, travelTime, changeStay, newStayTime);
 
   @JsonKey(ignore: true)
   @override
@@ -2165,12 +2757,21 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     required TResult Function(int plannerIndex, int pageIndex) deletePage,
     required TResult Function(int plannerIndex, int pageIndex, int placeIndex)
         deletePlace,
-    required TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)
+    required TResult Function(
+            int plannerIndex, int pageIndex, int placeIndex, String newStayTime)
+        updateStayTime,
+    required TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)
         updateTransportation,
   }) {
-    return updateTransportation(
-        plannerIndex, pageIndex, placeIndex, transportation, travelTime);
+    return updateTransportation(plannerIndex, pageIndex, placeIndex,
+        transportation, travelTime, changeStay, newStayTime);
   }
 
   @override
@@ -2190,11 +2791,20 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult? Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult? Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
   }) {
-    return updateTransportation?.call(
-        plannerIndex, pageIndex, placeIndex, transportation, travelTime);
+    return updateTransportation?.call(plannerIndex, pageIndex, placeIndex,
+        transportation, travelTime, changeStay, newStayTime);
   }
 
   @override
@@ -2213,13 +2823,22 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     TResult Function(int plannerIndex, int pageIndex, int placeIndex)?
         deletePlace,
     TResult Function(int plannerIndex, int pageIndex, int placeIndex,
-            String transportation, String travelTime)?
+            String newStayTime)?
+        updateStayTime,
+    TResult Function(
+            int plannerIndex,
+            int pageIndex,
+            int placeIndex,
+            String transportation,
+            String travelTime,
+            bool changeStay,
+            String newStayTime)?
         updateTransportation,
     required TResult orElse(),
   }) {
     if (updateTransportation != null) {
-      return updateTransportation(
-          plannerIndex, pageIndex, placeIndex, transportation, travelTime);
+      return updateTransportation(plannerIndex, pageIndex, placeIndex,
+          transportation, travelTime, changeStay, newStayTime);
     }
     return orElse();
   }
@@ -2236,6 +2855,7 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     required TResult Function(DeletePlannerEvent value) deletePlanner,
     required TResult Function(DeletePageEvent value) deletePage,
     required TResult Function(DeletePlaceEvent value) deletePlace,
+    required TResult Function(UpdateStayTime value) updateStayTime,
     required TResult Function(UpdateTransportation value) updateTransportation,
   }) {
     return updateTransportation(this);
@@ -2253,6 +2873,7 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     TResult? Function(DeletePlannerEvent value)? deletePlanner,
     TResult? Function(DeletePageEvent value)? deletePage,
     TResult? Function(DeletePlaceEvent value)? deletePlace,
+    TResult? Function(UpdateStayTime value)? updateStayTime,
     TResult? Function(UpdateTransportation value)? updateTransportation,
   }) {
     return updateTransportation?.call(this);
@@ -2270,6 +2891,7 @@ class _$UpdateTransportationImpl implements UpdateTransportation {
     TResult Function(DeletePlannerEvent value)? deletePlanner,
     TResult Function(DeletePageEvent value)? deletePage,
     TResult Function(DeletePlaceEvent value)? deletePlace,
+    TResult Function(UpdateStayTime value)? updateStayTime,
     TResult Function(UpdateTransportation value)? updateTransportation,
     required TResult orElse(),
   }) {
@@ -2286,13 +2908,17 @@ abstract class UpdateTransportation implements PlannerEvent {
       final int pageIndex,
       final int placeIndex,
       final String transportation,
-      final String travelTime) = _$UpdateTransportationImpl;
+      final String travelTime,
+      final bool changeStay,
+      final String newStayTime) = _$UpdateTransportationImpl;
 
   int get plannerIndex;
   int get pageIndex;
   int get placeIndex;
   String get transportation;
   String get travelTime;
+  bool get changeStay;
+  String get newStayTime;
   @JsonKey(ignore: true)
   _$$UpdateTransportationImplCopyWith<_$UpdateTransportationImpl>
       get copyWith => throw _privateConstructorUsedError;

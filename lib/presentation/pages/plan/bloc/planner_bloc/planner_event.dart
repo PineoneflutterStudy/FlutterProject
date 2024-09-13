@@ -11,5 +11,6 @@ class PlannerEvent with _$PlannerEvent {
   const factory PlannerEvent.deletePlanner(int plannerIndex) = DeletePlannerEvent;
   const factory PlannerEvent.deletePage(int plannerIndex, int pageIndex) = DeletePageEvent;
   const factory PlannerEvent.deletePlace(int plannerIndex, int pageIndex, int placeIndex) = DeletePlaceEvent;
-  const factory PlannerEvent.updateTransportation(int plannerIndex, int pageIndex, int placeIndex, String transportation, String travelTime) = UpdateTransportation;
+  const factory PlannerEvent.updateStayTime(int plannerIndex, int pageIndex, int placeIndex, String newStayTime) = UpdateStayTime;
+  const factory PlannerEvent.updateTransportation(int plannerIndex, int pageIndex, int placeIndex, String transportation, String travelTime, bool changeStay, String newStayTime) = UpdateTransportation;
 }
