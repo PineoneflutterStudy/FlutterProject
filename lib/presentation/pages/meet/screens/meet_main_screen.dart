@@ -11,6 +11,7 @@ import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_state.dart';
 import '../dialogs/start_address_input_dialog.dart';
 import '../widgets/empty_meet_widget.dart';
+import '../widgets/save_meet_widget.dart';
 
 final Logger _logger = CustomLogger.logger;
 
@@ -156,14 +157,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                 case MeetFireStoreStatus.success:
                   {
                     // 비로그인과 로그인 실패 -> 로그인 화면으로 넘기는 기능 필요 / 로그인 사용자( DB에 데이터가 없음 ) -> 출발지 입력 Dialog 실행 가능!!
-                    return Container(
-                      child: Center(
-                        child: Text(
-                          'FireStore Database에 데이터가 존재합니다..!!',
-                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    );
+                    return SaveMeetWidget(locationsInfo: dbState.getLocationInfo,);
                   }
               }
             }
