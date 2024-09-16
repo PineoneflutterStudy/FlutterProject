@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
+import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/exception/common_exception.dart';
 import '../../../../core/utils/logger.dart';
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   List<Category> categoryList = []; // 데이터를 저장할 리스트
   bool isLoading = true; // 로딩 상태를 나타낼 변수
   String errorMessage = ''; // 에러 메시지를 저장할 변수
+  String searchValue = '';
 
   @override
   void initState() {
@@ -64,32 +67,74 @@ class _HomePageState extends State<HomePage> {
             HomeSearchBar(),
             // 인기 지역 크롤링 이였던것..
             PopularContents(),
-            // // 목록 Mock
+            // 목록 Mock
             CategoryContents(categoryList: categoryList),
-            // // todo: 근처 축제 포스터
+            // 전국 축제
             FestivalContents()
-            // todo: 근처 ~~~
           ],
         ),
       ),
     );
   }
 
-  // # 검색 바
+  /**
+   * 검색 바
+   */
   Padding HomeSearchBar() {
+    var inputStyle = WidgetStateProperty.all(TextStyle(
+        //======= UnderLine 제거 =======
+        decoration: TextDecoration.none,
+        decorationThickness: 0,
+        fontSize: 30,
+        fontWeight: FontWeight.w500,
+        height: 0.8,
+        color: AppColors.contentPrimary));
+
+    var hintStyle = WidgetStateProperty.all(TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w500,
+        height: 0.8,
+        color: AppColors.contentSecondary));
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: SearchBar(
+        keyboardType: TextInputType.text,
+        textStyle: inputStyle,
         hintText: '지역이나 숙소를 검색하세요.',
-        hintStyle: WidgetStateProperty.all(TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-            color: AppColors.contentPrimary)),
-        leading: const Icon(Icons.search_rounded),
+        hintStyle: hintStyle,
+        trailing: [
+            IconButton(
+              onPressed: () {
+                if (searchValue.isNotEmpty) {
+                  _searchGoogleWeb(searchValue);
+                }
+              },
+              icon: const Icon(Icons.search_rounded, color: AppColors.primary,),
+            ),
+          ],
         shadowColor: WidgetStateProperty.all(AppColors.primary),
-        onChanged: (value) {}, //TODO:: 검색 기능 추가
+        onChanged: (value) {
+          searchValue = value;
+        },
       ),
     );
+  }
+
+  /**
+   * 구글 맵 검색 기능으로 이동
+   */
+  Future<void> _searchGoogleWeb(String value) async {
+    var encodingValue = Uri.encodeFull(value);
+    String url = 'https://www.google.com/maps/search/?api=1&query=$encodingValue';
+
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      CustomLogger.logger.e('Could not launch $uri');
+      CommonUtils.showToastMsg('URL 호출 실패\n다시 시도해주세요.');
+    }
   }
 }
 
