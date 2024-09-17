@@ -5,6 +5,7 @@ import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../domain/model/display/home/tour_detail_info.model.dart';
 import '../../../../../domain/model/display/home/tour_festival_info.model.dart';
 import '../festival_util.dart';
+import 'festival_kakao_map.dart';
 
 class FestivalDialogWidget extends StatelessWidget {
   TourFestivalInfoModel? festivalInfoDto;
@@ -15,10 +16,10 @@ class FestivalDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return festivalDialogWidget();
+    return festivalDialogWidget(context);
   }
 
-  Widget festivalDialogWidget() {
+  Widget festivalDialogWidget(context) {
     var address = '';
     if (festivalInfoDto?.addr1.isNotEmpty == true)
       address = festivalInfoDto?.addr1 ?? '';
@@ -55,11 +56,23 @@ class FestivalDialogWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 40, height: 0.8),
                   ),
-                  dialogSubText(AppIcons.iconBee, address),
-                  dialogSubText(AppIcons.iconHoneyHexagon, FestivalUtil.getDate(festivalInfoDto)),
-                  dialogSubText(AppIcons.iconHoneyDrop, FestivalUtil.stripHtml(detailDto?.usetimefestival ?? ''),),
-                  dialogSubText(AppIcons.iconHoneyStick, FestivalUtil.stripHtml(detailDto?.playtime ?? '')),
-                  dialogSubText(AppIcons.iconHoneyBottle, festivalInfoDto?.tel ?? '',)
+                  GestureDetector(
+                      onTap: () {
+                        var latitude =
+                            double.parse(festivalInfoDto?.mapy ?? '0');
+                        var longitude =
+                            double.parse(festivalInfoDto?.mapx ?? '0');
+                        // 카카오 맵 위치 노출
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>
+                              FestivalKakaoMap(latitude, longitude)));
+                      },
+                      child: dialogSubText(true, AppIcons.iconBee, address)
+                  ),
+                  dialogSubText(false, AppIcons.iconHoneyHexagon, FestivalUtil.getDate(festivalInfoDto)),
+                  dialogSubText(false, AppIcons.iconHoneyDrop, FestivalUtil.stripHtml(detailDto?.usetimefestival ?? ''),),
+                  dialogSubText(false, AppIcons.iconHoneyStick, FestivalUtil.stripHtml(detailDto?.playtime ?? '')),
+                  dialogSubText(false, AppIcons.iconHoneyBottle, festivalInfoDto?.tel ?? '',)
                 ],
               ),
             )
@@ -69,7 +82,13 @@ class FestivalDialogWidget extends StatelessWidget {
     );
   }
 
-  Padding dialogSubText(String iconPath, String comment) {
+  /**
+   * Dialog Text
+   */
+  Padding dialogSubText(bool isAddress, String iconPath, String comment) {
+    // 텍스트 색상
+    var textColor = isAddress ? AppColors.blue : AppColors.black;
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(children: [
@@ -89,6 +108,7 @@ class FestivalDialogWidget extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontSize: SUB_SIZE,
                 height: 0.8,
+                color: textColor,
               ),
             ),
           ),
