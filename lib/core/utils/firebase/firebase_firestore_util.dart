@@ -62,18 +62,6 @@ class FirebaseFirestoreUtil {
     });
   }
 
-  /// User > uid > collectionPath > docId > collectionPath > docId 문서 참조 위치 반환
-  Future<DocumentReference?> getCollectionDocRefDocRef(String collectionPath, String docId, String collectionPath2, String docId2) async {
-    return await _executeWithUserDocRef<DocumentReference?>((userDocRef) async {
-      try {
-        return userDocRef.collection(collectionPath).doc(docId).collection(collectionPath2).doc(docId2);
-      } catch (e) {
-        _logger.e("Error getting document reference: $e");
-        return null;
-      }
-    });
-  }
-
   /// User 컬렉션에서 doc 문서들을 가져오는 함수
   Future<List<Map<String, dynamic>>> getDocumentsFromUser() async {
     try {

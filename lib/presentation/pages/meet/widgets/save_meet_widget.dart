@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/location_db.model.dart';
 import 'save_meet_list_item_widget.dart';
@@ -8,15 +10,17 @@ import 'save_meet_list_item_widget.dart';
 final Logger _logger = CustomLogger.logger;
 class SaveMeetWidget extends StatelessWidget {
   final List<LocationDbModel> locationsInfo;
+  final void Function()? onAddMeetLocation; // + 약속 추가하기 버튼 입력
+  final void Function()? onBtnAllDelete; // delete 모두 삭제 버튼
   const SaveMeetWidget ({
     super.key,
     required this.locationsInfo,
+    required this.onAddMeetLocation,
+    required this.onBtnAllDelete,
   });
 
   @override
   Widget build(BuildContext context) {
-    _logger.i('저장된 데이터 확인 -> ${locationsInfo[0].starting_point_list}'); // 저장된 데이터들 보여준다...
-    _logger.i('저장된 데이터 갯수 확인 -> ${locationsInfo.length}'); // 현재 저장 데이터 1개
     return Stack(
       children: [
         ListView.builder(
@@ -41,11 +45,49 @@ class SaveMeetWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: IconButton(
-              icon: Icon(Icons.menu_outlined, size: 30),
-              onPressed: () {
-                // 아이콘 버튼 클릭 시 동작
-              },
+            child: SpeedDial(
+              animatedIcon: AnimatedIcons.menu_close,
+              visible: true,
+              curve: Curves.bounceIn,
+              backgroundColor: AppColors.primary,
+              children: [
+                SpeedDialChild(
+                    child: const Icon(Icons.add, color: AppColors.onPrimary),
+                    label: "약속 추가하기",
+                    labelStyle: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackPolyLine80,
+                        fontSize: 13.0),
+                    backgroundColor: AppColors.primary,
+                    labelBackgroundColor: AppColors.primary,
+                    onTap: onAddMeetLocation),
+                SpeedDialChild(
+                  child: const Icon(
+                    Icons.delete_forever,
+                    color: AppColors.onPrimary,
+                  ),
+                  label: "모두 삭제",
+                  backgroundColor: AppColors.primary,
+                  labelBackgroundColor: AppColors.primary,
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w500, color: AppColors.blackPolyLine80, fontSize: 13.0),
+                  onTap: onBtnAllDelete,
+                )
+                ,SpeedDialChild(
+                  child: const Icon(
+                    Icons.delete,
+                    color: AppColors.onPrimary,
+                  ),
+                  label: "삭제",
+                  backgroundColor: AppColors.primary,
+                  labelBackgroundColor: AppColors.primary,
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w500, color: AppColors.blackPolyLine80, fontSize: 13.0),
+                  onTap: () {
+                    // 모두 삭제 확인 Dialog 출력 후 모두 삭제 진행
+                  },
+                )
+              ],
             ),
           ),
         ),

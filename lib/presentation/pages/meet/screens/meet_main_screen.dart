@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
 import '../../../main/common/component/widget/honey_progress_indicator.dart';
@@ -157,7 +159,45 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                 case MeetFireStoreStatus.success:
                   {
                     // 비로그인과 로그인 실패 -> 로그인 화면으로 넘기는 기능 필요 / 로그인 사용자( DB에 데이터가 없음 ) -> 출발지 입력 Dialog 실행 가능!!
-                    return SaveMeetWidget(locationsInfo: dbState.getLocationInfo,);
+                    return SaveMeetWidget(
+                      locationsInfo: dbState.getLocationInfo,
+                      onAddMeetLocation: () { // 약속 추가하기 버튼
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              StartAddressInputDialog(),
+                        ).then((value) {
+                          if (value != null) {
+                            var result = value as Map<String,dynamic>;
+
+                            final isUpdate = result['update'];
+
+                            _logger.i('로그인 사용자 -> Map 종료 값 확인 -> ${isUpdate}');
+                            if (isUpdate) {
+                              ref.read(meetFireStoreNotifierProvider.notifier).getLocationDB();
+                            }
+                          }
+                        });
+                      },
+                      onBtnAllDelete: () { // 모두 삭제 버튼
+                        // 모두 삭제 할건지 확인 팝업 제공 후 삭제
+                        CommonDialog.confirmDialog (
+                            context: context,
+                            title: '약속장소 모두 삭제',
+                            content: '저장된 약속장소를 모두\n삭제하시겠습니까?',
+                            btn1Text: '아니오',
+                            btn2Text: '네',
+                            onBtn1Pressed: (context) async {
+                              context.pop();
+                            },
+                            onBtn2Pressed: (context) async {
+                              _logger.i('FireStore DB Locations All Delete!!');
+                              ref.read(meetFireStoreNotifierProvider.notifier).deleteAllLocationDB();
+                              CommonUtils.showToastMsg('약속장소 정보를 모두 삭제합니다.');
+                              context.pop();
+                            });
+                      },
+                    );
                   }
               }
             }

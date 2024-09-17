@@ -73,7 +73,7 @@ class SaveMeetListItemWidget extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
                               child: Container(
-                                width: 180,
+                                width: 220,
                                 child: Text(
                                     locationModel.starting_point_list[index].address,
                                     style: TextStyle(

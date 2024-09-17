@@ -98,6 +98,21 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
     }
   }
 
+  /// ## Delete All Location info
+  Future<void> deleteAllLocationDB() async {
+    state = state.copyWith(
+      status: MeetFireStoreStatus.loading,
+    );
+
+    // Locations 삭제 진행
+    for (var model in state.getLocationInfo) {
+      await _locationRepo.deleteLocationAll(DBKey.DB_LOCATIONS, model.location_id);
+    }
+
+    // 삭제 이후 Locations DB get 하여 업데이트 진행
+    getLocationDB();
+
+  }
 
   /// ## Firebase Storage -> Marker에 사용할 이미지 Url Get
   Future<void> getMarkerImage() async {

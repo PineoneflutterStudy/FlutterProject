@@ -41,6 +41,7 @@ dependencies:
   equatable: ^2.0.5
 
   lottie: ^3.1.2 # Lottie 애니메이션 사용하기~!
+  flutter_speed_dial: ^6.2.0
 
   #freezed
   freezed_annotation: ^2.4.1 # 데이터 모델
