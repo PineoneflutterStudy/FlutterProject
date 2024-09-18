@@ -25,9 +25,6 @@ import '../widgets/common/map_loading_widget.dart';
 /**
  * 1. 출발위치 입력받아 가운데 지점 구하기
  * 2. 입력한 출발지 마크 표시
- * 3. 구하기 결과를 여러개 제시할 수 있도록
- * 4. Pix된 계획 친구들에게 링크 보내기
- *  - 하고싶은건 1번친구 링크 보내기 -> 카카오톡 친구 확인 -> 1번 친구에 해당하는 친구에게 Url링크로 바로 길찾기에 해당 루트 입력되도록.....
  */
 
 final Logger _logger = CustomLogger.logger;
@@ -151,7 +148,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                 CommonUtils.showToastMsg('약속장를 찾지 못하였습니다.\n출발지를 재입력해주세요.');
                 Navigator.of(context).pop(); // 종료.
                 // TODO 뭘 리턴해줘야 하지.. 일단 비어있는 컨테이너 return
-                return Container();
+                return MapLoadingWidget();
               }
             case MeetTourServiceStatus.success:
               {
@@ -185,7 +182,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                         onPopInvoked: (bool didPop) {
                           if (didPop) {
                             // IOS 뒤로가기 버튼, ButtonWidget이건 뒤로가기 제스쳐가 감지되면 호출 된다.
-                            print('didPop호출'); // todo ios에서만 발생하는거 같은데.... -> 확인 필요
+                            print('didPop호출');
                             return;
                           }
 

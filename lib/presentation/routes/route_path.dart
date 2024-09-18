@@ -11,6 +11,7 @@ class RoutePath{
   // ========== Meet ==========
   static const String meet = '/meet';
   static const String meetMap = '/meetMap';
+  static const String saveMeetMap = '/saveMeetMap';
   // ========== Meet ==========
   static const String user = '/user';
   static const String login = '/login';

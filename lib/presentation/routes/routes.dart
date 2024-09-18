@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '../../core/utils/logger.dart';
+import '../../domain/model/display/meet/location_db.model.dart';
 import '../../domain/model/display/meet/meet_address.model.dart';
 import '../main/main_screen.dart';
 import '../pages/home/home_page/home_screen.dart';
@@ -10,6 +11,7 @@ import '../pages/like/like_page.dart';
 import '../pages/login/login_page.dart';
 import '../pages/meet/meet_page.dart';
 import '../pages/meet/screens/meet_place_map_screen.dart';
+import '../pages/meet/screens/meet_save_place_map_screen.dart';
 import '../pages/plan/bloc/address_bloc/address_bloc.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/plan/screens/recommend/recommended_list_page.dart';
@@ -70,6 +72,14 @@ final GoRouter router = GoRouter(routes: [
     builder: (context, state){
       final addresses = state.extra as List<MeetAddressModel>;
       return MeetPlaceMapScreen(addresses: addresses);
+    },
+  ),
+  GoRoute(
+    path: RoutePath.saveMeetMap,
+    name: 'saveMeetMap',
+    builder: (context, state){
+      final addressModel = state.extra as LocationDbModel;
+      return MeetSavePlaceMapScreen(address: addressModel);
     },
   ),
   // ==================== Meet ====================
