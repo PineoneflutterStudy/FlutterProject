@@ -192,7 +192,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
               nextPlace['prev_address_info'] = prevPlace['cur_address_info'];
             }
 
-            pageItems.removeAt(placeIndex);
+            await pageItems.removeAt(placeIndex);
             updateFollowingPlaces(pageItems, placeIndex);
 
             await plannerDocRef.update({'planner_page_list': plannerPages,});

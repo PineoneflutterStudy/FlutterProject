@@ -21,18 +21,25 @@ final locator = GetIt.instance;
 void setLocator() {
   _data();
   _domain();
-  _likeModule();
 }
 
 void _data() {
   //mock api
   locator.registerSingleton<MockApi>(CtgrMockApi());
+
   //kakao api
-  final restClient = RestClient();
-  final dio = restClient.getDio;
-  dio.options.headers['Authorization'] = 'KakaoAK ${FlutterConfig.get('KAKAO_REST_API_KEY')}' ;
-  dio.options.baseUrl = 'https://dapi.kakao.com/v2/local/search/';
-  locator.registerSingleton<KakaoApi>(KakaoApi(dio));
+  final kakaoClient = RestClient();
+  final kakaoDio = kakaoClient.createDio();
+  kakaoDio.options.headers['Authorization'] = 'KakaoAK ${FlutterConfig.get('KAKAO_REST_API_KEY')}' ;
+  kakaoDio.options.baseUrl = 'https://dapi.kakao.com/v2/local/search/';
+  locator.registerSingleton<KakaoApi>(KakaoApi(kakaoDio));
+
+  //region api
+  final regionClient = RestClient();
+  final regionDio = regionClient.createDio();
+
+  regionDio.options.baseUrl = 'https://sgisapi.kostat.go.kr';
+  locator.registerLazySingleton<RegionApi>(() => RegionApi(regionDio));
 }
 
 void _domain() {
@@ -41,33 +48,15 @@ void _domain() {
       CommonRepositoryImpl(locator<MockApi>()));
   locator.registerSingleton<PlannerRepository>(
       PlannerRepositoryImpl(locator<KakaoApi>()));
+  locator.registerLazySingleton<RegionRepository>(
+          () => RegionRepositoryImpl(locator<RegionApi>()));
   //usecase
   locator.registerSingleton<DisplayUsecase>(
       DisplayUsecase(locator<DisplayRepository>()));
   locator.registerSingleton<PlannerUsecase>(
       PlannerUsecase(locator<PlannerRepository>()));
-}
-
-
-void _likeModule() {
-  // data
-  final client = RestClient();
-  final dio = client.getDio;
-
-  dio.options.baseUrl = 'https://sgisapi.kostat.go.kr';
-  locator.registerLazySingleton<RegionApi>(
-      () => RegionApi(dio)
-  );
-
-  // domain
-  // Repo
-  locator.registerLazySingleton<RegionRepository>(
-      () => RegionRepositoryImpl(locator<RegionApi>())
-  );
-  // Usecase
   locator.registerLazySingleton<RegionUsecase>(
-      () => RegionUsecase(locator<RegionRepository>())
+          () => RegionUsecase(locator<RegionRepository>())
   );
 }
-
 
