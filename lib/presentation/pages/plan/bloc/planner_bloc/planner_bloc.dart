@@ -192,7 +192,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
               nextPlace['prev_address_info'] = prevPlace['cur_address_info'];
             }
 
-            await pageItems.removeAt(placeIndex);
+            pageItems.removeAt(placeIndex);
             updateFollowingPlaces(pageItems, placeIndex);
 
             await plannerDocRef.update({'planner_page_list': plannerPages,});
@@ -223,7 +223,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
             pageItems[placeIndex]['stay_time'] = newStayTime;
             pageItems[placeIndex]['end_time'] = newEndTime;
 
-            updateFollowingPlaces(pageItems, placeIndex);
+            updateFollowingPlaces(pageItems, placeIndex+1);
 
             await plannerDocRef.update({'planner_page_list': plannerPages,});
             await _onGetPlannerList(emit, plannerIndex, pageIndex);
@@ -288,7 +288,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   }
 
   void updateFollowingPlaces(List pageItems, int placeIndex) {
-    for (int i = placeIndex + 1; i < pageItems.length; i++) {
+    for (int i = placeIndex; i < pageItems.length; i++) {
       var prevEndTime = pageItems[i - 1]['end_time'];
       var travelTime = pageItems[i]['travel_time'];
       var stayTime = pageItems[i]['stay_time'];
