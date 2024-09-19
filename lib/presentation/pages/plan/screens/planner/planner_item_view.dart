@@ -10,15 +10,16 @@ import '../../dialog/edit_place_popup.dart';
 import '../../utils/plan_util.dart';
 
 class PlannerItemView extends StatelessWidget with PlanUtil{
-  final int pageIndex;
+  final String plannerId;
   final int plannerIndex;
+  final int pageIndex;
   final String location;
   final PlannerItem plan;
   final int curItemIndex;
   final int lastIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
-  PlannerItemView({required this.plannerIndex,required this.pageIndex, required this.location, required this.plan, required this.curItemIndex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  PlannerItemView({required this.plannerId, required this.plannerIndex,required this.pageIndex, required this.location, required this.plan, required this.curItemIndex,required this.lastIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -138,14 +139,14 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
       );
 
       // PlannerBloc에 이벤트 추가
-      plannerBloc.add(PlannerEvent.addPlace(plannerIndex, pageIndex, plannerItem));
+      plannerBloc.add(PlannerEvent.addPlace(plannerId, plannerIndex, pageIndex, plannerItem));
     });
   }
 
   void _showEditPlacePopup(BuildContext context){
     showDialog(
       context: context,
-      builder: (BuildContext context) => EditPlacePopup(plannerIndex: plannerIndex,pageIndex: pageIndex, placeIndex: curItemIndex, place: plan, plannerBloc: plannerBloc),
+      builder: (BuildContext context) => EditPlacePopup(plannerId: plannerId, plannerIndex: plannerIndex,pageIndex: pageIndex, placeIndex: curItemIndex, place: plan, plannerBloc: plannerBloc),
     );
   }
 }

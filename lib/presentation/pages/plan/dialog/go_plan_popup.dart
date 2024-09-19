@@ -50,7 +50,7 @@ class _GoPlanPopupState extends State<GoPlanPopup> {
             final pageFirstItem = PlannerItem(cur_address_info: addressInfo, place_name: destination, end_time: arrivalTime);
             final plannerFirstPage = PlannerPage(location:destination, page_item_list: [pageFirstItem]);
             final planner = Planner(
-              planner_index: widget.index,
+              planner_id: DateTime.now().millisecondsSinceEpoch.toString(),
               planner_title: "$destination 여행",
               planner_page_list: [plannerFirstPage],
             );

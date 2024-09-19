@@ -12,7 +12,7 @@ class HoneyProgressIndicator extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      child: Center(child: LottieBuilder.asset(AppIcons.loadingLottie)),
+      child: Center(child: LottieBuilder.asset(AppIcons.loadingLottie, width: 150, height: 150,)),
     );
   }
 }

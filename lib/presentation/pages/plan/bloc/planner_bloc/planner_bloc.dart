@@ -26,14 +26,14 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
         checkLoginState: () async => await _onCheckLoginState(emit),
         getPlannerList: (plannerIndex, pageIndex) async => await _onGetPlannerList(emit, plannerIndex, pageIndex),
         addPlanner: (planner) async => await _onAddPlanner(emit, planner),
-        addNextPage: (plannerIndex, location, startPlace) async => await _onAddNextPage(emit, plannerIndex, location, startPlace),
-        addPlace: (plannerIndex, index, plannerItem) async => await _onAddPlace(emit, plannerIndex, index, plannerItem),
+        addNextPage: (plannerId,plannerIndex, location, startPlace) async => await _onAddNextPage(emit, plannerId, plannerIndex, location, startPlace),
+        addPlace: (plannerId,plannerIndex, index, plannerItem) async => await _onAddPlace(emit, plannerId, plannerIndex, index, plannerItem),
         selected: (selectedIndex) async => await _onUpdateSelected(emit, selectedIndex),
-        deletePlanner: (plannerIndex) async => await _onDeletePlanner(emit, plannerIndex),
-        deletePage:(plannerIndex, pageIndex) async => await _onDeletePage(emit, plannerIndex, pageIndex),
-        deletePlace: (plannerIndex, pageIndex, placeIndex) async => await _onDeletePlace(emit, plannerIndex, pageIndex, placeIndex),
-        updateStayTime: (plannerIndex, pageIndex, placeIndex, newStayTime) async => await _onUpdatePlaceStayTime(emit, plannerIndex, pageIndex, placeIndex, newStayTime),
-        updateTransportation: (plannerIndex,pageIndex,placeIndex,transportation,travelTime, changeStay, stayTime) async => await _onUpdatePlaceTransportation(emit, plannerIndex, pageIndex, placeIndex, transportation, travelTime, changeStay, stayTime),
+        deletePlanner: (plannerId) async => await _onDeletePlanner(emit, plannerId),
+        deletePage:(plannerId, plannerIndex, pageIndex) async => await _onDeletePage(emit, plannerId, plannerIndex, pageIndex),
+        deletePlace: (plannerId, plannerIndex, pageIndex, placeIndex) async => await _onDeletePlace(emit, plannerId, plannerIndex, pageIndex, placeIndex),
+        updateStayTime: (plannerId, plannerIndex, pageIndex, placeIndex, newStayTime) async => await _onUpdatePlaceStayTime(emit, plannerId, plannerIndex, pageIndex, placeIndex, newStayTime),
+        updateTransportation: (plannerId, plannerIndex,pageIndex,placeIndex,transportation,travelTime, changeStay, stayTime) async => await _onUpdatePlaceTransportation(emit, plannerId, plannerIndex, pageIndex, placeIndex, transportation, travelTime, changeStay, stayTime),
       );
     });
   }
@@ -66,7 +66,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   /// 여행계획 추가
   // 카테고리에서 추가하는 경우, 처음 여행계획 추가하는 경우
   Future<void> _onAddPlanner(Emitter<PlannerState> emit, Planner newPlanner) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, newPlanner.planner_index.toString());
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, newPlanner.planner_id);
     if (plannerDocRef != null) {
       await firestore.setDocument(plannerDocRef, newPlanner.toJson());
     } else {
@@ -83,8 +83,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   }
 
   /// 여행계획 다음날 계획 추가
-  Future<void> _onAddNextPage(Emitter<PlannerState> emit, int plannerIndex, String location, PlannerItem startPlace) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onAddNextPage(Emitter<PlannerState> emit, String plannerId, int plannerIndex, String location, PlannerItem startPlace) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
 
@@ -107,8 +107,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   }
 
   /// 계획에 장소 추가하기
-  Future<void> _onAddPlace(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, PlannerItem newPlannerItem) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onAddPlace(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex, PlannerItem newPlannerItem) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
 
@@ -133,8 +133,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   }
 
   /// 현재 Planner 삭제 > 첫번째 item으로 포커스
-  Future<void> _onDeletePlanner(Emitter<PlannerState> emit, int plannerIndex) async {
-    var docRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onDeletePlanner(Emitter<PlannerState> emit, String plannerId) async {
+    var docRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (docRef != null) {
       firestore.deleteDocument(docRef);
       await _onGetPlannerList(emit,0,0);
@@ -144,8 +144,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
   }
 
   /// 현재 page 삭제 > 첫번째 Page로 포커스
-  Future<void> _onDeletePage(Emitter<PlannerState> emit, int plannerIndex, int pageIndex) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onDeletePage(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
 
@@ -165,8 +165,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     }
   }
 
-  Future<void> _onDeletePlace(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onDeletePlace(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex, int placeIndex) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
       if (plannerData != null) {
@@ -207,8 +207,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     }
   }
 
-  Future<void> _onUpdatePlaceStayTime(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String newStayTime) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onUpdatePlaceStayTime(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex, int placeIndex, String newStayTime) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
       if (plannerData != null) {
@@ -237,8 +237,8 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     }
   }
 
-  Future<void> _onUpdatePlaceTransportation(Emitter<PlannerState> emit, int plannerIndex, int pageIndex, int placeIndex, String transportation, String newTravelTime, bool changeStay, String newStayTime) async {
-    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerIndex.toString());
+  Future<void> _onUpdatePlaceTransportation(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex, int placeIndex, String transportation, String newTravelTime, bool changeStay, String newStayTime) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
     if (plannerDocRef != null) {
       Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
       if (plannerData != null) {
@@ -258,7 +258,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
             await plannerDocRef.update({'planner_page_list': plannerPages,});
 
             if(changeStay){
-              await _onUpdatePlaceStayTime(emit, plannerIndex, pageIndex, placeIndex, newStayTime);
+              await _onUpdatePlaceStayTime(emit, plannerId, plannerIndex, pageIndex, placeIndex, newStayTime);
             }else{
               await _onGetPlannerList(emit, plannerIndex, pageIndex);
             }

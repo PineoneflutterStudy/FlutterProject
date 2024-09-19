@@ -10,7 +10,7 @@ part 'planner.model.g.dart';
 class Planner with _$Planner {
   @JsonSerializable(explicitToJson: true)
   const factory Planner({
-    required int planner_index,
+    required String planner_id,
     @Default('plan') String planner_title,
     @Default([]) List<PlannerPage> planner_page_list,
   }) = _Planner;

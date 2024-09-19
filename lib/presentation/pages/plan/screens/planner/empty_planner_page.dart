@@ -21,6 +21,17 @@ class EmptyPlannerPage extends StatelessWidget with PlanUtil{
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          GestureDetector(
+            onTap: () async {
+              final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
+              if (result != null && result.containsKey('planner')) {
+                Planner planner = result['planner']!;
+                plannerBloc.add(PlannerEvent.addPlanner(planner));
+              }
+            },
+            child: Image.asset(AppIcons.mangmung3, width: 200, height: 200),
+          ),
+          const SizedBox(height: 10),
           Center(
             child: Text.rich(
               TextSpan(
@@ -30,17 +41,6 @@ class EmptyPlannerPage extends StatelessWidget with PlanUtil{
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          GestureDetector(
-            onTap: () async {
-              final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
-              if (result != null && result.containsKey('planner')) {
-                Planner planner = result['planner']!;
-                plannerBloc.add(PlannerEvent.addPlanner(planner));
-              }
-            },
-            child: Image.asset(AppIcons.mangmung3, width: 70, height: 70),
           ),
         ],
       ),

@@ -87,14 +87,14 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                           controller: _pageController,
                           itemCount: plannerList[selectedIndex].planner_page_list.length,
                           itemBuilder: (context, index) {
-                            return PageItemView(plannerIndex: plannerList[selectedIndex].planner_index, planner: plannerList[selectedIndex].planner_page_list[index], pageIndex:  index, addressBloc:  widget.addressBloc, plannerBloc: widget.plannerBloc);
+                            return PageItemView(plannerId: plannerList[selectedIndex].planner_id, plannerIndex: selectedIndex, planner: plannerList[selectedIndex].planner_page_list[index], pageIndex:  index, addressBloc:  widget.addressBloc, plannerBloc: widget.plannerBloc);
                           },
                           pageSnapping: true),
                     ),
                   ),
                 ],
               ),
-              floatingActionButton: _buildFab(context, plannerList[selectedIndex]),
+              floatingActionButton: _buildFab(context, plannerList[selectedIndex], selectedIndex),
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             );
           },
@@ -163,13 +163,13 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
     return categoryWidgets;
   }
 
-  Widget _buildFab(BuildContext context, Planner selected) {
+  Widget _buildFab(BuildContext context, Planner selected, int plannerIndex) {
     final icons = [Icons.add, Icons.delete];
     return PlannerFabWidget(
       icons: icons,
       onIconTapped: (index) {
         if (index == 0) { // add btn
-          _showAddNextPlanPopup(context, selected, selected.planner_page_list.length);
+          _showAddNextPlanPopup(context, selected, plannerIndex,selected.planner_page_list.length);
         } else { // delete btn
           _showDeletePlanPopup(context, selected);
         }
@@ -177,7 +177,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
     );
   }
 
-  void _showAddNextPlanPopup(BuildContext context, Planner selected, int index) {
+  void _showAddNextPlanPopup(BuildContext context, Planner selected, int plannerIndex, int index) {
     var currentPage = selected.planner_page_list[index-1];
     var lastPlace = currentPage.page_item_list.last;
     showDialog(
@@ -186,7 +186,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
     ).then((result) {
       if (result != null) {
         print(result);
-        widget.plannerBloc.add(PlannerEvent.addNextPage(selected.planner_index, currentPage.location, result['startPlace']));
+        widget.plannerBloc.add(PlannerEvent.addNextPage(selected.planner_id, plannerIndex, currentPage.location, result['startPlace']));
       }
     });
   }
@@ -201,7 +201,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       onBtn1Pressed: (context) => context.pop(),
       onBtn2Pressed: (context) => {
         context.pop(),
-        widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_index))
+        widget.plannerBloc.add(PlannerEvent.deletePlanner(selected.planner_id))
       },
     );
   }

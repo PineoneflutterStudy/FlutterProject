@@ -8,7 +8,7 @@ part of 'planner.model.dart';
 
 _$PlannerImpl _$$PlannerImplFromJson(Map<String, dynamic> json) =>
     _$PlannerImpl(
-      planner_index: (json['planner_index'] as num).toInt(),
+      planner_id: json['planner_id'] as String,
       planner_title: json['planner_title'] as String? ?? 'plan',
       planner_page_list: (json['planner_page_list'] as List<dynamic>?)
               ?.map((e) => PlannerPage.fromJson(e as Map<String, dynamic>))
@@ -18,7 +18,7 @@ _$PlannerImpl _$$PlannerImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PlannerImplToJson(_$PlannerImpl instance) =>
     <String, dynamic>{
-      'planner_index': instance.planner_index,
+      'planner_id': instance.planner_id,
       'planner_title': instance.planner_title,
       'planner_page_list':
           instance.planner_page_list.map((e) => e.toJson()).toList(),

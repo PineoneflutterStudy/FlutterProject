@@ -11,13 +11,14 @@ import '../../../../../core/theme/constant/app_colors.dart';
 
 /// 여행계획 Item View
 class PageItemView extends StatefulWidget {
+  final String plannerId;
   final int plannerIndex;
   final PlannerPage planner;
   final int pageIndex;
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
 
-  const PageItemView({required this.plannerIndex, required this.planner,required this.pageIndex,required this.addressBloc,required this.plannerBloc, super.key});
+  const PageItemView({required this.plannerId, required this.plannerIndex, required this.planner,required this.pageIndex,required this.addressBloc,required this.plannerBloc, super.key});
 
   @override
   State<PageItemView> createState() => _PageItemViewState();
@@ -41,7 +42,7 @@ class _PageItemViewState extends State<PageItemView> {
       onBtn1Pressed: (context) => context.pop(),
       onBtn2Pressed: (context) => {
         context.pop(),
-        widget.plannerBloc.add(PlannerEvent.deletePage(widget.plannerIndex, widget.pageIndex))
+        widget.plannerBloc.add(PlannerEvent.deletePage(widget.plannerId, widget.plannerIndex, widget.pageIndex))
       },
     );
   }
@@ -61,7 +62,8 @@ class _PageItemViewState extends State<PageItemView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(" Day ${widget.pageIndex + 1}", style: TextStyle(fontSize: 28)),
-                  IconButton(onPressed: ()=> _showDeletePagePopup(context), icon: Icon(Icons.delete_outline_rounded, color: AppColors.error), padding: EdgeInsets.zero)
+                  if(widget.pageIndex != 0)
+                    IconButton(onPressed: ()=> _showDeletePagePopup(context), icon: Icon(Icons.delete_outline_rounded, color: AppColors.error), padding: EdgeInsets.zero)
                 ],
               ),
               SizedBox(height: 16), // Text와 ListView 사이의 간격
@@ -75,6 +77,7 @@ class _PageItemViewState extends State<PageItemView> {
                     itemCount: widget.planner.page_item_list.length,
                     itemBuilder: (context, index) {
                       return PlannerItemView(
+                          plannerId: widget.plannerId,
                           pageIndex: widget.pageIndex,
                           plannerIndex: widget.plannerIndex,
                           plan: widget.planner.page_item_list[index],

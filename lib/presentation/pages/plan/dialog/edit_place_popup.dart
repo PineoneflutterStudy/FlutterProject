@@ -10,13 +10,14 @@ import '../utils/plan_util.dart';
 
 /// 장소 수정하기 팝업
 class EditPlacePopup extends StatefulWidget {
+  final String plannerId;
   final int plannerIndex;
   final int pageIndex;
   final int placeIndex;
   final PlannerItem place;
   final PlannerBloc plannerBloc;
 
-  const EditPlacePopup({super.key, required this.plannerIndex, required this.pageIndex, required this.placeIndex, required this.place, required this.plannerBloc});
+  const EditPlacePopup({super.key, required this.plannerId, required this.plannerIndex, required this.pageIndex, required this.placeIndex, required this.place, required this.plannerBloc});
 
   @override
   State<EditPlacePopup> createState() => _EditPlacePopupState();
@@ -55,9 +56,9 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
 
     if(changeStay || changeTrans){
       if(changeStay && !changeTrans){
-        widget.plannerBloc.add(PlannerEvent.updateStayTime(widget.plannerIndex, widget.pageIndex, widget.placeIndex, newStayTime));
+        widget.plannerBloc.add(PlannerEvent.updateStayTime(widget.plannerId, widget.plannerIndex, widget.pageIndex, widget.placeIndex, newStayTime));
       }else{
-        widget.plannerBloc.add(PlannerEvent.updateTransportation(widget.plannerIndex, widget.pageIndex, widget.placeIndex, newTransportation, newTravelTime, changeStay ,newStayTime));
+        widget.plannerBloc.add(PlannerEvent.updateTransportation(widget.plannerId, widget.plannerIndex, widget.pageIndex, widget.placeIndex, newTransportation, newTravelTime, changeStay ,newStayTime));
       }
     }
     Navigator.of(context).pop();
@@ -72,7 +73,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
       onBtn1Pressed: (context) => context.pop(),
       onBtn2Pressed: (context) => {
         context.pop(),
-        widget.plannerBloc.add(PlannerEvent.deletePlace(widget.plannerIndex, widget.pageIndex, widget.placeIndex)),
+        widget.plannerBloc.add(PlannerEvent.deletePlace(widget.plannerId, widget.plannerIndex, widget.pageIndex, widget.placeIndex)),
         context.pop(),
       },
     );

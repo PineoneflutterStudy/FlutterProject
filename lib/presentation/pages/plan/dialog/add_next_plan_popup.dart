@@ -26,7 +26,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> with PlanUtil {
   late TimeOfDay selectedTime;
   late String searchText;
   late Address startPlace;
-  late String placeId;
+  late String startPlaceId;
 
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> with PlanUtil {
     // 출발 위치를 마지막 장소로 초기 설정
     searchText = widget.lastPlace.addressName;
     startPlace = widget.lastPlace;
+    startPlaceId = widget.lastPlaceId;
     selectedTime = TimeOfDay(hour: 10, minute: 0);
   }
 
@@ -44,7 +45,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> with PlanUtil {
     }else{
       var place = PlannerItem(
           cur_address_info: startPlace,
-          cur_place_id: placeId,
+          cur_place_id: startPlaceId,
           place_name: startPlace.addressName,
           end_time: selectedTime.format(context));
       Navigator.of(context).pop({'startPlace' : place});
@@ -56,7 +57,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> with PlanUtil {
     context.pushNamed('rcmn', queryParameters: {'location': widget.location, 'category': 'AD5'}, extra: widget.addressBloc).then((value) {
       var result = value as Map<String,dynamic>;
       var address = result['address_info'] as Address?;
-      placeId = result['place_id'].toString();
+      startPlaceId = result['place_id'].toString();
       startPlace = address ?? widget.lastPlace;
       setState(() {
         searchText = address?.addressName ?? widget.lastPlace.addressName;
