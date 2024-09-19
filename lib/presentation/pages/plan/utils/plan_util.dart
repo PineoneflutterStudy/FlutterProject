@@ -58,6 +58,10 @@ mixin PlanUtil {
     return finalConsonantIndex == 0 ? '를' : '을';
   }
 
+  /// word + 을/를 반환
+  String addParticle(String word) {
+    return'$word${getParticle(word)}';
+  }
 
   /// 여행지 입력 팝업
   // init_planner_page, planner_page 에서 사용

@@ -192,7 +192,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   _showSelectStartPlacePopup(BuildContext context, Place place) {
     CommonDialog.confirmDialog(
       context: context,
-      title: '${place.placeName}${getParticle(place.placeName)} \n출발지로 지정하시겠습니까?',
+      title: '${addParticle(place.placeName)} \n출발지로 지정하시겠습니까?',
       btn1Text: '아니요',
       btn2Text: '네',
       onBtn1Pressed: (context) => context.pop(),

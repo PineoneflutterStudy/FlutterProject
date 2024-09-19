@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../domain/model/display/plan/transportation.dart';
+import '../../../main/common/component/dialog/common_dialog.dart';
 import '../bloc/planner_bloc/planner_bloc.dart';
 import '../utils/plan_util.dart';
 
@@ -62,6 +63,21 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
     Navigator.of(context).pop();
   }
 
+  void _deletePlace() {
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '\'${widget.place.place_name}\'${getParticle(widget.place.place_name)}\n정말 삭제하시겠습니까?',
+      btn1Text: '아니요',
+      btn2Text: '네',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => {
+        context.pop(),
+        widget.plannerBloc.add(PlannerEvent.deletePlace(widget.plannerIndex, widget.pageIndex, widget.placeIndex)),
+        context.pop(),
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -89,8 +105,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                             value: value, child: Text(value.toString()));
                       }).toList(),
                       onChanged: (newValue) => setState(() => selectedTime =
-                          TimeOfDay(
-                              hour: newValue ?? 1, minute: selectedTime.minute)),
+                          TimeOfDay(hour: newValue ?? 1, minute: selectedTime.minute)),
                     ),
                   ),
                   SizedBox(width: 10),
@@ -181,9 +196,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
               Row(
                 children: [
                   Expanded(child: ElevatedButton(
-                    onPressed: () {
-                      //todo 장소 삭제 event
-                    },
+                    onPressed: _deletePlace,
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

@@ -62,7 +62,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
                         ),
                       ),
                       if (curItemIndex != 0)
-                        IconButton(icon: Icon(Icons.edit, color: AppColors.contentSecondary), iconSize: 20, padding: EdgeInsets.zero, onPressed: () => _showEditPlacePopup(context)),
+                        IconButton(icon: Icon(Icons.edit_calendar_rounded, color: AppColors.contentSecondary), iconSize: 18, padding: EdgeInsets.zero, onPressed: () => _showEditPlacePopup(context)),
                     ],
                   ),
                 ],
@@ -138,7 +138,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
       );
 
       // PlannerBloc에 이벤트 추가
-      plannerBloc.add(PlannerEvent.addPlannerItem(plannerIndex, pageIndex, plannerItem));
+      plannerBloc.add(PlannerEvent.addPlace(plannerIndex, pageIndex, plannerItem));
     });
   }
 

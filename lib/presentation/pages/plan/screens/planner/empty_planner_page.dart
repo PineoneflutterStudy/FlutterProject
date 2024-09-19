@@ -25,8 +25,8 @@ class EmptyPlannerPage extends StatelessWidget with PlanUtil{
             child: Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: "댕꿀트립🍯", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 25)),
+                  TextSpan(text: "댕꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 27)),
                 ],
               ),
             ),
@@ -40,7 +40,7 @@ class EmptyPlannerPage extends StatelessWidget with PlanUtil{
                 plannerBloc.add(PlannerEvent.addPlanner(planner));
               }
             },
-            child: Image.asset(AppIcons.mangmung3, width: 50, height: 50),
+            child: Image.asset(AppIcons.mangmung3, width: 70, height: 70),
           ),
         ],
       ),
