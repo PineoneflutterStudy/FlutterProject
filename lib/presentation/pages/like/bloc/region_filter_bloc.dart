@@ -7,15 +7,15 @@ import '../../../../domain/model/display/like/access_token.dart';
 import '../../../../domain/model/display/like/region.dart';
 import '../../../../domain/model/display/like/region_list.dart';
 import '../../../../domain/model/display/like/region_select.dart';
+import '../utils/region_util.dart';
 
 part 'region_filter_event.dart';
 part 'region_filter_state.dart';
 part 'region_filter_bloc.freezed.dart';
 
-class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
-  final RegionRepository repository;
+class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> with RegionUtil {
 
-  RegionFilterBloc({required this.repository}) : super(RegionFilterState()) {
+  RegionFilterBloc() : super(RegionFilterState()) {
     on<RegionFilterEvent>((event, emit) async {
       await event.map(
         started: (e) async => await _onStarted(emit),
@@ -29,9 +29,9 @@ class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
 
   Future<void> _onStarted(Emitter<RegionFilterState> emit) async {
     print('on Started');
-    AccessTokenModel accessToken = await repository.getAccessToken();
+    AccessTokenModel accessToken = await getAccessTokenModel();
     List<RegionModel> responseAddress =
-      await repository.getRegionAddr(accessToken.accessToken,null);
+      await getRegionList(accessToken.accessToken, null);
 
     emit(state.copyWith(
       status: RegionStatus.showMajor,
@@ -47,9 +47,9 @@ class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
   ) async {
     print('Major 선택');
 
-    AccessTokenModel accessToken = await repository.getAccessToken();
+    AccessTokenModel accessToken = await getAccessTokenModel();
     List<RegionModel> responseAddress =
-      await repository.getRegionAddr(accessToken.accessToken, cd,);
+      await getRegionList(accessToken.accessToken, cd);
 
     emit(state.copyWith(
       status: RegionStatus.showMiddle,
@@ -63,9 +63,9 @@ class RegionFilterBloc extends Bloc<RegionFilterEvent, RegionFilterState> {
     String cd,
     RegionSelectModel selectAddr,
   ) async {
-    AccessTokenModel accessToken = await repository.getAccessToken();
+    AccessTokenModel accessToken = await getAccessTokenModel();
     List<RegionModel> responseAddress =
-      await repository.getRegionAddr(accessToken.accessToken, cd,);
+      await getRegionList(accessToken.accessToken, cd);
 
     emit(state.copyWith(
       status: RegionStatus.showMinor,

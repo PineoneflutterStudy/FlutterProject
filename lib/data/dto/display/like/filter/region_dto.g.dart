@@ -10,17 +10,24 @@ _$RegionDtoImpl _$$RegionDtoImplFromJson(Map<String, dynamic> json) =>
     _$RegionDtoImpl(
       id: json['id'] as String?,
       result: (json['result'] as List<dynamic>?)
-          ?.map((e) => Result.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ResultDto.fromJson(e as Map<String, dynamic>))
           .toList(),
+      errMsg: json['errMsg'] as String,
+      errCd: (json['errCd'] as num).toInt(),
+      trId: json['trId'] as String,
     );
 
 Map<String, dynamic> _$$RegionDtoImplToJson(_$RegionDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'result': instance.result,
+      'errMsg': instance.errMsg,
+      'errCd': instance.errCd,
+      'trId': instance.trId,
     };
 
-_$ResultImpl _$$ResultImplFromJson(Map<String, dynamic> json) => _$ResultImpl(
+_$ResultDtoImpl _$$ResultDtoImplFromJson(Map<String, dynamic> json) =>
+    _$ResultDtoImpl(
       y_coor: json['y_coor'] as String?,
       full_addr: json['full_addr'] as String?,
       x_coor: json['x_coor'] as String?,
@@ -28,7 +35,7 @@ _$ResultImpl _$$ResultImplFromJson(Map<String, dynamic> json) => _$ResultImpl(
       cd: json['cd'] as String?,
     );
 
-Map<String, dynamic> _$$ResultImplToJson(_$ResultImpl instance) =>
+Map<String, dynamic> _$$ResultDtoImplToJson(_$ResultDtoImpl instance) =>
     <String, dynamic>{
       'y_coor': instance.y_coor,
       'full_addr': instance.full_addr,

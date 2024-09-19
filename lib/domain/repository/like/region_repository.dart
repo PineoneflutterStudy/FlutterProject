@@ -1,39 +1,15 @@
-import '../../../data/data_source/api/region/region_impl_api.dart';
-
 import '../../model/display/like/access_token.dart';
 import '../../model/display/like/region.dart';
-import 'abstract_region_repository.dart';
+import '../repository.dart';
 
-class RegionRepository extends AbstractRegionRepository {
-  final RegionImplApi regionImplApi;
+abstract class RegionRepository extends Repository {
 
-  RegionRepository(this.regionImplApi);
-
-  @override
-  Future<AccessTokenModel> getAccessToken() async {
-     final entity = await regionImplApi.getAccessToken();
-     final accessToken = entity.result?.accessToken;
-     return AccessTokenModel(accessToken: accessToken ?? "");
-  }
-
-  @override
-  Future<List<RegionModel>> getRegionAddr(String accessToken, String? cd) async {
-    final List<RegionModel> resultList = [];
-
-    final entity = await regionImplApi.getRegion(accessToken, cd ?? "");
-    final regionList = entity.result;
-
-    if (regionList != null && regionList.isNotEmpty) {
-      for (var region in regionList) {
-        resultList.add(
-          RegionModel(
-            cd: region.cd!,
-            addr: region.addr_name!,
-          )
-        );
-      }
-    }
-
-    return resultList;
-  }
+  Future<AccessTokenModel> getAccessToken({
+    required String consumer_key,
+    required String consumer_secret,
+  });
+  Future<List<RegionModel>> getRegion({
+    required String accessToken,
+    required String? cd
+  });
 }

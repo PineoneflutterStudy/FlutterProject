@@ -1,19 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'region_button_widget.dart';
 import 'region_list_widget.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
-import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
-import '../../../../../data/data_source/api/region/region_impl_api.dart';
 import '../../../../../data/repository_impl/like/like_place_repository_impl.dart';
 import '../../../../../domain/model/display/like/region_list.dart';
 import '../../../../../domain/model/display/like/region_select.dart';
-import '../../../../../domain/repository/like/region_repository.dart';
 import '../../../../../domain/usecase/like/place/like_place.usecase.dart';
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/like_place/like_place_bloc.dart';
@@ -22,7 +17,6 @@ import '../common/like_loading_page.dart';
 import 'region_select_widget.dart';
 
 class RegionWidget extends StatelessWidget {
-  final RegionRepository repository = RegionRepository(RegionImplApi());
   final LikePlaceUsecase _likePlaceUsecase = LikePlaceUsecase(
       LikePlaceRepositoryImpl(FirebaseFirestoreUtil())
   );
@@ -31,7 +25,7 @@ class RegionWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) =>
-          RegionFilterBloc(repository: repository)
+          RegionFilterBloc()
             ..add(RegionFilterEvent.started())
         ),
         BlocProvider(create: (context) =>

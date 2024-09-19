@@ -21,7 +21,10 @@ RegionDto _$RegionDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RegionDto {
   String? get id => throw _privateConstructorUsedError;
-  List<Result>? get result => throw _privateConstructorUsedError;
+  List<ResultDto>? get result => throw _privateConstructorUsedError;
+  String get errMsg => throw _privateConstructorUsedError;
+  int get errCd => throw _privateConstructorUsedError;
+  String get trId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +37,12 @@ abstract class $RegionDtoCopyWith<$Res> {
   factory $RegionDtoCopyWith(RegionDto value, $Res Function(RegionDto) then) =
       _$RegionDtoCopyWithImpl<$Res, RegionDto>;
   @useResult
-  $Res call({String? id, List<Result>? result});
+  $Res call(
+      {String? id,
+      List<ResultDto>? result,
+      String errMsg,
+      int errCd,
+      String trId});
 }
 
 /// @nodoc
@@ -52,6 +60,9 @@ class _$RegionDtoCopyWithImpl<$Res, $Val extends RegionDto>
   $Res call({
     Object? id = freezed,
     Object? result = freezed,
+    Object? errMsg = null,
+    Object? errCd = null,
+    Object? trId = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -61,7 +72,19 @@ class _$RegionDtoCopyWithImpl<$Res, $Val extends RegionDto>
       result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as List<Result>?,
+              as List<ResultDto>?,
+      errMsg: null == errMsg
+          ? _value.errMsg
+          : errMsg // ignore: cast_nullable_to_non_nullable
+              as String,
+      errCd: null == errCd
+          ? _value.errCd
+          : errCd // ignore: cast_nullable_to_non_nullable
+              as int,
+      trId: null == trId
+          ? _value.trId
+          : trId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -74,7 +97,12 @@ abstract class _$$RegionDtoImplCopyWith<$Res>
       __$$RegionDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, List<Result>? result});
+  $Res call(
+      {String? id,
+      List<ResultDto>? result,
+      String errMsg,
+      int errCd,
+      String trId});
 }
 
 /// @nodoc
@@ -90,6 +118,9 @@ class __$$RegionDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? result = freezed,
+    Object? errMsg = null,
+    Object? errCd = null,
+    Object? trId = null,
   }) {
     return _then(_$RegionDtoImpl(
       id: freezed == id
@@ -99,7 +130,19 @@ class __$$RegionDtoImplCopyWithImpl<$Res>
       result: freezed == result
           ? _value._result
           : result // ignore: cast_nullable_to_non_nullable
-              as List<Result>?,
+              as List<ResultDto>?,
+      errMsg: null == errMsg
+          ? _value.errMsg
+          : errMsg // ignore: cast_nullable_to_non_nullable
+              as String,
+      errCd: null == errCd
+          ? _value.errCd
+          : errCd // ignore: cast_nullable_to_non_nullable
+              as int,
+      trId: null == trId
+          ? _value.trId
+          : trId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,7 +150,12 @@ class __$$RegionDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$RegionDtoImpl implements _RegionDto {
-  const _$RegionDtoImpl({required this.id, required final List<Result>? result})
+  const _$RegionDtoImpl(
+      {required this.id,
+      required final List<ResultDto>? result,
+      required this.errMsg,
+      required this.errCd,
+      required this.trId})
       : _result = result;
 
   factory _$RegionDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -115,9 +163,9 @@ class _$RegionDtoImpl implements _RegionDto {
 
   @override
   final String? id;
-  final List<Result>? _result;
+  final List<ResultDto>? _result;
   @override
-  List<Result>? get result {
+  List<ResultDto>? get result {
     final value = _result;
     if (value == null) return null;
     if (_result is EqualUnmodifiableListView) return _result;
@@ -126,8 +174,15 @@ class _$RegionDtoImpl implements _RegionDto {
   }
 
   @override
+  final String errMsg;
+  @override
+  final int errCd;
+  @override
+  final String trId;
+
+  @override
   String toString() {
-    return 'RegionDto(id: $id, result: $result)';
+    return 'RegionDto(id: $id, result: $result, errMsg: $errMsg, errCd: $errCd, trId: $trId)';
   }
 
   @override
@@ -136,13 +191,16 @@ class _$RegionDtoImpl implements _RegionDto {
         (other.runtimeType == runtimeType &&
             other is _$RegionDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._result, _result));
+            const DeepCollectionEquality().equals(other._result, _result) &&
+            (identical(other.errMsg, errMsg) || other.errMsg == errMsg) &&
+            (identical(other.errCd, errCd) || other.errCd == errCd) &&
+            (identical(other.trId, trId) || other.trId == trId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, const DeepCollectionEquality().hash(_result));
+  int get hashCode => Object.hash(runtimeType, id,
+      const DeepCollectionEquality().hash(_result), errMsg, errCd, trId);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +219,10 @@ class _$RegionDtoImpl implements _RegionDto {
 abstract class _RegionDto implements RegionDto {
   const factory _RegionDto(
       {required final String? id,
-      required final List<Result>? result}) = _$RegionDtoImpl;
+      required final List<ResultDto>? result,
+      required final String errMsg,
+      required final int errCd,
+      required final String trId}) = _$RegionDtoImpl;
 
   factory _RegionDto.fromJson(Map<String, dynamic> json) =
       _$RegionDtoImpl.fromJson;
@@ -169,19 +230,25 @@ abstract class _RegionDto implements RegionDto {
   @override
   String? get id;
   @override
-  List<Result>? get result;
+  List<ResultDto>? get result;
+  @override
+  String get errMsg;
+  @override
+  int get errCd;
+  @override
+  String get trId;
   @override
   @JsonKey(ignore: true)
   _$$RegionDtoImplCopyWith<_$RegionDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Result _$ResultFromJson(Map<String, dynamic> json) {
-  return _Result.fromJson(json);
+ResultDto _$ResultDtoFromJson(Map<String, dynamic> json) {
+  return _ResultDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Result {
+mixin _$ResultDto {
   String? get y_coor => throw _privateConstructorUsedError;
   String? get full_addr => throw _privateConstructorUsedError;
   String? get x_coor => throw _privateConstructorUsedError;
@@ -190,13 +257,14 @@ mixin _$Result {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ResultCopyWith<Result> get copyWith => throw _privateConstructorUsedError;
+  $ResultDtoCopyWith<ResultDto> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResultCopyWith<$Res> {
-  factory $ResultCopyWith(Result value, $Res Function(Result) then) =
-      _$ResultCopyWithImpl<$Res, Result>;
+abstract class $ResultDtoCopyWith<$Res> {
+  factory $ResultDtoCopyWith(ResultDto value, $Res Function(ResultDto) then) =
+      _$ResultDtoCopyWithImpl<$Res, ResultDto>;
   @useResult
   $Res call(
       {String? y_coor,
@@ -207,9 +275,9 @@ abstract class $ResultCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResultCopyWithImpl<$Res, $Val extends Result>
-    implements $ResultCopyWith<$Res> {
-  _$ResultCopyWithImpl(this._value, this._then);
+class _$ResultDtoCopyWithImpl<$Res, $Val extends ResultDto>
+    implements $ResultDtoCopyWith<$Res> {
+  _$ResultDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -251,10 +319,11 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
 }
 
 /// @nodoc
-abstract class _$$ResultImplCopyWith<$Res> implements $ResultCopyWith<$Res> {
-  factory _$$ResultImplCopyWith(
-          _$ResultImpl value, $Res Function(_$ResultImpl) then) =
-      __$$ResultImplCopyWithImpl<$Res>;
+abstract class _$$ResultDtoImplCopyWith<$Res>
+    implements $ResultDtoCopyWith<$Res> {
+  factory _$$ResultDtoImplCopyWith(
+          _$ResultDtoImpl value, $Res Function(_$ResultDtoImpl) then) =
+      __$$ResultDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -266,11 +335,11 @@ abstract class _$$ResultImplCopyWith<$Res> implements $ResultCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ResultImplCopyWithImpl<$Res>
-    extends _$ResultCopyWithImpl<$Res, _$ResultImpl>
-    implements _$$ResultImplCopyWith<$Res> {
-  __$$ResultImplCopyWithImpl(
-      _$ResultImpl _value, $Res Function(_$ResultImpl) _then)
+class __$$ResultDtoImplCopyWithImpl<$Res>
+    extends _$ResultDtoCopyWithImpl<$Res, _$ResultDtoImpl>
+    implements _$$ResultDtoImplCopyWith<$Res> {
+  __$$ResultDtoImplCopyWithImpl(
+      _$ResultDtoImpl _value, $Res Function(_$ResultDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -282,7 +351,7 @@ class __$$ResultImplCopyWithImpl<$Res>
     Object? addr_name = freezed,
     Object? cd = freezed,
   }) {
-    return _then(_$ResultImpl(
+    return _then(_$ResultDtoImpl(
       y_coor: freezed == y_coor
           ? _value.y_coor
           : y_coor // ignore: cast_nullable_to_non_nullable
@@ -309,16 +378,16 @@ class __$$ResultImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ResultImpl implements _Result {
-  const _$ResultImpl(
+class _$ResultDtoImpl implements _ResultDto {
+  const _$ResultDtoImpl(
       {required this.y_coor,
       required this.full_addr,
       required this.x_coor,
       required this.addr_name,
       required this.cd});
 
-  factory _$ResultImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ResultImplFromJson(json);
+  factory _$ResultDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ResultDtoImplFromJson(json);
 
   @override
   final String? y_coor;
@@ -333,14 +402,14 @@ class _$ResultImpl implements _Result {
 
   @override
   String toString() {
-    return 'Result(y_coor: $y_coor, full_addr: $full_addr, x_coor: $x_coor, addr_name: $addr_name, cd: $cd)';
+    return 'ResultDto(y_coor: $y_coor, full_addr: $full_addr, x_coor: $x_coor, addr_name: $addr_name, cd: $cd)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ResultImpl &&
+            other is _$ResultDtoImpl &&
             (identical(other.y_coor, y_coor) || other.y_coor == y_coor) &&
             (identical(other.full_addr, full_addr) ||
                 other.full_addr == full_addr) &&
@@ -358,26 +427,27 @@ class _$ResultImpl implements _Result {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ResultImplCopyWith<_$ResultImpl> get copyWith =>
-      __$$ResultImplCopyWithImpl<_$ResultImpl>(this, _$identity);
+  _$$ResultDtoImplCopyWith<_$ResultDtoImpl> get copyWith =>
+      __$$ResultDtoImplCopyWithImpl<_$ResultDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ResultImplToJson(
+    return _$$ResultDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _Result implements Result {
-  const factory _Result(
+abstract class _ResultDto implements ResultDto {
+  const factory _ResultDto(
       {required final String? y_coor,
       required final String? full_addr,
       required final String? x_coor,
       required final String? addr_name,
-      required final String? cd}) = _$ResultImpl;
+      required final String? cd}) = _$ResultDtoImpl;
 
-  factory _Result.fromJson(Map<String, dynamic> json) = _$ResultImpl.fromJson;
+  factory _ResultDto.fromJson(Map<String, dynamic> json) =
+      _$ResultDtoImpl.fromJson;
 
   @override
   String? get y_coor;
@@ -391,6 +461,6 @@ abstract class _Result implements Result {
   String? get cd;
   @override
   @JsonKey(ignore: true)
-  _$$ResultImplCopyWith<_$ResultImpl> get copyWith =>
+  _$$ResultDtoImplCopyWith<_$ResultDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

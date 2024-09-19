@@ -7,7 +7,10 @@ part 'region_dto.g.dart';
 class RegionDto with _$RegionDto {
   const factory RegionDto ({
     required String? id,
-    required List<Result>? result,
+    required List<ResultDto>? result,
+    required String errMsg,
+    required int errCd,
+    required String trId,
   }) = _RegionDto;
 
   factory RegionDto.fromJson(Map<String, dynamic> json) =>
@@ -15,17 +18,16 @@ class RegionDto with _$RegionDto {
 }
 
 @freezed
-class Result with _$Result {
-  const factory Result ({
+class ResultDto with _$ResultDto {
+  const factory ResultDto ({
     required String? y_coor,
     required String? full_addr,
     required String? x_coor,
     required String? addr_name,
     required String? cd,
-  }) = _Result;
+  }) = _ResultDto;
 
 
 
-  factory Result.fromJson(Map<String, dynamic> json) =>
-      _$ResultFromJson(json);
+  factory ResultDto.fromJson(Map<String, dynamic> json) => _$ResultDtoFromJson(json);
 }
