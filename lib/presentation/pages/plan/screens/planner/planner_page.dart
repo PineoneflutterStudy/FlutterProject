@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
+import '../../../../main/common/component/widget/honey_progress_indicator.dart';
 import '../../dialog/add_next_plan_popup.dart';
-import 'planner_loading_widget.dart';
+import 'empty_planner_page.dart';
+import '../plan_login_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
@@ -41,7 +43,9 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       builder: (context, state) {
         print("current state : $state");
         return state.when(
-          loading: () => PlannerLoadingWidget(),
+          loading: () => HoneyProgressIndicator(),
+          init: () => PlanLoginPage(plannerBloc: widget.plannerBloc),
+          empty: () => EmptyPlannerPage(addressBloc: widget.addressBloc, plannerBloc: widget.plannerBloc),
           success: (plannerList, selectedIndex, pageIndex) {
             print('pageIndex : $pageIndex');
             final categoryWidgets = getCategoryViewList(context, plannerList, selectedIndex);
@@ -93,11 +97,6 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
               floatingActionButton: _buildFab(context, plannerList[selectedIndex]),
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             );
-          },
-          init: (isLogined) {
-            // todo 수정
-            // 여기를 안타긴하지만 혹시모르는 비정상적인 루트 예외처리 필요
-            return Container();
           },
           error: (error) {
             return Center(

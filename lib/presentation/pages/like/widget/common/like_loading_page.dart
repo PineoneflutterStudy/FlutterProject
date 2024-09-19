@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
+import '../../../../../core/theme/constant/app_icons.dart';
 
 
 /**
@@ -18,8 +19,7 @@ class LikeLoadingPage extends StatelessWidget {
       height: double.infinity,
       color: AppColors.white,
       child: Center(
-        child: LottieBuilder.asset(
-            'assets/images/honey_progress_indicator.json'),
+        child: LottieBuilder.asset(AppIcons.loadingLottie),
       ),
     );
   }

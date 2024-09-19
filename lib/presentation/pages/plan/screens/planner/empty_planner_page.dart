@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/constant/app_colors.dart';
+import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
-import '../../../../main/common/component/dialog/login_popup.dart';
 import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
 
 /// ### plan메뉴 초기 화면
-class InitPlannerPage extends StatelessWidget with PlanUtil{
-  final bool isLogin;
+class EmptyPlannerPage extends StatelessWidget with PlanUtil{
   final AddressBloc addressBloc;
   final PlannerBloc plannerBloc;
 
-  InitPlannerPage({super.key, required this.isLogin, required this.addressBloc, required this.plannerBloc});
+  EmptyPlannerPage({super.key, required this.addressBloc, required this.plannerBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class InitPlannerPage extends StatelessWidget with PlanUtil{
             child: Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: "댕꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  TextSpan(text: "댕꿀트립🍯", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                   TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 25)),
                 ],
               ),
@@ -36,17 +34,13 @@ class InitPlannerPage extends StatelessWidget with PlanUtil{
           const SizedBox(height: 10),
           GestureDetector(
             onTap: () async {
-              if (isLogin) {
-                final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
-                if (result != null && result.containsKey('planner')) {
-                  Planner planner = result['planner']!;
-                  plannerBloc.add(PlannerEvent.addPlanner(planner));
-                }
-              } else {
-                await showDialog(context: context, builder: (context) => LoginPopup());
+              final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
+              if (result != null && result.containsKey('planner')) {
+                Planner planner = result['planner']!;
+                plannerBloc.add(PlannerEvent.addPlanner(planner));
               }
             },
-            child: const Icon(Icons.add_circle_sharp, color: AppColors.primary, size: 40)
+            child: Image.asset(AppIcons.mangmung3, width: 50, height: 50),
           ),
         ],
       ),

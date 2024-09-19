@@ -48,4 +48,10 @@ class AppIcons {
   static const String imgLoginLogoGoogle = '$assetImagePath/login_logo_google.png';
   static const String imgLoginLogoNaver = '$assetImagePath/login_logo_naver.png';
   static const String imgLoginLogoKakao = '$assetImagePath/login_logo_kakao.png';
+
+  // lottie
+  static const String assetLottiePath = 'assets/lottie';
+  static const String loginLottie = '$assetLottiePath/login_lottie_animation.json';
+  static const String loadingLottie = '$assetLottiePath/honey_progress_indicator.json';
+  static const String honeyAndBeeLottie = '$assetLottiePath/honey_and_bee_lottie_animation.json';
 }

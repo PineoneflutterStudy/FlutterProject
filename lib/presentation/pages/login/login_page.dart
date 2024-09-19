@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   // 상단 로고 영역
                   Column(
                     children: [
-                      Image.asset(AppIcons.ImgBeeLaugh, width: 200, height: 200),
+                      Image.asset(AppIcons.mangmung1, width: 200, height: 200),
                       SizedBox(height: 20),
                       Text(
                         '나만의 여행 플래너',

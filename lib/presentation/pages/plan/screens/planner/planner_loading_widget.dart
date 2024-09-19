@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../main/common/component/widget/appbar.dart';
+import '../../../../main/common/component/widget/honey_progress_indicator.dart';
 
 class PlannerLoadingWidget extends StatelessWidget {
   const PlannerLoadingWidget({super.key});
@@ -13,7 +13,7 @@ class PlannerLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+      body: Center(child: HoneyProgressIndicator()),
     );
   }
 }

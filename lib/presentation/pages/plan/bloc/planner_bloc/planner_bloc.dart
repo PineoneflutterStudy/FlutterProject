@@ -44,7 +44,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     if (isLoggedIn) {
       await _onGetPlannerList(emit,0,0);
     } else {
-      emit(PlannerState.init(false));
+      emit(PlannerState.init());
     }
   }
 
@@ -55,7 +55,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
       if (plannerList != null && plannerList.isNotEmpty) {
         emit(PlannerState.success(plannerList, plannerIndex,pageIndex));
       } else {
-        emit(PlannerState.init(true));
+        emit(PlannerState.empty());
       }
     } catch (error) {
       emit(PlannerState.error(ErrorResponse(status: '1', code: '9999', message: '플래너 목록을 불러오는데 실패하였습니다.\n앱을 다시 실행해주세요.')));

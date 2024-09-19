@@ -2928,7 +2928,8 @@ abstract class UpdateTransportation implements PlannerEvent {
 mixin _$PlannerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) init,
+    required TResult Function() init,
+    required TResult Function() empty,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)
@@ -2938,7 +2939,8 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? init,
+    TResult? Function()? init,
+    TResult? Function()? empty,
     TResult? Function()? loading,
     TResult? Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -2948,7 +2950,8 @@ mixin _$PlannerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? init,
+    TResult Function()? init,
+    TResult Function()? empty,
     TResult Function()? loading,
     TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -2960,6 +2963,7 @@ mixin _$PlannerState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
     required TResult Function(PlannerLoading value) loading,
     required TResult Function(PlannerSuccess value) success,
     required TResult Function(PlannerError value) error,
@@ -2968,6 +2972,7 @@ mixin _$PlannerState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
     TResult? Function(PlannerLoading value)? loading,
     TResult? Function(PlannerSuccess value)? success,
     TResult? Function(PlannerError value)? error,
@@ -2976,6 +2981,7 @@ mixin _$PlannerState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
     TResult Function(PlannerLoading value)? loading,
     TResult Function(PlannerSuccess value)? success,
     TResult Function(PlannerError value)? error,
@@ -3007,8 +3013,6 @@ abstract class _$$PlannerInitImplCopyWith<$Res> {
   factory _$$PlannerInitImplCopyWith(
           _$PlannerInitImpl value, $Res Function(_$PlannerInitImpl) then) =
       __$$PlannerInitImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLogined});
 }
 
 /// @nodoc
@@ -3018,82 +3022,60 @@ class __$$PlannerInitImplCopyWithImpl<$Res>
   __$$PlannerInitImplCopyWithImpl(
       _$PlannerInitImpl _value, $Res Function(_$PlannerInitImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLogined = null,
-  }) {
-    return _then(_$PlannerInitImpl(
-      null == isLogined
-          ? _value.isLogined
-          : isLogined // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$PlannerInitImpl implements PlannerInit {
-  const _$PlannerInitImpl(this.isLogined);
-
-  @override
-  final bool isLogined;
+  const _$PlannerInitImpl();
 
   @override
   String toString() {
-    return 'PlannerState.init(isLogined: $isLogined)';
+    return 'PlannerState.init()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlannerInitImpl &&
-            (identical(other.isLogined, isLogined) ||
-                other.isLogined == isLogined));
+        (other.runtimeType == runtimeType && other is _$PlannerInitImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLogined);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PlannerInitImplCopyWith<_$PlannerInitImpl> get copyWith =>
-      __$$PlannerInitImplCopyWithImpl<_$PlannerInitImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) init,
+    required TResult Function() init,
+    required TResult Function() empty,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)
         success,
     required TResult Function(ErrorResponse error) error,
   }) {
-    return init(isLogined);
+    return init();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? init,
+    TResult? Function()? init,
+    TResult? Function()? empty,
     TResult? Function()? loading,
     TResult? Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
         success,
     TResult? Function(ErrorResponse error)? error,
   }) {
-    return init?.call(isLogined);
+    return init?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? init,
+    TResult Function()? init,
+    TResult Function()? empty,
     TResult Function()? loading,
     TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3102,7 +3084,7 @@ class _$PlannerInitImpl implements PlannerInit {
     required TResult orElse(),
   }) {
     if (init != null) {
-      return init(isLogined);
+      return init();
     }
     return orElse();
   }
@@ -3111,6 +3093,7 @@ class _$PlannerInitImpl implements PlannerInit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
     required TResult Function(PlannerLoading value) loading,
     required TResult Function(PlannerSuccess value) success,
     required TResult Function(PlannerError value) error,
@@ -3122,6 +3105,7 @@ class _$PlannerInitImpl implements PlannerInit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
     TResult? Function(PlannerLoading value)? loading,
     TResult? Function(PlannerSuccess value)? success,
     TResult? Function(PlannerError value)? error,
@@ -3133,6 +3117,7 @@ class _$PlannerInitImpl implements PlannerInit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
     TResult Function(PlannerLoading value)? loading,
     TResult Function(PlannerSuccess value)? success,
     TResult Function(PlannerError value)? error,
@@ -3146,12 +3131,133 @@ class _$PlannerInitImpl implements PlannerInit {
 }
 
 abstract class PlannerInit implements PlannerState {
-  const factory PlannerInit(final bool isLogined) = _$PlannerInitImpl;
+  const factory PlannerInit() = _$PlannerInitImpl;
+}
 
-  bool get isLogined;
-  @JsonKey(ignore: true)
-  _$$PlannerInitImplCopyWith<_$PlannerInitImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+/// @nodoc
+abstract class _$$PlannerEmptyImplCopyWith<$Res> {
+  factory _$$PlannerEmptyImplCopyWith(
+          _$PlannerEmptyImpl value, $Res Function(_$PlannerEmptyImpl) then) =
+      __$$PlannerEmptyImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PlannerEmptyImplCopyWithImpl<$Res>
+    extends _$PlannerStateCopyWithImpl<$Res, _$PlannerEmptyImpl>
+    implements _$$PlannerEmptyImplCopyWith<$Res> {
+  __$$PlannerEmptyImplCopyWithImpl(
+      _$PlannerEmptyImpl _value, $Res Function(_$PlannerEmptyImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PlannerEmptyImpl implements PlannerEmpty {
+  const _$PlannerEmptyImpl();
+
+  @override
+  String toString() {
+    return 'PlannerState.empty()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PlannerEmptyImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function() empty,
+    required TResult Function() loading,
+    required TResult Function(
+            List<Planner> plannerList, int plannerIndex, int pageIndex)
+        success,
+    required TResult Function(ErrorResponse error) error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function()? empty,
+    TResult? Function()? loading,
+    TResult? Function(
+            List<Planner> plannerList, int plannerIndex, int pageIndex)?
+        success,
+    TResult? Function(ErrorResponse error)? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function()? empty,
+    TResult Function()? loading,
+    TResult Function(
+            List<Planner> plannerList, int plannerIndex, int pageIndex)?
+        success,
+    TResult Function(ErrorResponse error)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
+    required TResult Function(PlannerLoading value) loading,
+    required TResult Function(PlannerSuccess value) success,
+    required TResult Function(PlannerError value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
+    TResult? Function(PlannerLoading value)? loading,
+    TResult? Function(PlannerSuccess value)? success,
+    TResult? Function(PlannerError value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
+    TResult Function(PlannerLoading value)? loading,
+    TResult Function(PlannerSuccess value)? success,
+    TResult Function(PlannerError value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlannerEmpty implements PlannerState {
+  const factory PlannerEmpty() = _$PlannerEmptyImpl;
 }
 
 /// @nodoc
@@ -3192,7 +3298,8 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) init,
+    required TResult Function() init,
+    required TResult Function() empty,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)
@@ -3205,7 +3312,8 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? init,
+    TResult? Function()? init,
+    TResult? Function()? empty,
     TResult? Function()? loading,
     TResult? Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3218,7 +3326,8 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? init,
+    TResult Function()? init,
+    TResult Function()? empty,
     TResult Function()? loading,
     TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3236,6 +3345,7 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
     required TResult Function(PlannerLoading value) loading,
     required TResult Function(PlannerSuccess value) success,
     required TResult Function(PlannerError value) error,
@@ -3247,6 +3357,7 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
     TResult? Function(PlannerLoading value)? loading,
     TResult? Function(PlannerSuccess value)? success,
     TResult? Function(PlannerError value)? error,
@@ -3258,6 +3369,7 @@ class _$PlannerLoadingImpl implements PlannerLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
     TResult Function(PlannerLoading value)? loading,
     TResult Function(PlannerSuccess value)? success,
     TResult Function(PlannerError value)? error,
@@ -3370,7 +3482,8 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) init,
+    required TResult Function() init,
+    required TResult Function() empty,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)
@@ -3383,7 +3496,8 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? init,
+    TResult? Function()? init,
+    TResult? Function()? empty,
     TResult? Function()? loading,
     TResult? Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3396,7 +3510,8 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? init,
+    TResult Function()? init,
+    TResult Function()? empty,
     TResult Function()? loading,
     TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3414,6 +3529,7 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
     required TResult Function(PlannerLoading value) loading,
     required TResult Function(PlannerSuccess value) success,
     required TResult Function(PlannerError value) error,
@@ -3425,6 +3541,7 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
     TResult? Function(PlannerLoading value)? loading,
     TResult? Function(PlannerSuccess value)? success,
     TResult? Function(PlannerError value)? error,
@@ -3436,6 +3553,7 @@ class _$PlannerSuccessImpl implements PlannerSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
     TResult Function(PlannerLoading value)? loading,
     TResult Function(PlannerSuccess value)? success,
     TResult Function(PlannerError value)? error,
@@ -3524,7 +3642,8 @@ class _$PlannerErrorImpl implements PlannerError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLogined) init,
+    required TResult Function() init,
+    required TResult Function() empty,
     required TResult Function() loading,
     required TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)
@@ -3537,7 +3656,8 @@ class _$PlannerErrorImpl implements PlannerError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLogined)? init,
+    TResult? Function()? init,
+    TResult? Function()? empty,
     TResult? Function()? loading,
     TResult? Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3550,7 +3670,8 @@ class _$PlannerErrorImpl implements PlannerError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLogined)? init,
+    TResult Function()? init,
+    TResult Function()? empty,
     TResult Function()? loading,
     TResult Function(
             List<Planner> plannerList, int plannerIndex, int pageIndex)?
@@ -3568,6 +3689,7 @@ class _$PlannerErrorImpl implements PlannerError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PlannerInit value) init,
+    required TResult Function(PlannerEmpty value) empty,
     required TResult Function(PlannerLoading value) loading,
     required TResult Function(PlannerSuccess value) success,
     required TResult Function(PlannerError value) error,
@@ -3579,6 +3701,7 @@ class _$PlannerErrorImpl implements PlannerError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannerInit value)? init,
+    TResult? Function(PlannerEmpty value)? empty,
     TResult? Function(PlannerLoading value)? loading,
     TResult? Function(PlannerSuccess value)? success,
     TResult? Function(PlannerError value)? error,
@@ -3590,6 +3713,7 @@ class _$PlannerErrorImpl implements PlannerError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannerInit value)? init,
+    TResult Function(PlannerEmpty value)? empty,
     TResult Function(PlannerLoading value)? loading,
     TResult Function(PlannerSuccess value)? success,
     TResult Function(PlannerError value)? error,

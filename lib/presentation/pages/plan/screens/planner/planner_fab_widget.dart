@@ -69,6 +69,7 @@ class PlannerFabWidgetState extends State<PlannerFabWidget>
   Widget _buildFab() {
     return FloatingActionButton(
       heroTag: 'basicBtn',
+      backgroundColor: AppColors.primary,
       onPressed: () {
         if (_controller.isDismissed) {
           _controller.forward();
