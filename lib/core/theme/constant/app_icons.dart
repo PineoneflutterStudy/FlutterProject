@@ -40,6 +40,9 @@ class AppIcons {
   static const String ImgBeeLaugh = '$assetImagePath/img_bee_laugh.png';
   static const String ImgBeeLove = '$assetImagePath/img_bee_love.png';
   static const String ImgBeeWink = '$assetImagePath/img_bee_wink.png';
+  static const String mangmung1 = '$assetImagePath/mangmung_img1.PNG';
+  static const String mangmung2 = '$assetImagePath/mangmung_img2.PNG';
+  static const String mangmung3 = '$assetImagePath/mangmung_img3.PNG';
 
   // image - login
   static const String imgLoginLogoGoogle = '$assetImagePath/login_logo_google.png';

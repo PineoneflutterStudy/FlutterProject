@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/theme/constant/app_colors.dart';
 import '../../../core/theme/constant/app_icons.dart';
 import '../../routes/route_path.dart';
 
@@ -17,7 +18,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  List<String> images = [ AppIcons.ImgBeeLaugh, AppIcons.ImgBeeWink, AppIcons.ImgBeeLove];
+  List<String> images = [ AppIcons.mangmung1, AppIcons.mangmung2, AppIcons.mangmung3];
 
   int currentIndex = 0;
   late Timer _timer;
@@ -38,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: AppColors.secondary,
       body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
