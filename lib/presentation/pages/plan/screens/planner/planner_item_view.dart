@@ -30,15 +30,31 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildTransportBar(),
+        if(plan.transportation != null)
+          Row(
+            children: [
+              Expanded(flex :2, child: _buildTransportBar()),
+              SizedBox(width: 5),
+              Expanded(flex: 3, child: Container())
+            ],
+          ),
         Row(
           children: [
             Expanded(
-                child: Text(plan.start_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18))),
-            Text('~', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Expanded(
-                child: Text(plan.end_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18))),
-            SizedBox(width: 8),
+              flex: 2,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(plan.start_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
+                  ),
+                  Text('~', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Expanded(
+                    child: Text(plan.end_time ?? '', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 5),
             Expanded(
               flex: 3,
               child: Stack(
@@ -84,33 +100,29 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
   }
 
   Widget _buildTransportBar() {
-    final Transportation transportation = getTransportationByCode(plan.transportation ?? 'walk');
-    if (plan.travel_time != null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: Container()),
-              SizedBox(width: 10),
-              Container(width: 4, height: 12,
-                decoration: BoxDecoration(color: transportation.textColor, borderRadius: BorderRadius.circular(5)),
-              ),
-              SizedBox(width: 8),
-              // Text(transportation.name, style: TextStyle(fontSize: 16, color: transportation.textColor)),
-              // SizedBox(width: 4),
-              Icon( transportation.icon,color: transportation.textColor, size: 16),
-              Expanded(child: Container()),
-              Expanded(flex : 3, child: Container()),
-            ],
-          ),
-          SizedBox(height: 10),
-        ],
-      );
-    } else {
-      return SizedBox.shrink();
-    }
+    var transportation = getTransportationByCode(plan.transportation!);
+    var travelTime = timeStringToMinutes(plan.travel_time ?? '1분 미만');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon( transportation.icon,color: transportation.textColor, size: 16),
+            SizedBox(width: 8),
+            Container(width: 4, height: 12,
+              decoration: BoxDecoration(color: transportation.textColor, borderRadius: BorderRadius.circular(5)),
+            ),
+            SizedBox(width: 8),
+            Padding(
+              padding: const EdgeInsets.only(top : 3.0),
+              child: Text('${travelTime}m', style: TextStyle(color: transportation.textColor, fontSize: 18,height: 0.8)),
+            ),
+          ],
+        ),
+        SizedBox(height: 5),
+      ],
+    );
   }
 
   // 추천 목록 페이지로 이동

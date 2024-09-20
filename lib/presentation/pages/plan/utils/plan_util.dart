@@ -206,17 +206,19 @@ mixin PlanUtil {
   }
 
   /// 주어진 시간 문자열을 분 단위로 변환하여 반환합니다.
-  /// 예: "1시 5분 8초" -> 65, "1분미만 -> 0
+  /// 예: "1시 5분 8초" -> 66, "1분미만 -> 1
   String timeStringToMinutes(String timeString) {
     if(timeString == "1분 미만")
-      return '0';
+      return '1';
 
     RegExp regex = RegExp(r'(?:(\d+)시)?(?:\s*(\d+)분)?(?:\s*(\d+)초)?');
     RegExpMatch? match = regex.firstMatch(timeString);
 
     int hours = int.parse(match?.group(1) ?? '0');
     int minutes = int.parse(match?.group(2) ?? '0');
-    int totalMinutes = hours * 60 + minutes;
+    int seconds = int.parse(match?.group(3) ?? '0');
+    int totalMinutes = hours * 60 + minutes + (seconds>0 ? 1: 0);
+    print('hours: $hours, minutes : $minutes, seconds : $seconds, totalMinutes : $totalMinutes');
 
     return (totalMinutes >= 1) ? totalMinutes.toString() : '0';
   }
