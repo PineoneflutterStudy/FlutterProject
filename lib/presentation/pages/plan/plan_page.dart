@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/logger.dart';
+import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'screens/planner/empty_planner_page.dart';
 import 'screens/plan_login_page.dart';
 import '../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../service_locator.dart';
 import 'bloc/address_bloc/address_bloc.dart';
 import 'bloc/planner_bloc/planner_bloc.dart';
-import 'screens/planner/planner_loading_widget.dart';
 import 'screens/planner/planner_page.dart';
 import 'utils/plan_util.dart';
 
@@ -56,7 +56,7 @@ class _PlanPageState extends State<PlanPage> with PlanUtil{
           bloc: _plannerBloc,
           builder: (_, state) {
             return state.when(
-              loading: () => PlannerLoadingWidget(),
+              loading: () => MangmungLoadingIndicator(),
               init: () => PlanLoginPage(plannerBloc: _plannerBloc),
               empty: () => EmptyPlannerPage(addressBloc: _addressBloc, plannerBloc: _plannerBloc),
               success: (plannerList, selected, pageIndex) => PlannerPage(plannerBloc: _plannerBloc, addressBloc: _addressBloc),

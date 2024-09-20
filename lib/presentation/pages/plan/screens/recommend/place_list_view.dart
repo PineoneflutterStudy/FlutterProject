@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
-import '../../../../main/common/component/widget/honey_progress_indicator.dart';
+import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'place_item_view.dart';
 
 import '../../../../../domain/model/display/category/category.model.dart';
@@ -92,7 +92,7 @@ class _PlaceListPageViewState extends State<PlaceListPageView> {
       },
       builder: (context, state) {
         return state.when(
-          loading: () => Center(child: HoneyProgressIndicator()),
+          loading: () => Center(child: MangmungLoadingIndicator()),
           empty: () => Container(
             alignment: Alignment.center,
             child: Text('반경 ${(widget.address.radius ?? 10000) ~/ 1000}km 등록된 ${widget.category.ctgrName}이 없습니다.', style: TextStyle(fontSize: 23)),
@@ -111,7 +111,7 @@ class _PlaceListPageViewState extends State<PlaceListPageView> {
                 );
               } else {
                 return _isLoading
-                    ? Center(child: HoneyProgressIndicator())
+                    ? Center(child: MangmungLoadingIndicator())
                     : SizedBox.shrink();
               }
             },

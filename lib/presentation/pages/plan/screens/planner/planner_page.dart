@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
-import '../../../../main/common/component/widget/honey_progress_indicator.dart';
+import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
 import '../../dialog/add_next_plan_popup.dart';
 import 'empty_planner_page.dart';
 import '../plan_login_page.dart';
@@ -43,7 +43,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
       builder: (context, state) {
         print("current state : $state");
         return state.when(
-          loading: () => HoneyProgressIndicator(),
+          loading: () => MangmungLoadingIndicator(),
           init: () => PlanLoginPage(plannerBloc: widget.plannerBloc),
           empty: () => EmptyPlannerPage(addressBloc: widget.addressBloc, plannerBloc: widget.plannerBloc),
           success: (plannerList, selectedIndex, pageIndex) {

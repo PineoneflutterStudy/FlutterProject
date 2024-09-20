@@ -54,4 +54,7 @@ class AppIcons {
   static const String loginLottie = '$assetLottiePath/login_lottie_animation.json';
   static const String loadingLottie = '$assetLottiePath/honey_progress_indicator.json';
   static const String honeyAndBeeLottie = '$assetLottiePath/honey_and_bee_lottie_animation.json';
+  static const String mangmungLoadingLottie = '$assetLottiePath/mangmung_loading_lottie.json';
+  static const String mangmungLoadingLottieSlow = '$assetLottiePath/mangmung_loading_lottie_slow.json';
+
 }

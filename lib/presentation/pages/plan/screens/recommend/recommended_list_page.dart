@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'place_list_view.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
-import '../planner/planner_loading_widget.dart';
 import 'place_app_bar_view.dart';
 
 import '../../../../../core/utils/constant.dart';
@@ -64,7 +64,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
         body: BlocConsumer<CategoryBloc, CategoryState>(
           builder: (_, ctgrState) {
             return ctgrState.when(
-                loading: () => PlannerLoadingWidget(),
+                loading: () => MangmungLoadingIndicator(),
                 success: (categorys, selected){
                   var selectedIndex = categorys.indexOf(selected);
                   return Column(
