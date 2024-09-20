@@ -8,6 +8,7 @@ extension PlaceX on PlaceDto {
     return Place(
       placeId: id ?? '',
       placeName: place_name ?? '',
+      categoryId: category_group_code,
       categoryName: category_name ?? '',
       phone: phone ?? '',
       addressName: address_name ?? '',

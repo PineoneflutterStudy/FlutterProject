@@ -22,6 +22,7 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 mixin _$Place {
   String get placeId => throw _privateConstructorUsedError;
   String get placeName => throw _privateConstructorUsedError;
+  String get categoryId => throw _privateConstructorUsedError;
   String get categoryName => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   String get addressName => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $PlaceCopyWith<$Res> {
   $Res call(
       {String placeId,
       String placeName,
+      String categoryId,
       String categoryName,
       String phone,
       String addressName,
@@ -73,6 +75,7 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
   $Res call({
     Object? placeId = null,
     Object? placeName = null,
+    Object? categoryId = null,
     Object? categoryName = null,
     Object? phone = null,
     Object? addressName = null,
@@ -92,6 +95,10 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
       placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
       categoryName: null == categoryName
           ? _value.categoryName
@@ -147,6 +154,7 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
   $Res call(
       {String placeId,
       String placeName,
+      String categoryId,
       String categoryName,
       String phone,
       String addressName,
@@ -172,6 +180,7 @@ class __$$PlaceImplCopyWithImpl<$Res>
   $Res call({
     Object? placeId = null,
     Object? placeName = null,
+    Object? categoryId = null,
     Object? categoryName = null,
     Object? phone = null,
     Object? addressName = null,
@@ -191,6 +200,10 @@ class __$$PlaceImplCopyWithImpl<$Res>
       placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
       categoryName: null == categoryName
           ? _value.categoryName
@@ -242,6 +255,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
   const _$PlaceImpl(
       {required this.placeId,
       required this.placeName,
+      required this.categoryId,
       required this.categoryName,
       required this.phone,
       required this.addressName,
@@ -260,6 +274,8 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
   final String placeId;
   @override
   final String placeName;
+  @override
+  final String categoryId;
   @override
   final String categoryName;
   @override
@@ -283,7 +299,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Place(placeId: $placeId, placeName: $placeName, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance, walkTravelTime: $walkTravelTime, carTravelTime: $carTravelTime)';
+    return 'Place(placeId: $placeId, placeName: $placeName, categoryId: $categoryId, categoryName: $categoryName, phone: $phone, addressName: $addressName, roadAddressName: $roadAddressName, x: $x, y: $y, placeUrl: $placeUrl, distance: $distance, walkTravelTime: $walkTravelTime, carTravelTime: $carTravelTime)';
   }
 
   @override
@@ -293,6 +309,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
       ..add(DiagnosticsProperty('type', 'Place'))
       ..add(DiagnosticsProperty('placeId', placeId))
       ..add(DiagnosticsProperty('placeName', placeName))
+      ..add(DiagnosticsProperty('categoryId', categoryId))
       ..add(DiagnosticsProperty('categoryName', categoryName))
       ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('addressName', addressName))
@@ -313,6 +330,8 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
             (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.placeName, placeName) ||
                 other.placeName == placeName) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
             (identical(other.categoryName, categoryName) ||
                 other.categoryName == categoryName) &&
             (identical(other.phone, phone) || other.phone == phone) &&
@@ -338,6 +357,7 @@ class _$PlaceImpl with DiagnosticableTreeMixin implements _Place {
       runtimeType,
       placeId,
       placeName,
+      categoryId,
       categoryName,
       phone,
       addressName,
@@ -367,6 +387,7 @@ abstract class _Place implements Place {
   const factory _Place(
       {required final String placeId,
       required final String placeName,
+      required final String categoryId,
       required final String categoryName,
       required final String phone,
       required final String addressName,
@@ -384,6 +405,8 @@ abstract class _Place implements Place {
   String get placeId;
   @override
   String get placeName;
+  @override
+  String get categoryId;
   @override
   String get categoryName;
   @override

@@ -9,6 +9,7 @@ class Place with _$Place {
   const factory Place({
     required String placeId,
     required String placeName,
+    required String categoryId,
     required String categoryName,
     required String phone,
     required String addressName,
