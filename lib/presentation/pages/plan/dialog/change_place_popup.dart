@@ -126,6 +126,9 @@ class _ChangePlacePopupState extends State<ChangePlacePopup> with PlanUtil {
                             value: Transportation.walk.code,
                             groupValue: _selectedOption,
                             activeColor: Transportation.walk.textColor,
+                            fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                              return Transportation.walk.textColor;
+                            }),
                             onChanged: (String? value) {
                               setState(() => _selectedOption = value!);
                             },
@@ -152,6 +155,9 @@ class _ChangePlacePopupState extends State<ChangePlacePopup> with PlanUtil {
                             value: Transportation.car.code,
                             groupValue: _selectedOption,
                             activeColor: Transportation.car.textColor,
+                            fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                              return Transportation.car.textColor;
+                            }),
                             onChanged: (String? value) =>
                                 setState(() => _selectedOption = value!),
                           ),

@@ -176,6 +176,9 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                           value: Transportation.walk.code,
                           groupValue: selectedOption,
                           activeColor: Transportation.walk.textColor,
+                          fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                            return Transportation.walk.textColor;
+                          }),
                           onChanged: (String? value) => setState(() => selectedOption = value!),
                         ),
                       ),
@@ -196,6 +199,9 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                           value: Transportation.car.code,
                           groupValue: selectedOption,
                           activeColor: Transportation.car.textColor,
+                          fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                            return Transportation.car.textColor;
+                          }),
                           onChanged: (String? value) => setState(() => selectedOption = value!),
                         ),
                       ),
@@ -246,11 +252,11 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
       actions: [
         TextButton(
             onPressed: () =>  context.pop(),
-            child: Text("취소", style: TextStyle(color: AppColors.black, fontSize: 20)),
+            child: Text("취소", style: TextStyle(color: AppColors.carrot, fontSize: 20)),
         ),
         TextButton(
           onPressed: () => _onConfirm(),
-          child: Text("수정", style: TextStyle(color: AppColors.black, fontSize: 20)),
+          child: Text("수정", style: TextStyle(color: AppColors.carrot, fontSize: 20)),
         ),
       ],
     );

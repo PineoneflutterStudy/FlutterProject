@@ -53,6 +53,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded),
+          color: AppColors.carrot,
           onPressed: () {
             _handleButtonPress();
             Navigator.pop(context);
@@ -93,7 +94,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.search, color: Colors.black),
+                      icon: Icon(Icons.search, color: AppColors.contentSecondary),
                       onPressed: () => _handleSearch(),
                     ),
                   ],
@@ -102,14 +103,14 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
             ),
             SizedBox(width: 20),
             IconButton(
-              icon: Icon(Icons.place_sharp),
+              icon: Icon(Icons.place_sharp,color: AppColors.carrot),
               onPressed: () {
                 _handleButtonPress();
                 // todo 한눈에 보기 기능 추가 (지도 좌표 표시)
               },
             ),
             IconButton(
-              icon: Image.asset(AppIcons.iconFilter , width: 18, height: 18),
+              icon: Image.asset(AppIcons.iconFilter , color: AppColors.carrot, width: 18, height: 18),
               onPressed: () {
                 _handleButtonPress();
                 _showFilterPopup(context);

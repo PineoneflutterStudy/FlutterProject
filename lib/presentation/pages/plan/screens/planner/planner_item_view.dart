@@ -93,7 +93,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
             onPressed: (){
               _handleAddNextPlace(context, addressBloc, plannerBloc);
             },
-            child: Text('Add Next Place'),
+            child: Text('Add Next Place', style: TextStyle(fontSize: 16),),
           ),
       ],
     );
