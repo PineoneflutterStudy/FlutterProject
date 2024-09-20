@@ -20,15 +20,16 @@ class RecommendedListPage extends StatelessWidget {
   final String prevPlaceId;
   final AddressBloc addressBloc;
   final String categoryId;
+  final String root;
 
-  const RecommendedListPage({required this.location, required this.prevPlaceId, required this.addressBloc, required this.categoryId, super.key});
+  const RecommendedListPage({required this.location, required this.prevPlaceId, required this.addressBloc, required this.categoryId, required this.root, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CategoryBloc(locator<DisplayUsecase>())
         ..add(CategoryEvent.getCategoryList(MenuType.plan, selectedCg: categoryId)),
-      child: RecommendedListPageView(location: location,prevPlaceId : prevPlaceId, addressBloc: addressBloc, isRcmnPage: (categoryId == 'FD6')),
+      child: RecommendedListPageView(location: location,prevPlaceId : prevPlaceId, addressBloc: addressBloc, root: root),
     );
   }
 }
@@ -38,9 +39,9 @@ class RecommendedListPageView extends StatefulWidget {
   final String prevPlaceId;
   final AddressBloc addressBloc;
 
-  final bool isRcmnPage ;
+  final String root ;
 
-  const RecommendedListPageView({required this.location, required this.prevPlaceId, required this.addressBloc, required this.isRcmnPage, super.key});
+  const RecommendedListPageView({required this.location, required this.prevPlaceId, required this.addressBloc, required this.root, super.key});
   @override
   State<RecommendedListPageView> createState() => _RecommendedListPageViewState();
 }
@@ -78,7 +79,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
                               success: (addressInfo) {
                                 return IndexedStack(
                                   index: selectedIndex,
-                                  children: List.generate(categorys.length, (index) => PlaceListView(category: categorys[index], search: widget.location, address: addressInfo, prevPlaceId : widget.prevPlaceId, isRcmnPage: widget.isRcmnPage)),
+                                  children: List.generate(categorys.length, (index) => PlaceListView(category: categorys[index], search: widget.location, address: addressInfo, prevPlaceId : widget.prevPlaceId, root: widget.root)),
                                 );
                               },
                               error: (error) {

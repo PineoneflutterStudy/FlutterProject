@@ -34,6 +34,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
         deletePlace: (plannerId, plannerIndex, pageIndex, placeIndex) async => await _onDeletePlace(emit, plannerId, plannerIndex, pageIndex, placeIndex),
         updateStayTime: (plannerId, plannerIndex, pageIndex, placeIndex, newStayTime) async => await _onUpdatePlaceStayTime(emit, plannerId, plannerIndex, pageIndex, placeIndex, newStayTime),
         updateTransportation: (plannerId, plannerIndex,pageIndex,placeIndex,transportation,travelTime, changeStay, stayTime) async => await _onUpdatePlaceTransportation(emit, plannerId, plannerIndex, pageIndex, placeIndex, transportation, travelTime, changeStay, stayTime),
+        updatePlace: (plannerId, plannerIndex,pageIndex,placeIndex,newPlace) async => await _onUpdatePlace(emit, plannerId, plannerIndex, pageIndex, placeIndex, newPlace),
       );
     });
   }
@@ -272,12 +273,62 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> with PlanUtil {
     }
   }
 
-  Future<void> _onUpdatePlace() async {
-    // todo placeIndex에 있는 장소 정보 수정
-    // todo 이전 장소와 distance 구하기
-    // placeIndex Place - cur_address_info, place_name, distance, travel_time, transportation, stay_time, start_time, end_time 수정
-    // 바로 직후 place - start time, end time, distance, travel_time, prev_address_info 수정
-    // 이후 place - start time, end time 수정
+  Future<void> _onUpdatePlace(Emitter<PlannerState> emit, String plannerId, int plannerIndex, int pageIndex, int placeIndex, PlannerItem newPlace) async {
+    final plannerDocRef = await firestore.getCollectionDocRef(DBKey.DB_PLANNER, plannerId);
+    if (plannerDocRef != null) {
+      Map<String, dynamic>? plannerData = await firestore.getDocumentDataFromRef(plannerDocRef);
+      if (plannerData != null) {
+        List plannerPages = plannerData['planner_page_list'];
+        if (plannerPages.length > pageIndex) {
+          List pageItems = plannerPages[pageIndex]['page_item_list'];
+          if (pageItems.length > placeIndex) {
+
+            var travelTime = pageItems[placeIndex]['travel_time'];
+            var newTravelTime = newPlace.travel_time ?? '1분 미만';
+            var startTime = subtractMinutesFromTime(pageItems[placeIndex]['start_time'], timeStringToMinutes(travelTime));
+            var newStartTime = addMinutesToTime(startTime, timeStringToMinutes(newTravelTime));
+            var newEndTime =  addMinutesToTime(startTime, newPlace.stay_time!);
+
+            var changePlace = pageItems[placeIndex];
+            changePlace['cur_address_info'] = newPlace.cur_address_info.toJson();
+            changePlace['cur_place_id'] = newPlace.cur_place_id;
+            changePlace['place_name'] = newPlace.place_name;
+            changePlace['distance'] = newPlace.distance;
+            changePlace['transportation'] = newPlace.transportation;
+            changePlace['stay_time'] = newPlace.stay_time;
+            changePlace['travel_time'] = newTravelTime;
+            changePlace['start_time'] = newStartTime;
+            changePlace['end_time'] = newEndTime;
+
+            if(placeIndex+1 < pageItems.length){
+              var nextPlace = pageItems[placeIndex+1];
+              var startLatitude = double.parse(newPlace.cur_address_info.y);
+              var startLongitude = double.parse(newPlace.cur_address_info.x);
+              var endLatitude = double.parse(nextPlace['cur_address_info']['y']);
+              var endLongitude = double.parse(nextPlace['cur_address_info']['x']);
+              var distance = Geolocator.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude).round().toString();
+              var nextTravelTime = nextPlace['transportation'] == 'walk'
+                  ? getWalkTravelTime(distance)
+                  : getCarTravelTime(distance);
+
+              nextPlace['prev_address_info'] = newPlace.cur_address_info.toJson();
+              nextPlace['prev_place_id'] = newPlace.cur_place_id;
+              nextPlace['distance'] = distance;
+              nextPlace['travel_time'] = nextTravelTime;
+
+              updateFollowingPlaces(pageItems, placeIndex+1);
+            }
+
+            await plannerDocRef.update({'planner_page_list': plannerPages,});
+            await _onGetPlannerList(emit, plannerIndex, pageIndex);
+          }
+        }
+      }else {
+        CustomLogger.logger.e("plannerDocRef is null");
+      }
+    }else {
+      CustomLogger.logger.e("plannerDocRef is null");
+    }
   }
 
   Future<void> _onUpdateSelected(Emitter<PlannerState> emit, int selectedIndex) async {

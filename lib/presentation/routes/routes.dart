@@ -49,10 +49,11 @@ final GoRouter router = GoRouter(routes: [
       final location = state.uri.queryParameters['location'] ?? '';
       final placeId = state.uri.queryParameters['placeId'] ?? '';
       final category = state.uri.queryParameters['category'] ?? 'FD6';
+      final root = state.uri.queryParameters['root'] ?? 'addPlace';
       final addressBloc = state.extra as AddressBloc;
       return BlocProvider.value(
           value: addressBloc,
-          child: RecommendedListPage(location: location, prevPlaceId : placeId, categoryId: category, addressBloc: addressBloc));
+          child: RecommendedListPage(location: location, prevPlaceId : placeId, categoryId: category, addressBloc: addressBloc, root : root));
     },
   ),
   GoRoute(

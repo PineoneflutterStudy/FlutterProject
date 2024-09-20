@@ -52,7 +52,7 @@ class HomeUtil {
     addressBloc.add(AddressInitialized('$value'));
     // 추천 화면 이동
     context.pushNamed('rcmn',
-        queryParameters: {'location': '$value', 'category': 'FD6'},
+        queryParameters: {'location': '$value', 'category': 'FD6', 'root' : 'home'},
         extra: addressBloc);
   }
 }

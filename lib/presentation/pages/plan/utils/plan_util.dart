@@ -63,6 +63,33 @@ mixin PlanUtil {
     return'$word${getParticle(word)}';
   }
 
+  /// (으)로 반환
+  String getPostposition(String word) {
+    if (word.isEmpty) return '';
+
+    final lastChar = word[word.length - 1];
+    final lastCharCode = lastChar.codeUnitAt(0);
+
+    // 한글의 유니코드 범위: AC00-D7A3
+    if (lastCharCode < 0xAC00 || lastCharCode > 0xD7A3) {
+      // 한글이 아닌 경우 '으로' 반환
+      return '으로';
+    }
+
+    // 종성이 없는 경우: 나머지가 0이면 받침 없음
+    if ((lastCharCode - 0xAC00) % 28 == 0) {
+      return '로';
+    }
+
+    // 종성이 'ㄹ'인 경우
+    if ((lastCharCode - 0xAC00) % 28 == 8) {
+      return '로';
+    }
+
+    // 그 외의 경우
+    return '으로';
+  }
+
   /// 여행지 입력 팝업
   // init_planner_page, planner_page 에서 사용
   Future<Map<String, Planner>?> showGoPlanPopup({required BuildContext context, required AddressBloc addressBloc, required int index}) async {

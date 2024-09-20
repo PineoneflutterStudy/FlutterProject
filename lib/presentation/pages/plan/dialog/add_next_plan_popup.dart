@@ -54,7 +54,7 @@ class _AddNextPlanPopupState extends State<AddNextPlanPopup> with PlanUtil {
   }
 
   Future<void> _goRcmnPage() async {
-    context.pushNamed('rcmn', queryParameters: {'location': widget.location, 'category': 'AD5'}, extra: widget.addressBloc).then((value) {
+    context.pushNamed('rcmn', queryParameters: {'location': widget.location, 'category': 'AD5', 'root' : 'nextPage'}, extra: widget.addressBloc).then((value) {
       var result = value as Map<String,dynamic>;
       var address = result['address_info'] as Address?;
       startPlaceId = result['place_id'].toString();

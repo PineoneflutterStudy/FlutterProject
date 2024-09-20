@@ -13,16 +13,17 @@ import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../../main/common/component/dialog/common_dialog.dart';
 import '../../dialog/add_place_popup.dart';
+import '../../dialog/change_place_popup.dart';
 import '../../utils/plan_util.dart';
 
 /// 추천 장소 Item View
 class PlaceItemView extends StatefulWidget {
   final Place place;
-  final bool isRcmnPage;
+  final String root;
   final int radius;
   final String sort;
 
-  const PlaceItemView({required this.place, required this.isRcmnPage,required this.radius, required this.sort, super.key});
+  const PlaceItemView({required this.place, required this.root,required this.radius, required this.sort, super.key});
 
   @override
   State<PlaceItemView> createState() => _PlaceItemViewState();
@@ -53,8 +54,20 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
-        widget.isRcmnPage ? _showAddPlanPopup(context, widget.place) : _showSelectStartPlacePopup(context, widget.place)
+      onTap: () {
+        switch(widget.root){
+          case 'addPlace':
+            _showAddPlacePopup(context, widget.place);
+            break;
+          case 'nextPage':
+            _showSelectStartPlacePopup(context, widget.place);
+            break;
+          case 'changePlace':
+            _showChangePlacePopup(context, widget.place);
+            break;
+          default:
+            break;
+        }
       },
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
@@ -161,7 +174,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
     }
   }
 
-  void _showAddPlanPopup(BuildContext context, Place place) {
+  void _showAddPlacePopup(BuildContext context, Place place) {
     showDialog(
       context: context,
       builder: (BuildContext context) => AddPlacePopup(place: place),
@@ -183,6 +196,34 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
             y: widget.place.y,
             radius: widget.radius,
             sort: widget.sort
+          )
+        });
+      }
+    });
+  }
+
+  void _showChangePlacePopup(BuildContext context, Place place) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => ChangePlacePopup(newPlace: place),
+    ).then((result) {
+      if (result != null) {
+        final selectedTime = result['time'].toString();
+        final selectedTransportation = result['transportation'].toString();
+
+        context.pop({
+          'selectedTime': selectedTime,
+          'selectedTransportation': selectedTransportation,
+          'distance' : widget.place.distance,
+          'travel_time' : getTravelTime(widget.place.distance, selectedTransportation),
+          'place_name' : widget.place.placeName,
+          'place_id': widget.place.placeId,
+          'cur_address_info' : Address(
+              addressName: widget.place.placeName,
+              x: widget.place.x,
+              y: widget.place.y,
+              radius: widget.radius,
+              sort: widget.sort
           )
         });
       }

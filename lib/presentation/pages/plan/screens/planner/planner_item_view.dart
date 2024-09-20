@@ -132,7 +132,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
     addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
 
     // 다음 화면으로 이동 및 결과 처리
-    context.pushNamed('rcmn', queryParameters: {'location': location, 'placeId' : plan.cur_place_id ?? ''}, extra: addressBloc).then((value) {
+    context.pushNamed('rcmn', queryParameters: {'location': location, 'placeId' : plan.cur_place_id ?? '', 'root' : 'addPlace'}, extra: addressBloc).then((value) {
       var nextPlace = value as Map<String, dynamic>;
 
       var startTime = plan.end_time;
@@ -158,7 +158,7 @@ class PlannerItemView extends StatelessWidget with PlanUtil{
   void _showEditPlacePopup(BuildContext context){
     showDialog(
       context: context,
-      builder: (BuildContext context) => EditPlacePopup(plannerId: plannerId, plannerIndex: plannerIndex,pageIndex: pageIndex, placeIndex: curItemIndex, place: plan, plannerBloc: plannerBloc),
+      builder: (BuildContext context) => EditPlacePopup(plannerId: plannerId, plannerIndex: plannerIndex,pageIndex: pageIndex, placeIndex: curItemIndex, place: plan, plannerBloc: plannerBloc, addressBloc: addressBloc, location: location,),
     );
   }
 }

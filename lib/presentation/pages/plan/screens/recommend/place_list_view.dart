@@ -13,22 +13,22 @@ class PlaceListView extends StatelessWidget {
   final String search;
   final Address address;
   final String prevPlaceId;
-  final bool isRcmnPage;
-  const PlaceListView({required this.category, required this.search, required this.address, required this.prevPlaceId, required this.isRcmnPage, super.key});
+  final String root;
+  const PlaceListView({required this.category, required this.search, required this.address, required this.prevPlaceId, required this.root, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) {
         final placeBloc = PlaceBloc(locator<PlannerUsecase>());
-        if(isRcmnPage){
-          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, prevPlaceId, 1));
-        }else{
+        if(root == 'nextPage'){
           placeBloc.add(PlaceEvent.search(search, category.ctgrId));
+        }else{
+          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, prevPlaceId, 1));
         }
         return placeBloc;
       },
-      child: PlaceListPageView(category, address, isRcmnPage),
+      child: PlaceListPageView(category, address, root),
     );
   }
 }
@@ -36,9 +36,9 @@ class PlaceListView extends StatelessWidget {
 class PlaceListPageView extends StatelessWidget {
   final Category category;
   final Address address;
-  final bool isRcmnPage;
+  final String root;
 
-  const PlaceListPageView(this.category, this.address, this.isRcmnPage, {super.key});
+  const PlaceListPageView(this.category, this.address, this.root, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class PlaceListPageView extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: places.length,
                 itemBuilder: (context, index) {
-                  return PlaceItemView(place: places[index], isRcmnPage: isRcmnPage, radius: address.radius ?? 10000, sort: address.sort ?? 'distance');
+                  return PlaceItemView(place: places[index], root: root, radius: address.radius ?? 10000, sort: address.sort ?? 'distance');
                   },
           ),
           error: (error) => Center(child: Text('${error.message}')));

@@ -5,6 +5,7 @@ import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../domain/model/display/plan/planner.model.dart';
 import '../../../../domain/model/display/plan/transportation.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
+import '../bloc/address_bloc/address_bloc.dart';
 import '../bloc/planner_bloc/planner_bloc.dart';
 import '../utils/plan_util.dart';
 
@@ -15,9 +16,11 @@ class EditPlacePopup extends StatefulWidget {
   final int pageIndex;
   final int placeIndex;
   final PlannerItem place;
+  final String location;
   final PlannerBloc plannerBloc;
+  final AddressBloc addressBloc;
 
-  const EditPlacePopup({super.key, required this.plannerId, required this.plannerIndex, required this.pageIndex, required this.placeIndex, required this.place, required this.plannerBloc});
+  const EditPlacePopup({super.key, required this.plannerId, required this.plannerIndex, required this.pageIndex, required this.placeIndex, required this.place, required this.location, required this.plannerBloc, required this.addressBloc});
 
   @override
   State<EditPlacePopup> createState() => _EditPlacePopupState();
@@ -78,6 +81,34 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
       },
     );
   }
+
+  Future<void> _goRcmnPage() async {
+    var prevAddress = widget.place.prev_address_info ?? widget.place.cur_address_info;
+    widget.addressBloc.add(AddressEvent.setXYUpdated(prevAddress));
+
+    context.pushNamed('rcmn', queryParameters: {'location': widget.location, 'placeId' : widget.place.cur_place_id ?? '', 'root' : 'changePlace'}, extra: widget.addressBloc).then((value) {
+      var changePlace = value as Map<String, dynamic>;
+
+      print('changePlace : $changePlace');
+
+      var plannerItem = PlannerItem(
+        cur_address_info: changePlace['cur_address_info'],
+        cur_place_id: changePlace['place_id'],
+        place_name: changePlace['place_name'],
+        distance: changePlace['distance'],
+        transportation: changePlace['selectedTransportation'],
+        stay_time: changePlace['selectedTime'],
+        travel_time: changePlace['travel_time'],
+        end_time: '',
+      );
+
+      widget.plannerBloc.add(PlannerEvent.updatePlace(widget.plannerId, widget.plannerIndex, widget.pageIndex, widget.placeIndex, plannerItem));
+      context.pop();
+    });
+
+    return;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +212,7 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
                 children: [
                   Expanded(child: ElevatedButton(
                     onPressed: () {
-                      //todo 추천 목록 이동 > 장소 수정 팝업 > 장소 수정 event
+                      _goRcmnPage();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
