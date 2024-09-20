@@ -21,6 +21,7 @@ mixin _$EmailEvent {
     required TResult Function() started,
     required TResult Function(String email) emailSubmitted,
     required TResult Function(String password) passwordSubmitted,
+    required TResult Function(String password) signUpSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$EmailEvent {
     TResult? Function()? started,
     TResult? Function(String email)? emailSubmitted,
     TResult? Function(String password)? passwordSubmitted,
+    TResult? Function(String password)? signUpSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$EmailEvent {
     TResult Function()? started,
     TResult Function(String email)? emailSubmitted,
     TResult Function(String password)? passwordSubmitted,
+    TResult Function(String password)? signUpSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$EmailEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_EmailSubmitted value) emailSubmitted,
     required TResult Function(_PasswordSubmitted value) passwordSubmitted,
+    required TResult Function(_SignUpSubmitted value) signUpSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$EmailEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_EmailSubmitted value)? emailSubmitted,
     TResult? Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult? Function(_SignUpSubmitted value)? signUpSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$EmailEvent {
     TResult Function(_Started value)? started,
     TResult Function(_EmailSubmitted value)? emailSubmitted,
     TResult Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult Function(_SignUpSubmitted value)? signUpSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +127,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(String email) emailSubmitted,
     required TResult Function(String password) passwordSubmitted,
+    required TResult Function(String password) signUpSubmitted,
   }) {
     return started();
   }
@@ -131,6 +138,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(String email)? emailSubmitted,
     TResult? Function(String password)? passwordSubmitted,
+    TResult? Function(String password)? signUpSubmitted,
   }) {
     return started?.call();
   }
@@ -141,6 +149,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(String email)? emailSubmitted,
     TResult Function(String password)? passwordSubmitted,
+    TResult Function(String password)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -155,6 +164,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_EmailSubmitted value) emailSubmitted,
     required TResult Function(_PasswordSubmitted value) passwordSubmitted,
+    required TResult Function(_SignUpSubmitted value) signUpSubmitted,
   }) {
     return started(this);
   }
@@ -165,6 +175,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_EmailSubmitted value)? emailSubmitted,
     TResult? Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult? Function(_SignUpSubmitted value)? signUpSubmitted,
   }) {
     return started?.call(this);
   }
@@ -175,6 +186,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_EmailSubmitted value)? emailSubmitted,
     TResult Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult Function(_SignUpSubmitted value)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -256,6 +268,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     required TResult Function() started,
     required TResult Function(String email) emailSubmitted,
     required TResult Function(String password) passwordSubmitted,
+    required TResult Function(String password) signUpSubmitted,
   }) {
     return emailSubmitted(email);
   }
@@ -266,6 +279,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     TResult? Function()? started,
     TResult? Function(String email)? emailSubmitted,
     TResult? Function(String password)? passwordSubmitted,
+    TResult? Function(String password)? signUpSubmitted,
   }) {
     return emailSubmitted?.call(email);
   }
@@ -276,6 +290,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     TResult Function()? started,
     TResult Function(String email)? emailSubmitted,
     TResult Function(String password)? passwordSubmitted,
+    TResult Function(String password)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (emailSubmitted != null) {
@@ -290,6 +305,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     required TResult Function(_Started value) started,
     required TResult Function(_EmailSubmitted value) emailSubmitted,
     required TResult Function(_PasswordSubmitted value) passwordSubmitted,
+    required TResult Function(_SignUpSubmitted value) signUpSubmitted,
   }) {
     return emailSubmitted(this);
   }
@@ -300,6 +316,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     TResult? Function(_Started value)? started,
     TResult? Function(_EmailSubmitted value)? emailSubmitted,
     TResult? Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult? Function(_SignUpSubmitted value)? signUpSubmitted,
   }) {
     return emailSubmitted?.call(this);
   }
@@ -310,6 +327,7 @@ class _$EmailSubmittedImpl implements _EmailSubmitted {
     TResult Function(_Started value)? started,
     TResult Function(_EmailSubmitted value)? emailSubmitted,
     TResult Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult Function(_SignUpSubmitted value)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (emailSubmitted != null) {
@@ -397,6 +415,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     required TResult Function() started,
     required TResult Function(String email) emailSubmitted,
     required TResult Function(String password) passwordSubmitted,
+    required TResult Function(String password) signUpSubmitted,
   }) {
     return passwordSubmitted(password);
   }
@@ -407,6 +426,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     TResult? Function()? started,
     TResult? Function(String email)? emailSubmitted,
     TResult? Function(String password)? passwordSubmitted,
+    TResult? Function(String password)? signUpSubmitted,
   }) {
     return passwordSubmitted?.call(password);
   }
@@ -417,6 +437,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     TResult Function()? started,
     TResult Function(String email)? emailSubmitted,
     TResult Function(String password)? passwordSubmitted,
+    TResult Function(String password)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (passwordSubmitted != null) {
@@ -431,6 +452,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     required TResult Function(_Started value) started,
     required TResult Function(_EmailSubmitted value) emailSubmitted,
     required TResult Function(_PasswordSubmitted value) passwordSubmitted,
+    required TResult Function(_SignUpSubmitted value) signUpSubmitted,
   }) {
     return passwordSubmitted(this);
   }
@@ -441,6 +463,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     TResult? Function(_Started value)? started,
     TResult? Function(_EmailSubmitted value)? emailSubmitted,
     TResult? Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult? Function(_SignUpSubmitted value)? signUpSubmitted,
   }) {
     return passwordSubmitted?.call(this);
   }
@@ -451,6 +474,7 @@ class _$PasswordSubmittedImpl implements _PasswordSubmitted {
     TResult Function(_Started value)? started,
     TResult Function(_EmailSubmitted value)? emailSubmitted,
     TResult Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult Function(_SignUpSubmitted value)? signUpSubmitted,
     required TResult orElse(),
   }) {
     if (passwordSubmitted != null) {
@@ -467,6 +491,153 @@ abstract class _PasswordSubmitted implements EmailEvent {
   String get password;
   @JsonKey(ignore: true)
   _$$PasswordSubmittedImplCopyWith<_$PasswordSubmittedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignUpSubmittedImplCopyWith<$Res> {
+  factory _$$SignUpSubmittedImplCopyWith(_$SignUpSubmittedImpl value,
+          $Res Function(_$SignUpSubmittedImpl) then) =
+      __$$SignUpSubmittedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String password});
+}
+
+/// @nodoc
+class __$$SignUpSubmittedImplCopyWithImpl<$Res>
+    extends _$EmailEventCopyWithImpl<$Res, _$SignUpSubmittedImpl>
+    implements _$$SignUpSubmittedImplCopyWith<$Res> {
+  __$$SignUpSubmittedImplCopyWithImpl(
+      _$SignUpSubmittedImpl _value, $Res Function(_$SignUpSubmittedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? password = null,
+  }) {
+    return _then(_$SignUpSubmittedImpl(
+      null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignUpSubmittedImpl implements _SignUpSubmitted {
+  const _$SignUpSubmittedImpl(this.password);
+
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'EmailEvent.signUpSubmitted(password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignUpSubmittedImpl &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignUpSubmittedImplCopyWith<_$SignUpSubmittedImpl> get copyWith =>
+      __$$SignUpSubmittedImplCopyWithImpl<_$SignUpSubmittedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String email) emailSubmitted,
+    required TResult Function(String password) passwordSubmitted,
+    required TResult Function(String password) signUpSubmitted,
+  }) {
+    return signUpSubmitted(password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String email)? emailSubmitted,
+    TResult? Function(String password)? passwordSubmitted,
+    TResult? Function(String password)? signUpSubmitted,
+  }) {
+    return signUpSubmitted?.call(password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String email)? emailSubmitted,
+    TResult Function(String password)? passwordSubmitted,
+    TResult Function(String password)? signUpSubmitted,
+    required TResult orElse(),
+  }) {
+    if (signUpSubmitted != null) {
+      return signUpSubmitted(password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_EmailSubmitted value) emailSubmitted,
+    required TResult Function(_PasswordSubmitted value) passwordSubmitted,
+    required TResult Function(_SignUpSubmitted value) signUpSubmitted,
+  }) {
+    return signUpSubmitted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_EmailSubmitted value)? emailSubmitted,
+    TResult? Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult? Function(_SignUpSubmitted value)? signUpSubmitted,
+  }) {
+    return signUpSubmitted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_EmailSubmitted value)? emailSubmitted,
+    TResult Function(_PasswordSubmitted value)? passwordSubmitted,
+    TResult Function(_SignUpSubmitted value)? signUpSubmitted,
+    required TResult orElse(),
+  }) {
+    if (signUpSubmitted != null) {
+      return signUpSubmitted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignUpSubmitted implements EmailEvent {
+  const factory _SignUpSubmitted(final String password) = _$SignUpSubmittedImpl;
+
+  String get password;
+  @JsonKey(ignore: true)
+  _$$SignUpSubmittedImplCopyWith<_$SignUpSubmittedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -36,6 +36,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         started: () async => emit(EmailState.initial()),
         emailSubmitted: (email) => _onEmailSubmitted(emit, email),
         passwordSubmitted: (password) => _onPasswordSubmitted(emit, password),
+        signUpSubmitted: (password) => _onSignUpSubmitted(emit, password),
       );
     });
   }
@@ -65,7 +66,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     } else {
       // 이메일과 일치하는 계정이 없는 경우
       // 회원가입을 위해 이메일 인증 화면으로 이동
-      emit(EmailState.navigateToPage(Pages.signIn));
+      emit(EmailState.navigateToPage(Pages.signUp));
     }
   }
 
@@ -76,7 +77,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         email: submittedEmail,
         password: password,
       );
-      User? user = userCredential.user;
+      final User? user = userCredential.user;
 
       if (user != null) {
         _emitWithReset(emit, const EmailState.loggedIn());
@@ -94,6 +95,40 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         _emitWithReset(emit, const EmailState.error());
       }
     } catch (e) {
+      CustomLogger.logger.e('$_tag `Error - $e');
+      _emitWithReset(emit, const EmailState.error());
+    }
+  }
+
+  Future<void> _onSignUpSubmitted(Emitter<EmailState> emit, String password) async {
+    try {
+      final FirebaseAuthUtil authUtil = FirebaseAuthUtil();
+      final UserCredential userCredential = await authUtil.auth.createUserWithEmailAndPassword(
+        email: submittedEmail,
+        password: password,
+      );
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        //ett 이메일 인증 추가
+        // await user.sendEmailVerification();
+        // _emitWithReset(emit, const EmailState.emailVerificationSent());
+        _emitWithReset(emit, const EmailState.loggedIn());
+      } else {
+        _emitWithReset(emit, const EmailState.error());
+      }
+    }
+    /*on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        _emitWithReset(emit, const EmailState.weakPassword());
+      } else if (e.code == 'email-already-in-use') {
+        _emitWithReset(emit, const EmailState.emailAlreadyInUse());
+      } else {
+        CustomLogger.logger.e('$_tag `Error - $e');
+        _emitWithReset(emit, const EmailState.error());
+      }
+    }*/
+    catch (e) {
       CustomLogger.logger.e('$_tag `Error - $e');
       _emitWithReset(emit, const EmailState.error());
     }

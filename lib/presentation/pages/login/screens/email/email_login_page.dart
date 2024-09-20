@@ -23,14 +23,14 @@ enum ErrorState {
   emailInvalid,
   passwordEmpty,
   passwordInvalid,
-  signInPwInvalid,
-  signInPwMismatch
+  signUpPwInvalid,
+  signUpPwMismatch
 }
 
 enum Pages {
   emailInput(0),
   passwordInput(1),
-  signIn(2);
+  signUp(2);
 
   const Pages(this.page);
 
@@ -55,16 +55,16 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   final FocusNode _passwordFocusNode = FocusNode();
 
   // 회원가입 화면
-  final TextEditingController _signInPw1Controller = TextEditingController();
-  final TextEditingController _signInPw2Controller = TextEditingController();
-  final FocusNode _signInPw1FocusNode = FocusNode();
-  final FocusNode _signInPw2FocusNode = FocusNode();
+  final TextEditingController _signUpPw1Controller = TextEditingController();
+  final TextEditingController _signUpPw2Controller = TextEditingController();
+  final FocusNode _signUpPw1FocusNode = FocusNode();
+  final FocusNode _signUpPw2FocusNode = FocusNode();
 
   // 에러 상태 관리
   ErrorState _emailErrorState = ErrorState.none;
   ErrorState _passwordErrorState = ErrorState.none;
-  ErrorState _signInPw1ErrorState = ErrorState.none;
-  ErrorState _signInPw2ErrorState = ErrorState.none;
+  ErrorState _signUpPw1ErrorState = ErrorState.none;
+  ErrorState _signUpPw2ErrorState = ErrorState.none;
 
   @override
   void initState() {
@@ -82,10 +82,10 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     _passwordController.dispose();
     _passwordFocusNode.dispose();
 
-    _signInPw1Controller.dispose();
-    _signInPw2Controller.dispose();
-    _signInPw1FocusNode.dispose();
-    _signInPw2FocusNode.dispose();
+    _signUpPw1Controller.dispose();
+    _signUpPw2Controller.dispose();
+    _signUpPw1FocusNode.dispose();
+    _signUpPw2FocusNode.dispose();
 
     _tabController.dispose();
     _emailBloc.close();
@@ -104,7 +104,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               children: [
                 _buildEmailInputPage(context),
                 _buildPasswordInputPage(context),
-                _buildSignInPage(context),
+                _buildSignUpPage(context),
               ],
             ),
             listener: (context, state) {
@@ -209,9 +209,9 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         return '비밀번호를 입력해 주세요.';
       case ErrorState.passwordInvalid:
         return '비밀번호가 일치하지 않습니다. 다시 시도해 주세요.';
-      case ErrorState.signInPwInvalid:
+      case ErrorState.signUpPwInvalid:
         return '비밀번호는 8자 이상의 문자와 숫자를 포함해야 합니다.';
-      case ErrorState.signInPwMismatch:
+      case ErrorState.signUpPwMismatch:
         return '비밀번호가 일치하지 않습니다. 다시 확인해 주세요.';
       default:
         return null;
@@ -226,15 +226,15 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
             _onEmailTextChanged(controller.text);
           } else if (controller == _passwordController) {
             _onPasswordTextChanged(controller.text);
-          } else if (controller == _signInPw1Controller) {
-            _onSignInPw1TextChanged(controller.text);
-          } else if (controller == _signInPw2Controller) {
-            _onSignInPw2TextChanged(controller.text);
+          } else if (controller == _signUpPw1Controller) {
+            _onSignUpPw1TextChanged(controller.text);
+          } else if (controller == _signUpPw2Controller) {
+            _onSignUpPw2TextChanged(controller.text);
           } else {}
         },
       );
 
-  Padding _buildSignInPage(BuildContext context) => Padding(
+  Padding _buildSignUpPage(BuildContext context) => Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,40 +245,40 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
             ),
             SizedBox(height: 16),
             TextField(
-              controller: _signInPw1Controller,
-              focusNode: _signInPw1FocusNode,
+              controller: _signUpPw1Controller,
+              focusNode: _signUpPw1FocusNode,
               decoration: InputDecoration(
                 labelText: '비밀번호',
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                 contentPadding: EdgeInsets.only(left: 20),
-                errorText: _getErrorTextForPassword(_signInPw1ErrorState),
-                suffixIcon: _signInPw1Controller.text.isEmpty
+                errorText: _getErrorTextForPassword(_signUpPw1ErrorState),
+                suffixIcon: _signUpPw1Controller.text.isEmpty
                     ? null
-                    : _buildClearButton(controller: _signInPw1Controller),
+                    : _buildClearButton(controller: _signUpPw1Controller),
               ),
               obscureText: true,
               autofocus: true,
-              onChanged: _onSignInPw1TextChanged,
-              onSubmitted: _onSignInPw1Submitted,
+              onChanged: _onSignUpPw1TextChanged,
+              onSubmitted: _onSignUpPw1Submitted,
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
             SizedBox(height: 16),
             TextField(
-              controller: _signInPw2Controller,
-              focusNode: _signInPw2FocusNode,
+              controller: _signUpPw2Controller,
+              focusNode: _signUpPw2FocusNode,
               decoration: InputDecoration(
                 labelText: '비밀번호 확인',
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                 contentPadding: EdgeInsets.only(left: 20),
-                errorText: _getErrorTextForPassword(_signInPw2ErrorState),
-                suffixIcon: _signInPw2Controller.text.isEmpty
+                errorText: _getErrorTextForPassword(_signUpPw2ErrorState),
+                suffixIcon: _signUpPw2Controller.text.isEmpty
                     ? null
-                    : _buildClearButton(controller: _signInPw2Controller),
+                    : _buildClearButton(controller: _signUpPw2Controller),
               ),
               obscureText: true,
               autofocus: true,
-              onChanged: _onSignInPw2TextChanged,
-              onSubmitted: (value) => _onSignInPw2Submitted(context, value),
+              onChanged: _onSignUpPw2TextChanged,
+              onSubmitted: (value) => _onsignUpPw2Submitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
             SizedBox(height: 16),
@@ -337,51 +337,51 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     }
   }
 
-  void _onSignInPw1TextChanged(String password) {
-    if (_signInPw1ErrorState != ErrorState.none) {
-      setState(() => _signInPw1ErrorState = ErrorState.none);
+  void _onSignUpPw1TextChanged(String password) {
+    if (_signUpPw1ErrorState != ErrorState.none) {
+      setState(() => _signUpPw1ErrorState = ErrorState.none);
     }
   }
 
-  void _onSignInPw2TextChanged(String password) {
-    if (_signInPw2ErrorState != ErrorState.none) {
-      setState(() => _signInPw2ErrorState = ErrorState.none);
+  void _onSignUpPw2TextChanged(String password) {
+    if (_signUpPw2ErrorState != ErrorState.none) {
+      setState(() => _signUpPw2ErrorState = ErrorState.none);
     }
   }
 
-  void _onSignInPw1Submitted(String password) {
+  void _onSignUpPw1Submitted(String password) {
     setState(() {
       if (password.isEmpty) {
-        _signInPw1ErrorState = ErrorState.passwordEmpty;
+        _signUpPw1ErrorState = ErrorState.passwordEmpty;
       } else if (!CommonUtils.isValidPassword(password)) {
-        _signInPw1ErrorState = ErrorState.signInPwInvalid;
+        _signUpPw1ErrorState = ErrorState.signUpPwInvalid;
       } else {
-        _signInPw1ErrorState = ErrorState.none;
+        _signUpPw1ErrorState = ErrorState.none;
       }
     });
 
-    if (_signInPw1ErrorState == ErrorState.none) {
-      _signInPw2FocusNode.requestFocus();
+    if (_signUpPw1ErrorState == ErrorState.none) {
+      _signUpPw2FocusNode.requestFocus();
     } else {
-      _signInPw1FocusNode.requestFocus();
+      _signUpPw1FocusNode.requestFocus();
     }
   }
 
-  void _onSignInPw2Submitted(BuildContext context, String password) {
+  void _onsignUpPw2Submitted(BuildContext context, String password) {
     setState(() {
       if (password.isEmpty) {
-        _signInPw2ErrorState = ErrorState.passwordEmpty;
-      } else if (password != _signInPw1Controller.text) {
-        _signInPw2ErrorState = ErrorState.signInPwMismatch;
+        _signUpPw2ErrorState = ErrorState.passwordEmpty;
+      } else if (password != _signUpPw1Controller.text) {
+        _signUpPw2ErrorState = ErrorState.signUpPwMismatch;
       } else {
-        _signInPw2ErrorState = ErrorState.none;
+        _signUpPw2ErrorState = ErrorState.none;
       }
     });
 
-    if (_signInPw2ErrorState == ErrorState.none) {
-      // _getBloc(context).add(EmailEvent.passwordSubmitted(password));
+    if (_signUpPw2ErrorState == ErrorState.none) {
+      _getBloc(context).add(EmailEvent.signUpSubmitted(password));
     } else {
-      _signInPw2FocusNode.requestFocus();
+      _signUpPw2FocusNode.requestFocus();
     }
   }
 
