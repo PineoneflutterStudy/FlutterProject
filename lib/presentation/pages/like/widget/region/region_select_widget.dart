@@ -18,13 +18,15 @@ class RegionSelectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(30.0),
-        border: Border.all(color: AppColors.surfaceVariant, width: 0.5),
+        border: Border.all(color: AppColors.primary, width: 1.5),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 5.0,
-          vertical: 20.0,
+        padding: EdgeInsets.only(
+          left: 5.0,
+          right: 5.0,
+          top: 15,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,12 +38,18 @@ class RegionSelectWidget extends StatelessWidget {
               isSelected: selectModel.major.isNotEmpty,
               currentStep: selectModel.current,
             ),
+            SizedBox(
+              width: 10,
+            ),
             RegionSelectItemWidget(
               stepNumber: 2,
               stepTitle: '시/군/구',
               region: selectModel.middle,
               isSelected: selectModel.middle.isNotEmpty,
               currentStep: selectModel.current,
+            ),
+            SizedBox(
+              width: 10,
             ),
             RegionSelectItemWidget(
               stepNumber: 3,

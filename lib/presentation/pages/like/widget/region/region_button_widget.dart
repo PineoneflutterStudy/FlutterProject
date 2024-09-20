@@ -34,7 +34,6 @@ class RegionButtonWidget extends StatelessWidget with FilterUtil {
         return GestureDetector(
           onTap: () =>
           {
-            print('눌림'),
             Navigator.pop(context, _onSelectDataParser()),
           },
           child: Container(
@@ -47,7 +46,7 @@ class RegionButtonWidget extends StatelessWidget with FilterUtil {
             child: Center(
               child: Icon(Icons.check_rounded,
                 size: 50,
-                color: AppColors.black,
+                color: AppColors.white,
               ),
             ),
           ),

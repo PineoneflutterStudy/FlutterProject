@@ -54,7 +54,6 @@ class RegionWidget extends StatelessWidget {
 
   Scaffold setUI(RegionStatus state, RegionListModel region, RegionSelectModel select) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       appBar: MainAppbar(
         title: '장소 필터',
       ),
@@ -79,7 +78,7 @@ class RegionWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(30.0),
-                  border: Border.all(color: AppColors.onSurfaceVariant, width: 0.5),
+                  border: Border.all(color: AppColors.primary, width: 1.5),
                 ),
                 child: Center(
                   child: Padding(

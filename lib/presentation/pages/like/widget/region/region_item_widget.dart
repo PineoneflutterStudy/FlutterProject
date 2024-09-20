@@ -54,7 +54,7 @@ class RegionItemWidget extends StatelessWidget {
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
-          side: BorderSide(color: AppColors.surfaceVariant, width: 0.5),
+          side: BorderSide(color: AppColors.primary, width: 1.5),
         ),
         color: AppColors.white,
         child: InkWell(
@@ -62,8 +62,8 @@ class RegionItemWidget extends StatelessWidget {
             print('아이템 눌림 -> ${regionModel.cd} / ${regionModel.addr}'),
             _select(context),
           },
-          highlightColor: AppColors.secondary,
-          splashColor: AppColors.secondary,
+          highlightColor: AppColors.primary,
+          splashColor: AppColors.primary,
           customBorder: RoundedRectangleBorder(
             borderRadius:  BorderRadius.circular(30.0),
           ),

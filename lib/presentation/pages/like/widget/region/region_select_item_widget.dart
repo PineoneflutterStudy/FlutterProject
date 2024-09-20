@@ -55,7 +55,7 @@ class RegionSelectItemWidget extends StatelessWidget {
     return BlocBuilder<RegionFilterBloc, RegionFilterState>(
       builder: (context, state) {
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -71,7 +71,7 @@ class RegionSelectItemWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: 15,
                 ),
                 Text(stepTitle,
                   style: TextStyle(
@@ -85,12 +85,9 @@ class RegionSelectItemWidget extends StatelessWidget {
             ),
             Container(
               width: 110,
-              margin: EdgeInsets.only(
-                left: 10,
-              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                border: Border.all(color: AppColors.surfaceVariant, width: 0.5),
+                border: Border.all(color: AppColors.primary, width: 1.5),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
