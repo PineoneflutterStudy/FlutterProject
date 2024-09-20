@@ -30,6 +30,26 @@ class CommonUtils {
     return emailRegExp.hasMatch(email);
   }
 
+  /// ## 전달된 비밀번호 형식 유효성 검사 후 결과를 반환한다.
+  static bool isValidPassword(String password) {
+    bool isValidPassword = true;
+    if (password.length < 8) {
+      // 비밀번호는 최소 8자 이상이어야 합니다.
+      isValidPassword = false;
+    } else if (!(RegExp(r'[A-Z]').hasMatch(password) || RegExp(r'[a-z]').hasMatch(password))) {
+      // 비밀번호에는 대문자 혹은 소문자가 포함되어야 합니다.
+      isValidPassword = false;
+    } else if (!RegExp(r'[0-9]').hasMatch(password)) {
+      // 비밀번호에는 숫자가 포함되어야 합니다.
+      isValidPassword = false;
+    }
+    /*else if (!RegExp(r'[!@#\$&*~]').hasMatch(password)) {
+      // 비밀번호에는 특수 문자가 포함되어야 합니다.
+    isValidPassword = false;
+    }*/
+    return isValidPassword;
+  }
+
   /// ## *로 마스킹 처리된 이메일을 반환한다.
   static String maskEmail(String email) {
     // 이메일 주소를 @ 기준으로 나눔
