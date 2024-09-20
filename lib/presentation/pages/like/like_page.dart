@@ -13,7 +13,7 @@ import '../../../core/utils/constant.dart';
 import '../../../domain/usecase/display/display.usecase.dart';
 import '../../../service_locator.dart';
 import '../../main/common/bloc/ctgr_bloc/category_bloc.dart';
-import '../../main/common/component/widget/like_appbar.dart';
+import 'widget/appbar/like_appbar.dart';
 import 'widget/category/category_widget.dart';
 import 'widget/common/like_empty_page.dart';
 import 'widget/common/like_loading_page.dart';

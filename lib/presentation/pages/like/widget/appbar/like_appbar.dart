@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../pages/like/bloc/like_place/like_place_bloc.dart';
-import '../../../../pages/like/bloc/login/login_check_bloc.dart';
-import '../../../../pages/like/widget/region/region_widget.dart';
+import '../../bloc/like_place/like_place_bloc.dart';
+import '../../bloc/login/login_check_bloc.dart';
+import '../region/region_widget.dart';
 
 /**
  * 찜목록에서 사용하는 버튼도 추가된 AppBar
@@ -40,7 +40,7 @@ class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
               Visibility(
                 visible: isLoggedIn,
                 child: IconButton(
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.filter_list),
                   onPressed: () async {
                     final result = await Navigator.push(
                       context,
