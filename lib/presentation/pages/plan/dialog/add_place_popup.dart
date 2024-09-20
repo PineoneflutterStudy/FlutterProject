@@ -42,15 +42,13 @@ class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
           TextSpan(
             children: [
               TextSpan(
-                  text: "\'${widget.place.placeName}\' ",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold)),
+                  text: "\'${truncateWithEllipsis(widget.place.placeName, 13)}\' ",
+                  style: TextStyle(fontSize: 30, color: AppColors.primary, fontWeight: FontWeight.bold),
+              ),
               TextSpan(
-                  text:
-                      "${getParticle(widget.place.placeName)}\n여행계획에 추가 하시겠습니까~?",
-                  style: TextStyle(fontSize: 25, color: Colors.black)),
+                  text: "${getParticle(widget.place.placeName)}\n여행계획에 추가 하시겠습니까~?",
+                  style: TextStyle(fontSize: 25, color: Colors.black),
+              ),
             ],
           ),
         ),

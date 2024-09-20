@@ -90,6 +90,11 @@ mixin PlanUtil {
     return '으로';
   }
 
+  /// 팝업 장소명 최대글자수 제한
+  String truncateWithEllipsis(String text, int maxLength) {
+    return (text.length <= maxLength) ? text : '${text.substring(0, maxLength)}...';
+  }
+
   /// 여행지 입력 팝업
   // init_planner_page, planner_page 에서 사용
   Future<Map<String, Planner>?> showGoPlanPopup({required BuildContext context, required AddressBloc addressBloc, required int index}) async {

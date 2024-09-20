@@ -42,7 +42,7 @@ class _ChangePlacePopupState extends State<ChangePlacePopup> with PlanUtil {
           TextSpan(
             children: [
               TextSpan(
-                  text: "\'${widget.newPlace.placeName}\'",
+                  text: "\'${truncateWithEllipsis(widget.newPlace.placeName, 13)}\'",
                   style: TextStyle(
                       fontSize: 28,
                       color: AppColors.primary,
