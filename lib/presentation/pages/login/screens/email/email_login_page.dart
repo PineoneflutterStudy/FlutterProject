@@ -42,37 +42,50 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   final String _tag = Tag.EMAIL;
 
   late EmailBloc _emailBloc;
-  late PageController _pageController;
+  late TabController _tabController;
 
-  // 이메일
+  // 이메일 입력 화면
   final TextEditingController _emailController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
 
-  // 비밀번호
+  // 비밀번호 입력 화면
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
+
+  // 회원가입 화면
+  final TextEditingController _signInPwController1 = TextEditingController();
+  final TextEditingController _signInPwController2 = TextEditingController();
+  final FocusNode _signInPwFocusNode1 = FocusNode();
+  final FocusNode _signInPwFocusNode2 = FocusNode();
 
   // 에러 상태 관리
   ErrorState _emailErrorState = ErrorState.none;
   ErrorState _passwordErrorState = ErrorState.none;
+  ErrorState _signInPw1ErrorState = ErrorState.none;
+  ErrorState _signInPw2ErrorState = ErrorState.none;
 
   @override
   void initState() {
     super.initState();
     _emailBloc = EmailBloc();
     _emailBloc.add(EmailEvent.started());
-    _pageController = PageController(initialPage: Pages.emailInput.page);
+    _tabController = TabController(length: Pages.values.length, vsync: this);
   }
 
   @override
   void dispose() {
-    _passwordFocusNode.dispose();
-    _passwordController.dispose();
-
-    _emailFocusNode.dispose();
     _emailController.dispose();
+    _emailFocusNode.dispose();
 
-    _pageController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
+
+    _signInPwController1.dispose();
+    _signInPwController2.dispose();
+    _signInPwFocusNode1.dispose();
+    _signInPwFocusNode2.dispose();
+
+    _tabController.dispose();
     _emailBloc.close();
     super.dispose();
   }
@@ -83,12 +96,13 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         child: Scaffold(
           appBar: AppBar(),
           body: BlocConsumer<EmailBloc, EmailState>(
-            builder: (context, state) => PageView(
-              controller: _pageController,
+            builder: (context, state) => TabBarView(
+              controller: _tabController,
               physics: NeverScrollableScrollPhysics(), // 스크롤 탭 전환 비활성화
               children: [
                 _buildEmailInputPage(context),
                 _buildPasswordInputPage(context),
+                _buildSignInPage(context),
               ],
             ),
             listener: (context, state) {
@@ -158,7 +172,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${_emailController.text}에 로그인하려면 비밀번호를 입력해 주세요.',
+              '${_emailController.text}에 로그인하려면\n비밀번호를 입력해 주세요.',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
@@ -180,11 +194,14 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               onSubmitted: (value) => _onPasswordSubmitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
+            SizedBox(height: 16),
+            //ett 비밀번호 찾기 화면 필요.
           ],
         ),
       );
 
   String? _getErrorTextForPassword(ErrorState state) {
+    //eff 회원가입 화면에서 사용할 에러 문구 필요
     switch (state) {
       case ErrorState.passwordEmpty:
         return '비밀번호를 입력해 주세요.';
@@ -199,8 +216,70 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         icon: Icon(Icons.clear_rounded),
         onPressed: () {
           controller.clear();
-          _onEmailTextChanged(controller.text);
+          if (controller == _emailController) {
+            _onEmailTextChanged(controller.text);
+          } else if (controller == _passwordController) {
+            _onPasswordTextChanged(controller.text);
+          } else if (controller == _signInPwController1) {
+
+          } else if (controller == _signInPwController2) {
+
+          } else {
+
+          }
         },
+      );
+
+  Padding _buildSignInPage(BuildContext context) => Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${_emailController.text}에 사용할\n비밀번호를 입력해 주세요.',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _signInPwController1,
+              focusNode: _signInPwFocusNode1,
+              decoration: InputDecoration(
+                labelText: '비밀번호',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
+                contentPadding: EdgeInsets.only(left: 20),
+                errorText: _getErrorTextForPassword(_passwordErrorState),
+                suffixIcon: _signInPwController1.text.isEmpty
+                    ? null
+                    : _buildClearButton(controller: _signInPwController1),
+              ),
+              obscureText: true,
+              autofocus: true,
+              onChanged: _onPasswordTextChanged,
+              onSubmitted: (value) => _onPasswordSubmitted(context, value),
+              onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _signInPwController2,
+              focusNode: _signInPwFocusNode2,
+              decoration: InputDecoration(
+                labelText: '비밀번호 확인',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
+                contentPadding: EdgeInsets.only(left: 20),
+                errorText: _getErrorTextForPassword(_passwordErrorState),
+                suffixIcon: _signInPwController2.text.isEmpty
+                    ? null
+                    : _buildClearButton(controller: _signInPwController2),
+              ),
+              obscureText: true,
+              autofocus: true,
+              onChanged: _onPasswordTextChanged,
+              onSubmitted: (value) => _onPasswordSubmitted(context, value),
+              onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
       );
 
 //==============================================================================
@@ -255,11 +334,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
   }
 
   void _navigateToPage(Pages page) {
-    _pageController.animateToPage(
-      page.page,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    _tabController.animateTo(page.page);
   }
 
   void _onWrongPassword() {
