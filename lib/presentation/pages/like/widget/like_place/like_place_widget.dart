@@ -12,11 +12,13 @@ class LikePlaceWidget extends StatefulWidget {
 
   final LikeState state;
   final List<Place> placeList;
+  final String ctgrId;
 
   const LikePlaceWidget({
     super.key,
     required this.state,
     required this.placeList,
+    required this.ctgrId,
   });
 
   @override
@@ -40,7 +42,7 @@ class _LikePlaceWidgetState extends State<LikePlaceWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   context.read<LikePlaceBloc>()
-                      .add(LikePlaceEvent.started());
+                      .add(LikePlaceEvent.started(widget.ctgrId));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
@@ -66,7 +68,7 @@ class _LikePlaceWidgetState extends State<LikePlaceWidget> {
               scrollDirection: Axis.vertical,
               itemCount: widget.placeList.length,
               itemBuilder: (context, index) {
-                return LikePlaceItemWidget(place : widget.placeList[index]);
+                return LikePlaceItemWidget(place : widget.placeList[index], isFilter: (widget.state == LikeState.filter) ? true : false,);
               },
             ),
           ),

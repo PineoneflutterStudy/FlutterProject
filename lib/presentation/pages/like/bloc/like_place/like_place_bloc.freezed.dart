@@ -18,26 +18,23 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LikePlaceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String index) delete,
+    required TResult Function(String ctgrId) started,
+    required TResult Function(String index, bool isFilter) delete,
     required TResult Function(String region) region,
-    required TResult Function(String category) category,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String index)? delete,
+    TResult? Function(String ctgrId)? started,
+    TResult? Function(String index, bool isFilter)? delete,
     TResult? Function(String region)? region,
-    TResult? Function(String category)? category,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String index)? delete,
+    TResult Function(String ctgrId)? started,
+    TResult Function(String index, bool isFilter)? delete,
     TResult Function(String region)? region,
-    TResult Function(String category)? category,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -46,7 +43,6 @@ mixin _$LikePlaceEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_Delete value) delete,
     required TResult Function(_Region value) region,
-    required TResult Function(_Category value) category,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +50,6 @@ mixin _$LikePlaceEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_Delete value)? delete,
     TResult? Function(_Region value)? region,
-    TResult? Function(_Category value)? category,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,7 +57,6 @@ mixin _$LikePlaceEvent {
     TResult Function(_Started value)? started,
     TResult Function(_Delete value)? delete,
     TResult Function(_Region value)? region,
-    TResult Function(_Category value)? category,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -91,6 +85,8 @@ abstract class _$$StartedImplCopyWith<$Res> {
   factory _$$StartedImplCopyWith(
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String ctgrId});
 }
 
 /// @nodoc
@@ -100,60 +96,81 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ctgrId = null,
+  }) {
+    return _then(_$StartedImpl(
+      null == ctgrId
+          ? _value.ctgrId
+          : ctgrId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+  const _$StartedImpl(this.ctgrId);
+
+  @override
+  final String ctgrId;
 
   @override
   String toString() {
-    return 'LikePlaceEvent.started()';
+    return 'LikePlaceEvent.started(ctgrId: $ctgrId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$StartedImpl &&
+            (identical(other.ctgrId, ctgrId) || other.ctgrId == ctgrId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, ctgrId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      __$$StartedImplCopyWithImpl<_$StartedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String index) delete,
+    required TResult Function(String ctgrId) started,
+    required TResult Function(String index, bool isFilter) delete,
     required TResult Function(String region) region,
-    required TResult Function(String category) category,
   }) {
-    return started();
+    return started(ctgrId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String index)? delete,
+    TResult? Function(String ctgrId)? started,
+    TResult? Function(String index, bool isFilter)? delete,
     TResult? Function(String region)? region,
-    TResult? Function(String category)? category,
   }) {
-    return started?.call();
+    return started?.call(ctgrId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String index)? delete,
+    TResult Function(String ctgrId)? started,
+    TResult Function(String index, bool isFilter)? delete,
     TResult Function(String region)? region,
-    TResult Function(String category)? category,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started();
+      return started(ctgrId);
     }
     return orElse();
   }
@@ -164,7 +181,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_Delete value) delete,
     required TResult Function(_Region value) region,
-    required TResult Function(_Category value) category,
   }) {
     return started(this);
   }
@@ -175,7 +191,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_Delete value)? delete,
     TResult? Function(_Region value)? region,
-    TResult? Function(_Category value)? category,
   }) {
     return started?.call(this);
   }
@@ -186,7 +201,6 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_Delete value)? delete,
     TResult Function(_Region value)? region,
-    TResult Function(_Category value)? category,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -197,7 +211,12 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements LikePlaceEvent {
-  const factory _Started() = _$StartedImpl;
+  const factory _Started(final String ctgrId) = _$StartedImpl;
+
+  String get ctgrId;
+  @JsonKey(ignore: true)
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -206,7 +225,7 @@ abstract class _$$DeleteImplCopyWith<$Res> {
           _$DeleteImpl value, $Res Function(_$DeleteImpl) then) =
       __$$DeleteImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index});
+  $Res call({String index, bool isFilter});
 }
 
 /// @nodoc
@@ -221,12 +240,17 @@ class __$$DeleteImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? index = null,
+    Object? isFilter = null,
   }) {
     return _then(_$DeleteImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isFilter
+          ? _value.isFilter
+          : isFilter // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -234,14 +258,16 @@ class __$$DeleteImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DeleteImpl implements _Delete {
-  const _$DeleteImpl(this.index);
+  const _$DeleteImpl(this.index, this.isFilter);
 
   @override
   final String index;
+  @override
+  final bool isFilter;
 
   @override
   String toString() {
-    return 'LikePlaceEvent.delete(index: $index)';
+    return 'LikePlaceEvent.delete(index: $index, isFilter: $isFilter)';
   }
 
   @override
@@ -249,11 +275,13 @@ class _$DeleteImpl implements _Delete {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.isFilter, isFilter) ||
+                other.isFilter == isFilter));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, index, isFilter);
 
   @JsonKey(ignore: true)
   @override
@@ -264,36 +292,33 @@ class _$DeleteImpl implements _Delete {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String index) delete,
+    required TResult Function(String ctgrId) started,
+    required TResult Function(String index, bool isFilter) delete,
     required TResult Function(String region) region,
-    required TResult Function(String category) category,
   }) {
-    return delete(index);
+    return delete(index, isFilter);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String index)? delete,
+    TResult? Function(String ctgrId)? started,
+    TResult? Function(String index, bool isFilter)? delete,
     TResult? Function(String region)? region,
-    TResult? Function(String category)? category,
   }) {
-    return delete?.call(index);
+    return delete?.call(index, isFilter);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String index)? delete,
+    TResult Function(String ctgrId)? started,
+    TResult Function(String index, bool isFilter)? delete,
     TResult Function(String region)? region,
-    TResult Function(String category)? category,
     required TResult orElse(),
   }) {
     if (delete != null) {
-      return delete(index);
+      return delete(index, isFilter);
     }
     return orElse();
   }
@@ -304,7 +329,6 @@ class _$DeleteImpl implements _Delete {
     required TResult Function(_Started value) started,
     required TResult Function(_Delete value) delete,
     required TResult Function(_Region value) region,
-    required TResult Function(_Category value) category,
   }) {
     return delete(this);
   }
@@ -315,7 +339,6 @@ class _$DeleteImpl implements _Delete {
     TResult? Function(_Started value)? started,
     TResult? Function(_Delete value)? delete,
     TResult? Function(_Region value)? region,
-    TResult? Function(_Category value)? category,
   }) {
     return delete?.call(this);
   }
@@ -326,7 +349,6 @@ class _$DeleteImpl implements _Delete {
     TResult Function(_Started value)? started,
     TResult Function(_Delete value)? delete,
     TResult Function(_Region value)? region,
-    TResult Function(_Category value)? category,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -337,9 +359,10 @@ class _$DeleteImpl implements _Delete {
 }
 
 abstract class _Delete implements LikePlaceEvent {
-  const factory _Delete(final String index) = _$DeleteImpl;
+  const factory _Delete(final String index, final bool isFilter) = _$DeleteImpl;
 
   String get index;
+  bool get isFilter;
   @JsonKey(ignore: true)
   _$$DeleteImplCopyWith<_$DeleteImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -409,10 +432,9 @@ class _$RegionImpl implements _Region {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String index) delete,
+    required TResult Function(String ctgrId) started,
+    required TResult Function(String index, bool isFilter) delete,
     required TResult Function(String region) region,
-    required TResult Function(String category) category,
   }) {
     return region(this.region);
   }
@@ -420,10 +442,9 @@ class _$RegionImpl implements _Region {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String index)? delete,
+    TResult? Function(String ctgrId)? started,
+    TResult? Function(String index, bool isFilter)? delete,
     TResult? Function(String region)? region,
-    TResult? Function(String category)? category,
   }) {
     return region?.call(this.region);
   }
@@ -431,10 +452,9 @@ class _$RegionImpl implements _Region {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String index)? delete,
+    TResult Function(String ctgrId)? started,
+    TResult Function(String index, bool isFilter)? delete,
     TResult Function(String region)? region,
-    TResult Function(String category)? category,
     required TResult orElse(),
   }) {
     if (region != null) {
@@ -449,7 +469,6 @@ class _$RegionImpl implements _Region {
     required TResult Function(_Started value) started,
     required TResult Function(_Delete value) delete,
     required TResult Function(_Region value) region,
-    required TResult Function(_Category value) category,
   }) {
     return region(this);
   }
@@ -460,7 +479,6 @@ class _$RegionImpl implements _Region {
     TResult? Function(_Started value)? started,
     TResult? Function(_Delete value)? delete,
     TResult? Function(_Region value)? region,
-    TResult? Function(_Category value)? category,
   }) {
     return region?.call(this);
   }
@@ -471,7 +489,6 @@ class _$RegionImpl implements _Region {
     TResult Function(_Started value)? started,
     TResult Function(_Delete value)? delete,
     TResult Function(_Region value)? region,
-    TResult Function(_Category value)? category,
     required TResult orElse(),
   }) {
     if (region != null) {
@@ -491,159 +508,15 @@ abstract class _Region implements LikePlaceEvent {
 }
 
 /// @nodoc
-abstract class _$$CategoryImplCopyWith<$Res> {
-  factory _$$CategoryImplCopyWith(
-          _$CategoryImpl value, $Res Function(_$CategoryImpl) then) =
-      __$$CategoryImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String category});
-}
-
-/// @nodoc
-class __$$CategoryImplCopyWithImpl<$Res>
-    extends _$LikePlaceEventCopyWithImpl<$Res, _$CategoryImpl>
-    implements _$$CategoryImplCopyWith<$Res> {
-  __$$CategoryImplCopyWithImpl(
-      _$CategoryImpl _value, $Res Function(_$CategoryImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? category = null,
-  }) {
-    return _then(_$CategoryImpl(
-      null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CategoryImpl implements _Category {
-  const _$CategoryImpl(this.category);
-
-  @override
-  final String category;
-
-  @override
-  String toString() {
-    return 'LikePlaceEvent.category(category: $category)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CategoryImpl &&
-            (identical(other.category, category) ||
-                other.category == category));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, category);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
-      __$$CategoryImplCopyWithImpl<_$CategoryImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String index) delete,
-    required TResult Function(String region) region,
-    required TResult Function(String category) category,
-  }) {
-    return category(this.category);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String index)? delete,
-    TResult? Function(String region)? region,
-    TResult? Function(String category)? category,
-  }) {
-    return category?.call(this.category);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String index)? delete,
-    TResult Function(String region)? region,
-    TResult Function(String category)? category,
-    required TResult orElse(),
-  }) {
-    if (category != null) {
-      return category(this.category);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_Delete value) delete,
-    required TResult Function(_Region value) region,
-    required TResult Function(_Category value) category,
-  }) {
-    return category(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_Delete value)? delete,
-    TResult? Function(_Region value)? region,
-    TResult? Function(_Category value)? category,
-  }) {
-    return category?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_Delete value)? delete,
-    TResult Function(_Region value)? region,
-    TResult Function(_Category value)? category,
-    required TResult orElse(),
-  }) {
-    if (category != null) {
-      return category(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Category implements LikePlaceEvent {
-  const factory _Category(final String category) = _$CategoryImpl;
-
-  String get category;
-  @JsonKey(ignore: true)
-  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 mixin _$LikePlaceState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) =>
@@ -652,8 +525,9 @@ mixin _$LikePlaceState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) =>
@@ -662,8 +536,9 @@ mixin _$LikePlaceState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
@@ -760,8 +635,10 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
@@ -773,8 +650,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
@@ -786,8 +664,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
@@ -886,8 +765,10 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
@@ -899,8 +780,9 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
@@ -912,8 +794,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
@@ -978,7 +861,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({LikeState state, List<Place> placeList});
+  $Res call({LikeState state, List<Place> placeList, String ctgrId});
 }
 
 /// @nodoc
@@ -994,6 +877,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? state = null,
     Object? placeList = null,
+    Object? ctgrId = null,
   }) {
     return _then(_$SuccessImpl(
       null == state
@@ -1004,6 +888,10 @@ class __$$SuccessImplCopyWithImpl<$Res>
           ? _value._placeList
           : placeList // ignore: cast_nullable_to_non_nullable
               as List<Place>,
+      null == ctgrId
+          ? _value.ctgrId
+          : ctgrId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1011,7 +899,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.state, final List<Place> placeList)
+  const _$SuccessImpl(this.state, final List<Place> placeList, this.ctgrId)
       : _placeList = placeList;
 
   @override
@@ -1025,8 +913,11 @@ class _$SuccessImpl implements _Success {
   }
 
   @override
+  final String ctgrId;
+
+  @override
   String toString() {
-    return 'LikePlaceState.success(state: $state, placeList: $placeList)';
+    return 'LikePlaceState.success(state: $state, placeList: $placeList, ctgrId: $ctgrId)';
   }
 
   @override
@@ -1036,12 +927,13 @@ class _$SuccessImpl implements _Success {
             other is _$SuccessImpl &&
             (identical(other.state, state) || other.state == state) &&
             const DeepCollectionEquality()
-                .equals(other._placeList, _placeList));
+                .equals(other._placeList, _placeList) &&
+            (identical(other.ctgrId, ctgrId) || other.ctgrId == ctgrId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, state, const DeepCollectionEquality().hash(_placeList));
+  int get hashCode => Object.hash(runtimeType, state,
+      const DeepCollectionEquality().hash(_placeList), ctgrId);
 
   @JsonKey(ignore: true)
   @override
@@ -1054,12 +946,14 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
-    return success(state, placeList);
+    return success(state, placeList, ctgrId);
   }
 
   @override
@@ -1067,12 +961,13 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
-    return success?.call(state, placeList);
+    return success?.call(state, placeList, ctgrId);
   }
 
   @override
@@ -1080,14 +975,15 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(state, placeList);
+      return success(state, placeList, ctgrId);
     }
     return orElse();
   }
@@ -1137,11 +1033,12 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements LikePlaceState {
-  const factory _Success(final LikeState state, final List<Place> placeList) =
-      _$SuccessImpl;
+  const factory _Success(final LikeState state, final List<Place> placeList,
+      final String ctgrId) = _$SuccessImpl;
 
   LikeState get state;
   List<Place> get placeList;
+  String get ctgrId;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1153,7 +1050,7 @@ abstract class _$$EmptyImplCopyWith<$Res> {
           _$EmptyImpl value, $Res Function(_$EmptyImpl) then) =
       __$$EmptyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({LikeState state});
+  $Res call({LikeState state, String ctgrId});
 }
 
 /// @nodoc
@@ -1168,12 +1065,17 @@ class __$$EmptyImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? state = null,
+    Object? ctgrId = null,
   }) {
     return _then(_$EmptyImpl(
       null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as LikeState,
+      null == ctgrId
+          ? _value.ctgrId
+          : ctgrId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1181,14 +1083,16 @@ class __$$EmptyImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EmptyImpl implements _Empty {
-  const _$EmptyImpl(this.state);
+  const _$EmptyImpl(this.state, this.ctgrId);
 
   @override
   final LikeState state;
+  @override
+  final String ctgrId;
 
   @override
   String toString() {
-    return 'LikePlaceState.empty(state: $state)';
+    return 'LikePlaceState.empty(state: $state, ctgrId: $ctgrId)';
   }
 
   @override
@@ -1196,11 +1100,12 @@ class _$EmptyImpl implements _Empty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EmptyImpl &&
-            (identical(other.state, state) || other.state == state));
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.ctgrId, ctgrId) || other.ctgrId == ctgrId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, state);
+  int get hashCode => Object.hash(runtimeType, state, ctgrId);
 
   @JsonKey(ignore: true)
   @override
@@ -1213,12 +1118,14 @@ class _$EmptyImpl implements _Empty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
-    return empty(state);
+    return empty(state, ctgrId);
   }
 
   @override
@@ -1226,12 +1133,13 @@ class _$EmptyImpl implements _Empty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
-    return empty?.call(state);
+    return empty?.call(state, ctgrId);
   }
 
   @override
@@ -1239,14 +1147,15 @@ class _$EmptyImpl implements _Empty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (empty != null) {
-      return empty(state);
+      return empty(state, ctgrId);
     }
     return orElse();
   }
@@ -1296,9 +1205,11 @@ class _$EmptyImpl implements _Empty {
 }
 
 abstract class _Empty implements LikePlaceState {
-  const factory _Empty(final LikeState state) = _$EmptyImpl;
+  const factory _Empty(final LikeState state, final String ctgrId) =
+      _$EmptyImpl;
 
   LikeState get state;
+  String get ctgrId;
   @JsonKey(ignore: true)
   _$$EmptyImplCopyWith<_$EmptyImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1344,8 +1255,10 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
@@ -1357,8 +1270,9 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
@@ -1370,8 +1284,9 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),
@@ -1470,8 +1385,10 @@ class _$onDeleteImpl implements _onDelete {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LikeState state, List<Place> placeList) success,
-    required TResult Function(LikeState state) empty,
+    required TResult Function(
+            LikeState state, List<Place> placeList, String ctgrId)
+        success,
+    required TResult Function(LikeState state, String ctgrId) empty,
     required TResult Function() error,
     required TResult Function() delete,
   }) {
@@ -1483,8 +1400,9 @@ class _$onDeleteImpl implements _onDelete {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LikeState state, List<Place> placeList)? success,
-    TResult? Function(LikeState state)? empty,
+    TResult? Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult? Function(LikeState state, String ctgrId)? empty,
     TResult? Function()? error,
     TResult? Function()? delete,
   }) {
@@ -1496,8 +1414,9 @@ class _$onDeleteImpl implements _onDelete {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LikeState state, List<Place> placeList)? success,
-    TResult Function(LikeState state)? empty,
+    TResult Function(LikeState state, List<Place> placeList, String ctgrId)?
+        success,
+    TResult Function(LikeState state, String ctgrId)? empty,
     TResult Function()? error,
     TResult Function()? delete,
     required TResult orElse(),

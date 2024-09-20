@@ -12,7 +12,7 @@ class CtgrMockApi implements MockApi{
       status: 'success', //성공 0, 실패 1
       code: '0000',
       message: '',
-      data: _ctgrParser((menuType == MenuType.home) ? CtgrMockData.homeCategory : CtgrMockData.planCategory)
+      data: _ctgrParser(_ctgrType(menuType))
     ));
   }
 
@@ -21,5 +21,16 @@ class CtgrMockApi implements MockApi{
     final List json = jsonDecode(source);
     cgList = json.map((e) => CategoryDto.fromJson(e)).toList();
     return cgList;
+  }
+
+  String _ctgrType(MenuType menuType) {
+    switch(menuType) {
+      case MenuType.home:
+        return CtgrMockData.homeCategory;
+      case MenuType.like:
+        return CtgrMockData.likeCategory;
+      default:
+        return CtgrMockData.planCategory;
+    }
   }
 }

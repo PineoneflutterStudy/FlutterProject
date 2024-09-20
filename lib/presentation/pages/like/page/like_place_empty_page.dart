@@ -3,16 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/constant.dart';
-import '../../login/login_page.dart';
 import '../bloc/like_place/like_place_bloc.dart';
-import '../bloc/login/login_check_bloc.dart';
 
 class LikePlaceEmptyPage extends StatelessWidget {
 
   final LikeState state;
+  final String ctgrId;
+
   LikePlaceEmptyPage({
     Key? key,
     required this.state,
+    required this.ctgrId,
   }) : super(key: key);
 
   @override
@@ -43,7 +44,7 @@ class LikePlaceEmptyPage extends StatelessWidget {
             child: IconButton(
               onPressed: () {
                 context.read<LikePlaceBloc>()
-                    .add(LikePlaceEvent.started());
+                    .add(LikePlaceEvent.started(''));
               },
               icon: Icon(Icons.refresh_rounded,
                 color: AppColors.black,

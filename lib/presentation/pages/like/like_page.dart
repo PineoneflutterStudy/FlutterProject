@@ -45,7 +45,6 @@ class _LikePageState extends State<LikePage> {
         )),
         BlocProvider(create: ((context) =>
             LikePlaceBloc(_likePlaceUsecase)
-              ..add(LikePlaceEvent.started())
         )),
       ],
       child: Scaffold(
@@ -89,12 +88,16 @@ class _LikePageState extends State<LikePage> {
       builder: (context, ctgrState) {
         return ctgrState.when(
             loading: () => LikeLoadingPage(),
-            success: (categorys, selected)=> CategoryWidget(categorys: categorys, selected: selected),
+            success: (categorys, selected) => CategoryWidget(categorys: categorys, selected: selected),
             error: (error) => Center(child: Text("목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.",textAlign: TextAlign.center))
         );
       },
       listener: (context, state) {
-        //TODO - 찜목록 메인 목록 개발 시, 상태 관리 영역
+        state.maybeWhen(
+          success: (categorys, selected) =>
+              context.read<LikePlaceBloc>().add(LikePlaceEvent.started(selected.ctgrId)),
+          orElse: () => _nothing(),
+        );
       },
     );
   }
@@ -103,8 +106,8 @@ class _LikePageState extends State<LikePage> {
     return BlocConsumer<LikePlaceBloc, LikePlaceState>(
       builder: (context, state) {
         return state.maybeWhen(
-          success: (state, placeList) => LikePlaceWidget(state: state, placeList: placeList),
-          empty: (state) => LikePlaceEmptyPage(state: state),
+          success: (state, placeList, ctgrId) => LikePlaceWidget(state: state, placeList: placeList, ctgrId: ctgrId,),
+          empty: (state, ctgrId) => LikePlaceEmptyPage(state: state, ctgrId: ctgrId),
           orElse: () => LikeEmptyPage(),
         );
       },

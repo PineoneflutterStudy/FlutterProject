@@ -10,7 +10,7 @@ class LikePlaceRepositoryImpl implements LikePlaceRepository {
   LikePlaceRepositoryImpl(this.firestore);
 
   @override
-  Future<List<Place>> getLikePlaceList() async {
+  Future<List<Place>> getLikePlaceList(String ctgrId) async {
     final List<Place> placeList = [];
     final response =
       await firestore.getSubCollectionListFromCollection(DBKey.DB_LIKES);
@@ -18,7 +18,13 @@ class LikePlaceRepositoryImpl implements LikePlaceRepository {
     if (response != null && response.isNotEmpty) {
       for (var data in response) {
         try {
-          placeList.add(Place.fromJson(data));
+          Place place = Place.fromJson(data);
+          if (ctgrId.isNotEmpty) {
+            if (ctgrId != place.categoryId) {
+              continue;
+            }
+          }
+          placeList.add(place);
         } catch (e) {
           print('Error converting place data: $e');
         }
