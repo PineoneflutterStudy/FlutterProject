@@ -12,6 +12,7 @@ import '../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../service_locator.dart';
 import '../festival_info/screen/festival_contents.dart';
+import '../utils/home_util.dart';
 import 'home_category_contents.dart';
 import 'popular_contents.dart';
 
@@ -106,9 +107,7 @@ class _HomePageState extends State<HomePage> {
         trailing: [
             IconButton(
               onPressed: () {
-                if (searchValue.isNotEmpty) {
-                  _searchGoogleWeb(searchValue);
-                }
+                HomeUtil.searchRecommend(context, searchValue);
               },
               icon: const Icon(Icons.search_rounded, color: AppColors.primary,),
             ),

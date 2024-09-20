@@ -6,6 +6,7 @@ import '../../../../core/utils/logger.dart';
 import '../../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../../service_locator.dart';
 import '../../plan/bloc/address_bloc/address_bloc.dart';
+import '../utils/home_util.dart';
 import 'home_api_service.dart';
 
 /**
@@ -75,7 +76,7 @@ class _PopularContents extends State<PopularContents> {
       padding: EdgeInsets.fromLTRB(leftPadding, 0, rightPadding, 0),
       child: GestureDetector(
         onTap: () {
-          _searchRecommend(location ?? '');
+          HomeUtil.searchRecommend(context, location ?? '');
         },
         child: Stack(
           alignment: Alignment.center,
@@ -104,20 +105,5 @@ class _PopularContents extends State<PopularContents> {
         ),
       ),
     );
-  }
-
-  /**
-   * 추천 화면 이동
-   */
-  void _searchRecommend(String value) {
-    if (value.isEmpty) return;
-    // Bloc 초기화
-    AddressBloc addressBloc = AddressBloc(locator<PlannerUsecase>());
-    // Address 초기화
-    addressBloc.add(AddressInitialized('$value'));
-    // 추천 화면 이동
-    context.pushNamed('rcmn',
-        queryParameters: {'location': '$value', 'category': 'FD6'},
-        extra: addressBloc);
   }
 }

@@ -4,7 +4,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../domain/model/display/home/tour_detail_info.model.dart';
 import '../../../../../domain/model/display/home/tour_festival_info.model.dart';
-import '../festival_util.dart';
+import '../../utils/home_util.dart';
 import 'festival_kakao_map.dart';
 
 class FestivalDialogWidget extends StatelessWidget {
@@ -69,9 +69,9 @@ class FestivalDialogWidget extends StatelessWidget {
                       },
                       child: dialogSubText(true, AppIcons.iconBee, address)
                   ),
-                  dialogSubText(false, AppIcons.iconHoneyHexagon, FestivalUtil.getDate(festivalInfoDto)),
-                  dialogSubText(false, AppIcons.iconHoneyDrop, FestivalUtil.stripHtml(detailDto?.usetimefestival ?? ''),),
-                  dialogSubText(false, AppIcons.iconHoneyStick, FestivalUtil.stripHtml(detailDto?.playtime ?? '')),
+                  dialogSubText(false, AppIcons.iconHoneyHexagon, HomeUtil.getDate(festivalInfoDto)),
+                  dialogSubText(false, AppIcons.iconHoneyDrop, HomeUtil.stripHtml(detailDto?.usetimefestival ?? ''),),
+                  dialogSubText(false, AppIcons.iconHoneyStick, HomeUtil.stripHtml(detailDto?.playtime ?? '')),
                   dialogSubText(false, AppIcons.iconHoneyBottle, festivalInfoDto?.tel ?? '',)
                 ],
               ),

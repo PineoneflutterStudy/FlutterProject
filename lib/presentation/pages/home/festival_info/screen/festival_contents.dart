@@ -9,7 +9,7 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/home/tour_detail_info.model.dart';
 import '../../../../../domain/model/display/home/tour_festival_info.model.dart';
 import '../../home_state.dart';
-import '../festival_util.dart';
+import '../../utils/home_util.dart';
 import '../notifier/festival_info_notifier.dart';
 import 'festival_dialog_widget.dart';
 
@@ -181,7 +181,7 @@ class _FestivalListView extends ConsumerState<FestivalListView> {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  FestivalUtil.getDate(infoDto),
+                  HomeUtil.getDate(infoDto),
                   style: TextStyle(
                       color: AppColors.contentPrimary,
                       fontWeight: FontWeight.w600,
