@@ -11,7 +11,7 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 |최정창|팀원|로그인화면, 마이페이지 메뉴 개발|
 
 ## 🛠Collaboration tools🛠
-###### Github, Teams, Confluence, jira
+#### Github, Teams, Confluence, jira
 
 
 ## 🗣️Subject
