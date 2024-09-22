@@ -35,6 +35,14 @@ class AppIcons {
   static const String iconHoneyHexagon = '$assetIconPath/icon_honey_hexagon.png';
   static const String iconHoneyStick = '$assetIconPath/icon_honey_stick.png';
 
+  static const String mangmungFoot = '$assetIconPath/mangmung_foot.png';
+  static const String mapMungHoney = '$assetIconPath/map_honey.png';
+  static const String mapMungRed = '$assetIconPath/map_mung_red.png';
+  static const String mapMungOrange = '$assetIconPath/map_mung_orange.png';
+  static const String mapMungYellow = '$assetIconPath/map_mung_yellow.png';
+  static const String mapMungGreen = '$assetIconPath/map_mung_green.png';
+  static const String mapMungBlue = '$assetIconPath/map_mung_blue.png';
+
   //image
   static const String assetImagePath = 'assets/images';
   static const String ImgBeeLaugh = '$assetImagePath/img_bee_laugh.png';
