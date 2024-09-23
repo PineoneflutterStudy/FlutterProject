@@ -51,6 +51,7 @@ class AppIcons {
   static const String mangmung1 = '$assetImagePath/mangmung_img1.PNG';
   static const String mangmung2 = '$assetImagePath/mangmung_img2.PNG';
   static const String mangmung3 = '$assetImagePath/mangmung_img3.PNG';
+  static const String mangmungNothing = '$assetImagePath/mangmung_nothing.PNG';
 
   // image - login
   static const String imgLoginLogoGoogle = '$assetImagePath/login_logo_google.png';
