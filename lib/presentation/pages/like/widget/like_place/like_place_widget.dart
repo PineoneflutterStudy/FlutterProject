@@ -4,21 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/utils/constant.dart';
+import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
-import '../../bloc/like_place/like_place_bloc.dart';
+import '../../bloc/like_category/like_category_bloc.dart';
 import 'like_place_item_widget.dart';
 
 class LikePlaceWidget extends StatefulWidget {
 
   final LikeState state;
   final List<Place> placeList;
-  final String ctgrId;
+
 
   const LikePlaceWidget({
     super.key,
     required this.state,
     required this.placeList,
-    required this.ctgrId,
   });
 
   @override
@@ -28,52 +28,68 @@ class LikePlaceWidget extends StatefulWidget {
 class _LikePlaceWidgetState extends State<LikePlaceWidget> {
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LikeCategoryBloc, LikeCategoryState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          success: (categorys, selected, regionName) => placeUI(context, categorys, selected),
+          orElse: () => const SizedBox()
+        );
+      },
+    );
+  }
+
+  Widget placeUI(BuildContext context, List<Category> categorys, Category selected) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 13.0),
-      child: Column(
-        children: [
-          Visibility(
-            visible: (widget.state == LikeState.filter) ? true : false,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 280,
-                bottom: 8,
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  context.read<LikePlaceBloc>()
-                      .add(LikePlaceEvent.started(widget.ctgrId));
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    surfaceTintColor: AppColors.primary,
-                    foregroundColor: AppColors.black,
-                    overlayColor: AppColors.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    )
+        padding: const EdgeInsets.symmetric(horizontal: 13.0),
+        child: Column(
+          children: [
+            Visibility(
+              visible: (widget.state == LikeState.filter) ? true : false,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 280,
+                  bottom: 8,
                 ),
-                child: Center(
-                  child: Text('전체 보기',
-                    style: TextStyle(
-                      fontSize: 24,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read<LikeCategoryBloc>()
+                        .add(LikeCategoryEvent.setCategorySelected(categorys, selected, ''));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      surfaceTintColor: AppColors.primary,
+                      foregroundColor: AppColors.black,
+                      overlayColor: AppColors.secondary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      )
+                  ),
+                  child: Center(
+                    child: Text('필터 해제',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: widget.placeList.length,
-              itemBuilder: (context, index) {
-                return LikePlaceItemWidget(place : widget.placeList[index], isFilter: (widget.state == LikeState.filter) ? true : false,);
-              },
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: widget.placeList.length,
+                itemBuilder: (context, index) {
+                  return LikePlaceItemWidget(place: widget.placeList[index],
+                    isFilter: (widget.state == LikeState.filter)
+                        ? true
+                        : false,
+                  );
+                },
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
     );
   }
 }

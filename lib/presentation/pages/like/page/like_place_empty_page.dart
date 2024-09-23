@@ -43,8 +43,8 @@ class LikePlaceEmptyPage extends StatelessWidget {
             visible: (state == LikeState.filter) ? true : false,
             child: IconButton(
               onPressed: () {
-                context.read<LikePlaceBloc>()
-                    .add(LikePlaceEvent.started(''));
+                // context.read<LikePlaceBloc>()
+                //     .add(LikePlaceEvent.update(''));
               },
               icon: Icon(Icons.refresh_rounded,
                 color: AppColors.black,

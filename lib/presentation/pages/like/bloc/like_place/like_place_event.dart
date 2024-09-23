@@ -2,7 +2,8 @@ part of 'like_place_bloc.dart';
 
 @freezed
 class LikePlaceEvent with _$LikePlaceEvent {
-  const factory LikePlaceEvent.started(String ctgrId) = _Started;
+  const factory LikePlaceEvent.update(Category category) = _onUpdate;
+  const factory LikePlaceEvent.failed() = _onFailed;
+  const factory LikePlaceEvent.region(Category category, String regionName) = _Region;
   const factory LikePlaceEvent.delete(String index, bool isFilter) = _Delete;
-  const factory LikePlaceEvent.region(String region) = _Region;
 }

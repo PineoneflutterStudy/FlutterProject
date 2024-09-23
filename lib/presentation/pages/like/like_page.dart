@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/like_category/like_category_bloc.dart';
 import 'page/like_place_empty_page.dart';
 import 'widget/like_place/like_place_widget.dart';
 import '../../../core/utils/firebase/firebase_firestore_util.dart';
@@ -12,7 +13,6 @@ import 'page/like_logout_page.dart';
 import '../../../core/utils/constant.dart';
 import '../../../domain/usecase/display/display.usecase.dart';
 import '../../../service_locator.dart';
-import '../../main/common/bloc/ctgr_bloc/category_bloc.dart';
 import 'widget/appbar/like_appbar.dart';
 import 'widget/category/category_widget.dart';
 import 'widget/common/like_empty_page.dart';
@@ -40,8 +40,8 @@ class _LikePageState extends State<LikePage> {
               ..add(LoginCheckEvent.checkLogin())
         )),
         BlocProvider(create: ((context) =>
-            CategoryBloc(locator<DisplayUsecase>())
-              ..add(GetCategoryList(MenuType.like))
+            LikeCategoryBloc(locator<DisplayUsecase>())
+              ..add(LikeCategoryEvent.getCategoryList(MenuType.like))
         )),
         BlocProvider(create: ((context) =>
             LikePlaceBloc(_likePlaceUsecase)
@@ -84,21 +84,29 @@ class _LikePageState extends State<LikePage> {
   }
 
   Widget _categoryUI() {
-    return BlocConsumer<CategoryBloc, CategoryState>(
-      builder: (context, ctgrState) {
-        return ctgrState.when(
-            loading: () => LikeLoadingPage(),
-            success: (categorys, selected) => CategoryWidget(categorys: categorys, selected: selected),
-            error: (error) => Center(child: Text("목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.",textAlign: TextAlign.center))
-        );
-      },
-      listener: (context, state) {
-        state.maybeWhen(
-          success: (categorys, selected) =>
-              context.read<LikePlaceBloc>().add(LikePlaceEvent.started(selected.ctgrId)),
-          orElse: () => _nothing(),
-        );
-      },
+    return BlocConsumer<LikeCategoryBloc, LikeCategoryState>(
+        builder: (context, state) {
+          return state.when(
+              loading: () => LikeLoadingPage(),
+              success: (categorys, category, regionName) {
+
+                if (regionName.isNotEmpty) {
+                  context.read<LikePlaceBloc>().add(LikePlaceEvent.region(category, regionName));
+                } else {
+                  context.read<LikePlaceBloc>().add(LikePlaceEvent.update(category));
+                }
+
+                return CategoryWidget(categorys: categorys, selected: category, regionName: regionName);
+              },
+              error: (error) => const SizedBox(),
+          );
+        },
+        listener: (context, state) {
+          state.maybeWhen(
+            success: (a, b, c) => print('성공'),
+            orElse: () => _errorCategory(),
+          );
+        },
     );
   }
 
@@ -106,12 +114,30 @@ class _LikePageState extends State<LikePage> {
     return BlocConsumer<LikePlaceBloc, LikePlaceState>(
       builder: (context, state) {
         return state.maybeWhen(
-          success: (state, placeList, ctgrId) => LikePlaceWidget(state: state, placeList: placeList, ctgrId: ctgrId,),
-          empty: (state, ctgrId) => LikePlaceEmptyPage(state: state, ctgrId: ctgrId),
+          initial: () => LikeLoadingPage(),
+          success: (state, placeList, category) => LikePlaceWidget(state: state, placeList: placeList),
+          empty: (state, category) => LikePlaceEmptyPage(state: state, ctgrId: category.ctgrId),
+          error: () => _errorWidget(),
           orElse: () => LikeEmptyPage(),
         );
       },
       listener: (BuildContext context, state) {  },
+    );
+  }
+
+  void _errorCategory() {
+    context.read<LikePlaceBloc>().add(LikePlaceEvent.failed());
+  }
+
+  Widget _errorWidget() {
+    return Center(
+      child: Column(
+        children: [
+          Text("장소 목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.",
+              textAlign: TextAlign.center
+          ),
+        ],
+      )
     );
   }
 

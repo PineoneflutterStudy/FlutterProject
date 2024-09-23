@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/model/display/category/category.model.dart';
-import '../../../../main/common/bloc/ctgr_bloc/category_bloc.dart';
+import '../../bloc/like_category/like_category_bloc.dart';
 import 'category_item_widget.dart';
 
 
@@ -10,9 +10,10 @@ import 'category_item_widget.dart';
  * 찜목록 상단 카테고리
  */
 class CategoryWidget extends StatefulWidget {
-  const CategoryWidget({super.key, required this.categorys, required this.selected});
+  const CategoryWidget({super.key, required this.categorys, required this.selected, required this.regionName});
   final Category selected;
   final List<Category> categorys;
+  final String regionName;
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
@@ -21,7 +22,7 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryBloc, CategoryState>(
+    return BlocBuilder<LikeCategoryBloc, LikeCategoryState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(
@@ -37,7 +38,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 return CategoryItemWidget(
                   category: widget.categorys[index],
                   isSelected: isSelected,
-                  onTap: () {context.read<CategoryBloc>().add(CategoryEvent.setCategorySelected(widget.categorys[index]));},
+                  onTap: () {context.read<LikeCategoryBloc>().add(LikeCategoryEvent.setCategorySelected(widget.categorys, widget.categorys[index], widget.regionName));},
                 );
               },
               separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10),
