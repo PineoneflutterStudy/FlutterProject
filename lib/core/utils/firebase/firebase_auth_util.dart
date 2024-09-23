@@ -17,6 +17,7 @@ import 'firebase_firestore_util.dart';
 
 class FirebaseAuthUtil {
   static const String _ERROR_EMAIL_DUPLICATED = 'ERROR_EMAIL_DUPLICATED';
+  static const List<String> _GOOGLE_SIGN_IN_SCOPE = ['email', 'profile'];
 
   final FirebaseAuth auth;
 
@@ -31,8 +32,7 @@ class FirebaseAuthUtil {
   /// ## 구글 로그인을 실행한다.
   Future<void> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? account = await GoogleSignIn().signIn();
-
+      final GoogleSignInAccount? account = await GoogleSignIn(scopes: _GOOGLE_SIGN_IN_SCOPE).signIn();
       if (account == null) {
         CustomLogger.logger.w('Google sign-in failed: account == null');
         return;
