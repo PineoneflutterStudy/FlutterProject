@@ -4,6 +4,7 @@ import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/location_db.model.dart';
 import '../../../../../domain/model/display/meet/meet_address.model.dart';
+import '../../../../../domain/model/display/meet/meet_marker.model.dart';
 import '../../../../../domain/model/display/meet/tour_location.model.dart';
 import '../../../../../domain/repository/meet/location_firestore.repository.dart';
 import '../../providers.dart';
@@ -12,8 +13,15 @@ import 'meet_firestore_state.dart';
 part 'meet_firestore_notifier.g.dart';
 
 final Logger _logger = CustomLogger.logger;
-final String UrlDestination = 'mapMarker/location_honey_case';
+final String UrlDestination = 'mapMarker/map_honey'; // 목적지 벌꿀통
 final String UrlStarting = 'mapMarker/location_point_bee';
+
+final int blueColorValue = 0xCC0D47A1;
+final int greenColorValue = 0xCC4CAF50;
+final int orangeColorValue = 0xFFFFC000;
+final int redColorValue = 0xCCB71C1C;
+final int yellowColorValue = 0xFFFFFBCC;
+
 @riverpod
 class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   @override
@@ -118,25 +126,60 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
   Future<void> getMarkerImage() async {
     state = state.copyWith(storageStatus: MeetFireStorageStatus.loading,);
 
-    final destinationImgUrl = await _locationRepo.getImgUrl(UrlDestination); //  목적지 이미지
-    final startingPointImgUrl = await _locationRepo.getImgUrl(UrlStarting); //  출발지 이미지
+    /*final destinationImgUrl = await _locationRepo.getImgUrl(UrlDestination); //  목적지 이미지
+    final startingPointImgUrl = await _locationRepo.getImgUrl(UrlStarting); //  출발지 이미지*/
+    final getAllImageUrl = await _locationRepo.getAllImgUrl('mapMarker');
 
-    // 이미지 Url를 정상적으로 가져오지 못함
-    if (destinationImgUrl.isEmpty || startingPointImgUrl.isEmpty) {
+    String destinationImgUrl = '';
+    List<MeetMarkerModel> markerList = [];
+    if (getAllImageUrl != null) {
+      for (var path in getAllImageUrl) {
+        if (path.contains('honey')) {
+          destinationImgUrl = await _locationRepo.getImgUrl(path); //  목적지 이미지
+        } else {
+          markerList.add(
+              MeetMarkerModel(
+                  imagePath: await _locationRepo.getImgUrl(path),
+                  loadColorValue: getLoadColor(path)
+              )
+          );
+        }
+      }
+
+
+      _logger.e('뭐지 이거 확인해보자 -> ${markerList}');
+
+      state = state.copyWith(
+        storageStatus: MeetFireStorageStatus.success,
+        destinationImg: destinationImgUrl.toString(),
+        startingPointInfo: markerList,
+      );
+
+    } else {
+      // 이미지 Url를 정상적으로 가져오지 못함
       _logger.e('Get Image URL ( Firebase Storage ).. But can`t Find Image..!!');
       state = state.copyWith(
         storageStatus: MeetFireStorageStatus.failure,
-        startingPointImg: '',
+        startingPointInfo: List.empty(),
         destinationImg: '',
       );
       return;
     }
+  }
+}
 
-    _logger.i('Get Image URL ( Firebase Storage ).. Success Get Image URL');
-    state = state.copyWith(
-      storageStatus: MeetFireStorageStatus.success,
-      startingPointImg: startingPointImgUrl.toString(),
-      destinationImg: destinationImgUrl.toString(),
-    );
+int getLoadColor(String path) {
+  if (path.contains('blue')) {
+    return blueColorValue;
+  } else if (path.contains('green')) {
+    return greenColorValue;
+  } else if (path.contains('orange')) {
+    return orangeColorValue;
+  } else if (path.contains('red')) {
+    return redColorValue;
+  } else if (path.contains('yellow')) {
+    return yellowColorValue;
+  } else {
+    return 0;
   }
 }

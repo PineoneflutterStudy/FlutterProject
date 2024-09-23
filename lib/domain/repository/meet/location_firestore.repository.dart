@@ -22,6 +22,7 @@ LocationFireStoreRepository locationFireStoreRepository(
 abstract class LocationFireStoreRepository extends Repository {
   Future<User?> getLoginState();
   Future<String> getImgUrl(String imgLocation);
+  Future<List<String>?> getAllImgUrl(String directoryName);
   Future<List<Map<String, dynamic>>?> getLocationAllInfo(String key);
   Future<void> deleteLocationAll(String key, String docId);
 }
@@ -33,7 +34,11 @@ class LocationFireStoreRepositoryImpl extends LocationFireStoreRepository {
 
   /// ## 출발지, 목적지 이미지 Url Get
   @override
-  Future<String> getImgUrl(String imgLocation) async => await FirebaseStorageUtil().getPngImageUrl(imgLocation);
+  Future<String> getImgUrl(String imgLocation) async => await FirebaseStorageUtil().getImageUrl(imgLocation);
+
+  /// ## 마커에 사용할 디렉토리 내부 모든 이미지 Url Get
+  @override
+  Future<List<String>?> getAllImgUrl(String directoryName) async => await FirebaseStorageUtil().getAllImageUrl(directoryName);
 
   /// ## Firestore DB > Locations 정보 Get
   @override

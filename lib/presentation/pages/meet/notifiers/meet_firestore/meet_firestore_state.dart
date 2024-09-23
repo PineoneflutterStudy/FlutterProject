@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../domain/model/display/meet/location_db.model.dart';
+import '../../../../../domain/model/display/meet/meet_marker.model.dart';
 
 enum MeetFireStoreStatus { initial, loading, success, failure }
 
@@ -14,7 +15,7 @@ class MeetFireStoreState extends Equatable {
     this.loginStatus = MeetLoginStatus.initial,
     this.storageStatus = MeetFireStorageStatus.initial,
     this.destinationImg = '',
-    this.startingPointImg = '',
+    this.startingPointInfo = const [],
     this.getLocationInfo = const [],
   });
 
@@ -22,7 +23,7 @@ class MeetFireStoreState extends Equatable {
   final MeetLoginStatus loginStatus;
   final MeetFireStorageStatus storageStatus; // Storage 상태
   final String destinationImg; // 목적지 이미지 Url
-  final String startingPointImg; // 출발지 이미지 Url
+  final List<MeetMarkerModel> startingPointInfo; // 출발지 이미지 와 Line Color 리스트
   final List<LocationDbModel> getLocationInfo;
 
   MeetFireStoreState copyWith({
@@ -30,7 +31,7 @@ class MeetFireStoreState extends Equatable {
     MeetLoginStatus? loginStatus,
     MeetFireStorageStatus? storageStatus,
     String? destinationImg,
-    String? startingPointImg,
+    List<MeetMarkerModel>? startingPointInfo,
     List<LocationDbModel>? getLocationInfo,
   }) {
     return MeetFireStoreState(
@@ -38,7 +39,7 @@ class MeetFireStoreState extends Equatable {
       loginStatus: loginStatus ?? this.loginStatus,
       storageStatus: storageStatus ?? this.storageStatus,
       destinationImg: destinationImg ?? this.destinationImg,
-      startingPointImg: startingPointImg ?? this.startingPointImg,
+      startingPointInfo: startingPointInfo ?? this.startingPointInfo,
       getLocationInfo: getLocationInfo ?? this.getLocationInfo,
     );
   }
@@ -49,7 +50,7 @@ class MeetFireStoreState extends Equatable {
         loginStatus,
         storageStatus,
         destinationImg,
-        startingPointImg,
+        startingPointInfo,
         getLocationInfo,
       ];
 }

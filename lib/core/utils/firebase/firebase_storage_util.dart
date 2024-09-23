@@ -3,7 +3,6 @@ import 'package:logger/logger.dart';
 
 import '../logger.dart';
 
-final imgType = ['.png', '.jpg'];
 final Logger _logger = CustomLogger.logger;
 
 /// # Use Firebase Storage
@@ -13,13 +12,13 @@ final Logger _logger = CustomLogger.logger;
 class FirebaseStorageUtil {
   FirebaseStorage storage = FirebaseStorage.instance;
 
-  Future<String> getPngImageUrl(String location) async {
+  Future<String> getImageUrl(String location) async {
     _logger.i('Check Image Location( Png ).. -> ${location}');
 
     if (location.isNotEmpty) {
       return await storage
           .ref()
-          .child('${location + imgType[0]}')
+          .child('${location}')
           .getDownloadURL();
     } else {
       _logger.e('Location is Empty( Png ).. -> ${location}');
@@ -27,17 +26,22 @@ class FirebaseStorageUtil {
     }
   }
 
-  Future<String> getJpgImageUrl(String location) async {
-    _logger.i('Check Image Location( Jpg ).. -> ${location}');
+  /// 전달된 디렉토리 내부 모든 이미지 Url 가져옴
+  Future<List<String>?> getAllImageUrl(String directoryName) async {
+    _logger.i('Check Firebase Directory Name -> ${directoryName}');
 
-    if (location.isNotEmpty) {
-      return await storage
-          .ref()
-          .child('${location + imgType[1]}')
-          .getDownloadURL();
+    if (directoryName.isNotEmpty) {
+      final storageRef = await storage.ref().child(directoryName);
+      final listResult = await storageRef.listAll();
+
+      List<String> urlList = [];
+      for (var item in listResult.items) {
+        urlList.add(item.fullPath);
+      }
+      return urlList;
     } else {
-      _logger.e('Location is Empty( Jpg ).. -> ${location}');
-      return '';
+      _logger.e('Firebase Directory Name is Empty');
+      return List.empty();
     }
   }
 }
