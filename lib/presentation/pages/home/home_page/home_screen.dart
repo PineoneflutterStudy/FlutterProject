@@ -11,6 +11,7 @@ import '../../../../domain/model/display/category/category.model.dart';
 import '../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../service_locator.dart';
+import '../banner/screen/banner_contents.dart';
 import '../festival_info/screen/festival_contents.dart';
 import '../utils/home_util.dart';
 import 'home_category_contents.dart';
@@ -68,8 +69,10 @@ class _HomePageState extends State<HomePage> {
             HomeSearchBar(),
             // 인기 지역 크롤링 이였던것..
             PopularContents(),
-            // 목록 Mock
-            CategoryContents(categoryList: categoryList),
+            // 배너 이미지
+            BannerContents(),
+            /*// 목록 Mock
+            CategoryContents(categoryList: categoryList),*/
             // 전국 축제
             FestivalContents()
           ],

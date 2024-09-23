@@ -5,6 +5,8 @@ class DBKey {
   static const String DB_DB_START = "Start"; // 출발지들
   static const String DB_DB_DESTINATION = "Destination"; // 목적지
   static const String DB_PLANNER = "Planners"; // 여행계획
+  static const String DB_HOME = "Home"; //
+  static const String DB_BANNER = "Banner"; //
 }
 
 /// ## Users(유저정보) 콜렉션의 필드

@@ -256,4 +256,38 @@ class FirebaseFirestoreUtil {
       return {}; // 데이터가 null이거나 Map으로 캐스팅할 수 없는 경우 빈 맵 반환
     }
   }
+
+  //============================================================================
+  //  HOME
+  //============================================================================
+  /// Home > Banner 문서 참조 위치 반환
+  Future<DocumentReference?> getBannerDocRef() async {
+    return _firestore.collection(DBKey.DB_HOME).doc(DBKey.DB_BANNER);
+  }
+
+  /// bannerDocRef null이 아닌 경우에만 작업하도록
+  Future<T?> _executeWithBannerDocRef<T>(
+      Future<T?> Function(DocumentReference bannerDocRef) action) async {
+    final bannerDocRef = await getBannerDocRef();
+    if (bannerDocRef == null) {
+      _logger.e("Banner document reference is null");
+      return null;
+    }
+    return await action(bannerDocRef);
+  }
+
+  /// Home > Banner 위치에 위치한 데이터 가져오는 함수
+  /// Json형태로 반환
+  Future<Map<String, dynamic>?> getBannerDocumentData() async {
+    return await _executeWithBannerDocRef<Map<String, dynamic>?>(
+        (bannerDocRef) async {
+      try {
+        DocumentSnapshot documentSnapshot = await bannerDocRef.get();
+        return documentSnapshot.data() as Map<String, dynamic>?;
+      } catch (e) {
+        _logger.e("Error getting user document data: $e");
+        return null;
+      }
+    });
+  }
 }
