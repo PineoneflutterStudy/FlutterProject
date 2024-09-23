@@ -66,4 +66,7 @@ class AppIcons {
   static const String mangmungLoadingLottie = '$assetLottiePath/mangmung_loading_lottie.json';
   static const String mangmungLoadingLottieSlow = '$assetLottiePath/mangmung_loading_lottie_slow.json';
 
+  static const String mangmungWalkingLottie = '$assetLottiePath/mangmung_walk.json';
+  static const String mangmungWalkingLottieSmall = '$assetLottiePath/mangmung_walk_small.json';
+
 }
