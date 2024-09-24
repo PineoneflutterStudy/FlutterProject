@@ -113,7 +113,7 @@ class CommonFabWidgetState extends State<CommonFabWidget>
           children: [
             Icon(item.icon, color: AppColors.carrot),
             const SizedBox(width: 2.0),
-            Text(item.label, style: const TextStyle(color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16)),
+            Expanded(child: Center(child: Text(item.label, style: const TextStyle(color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16)))),
           ],
         ),
       ),
