@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/utils/constant.dart';
+import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../../../domain/usecase/like/place/get_like_place.usecase.dart';
@@ -24,7 +26,7 @@ class LikePlaceBloc extends Bloc<LikePlaceEvent, LikePlaceState> with LikePlaceU
         update: (category) => _getLikedPlace(emit, category),
         failed: () => _onFailed,
         region: (category, regionName) => _sortByRegion(emit, category, regionName),
-        delete: (id, isFilter) => _onDelete(emit, id, isFilter),
+        delete: (id, category, regionName) => _onDelete(emit, id, category, regionName),
       );
     });
   }
@@ -72,18 +74,18 @@ class LikePlaceBloc extends Bloc<LikePlaceEvent, LikePlaceState> with LikePlaceU
   }
 
   /// 찜목록 아이템 삭제
-  Future<void> _onDelete(Emitter<LikePlaceState> emit, String placeId, bool isFilter) async {
-    // var docRef = await firestore.getCollectionDocRef(DBKey.DB_LIKES, placeId);
-    // // if (docRef != null) {
-    // //   firestore.deleteDocument(docRef);
-    // //   if (isFilter) {
-    // //     await _sortByRegion(emit, _filter);
-    // //   } else{
-    // //     await _getLikedPlace(emit, _ctgrId);
-    // //   }
-    // // } else {
-    // //   CustomLogger.logger.e("Like Document is null");
-    // // }
+  Future<void> _onDelete(Emitter<LikePlaceState> emit, String placeId, Category category, String regionName) async {
+    var docRef = await firestore.getCollectionDocRef(DBKey.DB_LIKES, placeId);
+    if (docRef != null) {
+      firestore.deleteDocument(docRef);
+      if (regionName.isNotEmpty) {
+        await _sortByRegion(emit, category, regionName);
+      } else{
+        await _getLikedPlace(emit, category);
+      }
+    } else {
+      CustomLogger.logger.e("Like Document is null");
+    }
   }
 
   void _onFailed(Emitter<LikePlaceState> emit, String errorMsg) {

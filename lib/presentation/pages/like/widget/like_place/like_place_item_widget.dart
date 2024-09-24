@@ -6,6 +6,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../domain/model/display/category/category.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../plan/utils/plan_util.dart';
 import '../../bloc/like_place/like_place_bloc.dart';
@@ -13,12 +14,16 @@ import '../../bloc/like_place/like_place_bloc.dart';
 class LikePlaceItemWidget extends StatefulWidget {
 
   final Place place;
-  final bool isFilter;
+
+  final Category selected;
+
+  final String regionName;
 
   const LikePlaceItemWidget({
     super.key,
     required this.place,
-    required this.isFilter,
+    required this.selected,
+    required this.regionName,
   });
 
   @override
@@ -108,7 +113,7 @@ class _LikePlaceItemWidgetState extends State<LikePlaceItemWidget> with PlanUtil
                     icon: Image.asset(true ? AppIcons.iconFullHeart : AppIcons.iconEmptyHeart, width: 20, height: 20),
                     onPressed: () {
                       String placeId = widget.place.placeId;
-                      context.read<LikePlaceBloc>().add(LikePlaceEvent.delete(placeId, widget.isFilter));
+                      context.read<LikePlaceBloc>().add(LikePlaceEvent.delete(placeId, widget.selected, widget.regionName));
                     },
                   ),
                 ],

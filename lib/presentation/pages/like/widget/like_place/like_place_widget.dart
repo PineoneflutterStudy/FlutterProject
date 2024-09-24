@@ -98,10 +98,10 @@ class _LikePlaceWidgetState extends State<LikePlaceWidget> {
                 scrollDirection: Axis.vertical,
                 itemCount: widget.placeList.length,
                 itemBuilder: (context, index) {
-                  return LikePlaceItemWidget(place: widget.placeList[index],
-                    isFilter: (widget.state == LikeState.filter)
-                        ? true
-                        : false,
+                  return LikePlaceItemWidget(
+                    place: widget.placeList[index],
+                    selected: selected,
+                    regionName: regionName,
                   );
                 },
               ),

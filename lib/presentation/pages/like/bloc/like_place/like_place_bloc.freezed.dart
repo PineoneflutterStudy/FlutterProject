@@ -21,7 +21,9 @@ mixin _$LikePlaceEvent {
     required TResult Function(Category category) update,
     required TResult Function() failed,
     required TResult Function(Category category, String regionName) region,
-    required TResult Function(String index, bool isFilter) delete,
+    required TResult Function(
+            String index, Category category, String regionName)
+        delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +31,8 @@ mixin _$LikePlaceEvent {
     TResult? Function(Category category)? update,
     TResult? Function()? failed,
     TResult? Function(Category category, String regionName)? region,
-    TResult? Function(String index, bool isFilter)? delete,
+    TResult? Function(String index, Category category, String regionName)?
+        delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +40,8 @@ mixin _$LikePlaceEvent {
     TResult Function(Category category)? update,
     TResult Function()? failed,
     TResult Function(Category category, String regionName)? region,
-    TResult Function(String index, bool isFilter)? delete,
+    TResult Function(String index, Category category, String regionName)?
+        delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -164,7 +168,9 @@ class _$onUpdateImpl implements _onUpdate {
     required TResult Function(Category category) update,
     required TResult Function() failed,
     required TResult Function(Category category, String regionName) region,
-    required TResult Function(String index, bool isFilter) delete,
+    required TResult Function(
+            String index, Category category, String regionName)
+        delete,
   }) {
     return update(category);
   }
@@ -175,7 +181,8 @@ class _$onUpdateImpl implements _onUpdate {
     TResult? Function(Category category)? update,
     TResult? Function()? failed,
     TResult? Function(Category category, String regionName)? region,
-    TResult? Function(String index, bool isFilter)? delete,
+    TResult? Function(String index, Category category, String regionName)?
+        delete,
   }) {
     return update?.call(category);
   }
@@ -186,7 +193,8 @@ class _$onUpdateImpl implements _onUpdate {
     TResult Function(Category category)? update,
     TResult Function()? failed,
     TResult Function(Category category, String regionName)? region,
-    TResult Function(String index, bool isFilter)? delete,
+    TResult Function(String index, Category category, String regionName)?
+        delete,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -283,7 +291,9 @@ class _$onFailedImpl implements _onFailed {
     required TResult Function(Category category) update,
     required TResult Function() failed,
     required TResult Function(Category category, String regionName) region,
-    required TResult Function(String index, bool isFilter) delete,
+    required TResult Function(
+            String index, Category category, String regionName)
+        delete,
   }) {
     return failed();
   }
@@ -294,7 +304,8 @@ class _$onFailedImpl implements _onFailed {
     TResult? Function(Category category)? update,
     TResult? Function()? failed,
     TResult? Function(Category category, String regionName)? region,
-    TResult? Function(String index, bool isFilter)? delete,
+    TResult? Function(String index, Category category, String regionName)?
+        delete,
   }) {
     return failed?.call();
   }
@@ -305,7 +316,8 @@ class _$onFailedImpl implements _onFailed {
     TResult Function(Category category)? update,
     TResult Function()? failed,
     TResult Function(Category category, String regionName)? region,
-    TResult Function(String index, bool isFilter)? delete,
+    TResult Function(String index, Category category, String regionName)?
+        delete,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -443,7 +455,9 @@ class _$RegionImpl implements _Region {
     required TResult Function(Category category) update,
     required TResult Function() failed,
     required TResult Function(Category category, String regionName) region,
-    required TResult Function(String index, bool isFilter) delete,
+    required TResult Function(
+            String index, Category category, String regionName)
+        delete,
   }) {
     return region(category, regionName);
   }
@@ -454,7 +468,8 @@ class _$RegionImpl implements _Region {
     TResult? Function(Category category)? update,
     TResult? Function()? failed,
     TResult? Function(Category category, String regionName)? region,
-    TResult? Function(String index, bool isFilter)? delete,
+    TResult? Function(String index, Category category, String regionName)?
+        delete,
   }) {
     return region?.call(category, regionName);
   }
@@ -465,7 +480,8 @@ class _$RegionImpl implements _Region {
     TResult Function(Category category)? update,
     TResult Function()? failed,
     TResult Function(Category category, String regionName)? region,
-    TResult Function(String index, bool isFilter)? delete,
+    TResult Function(String index, Category category, String regionName)?
+        delete,
     required TResult orElse(),
   }) {
     if (region != null) {
@@ -529,7 +545,9 @@ abstract class _$$DeleteImplCopyWith<$Res> {
           _$DeleteImpl value, $Res Function(_$DeleteImpl) then) =
       __$$DeleteImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, bool isFilter});
+  $Res call({String index, Category category, String regionName});
+
+  $CategoryCopyWith<$Res> get category;
 }
 
 /// @nodoc
@@ -544,34 +562,49 @@ class __$$DeleteImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? index = null,
-    Object? isFilter = null,
+    Object? category = null,
+    Object? regionName = null,
   }) {
     return _then(_$DeleteImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as String,
-      null == isFilter
-          ? _value.isFilter
-          : isFilter // ignore: cast_nullable_to_non_nullable
-              as bool,
+      null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
+      null == regionName
+          ? _value.regionName
+          : regionName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryCopyWith<$Res> get category {
+    return $CategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$DeleteImpl implements _Delete {
-  const _$DeleteImpl(this.index, this.isFilter);
+  const _$DeleteImpl(this.index, this.category, this.regionName);
 
   @override
   final String index;
   @override
-  final bool isFilter;
+  final Category category;
+  @override
+  final String regionName;
 
   @override
   String toString() {
-    return 'LikePlaceEvent.delete(index: $index, isFilter: $isFilter)';
+    return 'LikePlaceEvent.delete(index: $index, category: $category, regionName: $regionName)';
   }
 
   @override
@@ -580,12 +613,14 @@ class _$DeleteImpl implements _Delete {
         (other.runtimeType == runtimeType &&
             other is _$DeleteImpl &&
             (identical(other.index, index) || other.index == index) &&
-            (identical(other.isFilter, isFilter) ||
-                other.isFilter == isFilter));
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.regionName, regionName) ||
+                other.regionName == regionName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, isFilter);
+  int get hashCode => Object.hash(runtimeType, index, category, regionName);
 
   @JsonKey(ignore: true)
   @override
@@ -599,9 +634,11 @@ class _$DeleteImpl implements _Delete {
     required TResult Function(Category category) update,
     required TResult Function() failed,
     required TResult Function(Category category, String regionName) region,
-    required TResult Function(String index, bool isFilter) delete,
+    required TResult Function(
+            String index, Category category, String regionName)
+        delete,
   }) {
-    return delete(index, isFilter);
+    return delete(index, category, regionName);
   }
 
   @override
@@ -610,9 +647,10 @@ class _$DeleteImpl implements _Delete {
     TResult? Function(Category category)? update,
     TResult? Function()? failed,
     TResult? Function(Category category, String regionName)? region,
-    TResult? Function(String index, bool isFilter)? delete,
+    TResult? Function(String index, Category category, String regionName)?
+        delete,
   }) {
-    return delete?.call(index, isFilter);
+    return delete?.call(index, category, regionName);
   }
 
   @override
@@ -621,11 +659,12 @@ class _$DeleteImpl implements _Delete {
     TResult Function(Category category)? update,
     TResult Function()? failed,
     TResult Function(Category category, String regionName)? region,
-    TResult Function(String index, bool isFilter)? delete,
+    TResult Function(String index, Category category, String regionName)?
+        delete,
     required TResult orElse(),
   }) {
     if (delete != null) {
-      return delete(index, isFilter);
+      return delete(index, category, regionName);
     }
     return orElse();
   }
@@ -669,10 +708,12 @@ class _$DeleteImpl implements _Delete {
 }
 
 abstract class _Delete implements LikePlaceEvent {
-  const factory _Delete(final String index, final bool isFilter) = _$DeleteImpl;
+  const factory _Delete(final String index, final Category category,
+      final String regionName) = _$DeleteImpl;
 
   String get index;
-  bool get isFilter;
+  Category get category;
+  String get regionName;
   @JsonKey(ignore: true)
   _$$DeleteImplCopyWith<_$DeleteImpl> get copyWith =>
       throw _privateConstructorUsedError;
