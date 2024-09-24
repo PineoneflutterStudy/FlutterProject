@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../core/theme/constant/app_colors.dart';
 import '../../../core/theme/constant/app_icons.dart';
 import '../../routes/route_path.dart';
 
-//앱시작 후 처음으로 보여지는 화면
-//Todo 로그인 bloc
+/// 앱시작 후 처음으로 보여지는 화면
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -17,16 +17,11 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
-  List<String> images = [ AppIcons.mangmung1, AppIcons.mangmung2, AppIcons.mangmung3];
-
-  int currentIndex = 0;
   late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    changeImages();
     Timer(Duration(seconds: 4), () => context.go(RoutePath.main)); // 4초 후 홈 화면으로 이동, 뒤로가지 못하도록 push가 아닌 go로 설정
   }
 
@@ -44,21 +39,21 @@ class _SplashPageState extends State<SplashPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(images[currentIndex], width: 250, height: 250),
+              LottieBuilder.asset(AppIcons.mangmungSplashLottie, width: 250, height: 250,),
               SizedBox(height: 20),
               Text('나만의 여행 플래너', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-              Text('댕꿀트립🍯', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('댕꿀트립', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
+                  SizedBox(width: 7),
+                  Image.asset(AppIcons.mangmungFoot, width: 30, height: 30)
+                ],
+              )
             ],
           ),
       )
     );
   }
 
-  void changeImages() {
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        currentIndex = (currentIndex + 1) % images.length;
-      });
-    });
-  }
 }
