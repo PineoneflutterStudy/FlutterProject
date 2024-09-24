@@ -3,7 +3,7 @@ import 'package:flutter_project_team1/core/utils/error/error_response.dart';
 import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
 import 'package:flutter_project_team1/data/repository_impl/common/common_repository_impl.dart';
 import 'package:flutter_project_team1/domain/model/common/result.dart';
-import 'package:flutter_project_team1/domain/model/display/category/category.model.dart';
+import 'package:flutter_project_team1/domain/model/display/common/category.model.dart';
 import 'package:flutter_project_team1/domain/repository/display.repository.dart';
 import 'package:flutter_project_team1/domain/usecase/display/category/get_category.usecase.dart';
 import 'package:flutter_project_team1/domain/usecase/display/display.usecase.dart';

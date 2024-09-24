@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 
 /// 상단 카테고리 Item View
 class CategoryItemView extends StatelessWidget {

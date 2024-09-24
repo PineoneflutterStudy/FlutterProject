@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../bloc/like_category/like_category_bloc.dart';
 import 'category_item_widget.dart';
 

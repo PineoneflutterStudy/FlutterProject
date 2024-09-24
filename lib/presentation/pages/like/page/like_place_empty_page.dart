@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/constant.dart';
-import '../../../../domain/model/display/category/category.model.dart';
+import '../../../../domain/model/display/common/category.model.dart';
 import '../bloc/like_category/like_category_bloc.dart';
 import '../utils/filter_util.dart';
 

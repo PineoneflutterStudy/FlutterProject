@@ -7,7 +7,7 @@ import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/exception/common_exception.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/common/result.dart';
-import '../../../../domain/model/display/category/category.model.dart';
+import '../../../../domain/model/display/common/category.model.dart';
 import '../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../service_locator.dart';

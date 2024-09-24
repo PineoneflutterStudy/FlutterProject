@@ -6,7 +6,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/common_utils.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../plan/utils/plan_util.dart';
 import '../../bloc/like_place/like_place_bloc.dart';

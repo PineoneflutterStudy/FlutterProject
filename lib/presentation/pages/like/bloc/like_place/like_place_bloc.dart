@@ -5,7 +5,7 @@ import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../../../../domain/model/display/plan/place.model.dart';
 import '../../../../../domain/usecase/like/place/get_like_place.usecase.dart';
 import '../../../../../domain/usecase/like/place/like_place.usecase.dart';

@@ -4,7 +4,7 @@ import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'place_item_view.dart';
 
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../../../../domain/usecase/planner/planner.usecase.dart';
 import '../../../../../service_locator.dart';
 import '../../bloc/place_bloc/place_bloc.dart';

@@ -1,6 +1,6 @@
 import '../../core/utils/constant.dart';
 import '../../data/data_source/response_wrapper/response_wrapper.dart';
-import '../model/display/category/category.model.dart';
+import '../model/display/common/category.model.dart';
 import 'repository.dart';
 
 /**

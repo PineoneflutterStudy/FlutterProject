@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/theme/constant/app_colors.dart';
-import '../../../../domain/model/display/category/category.model.dart';
+import '../../../../domain/model/display/common/category.model.dart';
 
 // # 카테고리
 class CategoryContents extends StatelessWidget {

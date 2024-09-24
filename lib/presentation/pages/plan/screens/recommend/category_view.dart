@@ -1,6 +1,6 @@
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../../../main/common/bloc/ctgr_bloc/category_bloc.dart';
 import 'category_item_view.dart';
 

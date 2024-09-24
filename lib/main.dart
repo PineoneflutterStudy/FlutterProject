@@ -19,9 +19,7 @@ void main() async {
   AuthRepository.initialize(appKey: FlutterConfig.get('KAKAO_JAVA_SCRIPT_KEY') ?? '');
   KakaoSdk.init(nativeAppKey: FlutterConfig.get('KAKAO_NATIVE_APP_KEY'));
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

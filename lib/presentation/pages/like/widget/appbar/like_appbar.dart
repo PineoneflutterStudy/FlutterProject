@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
-import '../../../../main/common/bloc/ctgr_bloc/category_bloc.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../bloc/like_category/like_category_bloc.dart';
-import '../../bloc/like_place/like_place_bloc.dart';
 import '../../bloc/login/login_check_bloc.dart';
 import '../region/region_widget.dart';
 

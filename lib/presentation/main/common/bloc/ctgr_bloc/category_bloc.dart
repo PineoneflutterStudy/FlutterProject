@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../domain/model/display/category/category.model.dart';
+import '../../../../../domain/model/display/common/category.model.dart';
 import '../../../../../domain/model/common/result.dart';
 import '../../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';

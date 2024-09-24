@@ -4,7 +4,7 @@ import 'package:flutter_project_team1/data/data_source/remote/mock.api.dart';
 import 'package:flutter_project_team1/data/mapper/common.mapper.dart';
 import 'package:flutter_project_team1/data/mapper/plan/category.mapper.dart';
 import 'package:flutter_project_team1/data/repository_impl/common/common_repository_impl.dart';
-import 'package:flutter_project_team1/domain/model/display/category/category.model.dart';
+import 'package:flutter_project_team1/domain/model/display/common/category.model.dart';
 import 'package:flutter_project_team1/domain/repository/display.repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

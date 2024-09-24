@@ -1,5 +1,5 @@
 import '../../../core/utils/constant.dart';
-import '../../../domain/model/display/category/category.model.dart';
+import '../../../domain/model/display/common/category.model.dart';
 import '../../../domain/repository/display.repository.dart';
 import '../../data_source/remote/mock.api.dart';
 import '../../data_source/response_wrapper/response_wrapper.dart';
