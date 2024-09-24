@@ -52,4 +52,8 @@ mixin FilterUtil {
 
     return minor.replaceAll(RegExp(r'\d'), '');
   }
+
+  String parseResult(String result) {
+    return result.replaceAll(' ', ' > ');
+  }
 }
