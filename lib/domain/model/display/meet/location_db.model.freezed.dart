@@ -25,13 +25,10 @@ mixin _$LocationDbModel {
       throw _privateConstructorUsedError;
   List<TourLocationModel> get destination_point =>
       throw _privateConstructorUsedError;
+  int get delete_check => throw _privateConstructorUsedError;
 
-  /// Serializes this LocationDbModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of LocationDbModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $LocationDbModelCopyWith<LocationDbModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,7 +42,8 @@ abstract class $LocationDbModelCopyWith<$Res> {
   $Res call(
       {String location_id,
       List<MeetAddressModel> starting_point_list,
-      List<TourLocationModel> destination_point});
+      List<TourLocationModel> destination_point,
+      int delete_check});
 }
 
 /// @nodoc
@@ -58,14 +56,13 @@ class _$LocationDbModelCopyWithImpl<$Res, $Val extends LocationDbModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LocationDbModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? location_id = null,
     Object? starting_point_list = null,
     Object? destination_point = null,
+    Object? delete_check = null,
   }) {
     return _then(_value.copyWith(
       location_id: null == location_id
@@ -80,6 +77,10 @@ class _$LocationDbModelCopyWithImpl<$Res, $Val extends LocationDbModel>
           ? _value.destination_point
           : destination_point // ignore: cast_nullable_to_non_nullable
               as List<TourLocationModel>,
+      delete_check: null == delete_check
+          ? _value.delete_check
+          : delete_check // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -95,7 +96,8 @@ abstract class _$$LocationDbModelImplCopyWith<$Res>
   $Res call(
       {String location_id,
       List<MeetAddressModel> starting_point_list,
-      List<TourLocationModel> destination_point});
+      List<TourLocationModel> destination_point,
+      int delete_check});
 }
 
 /// @nodoc
@@ -106,14 +108,13 @@ class __$$LocationDbModelImplCopyWithImpl<$Res>
       _$LocationDbModelImpl _value, $Res Function(_$LocationDbModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LocationDbModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? location_id = null,
     Object? starting_point_list = null,
     Object? destination_point = null,
+    Object? delete_check = null,
   }) {
     return _then(_$LocationDbModelImpl(
       location_id: null == location_id
@@ -128,6 +129,10 @@ class __$$LocationDbModelImplCopyWithImpl<$Res>
           ? _value._destination_point
           : destination_point // ignore: cast_nullable_to_non_nullable
               as List<TourLocationModel>,
+      delete_check: null == delete_check
+          ? _value.delete_check
+          : delete_check // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -138,7 +143,8 @@ class _$LocationDbModelImpl implements _LocationDbModel {
   const _$LocationDbModelImpl(
       {required this.location_id,
       final List<MeetAddressModel> starting_point_list = const [],
-      final List<TourLocationModel> destination_point = const []})
+      final List<TourLocationModel> destination_point = const [],
+      required this.delete_check})
       : _starting_point_list = starting_point_list,
         _destination_point = destination_point;
 
@@ -168,8 +174,11 @@ class _$LocationDbModelImpl implements _LocationDbModel {
   }
 
   @override
+  final int delete_check;
+
+  @override
   String toString() {
-    return 'LocationDbModel(location_id: $location_id, starting_point_list: $starting_point_list, destination_point: $destination_point)';
+    return 'LocationDbModel(location_id: $location_id, starting_point_list: $starting_point_list, destination_point: $destination_point, delete_check: $delete_check)';
   }
 
   @override
@@ -182,20 +191,21 @@ class _$LocationDbModelImpl implements _LocationDbModel {
             const DeepCollectionEquality()
                 .equals(other._starting_point_list, _starting_point_list) &&
             const DeepCollectionEquality()
-                .equals(other._destination_point, _destination_point));
+                .equals(other._destination_point, _destination_point) &&
+            (identical(other.delete_check, delete_check) ||
+                other.delete_check == delete_check));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       location_id,
       const DeepCollectionEquality().hash(_starting_point_list),
-      const DeepCollectionEquality().hash(_destination_point));
+      const DeepCollectionEquality().hash(_destination_point),
+      delete_check);
 
-  /// Create a copy of LocationDbModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationDbModelImplCopyWith<_$LocationDbModelImpl> get copyWith =>
@@ -214,7 +224,8 @@ abstract class _LocationDbModel implements LocationDbModel {
   const factory _LocationDbModel(
       {required final String location_id,
       final List<MeetAddressModel> starting_point_list,
-      final List<TourLocationModel> destination_point}) = _$LocationDbModelImpl;
+      final List<TourLocationModel> destination_point,
+      required final int delete_check}) = _$LocationDbModelImpl;
 
   factory _LocationDbModel.fromJson(Map<String, dynamic> json) =
       _$LocationDbModelImpl.fromJson;
@@ -225,11 +236,10 @@ abstract class _LocationDbModel implements LocationDbModel {
   List<MeetAddressModel> get starting_point_list;
   @override
   List<TourLocationModel> get destination_point;
-
-  /// Create a copy of LocationDbModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  int get delete_check;
+  @override
+  @JsonKey(ignore: true)
   _$$LocationDbModelImplCopyWith<_$LocationDbModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -19,6 +19,7 @@ _$LocationDbModelImpl _$$LocationDbModelImplFromJson(
                   (e) => TourLocationModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      delete_check: (json['delete_check'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$LocationDbModelImplToJson(
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$LocationDbModelImplToJson(
       'location_id': instance.location_id,
       'starting_point_list': instance.starting_point_list,
       'destination_point': instance.destination_point,
+      'delete_check': instance.delete_check,
     };

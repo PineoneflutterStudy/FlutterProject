@@ -12,13 +12,17 @@ import 'save_meet_list_item_widget.dart';
 final Logger _logger = CustomLogger.logger;
 class SaveMeetWidget extends StatelessWidget {
   final List<LocationDbModel> locationsInfo;
+  final bool isDelete;
   final VoidCallback onAddMeetLocation; // + 약속 추가하기 버튼 입력
   final VoidCallback onBtnAllDelete; // delete 모두 삭제 버튼
+  final VoidCallback onBtnDelete; // delete 아이템 개별 삭제 버튼
   const SaveMeetWidget ({
     super.key,
     required this.locationsInfo,
+    required this.isDelete,
     required this.onAddMeetLocation,
     required this.onBtnAllDelete,
+    required this.onBtnDelete,
   });
 
   @override
@@ -29,7 +33,10 @@ class SaveMeetWidget extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemCount: locationsInfo.length,
           itemBuilder: (context, index) {
-            return SaveMeetListItemWidget(locationModel: locationsInfo[index]);
+            return SaveMeetListItemWidget(
+                locationModel: locationsInfo[index],
+                isDelete: isDelete,
+            );
           },
         ),
         CommonFabWidget(
@@ -43,9 +50,7 @@ class SaveMeetWidget extends StatelessWidget {
             FabItem(
                 icon: Icons.delete_forever,
                 label: '삭제',
-                onTap: () {
-
-                }),
+                onTap: onBtnDelete),
             FabItem(
                 icon: Icons.delete_forever,
                 label: '모두 삭제',

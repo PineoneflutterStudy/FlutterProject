@@ -57,6 +57,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
       body: Consumer(builder: (context, ref, child) {
         final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status -> 로그인 유도
         final dbStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // Firestore DB Status
+        final deleteStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.deleteStatus)); // Item Delete Status
         final dbState = ref.watch(meetFireStoreNotifierProvider);
 
         _logger.i('[ MeetMainScreenView ] Current Login Status Info -> ${loginStatus}');
@@ -76,7 +77,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                         context: context,
                         title: '로그인 확인',
                         content:
-                        '로그인 시 약속장소 찾기 정보를 저장할 수 있습니다.\n로그인 하시겠습니까?',
+                        '로그인 시 약속장소를 저장할 수 있습니다. \n로그인 하시겠습니까?',
                         btn1Text: '아니오',
                         btn2Text: '네',
                         onBtn1Pressed: (context) {
@@ -160,6 +161,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                     // 비로그인과 로그인 실패 -> 로그인 화면으로 넘기는 기능 필요 / 로그인 사용자( DB에 데이터가 없음 ) -> 출발지 입력 Dialog 실행 가능!!
                     return SaveMeetWidget(
                       locationsInfo: dbState.getLocationInfo,
+                      isDelete: deleteStatus == MeetItemDeleteStatus.delete ? true : false,
                       onAddMeetLocation: () { // 약속 추가하기 버튼
                         showDialog(
                           context: context,
@@ -195,6 +197,12 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                               CommonUtils.showToastMsg('약속장소 정보를 모두 삭제합니다.');
                               context.pop();
                             });
+                      },
+                      onBtnDelete: () { // 아이템 개별 삭제
+                        if (deleteStatus == MeetItemDeleteStatus.nonDelete) {
+                          CommonUtils.showToastMsg('삭제할 약속장소를 선택해주세요.');
+                        }
+                        ref.read(meetFireStoreNotifierProvider.notifier).changeDeleteState();
                       },
                     );
                   }

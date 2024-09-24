@@ -78,6 +78,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
         final startingPointsJson = locationJson['starting_point_list'] as List<dynamic>;
         final destinationPointJson = locationJson['destination_point'] as Map<String, dynamic>;
         final locationId = locationJson['location_id'];
+        final deleteDefaultCheck = 0;
 
         // AddressModel 리스트로 변환
         List<MeetAddressModel> startingPoints = startingPointsJson
@@ -91,13 +92,14 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
         return LocationDbModel(
           starting_point_list: startingPoints,
           destination_point: [destinationPoint],
-          location_id: locationId, // destination_point는 리스트로 감싸야 함
+          location_id: locationId,
+          delete_check: deleteDefaultCheck,
         );
       }).toList();
 
       state = state.copyWith(
         getLocationInfo: locations,
-        status: MeetFireStoreStatus.success, // 데이터가 없으므로 failure
+        status: MeetFireStoreStatus.success, // 데이터가 있으므로 success
       );
     } else {
       state = state.copyWith(
@@ -122,12 +124,32 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
 
   }
 
+  Future<void> changeDeleteState() async {
+    _logger.i('Cur Delete Status -> ${state.deleteStatus}');
+    switch (state.deleteStatus) {
+      case MeetItemDeleteStatus.delete:
+        {
+          state = state.copyWith(
+            deleteStatus: MeetItemDeleteStatus.nonDelete,
+          );
+          _logger.i('Change Delete Status -> ${state.deleteStatus}');
+          return;
+        }
+      case MeetItemDeleteStatus.nonDelete:
+        {
+          state = state.copyWith(
+            deleteStatus: MeetItemDeleteStatus.delete,
+          );
+          _logger.i('Change Delete Status -> ${state.deleteStatus}');
+          return;
+        }
+    }
+  }
+
   /// ## Firebase Storage -> Marker에 사용할 이미지 Url Get
   Future<void> getMarkerImage() async {
     state = state.copyWith(storageStatus: MeetFireStorageStatus.loading,);
 
-    /*final destinationImgUrl = await _locationRepo.getImgUrl(UrlDestination); //  목적지 이미지
-    final startingPointImgUrl = await _locationRepo.getImgUrl(UrlStarting); //  출발지 이미지*/
     final getAllImageUrl = await _locationRepo.getAllImgUrl('mapMarker');
 
     String destinationImgUrl = '';
@@ -145,9 +167,6 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
           );
         }
       }
-
-
-      _logger.e('뭐지 이거 확인해보자 -> ${markerList}');
 
       state = state.copyWith(
         storageStatus: MeetFireStorageStatus.success,

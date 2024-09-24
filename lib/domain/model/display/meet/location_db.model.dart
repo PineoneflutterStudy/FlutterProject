@@ -12,6 +12,7 @@ class LocationDbModel with _$LocationDbModel {
     required String location_id,
     @Default([]) List<MeetAddressModel> starting_point_list,
     @Default([]) List<TourLocationModel> destination_point,
+    required int delete_check,
   }) = _LocationDbModel;
 
 

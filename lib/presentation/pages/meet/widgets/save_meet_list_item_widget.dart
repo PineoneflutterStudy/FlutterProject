@@ -12,7 +12,12 @@ import '../../../../domain/model/display/meet/location_db.model.dart';
 final Logger _logger = CustomLogger.logger;
 class SaveMeetListItemWidget extends StatelessWidget {
   final LocationDbModel locationModel;
-  const SaveMeetListItemWidget ({super.key, required this.locationModel});
+  final bool isDelete;
+  const SaveMeetListItemWidget({
+    super.key,
+    required this.locationModel,
+    required this.isDelete
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,7 +122,7 @@ class SaveMeetListItemWidget extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 
