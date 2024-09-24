@@ -2,6 +2,7 @@
 ///
 /// author [Eogeum@naver.com]
 class Tag {
-  static const String LOGIN = "[Login]";
-  static const String EMAIL = "[Login][Email]";
+  static const String USER = '[User]';
+  static const String LOGIN = '[Login]';
+  static const String EMAIL = '[Login][Email]';
 }

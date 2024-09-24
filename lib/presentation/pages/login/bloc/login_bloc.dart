@@ -43,11 +43,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) async {
       CustomLogger.logger.i('$_tag Event occurred. event = ${event.runtimeType}');
       await event.when(
-          started: () => _onStarted(emit),
-          loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
-          emailDuplicated: (email) async => _emitWithReset(emit, LoginState.emailDuplicateError(email)),
-          userChanged: (user) => _onUserChanged(emit, user),
-          errorOccurred: () async => _emitWithReset(emit, LoginState.error()));
+        started: () => _onStarted(emit),
+        loginOptionItemPressed: (authType) => _onLoginOptionItemPressed(emit, authType),
+        emailDuplicated: (email) async => _emitWithReset(emit, LoginState.emailDuplicateError(email)),
+        userChanged: (user) => _onUserChanged(emit, user),
+        errorOccurred: () async => _emitWithReset(emit, LoginState.error()),
+      );
     });
   }
 
