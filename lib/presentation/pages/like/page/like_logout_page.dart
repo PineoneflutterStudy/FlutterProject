@@ -18,9 +18,13 @@ class LikeLogoutPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset('assets/images/mangmung_img2.PNG', width: 230, height: 230),
+          SizedBox(
+            height: 5,
+          ),
           Text('로그인이 필요한 페이지 입니다.',
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 32,
             ),
           ),
           SizedBox(
@@ -28,7 +32,7 @@ class LikeLogoutPage extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.login_rounded,
-              size: 32,
+              size: 38,
             ),
             onPressed: () async {
               final result = await Navigator.push<bool>(
