@@ -30,12 +30,12 @@ class FirebaseAuthUtil {
   bool isLoggedIn() => (getCurrentUser() != null);
 
   /// ## 구글 로그인을 실행한다.
-  Future<void> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? account = await GoogleSignIn(scopes: _GOOGLE_SIGN_IN_SCOPE).signIn();
       if (account == null) {
         CustomLogger.logger.w('Google sign-in failed: account == null');
-        return;
+        return null;
       }
 
       // 웹인 경우 scope 접근 확인 필요
@@ -54,7 +54,8 @@ class FirebaseAuthUtil {
           idToken: authentication.idToken, accessToken: authentication.accessToken);
 
       // 인증서로 파이어베이스 로그인
-      await auth.signInWithCredential(credential);
+      final UserCredential userCredential = await auth.signInWithCredential(credential);
+      return userCredential.user;
     } on EmailDuplicateException {
       rethrow;
     } catch (e) {
@@ -95,28 +96,31 @@ class FirebaseAuthUtil {
   }
 
   /// ## 네이버 로그인과 관련된 앱 링크를 처리한다.
-  Future<void> handleNaverAppLinks(Uri uri) async {
+  Future<User?> handleNaverAppLinks(Uri uri) async {
+    if (uri.authority != 'login-callback') {
+      return null;
+    }
+
     try {
-      if (uri.authority == 'login-callback') {
-        // 구글 클라우드에서 생성한 커스텀 토큰 가져오기
-        final String firebaseToken = uri.queryParameters['firebaseToken'] ?? '';
-        if (firebaseToken.isEmpty) {
-          // 로그인에 실패한 경우 에러 메시지에 따라 처리
-          final String errorMessage = uri.queryParameters['errorMessage'] ?? '';
-          final String email = uri.queryParameters['email'] ?? '';
+      // 구글 클라우드에서 생성한 커스텀 토큰 가져오기
+      final String firebaseToken = uri.queryParameters['firebaseToken'] ?? '';
+      if (firebaseToken.isEmpty) {
+        // 로그인에 실패한 경우 에러 메시지에 따라 처리
+        final String errorMessage = uri.queryParameters['errorMessage'] ?? '';
+        final String email = uri.queryParameters['email'] ?? '';
 
-          if (errorMessage == _ERROR_EMAIL_DUPLICATED && email.isNotEmpty) {
-            await checkEmailDuplicate(email, AuthType.naver.providerId);
-          } else {
-            throw Exception('Naver sign-in failed: firebaseToken.isEmpty');
-          }
-
-          return;
+        if (errorMessage == _ERROR_EMAIL_DUPLICATED && email.isNotEmpty) {
+          await checkEmailDuplicate(email, AuthType.naver.providerId);
+        } else {
+          throw Exception('Naver sign-in failed: firebaseToken.isEmpty');
         }
 
-        // 커스텀 토큰으로 파이어베이스 로그인
-        await auth.signInWithCustomToken(firebaseToken);
+        return null;
       }
+
+      // 커스텀 토큰으로 파이어베이스 로그인
+      final UserCredential userCredential = await auth.signInWithCustomToken(firebaseToken);
+      return userCredential.user;
     } on EmailDuplicateException {
       rethrow;
     } catch (e) {
@@ -125,14 +129,14 @@ class FirebaseAuthUtil {
   }
 
   /// ## 카카오 로그인을 실행한다.
-  Future<void> signInWithKakao() async {
+  Future<User?> signInWithKakao() async {
     if (await kakao.isKakaoTalkInstalled()) {
       // 카카오톡 실행 가능한 경우 카카오톡으로 로그인
       bool isLoginSucceeded = false;
       try {
         final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoTalk();
         isLoginSucceeded = true;
-        await _onKakaoLoginSucceeded(authToken);
+        return await _onKakaoLoginSucceeded(authToken);
       } catch (error) {
         // _onKakaoLoginSucceeded에서 발생한 예외는 rethrow
         if (isLoginSucceeded) {
@@ -146,25 +150,25 @@ class FirebaseAuthUtil {
         if (error is PlatformException &&
             (error.code == 'CANCELED' || error.code == 'access_denied')) {
           CustomLogger.logger.i('$_tag KakaoTalk sign-in canceled.');
-          return;
+          return null;
         }
 
         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
         CustomLogger.logger.w('$_tag KakaoTalk sign-in failed: error = $error');
-        await _signInWithKakaoAccount();
+        return await _signInWithKakaoAccount();
       }
     } else {
       // 카카오톡 실행 불가한 경우 카카오 계정으로 로그인
-      await _signInWithKakaoAccount();
+      return await _signInWithKakaoAccount();
     }
   }
 
-  Future<void> _signInWithKakaoAccount() async {
+  Future<User?> _signInWithKakaoAccount() async {
     bool isLoginSucceeded = false;
     try {
       final kakao.OAuthToken authToken = await kakao.UserApi.instance.loginWithKakaoAccount();
       isLoginSucceeded = true;
-      await _onKakaoLoginSucceeded(authToken);
+      return await _onKakaoLoginSucceeded(authToken);
     } catch (error) {
       // _onKakaoLoginSucceeded에서 발생한 예외는 rethrow
       if (isLoginSucceeded) {
@@ -176,7 +180,7 @@ class FirebaseAuthUtil {
   }
 
   /// ## 카카오 로그인 성공 후 파이어베이스 로그인
-  Future<void> _onKakaoLoginSucceeded(kakao.OAuthToken authToken) async {
+  Future<User?> _onKakaoLoginSucceeded(kakao.OAuthToken authToken) async {
     final kakao.User user = await kakao.UserApi.instance.me();
     final String? email = user.kakaoAccount?.email;
     if (email == null || email.isEmpty) {
@@ -188,11 +192,12 @@ class FirebaseAuthUtil {
 
     // 인증 정보로 인증서 생성
     final OAuthProvider provider = OAuthProvider('oidc.kakao');
-    final OAuthCredential credential = provider.credential(
-        accessToken: authToken.accessToken, idToken: authToken.idToken);
+    final OAuthCredential credential =
+        provider.credential(accessToken: authToken.accessToken, idToken: authToken.idToken);
 
     // 인증서로 파이어베이스 로그인
-    await auth.signInWithCredential(credential);
+    final UserCredential userCredential = await auth.signInWithCredential(credential);
+    return userCredential.user;
   }
 
   /// ## 전달받은 User의 ProviderId를 나열한 리스트 반환
