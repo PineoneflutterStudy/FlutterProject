@@ -19,7 +19,7 @@ class LikeLoadingPage extends StatelessWidget {
       height: double.infinity,
       color: AppColors.white,
       child: Center(
-        child: LottieBuilder.asset(AppIcons.loadingLottie, width: 150, height: 150),
+        child: LottieBuilder.asset(AppIcons.mangmungLoadingLottie, width: 150, height: 150),
       ),
     );
   }
