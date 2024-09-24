@@ -67,7 +67,7 @@ class CommonDialog {
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Text('$content',
-                      style: TextStyle(fontSize: 18, color: AppColors.contentFourth, height: 1),
+                      style: TextStyle(fontSize: 20, color: AppColors.contentFourth, height: 1),
                     ),
                   )
               ],
