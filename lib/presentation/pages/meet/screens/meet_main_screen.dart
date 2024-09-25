@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 
 import '../../../../core/utils/logger.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
-import '../../../main/common/component/widget/honey_progress_indicator.dart';
+import '../../../main/common/component/widget/mangmung_loding_indicator.dart';
 import '../../login/login_page.dart';
 import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_state.dart';
@@ -63,7 +63,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
         switch (loginStatus) {
           case MeetLoginStatus.initial:
             {
-              return HoneyProgressIndicator();
+              return MangmungLoadingIndicator();
             }
           case MeetLoginStatus.nonLogin:
           case MeetLoginStatus.failure:
@@ -130,7 +130,7 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                 case MeetFireStoreStatus.initial:
                 case MeetFireStoreStatus.loading:
                   {
-                    return HoneyProgressIndicator();
+                    return MangmungLoadingIndicator();
                   }
                 case MeetFireStoreStatus.failure:
                   {

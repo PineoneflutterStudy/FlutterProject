@@ -12,12 +12,12 @@ import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/location_db.model.dart';
 import '../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
-import '../../../main/common/component/widget/honey_progress_indicator.dart';
 import '../notifiers/address_local/address_shprf_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_state.dart';
 import '../notifiers/meet_mobility/meet_mobility_notifier.dart';
 import '../notifiers/meet_mobility/meet_mobility_state.dart';
+import '../widgets/common/map_loading_fail_widget.dart';
 import '../widgets/common/map_loading_widget.dart';
 
 /**
@@ -151,13 +151,19 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                   case MeetFireStorageStatus.loading:
                     {
                       // Init -> CircularProgress
-                      return HoneyProgressIndicator();
+                      return MapLoadingWidget();
                     }
                   case MeetFireStorageStatus.failure:
                     {
                       // 실패시 토스트 팝업 제공
                       CommonUtils.showToastMsg('약속장소를 생성하는데 실패하였습니다..');
-                      return HoneyProgressIndicator();
+                      Future.delayed(
+                        const Duration(
+                          milliseconds: 3000
+                        ), () {
+                        context.pop();
+                      });
+                      return MapLoadingFailWidget();
                     }
                   case MeetFireStorageStatus.success:
                     {

@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
-import '../../main/common/component/widget/honey_progress_indicator.dart';
+import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'screens/meet_main_screen.dart';
 import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
 import 'notifiers/meet_firestore/meet_firestore_state.dart';
@@ -80,7 +80,7 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
           case MeetLoginStatus.initial:
             {
               // Init -> CircularProgress
-              return HoneyProgressIndicator();
+              return MangmungLoadingIndicator();
             }
           case MeetLoginStatus.nonLogin:
             {

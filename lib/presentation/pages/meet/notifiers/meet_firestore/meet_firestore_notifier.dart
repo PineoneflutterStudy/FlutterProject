@@ -168,7 +168,7 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
 
   /// ## Firebase Storage -> Marker에 사용할 이미지 Url Get
   Future<void> getMarkerImage() async {
-    state = state.copyWith(storageStatus: MeetFireStorageStatus.loading,);
+    state = state.copyWith(storageStatus: MeetFireStorageStatus.loading);
 
     final getAllImageUrl = await _locationRepo.getAllImgUrl('mapMarker');
 
