@@ -15,7 +15,7 @@ class MapLoadingWidget extends StatelessWidget {
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        LottieBuilder.asset(AppIcons.mangmungSplashLottie),
+        LottieBuilder.asset(AppIcons.mangmungWalkingLottie),
         Text(
           '중간지점을 찾고 있습니다\n잠시만 기다려 주세요!',
           style: TextStyle(fontSize: 30),
