@@ -87,10 +87,21 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(widget.place.placeName ?? '', style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          flex: 2,
+                          child: Text(
+                            widget.place.placeName ?? '',
+                            style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                         SizedBox(width: 8), // 두 텍스트 사이의 간격
-                        Expanded(child: Text(getLastTwoCategories(widget.place.categoryName ?? ''),
-                                style: TextStyle(color: AppColors.contentTertiary, fontSize: 16), overflow: TextOverflow.ellipsis, maxLines: 1)),
+                        Text(getLastTwoCategories(widget.place.categoryName ?? ''),
+                            style: TextStyle(color: AppColors.contentTertiary, fontSize: 16),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1),
                       ],
                     ),
                     //주소
@@ -104,9 +115,11 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
                             child: Text(formatDistance(widget.place.distance), style: TextStyle(color: AppColors.error)),
                           ),
                         if (widget.place.addressName.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                            child: Text(widget.place.addressName, style: TextStyle(fontSize: 20), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                              child: Text(widget.place.addressName, style: TextStyle(fontSize: 20), overflow: TextOverflow.ellipsis, maxLines: 1),
+                            ),
                           ),
                       ],
                     ),
@@ -229,8 +242,7 @@ class _PlaceItemViewState extends State<PlaceItemView> with PlanUtil{
       }
     });
   }
-
-  _showSelectStartPlacePopup(BuildContext context, Place place) {
+  void _showSelectStartPlacePopup(BuildContext context, Place place) {
     CommonDialog.confirmDialog(
       context: context,
       title: '${addParticle(place.placeName)} \n출발지로 지정하시겠습니까?',

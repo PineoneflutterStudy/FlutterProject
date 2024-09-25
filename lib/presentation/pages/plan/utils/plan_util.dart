@@ -180,8 +180,7 @@ mixin PlanUtil {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Icon(walk.icon, color: walk.textColor , size: 13),
-        SizedBox(width: 2),
-        Text(walkTravelTime, style: TextStyle(fontSize: 16, color: walk.textColor)),
+        Text(walkTravelTime, style: TextStyle(fontSize: 14, color: walk.textColor)),
       ],
     );
   }
@@ -192,8 +191,7 @@ mixin PlanUtil {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Icon(car.icon, color: car.textColor, size: 13),
-        SizedBox(width: 2),
-        Text(carTravelTime, style: TextStyle(fontSize: 16, color: car.textColor))
+        Text(carTravelTime, style: TextStyle(fontSize: 14, color: car.textColor))
       ],
     );
   }

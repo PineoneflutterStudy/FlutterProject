@@ -9,12 +9,8 @@ class MangmungLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Center(
-        child: LottieBuilder.asset(AppIcons.mangmungLoadingLottie, width: size, height: size,),
-      ),
+    return Center(
+      child: LottieBuilder.asset(AppIcons.mangmungLoadingLottie, width: size, height: size,),
     );
   }
 }

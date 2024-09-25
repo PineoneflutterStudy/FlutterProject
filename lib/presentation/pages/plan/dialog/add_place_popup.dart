@@ -54,7 +54,7 @@ class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
         ),
       ),
       content: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8),
         child: Scrollbar(
           thumbVisibility: true,
           child: SingleChildScrollView(
@@ -118,7 +118,7 @@ class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Transform.scale(
-                          scale: 0.8,
+                          scale: 0.7,
                           child: Radio<String>(
                             value: Transportation.walk.code,
                             groupValue: _selectedOption,
@@ -133,8 +133,7 @@ class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
                         ),
                         Transform.translate(
                             offset: Offset(-5, 0),
-                            child:
-                                buildWalkTravelTime(widget.place.walkTravelTime)),
+                            child: buildWalkTravelTime(widget.place.walkTravelTime)),
                       ],
                     ),
                   ),
@@ -147,7 +146,7 @@ class _AddPlacePopupState extends State<AddPlacePopup> with PlanUtil {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Transform.scale(
-                          scale: 0.8,
+                          scale: 0.7,
                           child: Radio<String>(
                             value: Transportation.car.code,
                             groupValue: _selectedOption,

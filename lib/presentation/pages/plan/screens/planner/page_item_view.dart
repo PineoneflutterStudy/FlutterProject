@@ -32,24 +32,11 @@ class _PageItemViewState extends State<PageItemView> {
     super.initState();
     _controller = ScrollController();
   }
-  void _showDeletePagePopup(BuildContext context) {
-    CommonDialog.confirmDialog(
-      context: context,
-      title: '\'Day${widget.pageIndex+1}\' 일정을\n정말 삭제하시겠습니까?',
-      content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
-      btn1Text: '아니요',
-      btn2Text: '네',
-      onBtn1Pressed: (context) => context.pop(),
-      onBtn2Pressed: (context) => {
-        context.pop(),
-        widget.plannerBloc.add(PlannerEvent.deletePage(widget.plannerId, widget.plannerIndex, widget.pageIndex))
-      },
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 7, horizontal: 5),
+      margin: EdgeInsets.fromLTRB(5,5,5,14),
       color: AppColors.secondary,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
@@ -92,6 +79,21 @@ class _PageItemViewState extends State<PageItemView> {
               ),
             ],
           )),
+    );
+  }
+
+  void _showDeletePagePopup(BuildContext context) {
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '\'Day${widget.pageIndex+1}\' 일정을\n정말 삭제하시겠습니까?',
+      content: '데이터는 영구적으로 삭제됩니다.\n계속 진행을 원하시면 [네]를 눌러주세요.',
+      btn1Text: '아니요',
+      btn2Text: '네',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => {
+        context.pop(),
+        widget.plannerBloc.add(PlannerEvent.deletePage(widget.plannerId, widget.plannerIndex, widget.pageIndex))
+      },
     );
   }
 }

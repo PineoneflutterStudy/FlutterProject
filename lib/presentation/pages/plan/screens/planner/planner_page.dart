@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_team1/presentation/pages/plan/screens/planner/page_item_view.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'planner_error_page.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/common/fab_item.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
@@ -9,13 +12,10 @@ import '../../../../main/common/component/widget/mangmung_loding_indicator.dart'
 import '../../dialog/add_next_plan_popup.dart';
 import 'empty_planner_page.dart';
 import '../plan_login_page.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../bloc/planner_bloc/planner_bloc.dart';
 import '../../utils/plan_util.dart';
-import 'page_item_view.dart';
 
-import '../../../../main/common/component/widget/appbar.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 
 /// ### Plan 메뉴 로그인 & plannerList 있는 경우 화면
@@ -35,33 +35,27 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.93);
+    _pageController = PageController(viewportFraction: 0.95);
   }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlannerBloc, PlannerState>(
       bloc: widget.plannerBloc,
       builder: (context, state) {
-        print("current state : $state");
         return state.when(
           loading: () => MangmungLoadingIndicator(),
           init: () => PlanLoginPage(plannerBloc: widget.plannerBloc),
           empty: () => EmptyPlannerPage(addressBloc: widget.addressBloc, plannerBloc: widget.plannerBloc),
           success: (plannerList, selectedIndex, pageIndex) {
-            print('pageIndex : $pageIndex');
             final categoryWidgets = getCategoryViewList(context, plannerList, selectedIndex);
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _pageController.jumpToPage(pageIndex);
-            });
-            return Scaffold(
-              appBar: MainAppbar(title: '나만의 여행플래너'),
-              body: Stack(
+            WidgetsBinding.instance.addPostFrameCallback((_) => _pageController.jumpToPage(pageIndex));
+            return Stack(
                 children: [
                   Column(
                     children: [
                       // planner 카테고리 영역
                       Padding(
-                        padding: const EdgeInsets.only(left: 25),
+                        padding: const EdgeInsets.only(left: 20),
                         child: SizedBox(
                           height: 40,
                           child: ListView(scrollDirection: Axis.horizontal, children: categoryWidgets),
@@ -84,7 +78,6 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                       //page view 영역
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.only(bottom: 10),
                           child: PageView.builder(
                               scrollDirection: Axis.horizontal,
                               controller: _pageController,
@@ -102,24 +95,9 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                     child: _buildFab(context, plannerList[selectedIndex], selectedIndex),
                   ),
                 ]
-              )
             );
           },
-          error: (error) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('플래너를 불러오는 데 실패했습니다.'),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => widget.plannerBloc.add(const PlannerEvent.getPlannerList(0,0)),
-                    child: Text('다시 시도'),
-                  ),
-                ],
-              ),
-            );
-          },
+          error: (error) => PlannerErrorPage(title: '플래너를 불러오는 데 실패했습니다.'),
         );
       },
     );

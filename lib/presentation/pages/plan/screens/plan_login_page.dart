@@ -15,22 +15,19 @@ class PlanLoginPage extends StatelessWidget with PlanUtil{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: "나만의 여행플래너"),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/mangmung_img2.PNG', width: 230, height: 230),
-            SizedBox(height: 5),
-            Text('로그인이 필요한 페이지 입니다.', style: TextStyle(fontSize: 32)),
-            SizedBox(height: 5),
-            IconButton(
-              icon: Icon(Icons.login_rounded, size: 38),
-              onPressed: () => _showLoginPopup(context),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/mangmung_img2.PNG', width: 230, height: 230),
+          SizedBox(height: 5),
+          Text('로그인이 필요한 페이지 입니다.', style: TextStyle(fontSize: 32)),
+          SizedBox(height: 5),
+          IconButton(
+            icon: Icon(Icons.login_rounded, size: 38),
+            onPressed: () => _showLoginPopup(context),
+          ),
+        ],
       ),
     );
   }

@@ -16,34 +16,31 @@ class EmptyPlannerPage extends StatelessWidget with PlanUtil{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: "나만의 여행플래너"),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () async {
-              final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
-              if (result != null && result.containsKey('planner')) {
-                Planner planner = result['planner']!;
-                plannerBloc.add(PlannerEvent.addPlanner(planner));
-              }
-            },
-            child: Image.asset(AppIcons.mangmung3, width: 200, height: 200),
-          ),
-          const SizedBox(height: 10),
-          Center(
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(text: "댕꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 27)),
-                ],
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () async {
+            final result = await showGoPlanPopup(context: context, addressBloc: addressBloc,index: 0);
+            if (result != null && result.containsKey('planner')) {
+              Planner planner = result['planner']!;
+              plannerBloc.add(PlannerEvent.addPlanner(planner));
+            }
+          },
+          child: Image.asset(AppIcons.mangmung3, width: 200, height: 200),
+        ),
+        const SizedBox(height: 10),
+        Center(
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(text: "댕꿀트립", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                TextSpan(text: " 과 함께 \n여행계획 세우러 떠나 볼까요~?", style: TextStyle(fontSize: 27)),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
