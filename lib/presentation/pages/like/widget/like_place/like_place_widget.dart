@@ -44,7 +44,7 @@ class _LikePlaceWidgetState extends State<LikePlaceWidget> {
         child: Column(
           children: [
             Visibility(
-              visible: (widget.state == LikeState.filter) ? true : false,
+              visible: (regionName.isNotEmpty) ? true : false,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
@@ -100,7 +100,7 @@ class _LikePlaceWidgetState extends State<LikePlaceWidget> {
                   return LikePlaceItemWidget(
                     place: widget.placeList[index],
                     selected: selected,
-                    regionName: regionName,
+                    regionName: regionName ?? '',
                   );
                 },
               ),

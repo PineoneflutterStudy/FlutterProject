@@ -10,73 +10,67 @@ import '../region/region_widget.dart';
  * Title만 전달받아 set
  */
 class LikeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  final BuildContext context;
   final String title;
+  final LoginCheckBloc loginBloc;
+  final LoginCheckState loginState;
   final double appbar_height = 70;
 
   LikeAppbar({
     super.key,
-    required this.context,
     required this.title,
+    required this.loginBloc,
+    required this.loginState,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCheckBloc, LoginCheckState>(
-      builder: (context, state) {
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: false,
+          actions: [
+            setFilterButton(),
+          ],
+          title: Container(
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            child: Text(title,
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
+          )
+      ),
+    );
+  }
+
+  Widget setFilterButton() {
+    return BlocBuilder<LikeCategoryBloc, LikeCategoryState>(
+      builder: (BuildContext context, LikeCategoryState state) {
         return state.maybeWhen(
-          loggedIn: () => initializeAppBar(true),
-          loggedOut: () => initializeAppBar(false),
+          success: (categorys, selected, regionName) {
+            return Visibility(
+              visible: loginState.maybeWhen(
+                loggedIn: () => true,
+                orElse: () => false,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.filter_list),
+                onPressed: () async {
+                  final regionName = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RegionWidget(),
+                        fullscreenDialog: false
+                    ),
+                  );
+
+                  context.read<LikeCategoryBloc>()
+                      .add(LikeCategoryEvent.setCategorySelected(categorys, selected, regionName));
+                },
+              ),
+            );
+          },
           orElse: () => const SizedBox(),
         );
       },
     );
   }
-
-  Widget initializeAppBar(bool isLoggedIn) {
-    return BlocBuilder<LikeCategoryBloc, LikeCategoryState> (
-        builder: (context, state) {
-          return state.maybeWhen(
-            success: (categorys, seleted, regionName) => appBarUI(context, isLoggedIn, categorys, seleted),
-            orElse: () => const SizedBox(),
-          );
-        }
-    );
-  }
-
-  Widget appBarUI(BuildContext context, bool isLoggedIn, List<Category> categorys, Category selected) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        actions: [
-          Visibility(
-            visible: isLoggedIn,
-            child: IconButton(
-              icon: Icon(Icons.filter_list),
-              onPressed: () async {
-                final regionName = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RegionWidget(),
-                      fullscreenDialog: false
-                  ),
-                );
-                print('regionName -> $regionName');
-                context.read<LikeCategoryBloc>()
-                    .add(LikeCategoryEvent.setCategorySelected(categorys, selected, regionName));
-              },
-            ),
-          ),
-        ],
-        title: Container(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          child: Text(title,
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
-        )
-      ),
-    );
-  }
-
 
   @override
   Size get preferredSize => Size.fromHeight(appbar_height);

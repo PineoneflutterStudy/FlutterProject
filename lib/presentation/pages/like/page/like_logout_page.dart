@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../login/login_page.dart';
+import '../../../main/common/component/dialog/common_dialog.dart';
 import '../bloc/login/login_check_bloc.dart';
 
 class LikeLogoutPage extends StatelessWidget {
 
-  final BuildContext context;
+  final LoginCheckBloc loginBloc;
   LikeLogoutPage({
     Key? key,
-    required this.context,
+    required this.loginBloc,
   }) : super(key: key);
 
   @override
@@ -34,21 +34,25 @@ class LikeLogoutPage extends StatelessWidget {
             icon: Icon(Icons.login_rounded,
               size: 38,
             ),
-            onPressed: () async {
-              final result = await Navigator.push<bool>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                  fullscreenDialog: true,
-                ),
-              );
-
-              if (result != null && result) {
-                context.read<LoginCheckBloc>().add(LoginCheckEvent.checkLogin());
-              }
-            },
+            onPressed: () => _showLoginPopup(context),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showLoginPopup(BuildContext context) {
+    CommonDialog.confirmDialog(
+      context: context,
+      title: '로그인이 필요한 서비스 입니다.',
+      content: '서비스이용을 위해 로그인이 필요합니다.\n로그인 하시겠습니까?',
+      btn1Text: '취소',
+      btn2Text: '확인',
+      onBtn1Pressed: (context) => context.pop(),
+      onBtn2Pressed: (context) => context.pushNamed('login').then((result){
+        context.pop();
+        loginBloc.add(LoginCheckEvent.checkLogin());
+      },
       ),
     );
   }

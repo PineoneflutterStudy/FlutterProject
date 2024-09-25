@@ -62,6 +62,31 @@ class FirebaseFirestoreUtil {
     });
   }
 
+  /// User > uid > collectionPath > docIds 컬렉션 하위 문서의 전체 참조 반환
+  Future<List<DocumentReference>?> getCollectionDocRefs(String collectionPath) async {
+    return await _executeWithUserDocRef<List<DocumentReference>?>((userDocRef) async {
+      try {
+        QuerySnapshot querySnapshot = await userDocRef.collection(collectionPath).get();
+        return querySnapshot.docs.map((doc) => doc.reference).toList();
+      } catch (e) {
+        _logger.e("Error getting document references: $e");
+        return null;
+      }
+    });
+  }
+
+  Future<List<QueryDocumentSnapshot>?> getCollectionDocs(String collectionPath) async {
+    return await _executeWithUserDocRef<List<QueryDocumentSnapshot>?>((userDocRef) async {
+      try {
+        QuerySnapshot querySnapshot = await userDocRef.collection(collectionPath).get();
+        return querySnapshot.docs.toList();
+      } catch (e) {
+        _logger.e("Error getting documents: $e");
+        return null;
+      }
+    });
+  }
+
   /// User 컬렉션에서 doc 문서들을 가져오는 함수
   Future<List<Map<String, dynamic>>> getDocumentsFromUser() async {
     try {

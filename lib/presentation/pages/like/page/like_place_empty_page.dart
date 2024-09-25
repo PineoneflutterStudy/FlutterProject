@@ -30,13 +30,13 @@ class LikePlaceEmptyPage extends StatelessWidget with FilterUtil {
     );
   }
 
-  Widget emptyUI(BuildContext context, List<Category> categorys, Category selected, String regionName) {
+  Widget emptyUI(BuildContext context, List<Category> categorys, Category selected, String? regionName) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 13.0),
       child: Column(
         children: [
           Visibility(
-            visible: (regionName.isNotEmpty) ? true : false,
+            visible: (regionName != null && regionName.isNotEmpty) ? true : false,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -49,7 +49,7 @@ class LikePlaceEmptyPage extends StatelessWidget with FilterUtil {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal:  15.0),
-                      child: Text(parseResult(regionName),
+                      child: Text(parseResult(regionName!),
                         style: TextStyle(
                           fontSize: 24,
                           color: AppColors.black,
