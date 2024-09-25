@@ -116,14 +116,26 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
 
     // Locations 삭제 진행
     for (var model in state.getLocationInfo) {
-      await _locationRepo.deleteLocationAll(DBKey.DB_LOCATIONS, model.location_id);
+      await _locationRepo.deleteLocation(DBKey.DB_LOCATIONS, model.location_id);
     }
 
     // 삭제 이후 Locations DB get 하여 업데이트 진행
     getLocationDB();
-
   }
 
+  /// ## Delete Select Location
+  Future<void> deleteSelectLocation(String locationId) async {
+    state = state.copyWith(
+      status: MeetFireStoreStatus.loading,
+    );
+
+    await _locationRepo.deleteLocation(DBKey.DB_LOCATIONS, locationId);
+
+    // 삭제 이후 Locations DB get 하여 업데이트 진행
+    getLocationDB();
+  }
+
+  /// ## 삭제하기 버튼 입력 -> 삭제하기 상태값 변경
   Future<void> changeDeleteState() async {
     _logger.i('Cur Delete Status -> ${state.deleteStatus}');
     switch (state.deleteStatus) {
@@ -144,6 +156,14 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
           return;
         }
     }
+  }
+
+  /// ## 삭제하기 버튼 초기값으로 변경
+  Future<void> defaultDeleteState() async {
+    _logger.i('Change Default Delete State');
+    state = state.copyWith(
+      deleteStatus: MeetItemDeleteStatus.nonDelete,
+    );
   }
 
   /// ## Firebase Storage -> Marker에 사용할 이미지 Url Get

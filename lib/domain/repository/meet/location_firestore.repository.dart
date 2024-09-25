@@ -24,7 +24,7 @@ abstract class LocationFireStoreRepository extends Repository {
   Future<String> getImgUrl(String imgLocation);
   Future<List<String>?> getAllImgUrl(String directoryName);
   Future<List<Map<String, dynamic>>?> getLocationAllInfo(String key);
-  Future<void> deleteLocationAll(String key, String docId);
+  Future<void> deleteLocation(String key, String docId);
 }
 
 class LocationFireStoreRepositoryImpl extends LocationFireStoreRepository {
@@ -44,9 +44,9 @@ class LocationFireStoreRepositoryImpl extends LocationFireStoreRepository {
   @override
   Future<List<Map<String, dynamic>>?> getLocationAllInfo(String key) async => await FirebaseFirestoreUtil().getDocumentsFromCollection(key);
 
-  /// ## Firestore DB > Locations 정보 All Delete
+  /// ## Firestore DB > Locations 정보 Delete
   @override
-  Future<void> deleteLocationAll(String key, String docId) async {
+  Future<void> deleteLocation(String key, String docId) async {
     var docRef = await FirebaseFirestoreUtil().getCollectionDocRef(key, docId);
     if (docRef != null) {
       await FirebaseFirestoreUtil().deleteDocument(docRef);

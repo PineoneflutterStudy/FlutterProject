@@ -13,10 +13,12 @@ final Logger _logger = CustomLogger.logger;
 class SaveMeetListItemWidget extends StatelessWidget {
   final LocationDbModel locationModel;
   final bool isDelete;
+  final void Function() onBtnItemDelete;
   const SaveMeetListItemWidget({
     super.key,
     required this.locationModel,
-    required this.isDelete
+    required this.isDelete,
+    required this.onBtnItemDelete,
   });
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,11 @@ class SaveMeetListItemWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () async { // 아이템 onTap 시 Map 이동하도록
           // 주소가 모두 입력
-          await context.pushNamed('saveMeetMap', extra: locationModel);
+          if (isDelete) {
+            onBtnItemDelete();
+          } else {
+            await context.pushNamed('saveMeetMap', extra: locationModel);
+          }
         },
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 7, horizontal: 13),
@@ -33,12 +39,28 @@ class SaveMeetListItemWidget extends StatelessWidget {
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Container(
-            padding: EdgeInsets.fromLTRB(25, 15, 20, 15),
+            padding: EdgeInsets.fromLTRB(15, 15, 20, 15),
             child: Row(
               children: [
+                Container(
+                  height: double.minPositive,
+                  color: AppColors.surfaceVariant,
+                  margin: EdgeInsets.only(right: 10),
+                  child: Visibility(
+                    visible: isDelete,
+                      child: Center(
+                        child: Icon(
+                          Icons.delete_forever,
+                          size: 30,
+                          color: AppColors.redPolyLine80,
+                        ),
+                      )
+                  ),
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                           width: 270,
