@@ -278,7 +278,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               obscureText: true,
               autofocus: true,
               onChanged: _onSignUpPw2TextChanged,
-              onSubmitted: (value) => _onsignUpPw2Submitted(context, value),
+              onSubmitted: (value) => _onSignUpPw2Submitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
             SizedBox(height: 16),
@@ -367,7 +367,7 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     }
   }
 
-  void _onsignUpPw2Submitted(BuildContext context, String password) {
+  void _onSignUpPw2Submitted(BuildContext context, String password) {
     setState(() {
       if (password.isEmpty) {
         _signUpPw2ErrorState = ErrorState.passwordEmpty;

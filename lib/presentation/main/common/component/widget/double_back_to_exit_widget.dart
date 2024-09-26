@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/utils/common_utils.dart';
-import '../../../../../core/utils/logger.dart';
 
 /// ## 종료 안내 위젯
 /// 2초 내 뒤로 가기 두 번 입력해야 종료되도록 적용된 위젯

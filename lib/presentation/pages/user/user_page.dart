@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/constant/app_colors.dart';
 import '../../../core/utils/constant/Tag.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
 import '../../main/common/component/widget/double_back_to_exit_widget.dart';
+import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import '../login/login_page.dart';
 import 'bloc/user_bloc.dart';
 
@@ -25,6 +27,8 @@ class _UserPageState extends State<UserPage> {
   final String _tag = Tag.USER;
 
   late UserBloc _userBloc;
+
+  bool _isGuest = true;
 
   @override
   void initState() {
@@ -52,14 +56,39 @@ class _UserPageState extends State<UserPage> {
           child: Scaffold(
             appBar: MainAppbar(title: '마이페이지'),
             body: BlocConsumer<UserBloc, UserState>(
-              builder: (context, state) => state.map(
-                initial: (_) => Center(child: CircularProgressIndicator()),
-                loggedIn: (_) => Center(child: logoutBtn()),
-                loggedOut: (_) => Center(child: loginBtn()),
-                error: (error) => Center(child: Text('Error: ')),
-              ),
+              builder: (context, state) {
+                state.maybeMap(
+                  initial: (_) {
+                    return MangmungLoadingIndicator();
+                  },
+                  orElse: () {},
+                );
+
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildProfileCard(_isGuest),
+                      // _buildMenuCard(_isGuest), //ett 필요한 메뉴 확정되면
+                      _buildFooter(),
+
+                      //eff 로그인 화면 구현되면 삭제
+                      GestureDetector(
+                        child: Text('로그아웃', style: TextStyle(fontSize: 30)),
+                        onTap: () {
+                          _userBloc.add(UserEvent.logoutRequested());
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
               listener: (context, state) {
                 CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
+                state.when(
+                    initial: () {},
+                    loggedIn: () => setState(() => _isGuest = false),
+                    loggedOut: () => setState(() => _isGuest = true),
+                    error: () {});
               },
             ),
           ),
@@ -69,32 +98,133 @@ class _UserPageState extends State<UserPage> {
 //==============================================================================
 //  Layout
 //==============================================================================
-  /// 로그인 버튼
-  GestureDetector loginBtn() => GestureDetector(
-      child: Text('로그인', style: TextStyle(fontSize: 30)),
-      onTap: () {
-        launchLoginPopup();
-      });
+  Card _buildCustomCard({double topMargin = 7, double bottomMargin = 7, required Widget child}) =>
+      Card(
+        color: AppColors.onPrimary,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        margin: EdgeInsets.only(left: 13, top: topMargin, right: 13, bottom: bottomMargin),
+        child: child,
+      );
 
-  /// 로그아웃 버튼
-  GestureDetector logoutBtn() => GestureDetector(
-      child: Text('로그아웃', style: TextStyle(fontSize: 30)),
-      onTap: () {
-        _userBloc.add(UserEvent.logoutRequested());
-      });
+  Widget _buildProfileCard(bool isGuest) => GestureDetector(
+        child: _buildCustomCard(
+          topMargin: 0,
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.grey[300],
+                      child: Icon(Icons.person, size: 40, color: Colors.white),
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      '로그인 또는 회원가입 하기',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '로그인하고 더 많은 여행 정보와 편리한 기능을 이용해 보세요.',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        ),
+        onTap: _launchLoginPopup,
+      );
+
+  Widget _buildMenuCard(bool isGuest) => _buildCustomCard(
+          child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildMenuItem(
+              icon: Icons.headset_mic,
+              title: '고객센터/공지사항',
+              onTap: () {},
+            ),
+            _buildMenuItem(
+              icon: Icons.message_outlined,
+              title: '1:1 문의',
+              onTap: () {},
+            ),
+          ],
+        ),
+      ));
+
+  Widget _buildMenuItem(
+          {required IconData icon, required String title, required VoidCallback onTap}) =>
+      ListTile(
+        leading: Icon(icon, color: Colors.black),
+        title: Text(title),
+        trailing: Icon(Icons.arrow_forward_ios_rounded, size: 16),
+        onTap: onTap,
+      );
+
+  Widget _buildFooter() => Padding(
+        padding: EdgeInsets.only(top: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '© 2024 댕꿀트립. All Rights Reserved.',
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            SizedBox(height: 5),
+            GestureDetector(
+              child: Text(
+                '이용약관 | 개인정보처리방침 | 위치기반서비스 이용약관',
+                style: TextStyle(fontSize: 16, color: Colors.blue),
+              ),
+              onTap: _navigateTermsPage,
+            ),
+            SizedBox(height: 5),
+            Text(
+              '본 서비스의 모든 콘텐츠는 댕꿀트립의 자산이며, 무단 복제 및 배포를 금합니다.',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            SizedBox(height: 5),
+            Text(
+              '문의사항은 고객센터를 이용해 주세요.',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ],
+        ),
+      );
 
 //==============================================================================
 //  Methods
 //==============================================================================
   /// ## 로그인 화면 실행
-  void launchLoginPopup() {
+  Future<void> _launchLoginPopup() async {
     CustomLogger.logger.i('$_tag launchLoginPopup()');
-    Navigator.push(
+    await Navigator.push<bool>(
       context,
       MaterialPageRoute(
         builder: (context) => LoginPage(),
         fullscreenDialog: true,
       ),
     );
+
+    // 다른 화면에서 돌아올 때마다 UserEvent.started() 이벤트를 트리거
+    _userBloc.add(UserEvent.started());
+  }
+
+  /// ## 약관 화면으로 이동
+  void _navigateTermsPage() {
+    //ett 약관 화면으로 이동해야함.
   }
 }
