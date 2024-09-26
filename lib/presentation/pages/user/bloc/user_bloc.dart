@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/utils/constant/Tag.dart';
@@ -34,11 +35,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _onStarted(Emitter<UserState> emit) async {
-    if (FirebaseAuthUtil().isLoggedIn()) {
-      emit(UserState.loggedIn());
-    } else {
+    final User? currentUser = FirebaseAuthUtil().getCurrentUser();
+    if (currentUser == null) {
       emit(UserState.loggedOut());
-
+    } else {
+      emit(UserState.loggedIn(currentUser));
     }
   }
 

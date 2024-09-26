@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +29,7 @@ class _UserPageState extends State<UserPage> {
 
   late UserBloc _userBloc;
 
+  User? _currentUser;
   bool _isGuest = true;
 
   @override
@@ -67,8 +69,8 @@ class _UserPageState extends State<UserPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      _buildProfileCard(_isGuest),
-                      // _buildMenuCard(_isGuest), //ett 필요한 메뉴 확정되면
+                      _buildProfileCard(_currentUser),
+                      _buildMenuCard(_isGuest),
                       _buildFooter(),
 
                       //eff 로그인 화면 구현되면 삭제
@@ -86,8 +88,14 @@ class _UserPageState extends State<UserPage> {
                 CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
                 state.when(
                     initial: () {},
-                    loggedIn: () => setState(() => _isGuest = false),
-                    loggedOut: () => setState(() => _isGuest = true),
+                    loggedIn: (currentUser) => setState(() {
+                          this._currentUser = currentUser;
+                          _isGuest = false;
+                        }),
+                    loggedOut: () => setState(() {
+                          _currentUser = null;
+                          _isGuest = true;
+                        }),
                     error: () {});
               },
             ),
@@ -98,16 +106,21 @@ class _UserPageState extends State<UserPage> {
 //==============================================================================
 //  Layout
 //==============================================================================
-  Card _buildCustomCard({double topMargin = 7, double bottomMargin = 7, required Widget child}) =>
+  Card _buildCustomCard({
+    Color color = AppColors.onPrimary,
+    double topMargin = 7,
+    double bottomMargin = 7,
+    required Widget child,
+  }) =>
       Card(
-        color: AppColors.onPrimary,
+        color: color,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         margin: EdgeInsets.only(left: 13, top: topMargin, right: 13, bottom: bottomMargin),
         child: child,
       );
 
-  Widget _buildProfileCard(bool isGuest) => GestureDetector(
+  Widget _buildProfileCard(User? user) => GestureDetector(
         child: _buildCustomCard(
           topMargin: 0,
           child: Padding(
@@ -117,16 +130,52 @@ class _UserPageState extends State<UserPage> {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey[300],
-                      child: Icon(Icons.person, size: 40, color: Colors.white),
-                    ),
-                    SizedBox(width: 16),
-                    Text(
-                      '로그인 또는 회원가입 하기',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
+                    if (_isGuest) ...[
+                      _buildDefaultProfile(),
+                      SizedBox(width: 16),
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'Dongle'),
+                          children: [
+                            TextSpan(
+                              text: '로그인',
+                              style: TextStyle(fontSize: 32, color: AppColors.primary),
+                            ),
+                            TextSpan(
+                              text: " 또는 ",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            TextSpan(
+                              text: '회원가입',
+                              style: TextStyle(fontSize: 32, color: AppColors.primary),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ] else ...[
+                      ClipOval(
+                        child: Image.network(
+                          _currentUser?.photoURL ?? '',
+                          fit: BoxFit.cover,
+                          height: 60,
+                          width: 60,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            return loadingProgress == null ? child : _buildDefaultProfile();
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            CustomLogger.logger
+                                .w('$_tag Profile image load failed: error = $error');
+                            return _buildDefaultProfile();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      Text(
+                        _currentUser?.email ?? '',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                     Spacer(),
                     Icon(Icons.arrow_forward_ios_rounded)
                   ],
@@ -135,8 +184,10 @@ class _UserPageState extends State<UserPage> {
                   height: 10,
                 ),
                 Text(
-                  '로그인하고 더 많은 여행 정보와 편리한 기능을 이용해 보세요.',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                  _isGuest
+                      ? '로그인하고 더 많은 여행 정보와 편리한 기능을 경험해 보세요!'
+                      : '내 정보를 수정하고 프로필을 새롭게 업데이트해 보세요!',
+                  style: TextStyle(fontSize: 18),
                 ),
               ],
             ),
@@ -145,6 +196,13 @@ class _UserPageState extends State<UserPage> {
         onTap: _launchLoginPopup,
       );
 
+  Widget _buildDefaultProfile() => CircleAvatar(
+        radius: 30,
+        backgroundColor: Colors.grey[300],
+        child: Icon(Icons.person, size: 40, color: Colors.white),
+      );
+
+  //ett 필요한 메뉴 확정하고 기능 구현 필요
   Widget _buildMenuCard(bool isGuest) => _buildCustomCard(
           child: Padding(
         padding: EdgeInsets.all(16),
