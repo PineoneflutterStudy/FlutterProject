@@ -64,10 +64,17 @@ class _LoginPageState extends State<LoginPage> {
                         '나만의 여행 플래너',
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        '댕꿀트립🍯',
-                        style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
-                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '댕꿀트립',
+                            style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 7),
+                          Image.asset(AppIcons.mangmungFoot, width: 30, height: 30)
+                        ],
+                      )
                     ],
                   ),
 
