@@ -11,6 +11,7 @@ import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import '../login/screens/login_page.dart';
 import 'bloc/user_bloc.dart';
 import 'screens/my_info_page.dart';
+import 'widgets/profile_image.dart';
 
 /// ## 마이페이지 화면
 ///
@@ -132,52 +133,33 @@ class _UserPageState extends State<UserPage> {
               children: [
                 Row(
                   children: [
-                    if (_isGuest) ...[
-                      _buildDefaultProfile(),
-                      SizedBox(width: 16),
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'Dongle'),
-                          children: [
+                    ProfileImage(imageUrl: _currentUser?.photoURL, size: 60),
+                    SizedBox(width: 16),
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Dongle',
+                        ),
+                        children: [
+                          if (_isGuest) ...[
                             TextSpan(
                               text: '로그인',
-                              style: TextStyle(fontSize: 32, color: AppColors.primary),
+                              style: TextStyle(color: AppColors.primary, fontSize: 32),
                             ),
-                            TextSpan(
-                              text: " 또는 ",
-                              style: TextStyle(color: Colors.black),
-                            ),
+                            TextSpan(text: " 또는 "),
                             TextSpan(
                               text: '회원가입',
-                              style: TextStyle(fontSize: 32, color: AppColors.primary),
+                              style: TextStyle(color: AppColors.primary, fontSize: 32),
                             ),
+                          ] else ...[
+                            TextSpan(text: _currentUser?.email ?? ''),
                           ],
-                        ),
+                        ],
                       ),
-                    ] else ...[
-                      ClipOval(
-                        child: Image.network(
-                          _currentUser?.photoURL ?? '',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 60,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            return loadingProgress == null ? child : _buildDefaultProfile();
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            CustomLogger.logger
-                                .w('$_tag Profile image load failed: error = $error');
-                            return _buildDefaultProfile();
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Text(
-                        _currentUser?.email ?? '',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                    ),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios_rounded)
                   ],
@@ -196,12 +178,6 @@ class _UserPageState extends State<UserPage> {
           ),
         ),
         onTap: _isGuest ? _launchLoginPopup : _navigateMyInfoPage,
-      );
-
-  Widget _buildDefaultProfile() => CircleAvatar(
-        radius: 30,
-        backgroundColor: Colors.grey[300],
-        child: Icon(Icons.person, size: 40, color: Colors.white),
       );
 
   //ett 필요한 메뉴 확정하고 기능 구현 필요
