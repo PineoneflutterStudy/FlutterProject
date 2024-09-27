@@ -12,19 +12,19 @@ class LoginDialog {
         builder: (BuildContext context) => AlertDialog(
           content: RichText(
             text: TextSpan(
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, fontFamily: 'Dongle'),
               children: [
                 TextSpan(
-                  text: "해당 계정($email)은 현재 시도한 로그인 방식과 연결되지 않았습니다. 다른 로그인 방법을 선택해 주세요.",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                  text: "해당 계정($email)은\n현재 시도한 로그인 방식과 연결되지 않았습니다.\n다른 로그인 방법을 선택해 주세요.",
+                  style: TextStyle(color: Colors.black),
                 ),
                 TextSpan(
                   text: "\n\ntip: ",
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                  style: TextStyle(color: AppColors.primary),
                 ),
                 TextSpan(
-                  text: "로그인 방법을 추가하려면, 마이페이지의 내 정보에서 설정하실 수 있습니다.",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
+                  text: "마이페이지의 내 정보에서 로그인 방법을 추가하실 수 있습니다.",
+                  style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
