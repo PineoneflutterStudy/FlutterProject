@@ -16,7 +16,7 @@ import '../pages/plan/bloc/address_bloc/address_bloc.dart';
 import '../pages/plan/plan_page.dart';
 import '../pages/plan/screens/recommend/recommended_list_page.dart';
 import '../pages/splash/splash_page.dart';
-import '../pages/user/user_page.dart';
+import '../pages/user/screens/user_page.dart';
 import 'route_path.dart';
 
 final Logger _logger = CustomLogger.logger;

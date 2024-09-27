@@ -1,5 +1,8 @@
 part of 'user_bloc.dart';
 
+/// ## 마이페이지 화면 state
+///
+/// author [Eogeum@naver.com]
 @freezed
 class UserState with _$UserState {
   const factory UserState.initial() = _Initial;

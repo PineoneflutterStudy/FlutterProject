@@ -6,7 +6,7 @@ import '../../../../core/utils/constant/Tag.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../main/common/component/widget/appbar.dart';
 import '../../../main/common/component/widget/mangmung_loding_indicator.dart';
-import '../bloc/my_info_bloc.dart';
+import '../bloc/my_info/my_info_bloc.dart';
 
 /// ## 내 정보 화면
 ///

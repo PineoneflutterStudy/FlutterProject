@@ -6,7 +6,7 @@ import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
 import '../pages/meet/meet_page.dart';
 import '../pages/plan/plan_page.dart';
-import '../pages/user/user_page.dart';
+import '../pages/user/screens/user_page.dart';
 import 'cubit/bottom_nav_cubit.dart';
 
 class MainScreen extends StatelessWidget {
@@ -45,7 +45,9 @@ class MainScreenView extends StatelessWidget {
       ),
       bottomNavigationBar: BlocBuilder<BottomNavCubit, BottomNav>(builder: (_, state) {
         return BottomNavigationBar(
-          items: List.generate(BottomNav.values.length, (index) => BottomNavigationBarItem(
+          items: List.generate(
+              BottomNav.values.length,
+              (index) => BottomNavigationBarItem(
                   icon: SvgPicture.asset(BottomNav.values[index].icon, width: 24),
                   label: BottomNav.values[index].toName,
                   activeIcon: SvgPicture.asset(BottomNav.values[index].activeIcon, width: 24))),
