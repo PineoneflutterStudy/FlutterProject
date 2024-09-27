@@ -19,21 +19,18 @@ mixin _$UserEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() logoutRequested,
     required TResult Function() errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? logoutRequested,
     TResult? Function()? errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? logoutRequested,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) =>
@@ -41,21 +38,18 @@ mixin _$UserEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LogoutRequested value) logoutRequested,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LogoutRequested value)? logoutRequested,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LogoutRequested value)? logoutRequested,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) =>
@@ -118,7 +112,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() logoutRequested,
     required TResult Function() errorOccurred,
   }) {
     return started();
@@ -128,7 +121,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? logoutRequested,
     TResult? Function()? errorOccurred,
   }) {
     return started?.call();
@@ -138,7 +130,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? logoutRequested,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -152,7 +143,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LogoutRequested value) logoutRequested,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return started(this);
@@ -162,7 +152,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LogoutRequested value)? logoutRequested,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return started?.call(this);
@@ -172,7 +161,6 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LogoutRequested value)? logoutRequested,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {
@@ -185,114 +173,6 @@ class _$StartedImpl implements _Started {
 
 abstract class _Started implements UserEvent {
   const factory _Started() = _$StartedImpl;
-}
-
-/// @nodoc
-abstract class _$$LogoutRequestedImplCopyWith<$Res> {
-  factory _$$LogoutRequestedImplCopyWith(_$LogoutRequestedImpl value,
-          $Res Function(_$LogoutRequestedImpl) then) =
-      __$$LogoutRequestedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LogoutRequestedImplCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$LogoutRequestedImpl>
-    implements _$$LogoutRequestedImplCopyWith<$Res> {
-  __$$LogoutRequestedImplCopyWithImpl(
-      _$LogoutRequestedImpl _value, $Res Function(_$LogoutRequestedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LogoutRequestedImpl implements _LogoutRequested {
-  const _$LogoutRequestedImpl();
-
-  @override
-  String toString() {
-    return 'UserEvent.logoutRequested()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LogoutRequestedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function() logoutRequested,
-    required TResult Function() errorOccurred,
-  }) {
-    return logoutRequested();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function()? logoutRequested,
-    TResult? Function()? errorOccurred,
-  }) {
-    return logoutRequested?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function()? logoutRequested,
-    TResult Function()? errorOccurred,
-    required TResult orElse(),
-  }) {
-    if (logoutRequested != null) {
-      return logoutRequested();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LogoutRequested value) logoutRequested,
-    required TResult Function(_ErrorOccurred value) errorOccurred,
-  }) {
-    return logoutRequested(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LogoutRequested value)? logoutRequested,
-    TResult? Function(_ErrorOccurred value)? errorOccurred,
-  }) {
-    return logoutRequested?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LogoutRequested value)? logoutRequested,
-    TResult Function(_ErrorOccurred value)? errorOccurred,
-    required TResult orElse(),
-  }) {
-    if (logoutRequested != null) {
-      return logoutRequested(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LogoutRequested implements UserEvent {
-  const factory _LogoutRequested() = _$LogoutRequestedImpl;
 }
 
 /// @nodoc
@@ -334,7 +214,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() logoutRequested,
     required TResult Function() errorOccurred,
   }) {
     return errorOccurred();
@@ -344,7 +223,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? logoutRequested,
     TResult? Function()? errorOccurred,
   }) {
     return errorOccurred?.call();
@@ -354,7 +232,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? logoutRequested,
     TResult Function()? errorOccurred,
     required TResult orElse(),
   }) {
@@ -368,7 +245,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_LogoutRequested value) logoutRequested,
     required TResult Function(_ErrorOccurred value) errorOccurred,
   }) {
     return errorOccurred(this);
@@ -378,7 +254,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_LogoutRequested value)? logoutRequested,
     TResult? Function(_ErrorOccurred value)? errorOccurred,
   }) {
     return errorOccurred?.call(this);
@@ -388,7 +263,6 @@ class _$ErrorOccurredImpl implements _ErrorOccurred {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_LogoutRequested value)? logoutRequested,
     TResult Function(_ErrorOccurred value)? errorOccurred,
     required TResult orElse(),
   }) {

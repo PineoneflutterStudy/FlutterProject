@@ -74,14 +74,6 @@ class _UserPageState extends State<UserPage> {
                       _buildProfileCard(_currentUser),
                       _buildMenuCard(_isGuest),
                       _buildFooter(),
-
-                      //eff 로그인 화면 구현되면 삭제
-                      GestureDetector(
-                        child: Text('로그아웃', style: TextStyle(fontSize: 30)),
-                        onTap: () {
-                          _userBloc.add(UserEvent.logoutRequested());
-                        },
-                      ),
                     ],
                   ),
                 );

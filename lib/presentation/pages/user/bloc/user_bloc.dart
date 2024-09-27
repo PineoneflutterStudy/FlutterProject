@@ -26,9 +26,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const UserState.initial()) {
     on<UserEvent>((event, emit) async {
       CustomLogger.logger.i('$_tag Event occurred. event = ${event.runtimeType}');
-      event.when(
+      await event.when(
         started: () => _onStarted(emit),
-        logoutRequested: () => _onLogoutRequested(emit),
         errorOccurred: () => _onErrorOccurred(),
       );
     });
@@ -41,11 +40,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else {
       emit(UserState.loggedIn(currentUser));
     }
-  }
-
-  Future<void> _onLogoutRequested(Emitter<UserState> emit) async {
-    FirebaseAuthUtil().auth.signOut();
-    emit(UserState.loggedOut());
   }
 
   Future<void> _onErrorOccurred() async {}
