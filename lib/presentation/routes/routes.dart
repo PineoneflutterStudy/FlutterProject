@@ -8,7 +8,7 @@ import '../../domain/model/display/meet/meet_address.model.dart';
 import '../main/main_screen.dart';
 import '../pages/home/home_page/home_screen.dart';
 import '../pages/like/like_page.dart';
-import '../pages/login/login_page.dart';
+import '../pages/login/screens/login_page.dart';
 import '../pages/meet/meet_page.dart';
 import '../pages/meet/screens/meet_place_map_screen.dart';
 import '../pages/meet/screens/meet_save_place_map_screen.dart';
@@ -53,7 +53,12 @@ final GoRouter router = GoRouter(routes: [
       final addressBloc = state.extra as AddressBloc;
       return BlocProvider.value(
           value: addressBloc,
-          child: RecommendedListPage(location: location, prevPlaceId : placeId, categoryId: category, addressBloc: addressBloc, root : root));
+          child: RecommendedListPage(
+              location: location,
+              prevPlaceId: placeId,
+              categoryId: category,
+              addressBloc: addressBloc,
+              root: root));
     },
   ),
   GoRoute(
@@ -70,7 +75,7 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: RoutePath.meetMap,
     name: 'meetMap',
-    builder: (context, state){
+    builder: (context, state) {
       final addresses = state.extra as List<MeetAddressModel>;
       return MeetPlaceMapScreen(addresses: addresses);
     },
@@ -78,7 +83,7 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: RoutePath.saveMeetMap,
     name: 'saveMeetMap',
-    builder: (context, state){
+    builder: (context, state) {
       final addressModel = state.extra as LocationDbModel;
       return MeetSavePlaceMapScreen(address: addressModel);
     },

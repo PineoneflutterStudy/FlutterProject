@@ -2,20 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../core/utils/constant/Tag.dart';
-import '../../../../core/utils/exception/email_duplicate_exception.dart';
-import '../../../../core/utils/firebase/firebase_auth_util.dart';
-import '../../../../core/utils/firebase/firebase_firestore_util.dart';
-import '../../../../core/utils/logger.dart';
-import '../../../../domain/model/display/login/auth_type.dart';
-import '../../../../domain/model/display/login/user.model.dart' as kkul;
-import '../screens/email/email_login_page.dart';
+import '../../../../../core/utils/constant/Tag.dart';
+import '../../../../../core/utils/exception/email_duplicate_exception.dart';
+import '../../../../../core/utils/firebase/firebase_auth_util.dart';
+import '../../../../../core/utils/firebase/firebase_firestore_util.dart';
+import '../../../../../core/utils/logger.dart';
+import '../../../../../domain/model/display/login/auth_type.dart';
+import '../../../../../domain/model/display/login/user.model.dart' as kkul;
+import '../../screens/email_login_page.dart';
 
 part 'email_bloc.freezed.dart';
 part 'email_event.dart';
 part 'email_state.dart';
 
-/// ## 이메일 화면 Bloc
+/// ## 이메일 로그인 화면 Bloc
 ///
 /// author [Eogeum@naver.com]
 class EmailBloc extends Bloc<EmailEvent, EmailState> {

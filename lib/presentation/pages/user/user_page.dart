@@ -8,7 +8,7 @@ import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
 import '../../main/common/component/widget/double_back_to_exit_widget.dart';
 import '../../main/common/component/widget/mangmung_loding_indicator.dart';
-import '../login/login_page.dart';
+import '../login/screens/login_page.dart';
 import 'bloc/user_bloc.dart';
 import 'screens/my_info_page.dart';
 

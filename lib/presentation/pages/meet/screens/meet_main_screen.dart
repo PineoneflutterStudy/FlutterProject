@@ -5,10 +5,10 @@ import 'package:logger/logger.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../main/common/component/dialog/common_dialog.dart';
 import '../../../main/common/component/widget/mangmung_loding_indicator.dart';
-import '../../login/login_page.dart';
+import '../../login/screens/login_page.dart';
+import '../dialogs/start_address_input_dialog.dart';
 import '../notifiers/meet_firestore/meet_firestore_notifier.dart';
 import '../notifiers/meet_firestore/meet_firestore_state.dart';
-import '../dialogs/start_address_input_dialog.dart';
 import '../widgets/empty_meet_widget.dart';
 import '../widgets/save_meet_widget.dart';
 
@@ -39,7 +39,6 @@ class MeetMainScreenView extends ConsumerStatefulWidget {
 }
 
 class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
-
   @override
   void initState() {
     super.initState();
@@ -53,9 +52,12 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer(builder: (context, ref, child) {
-        final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status -> 로그인 유도
-        final dbStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // Firestore DB Status
-        final deleteStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.deleteStatus)); // Item Delete Status
+        final loginStatus = ref.watch(
+            meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status -> 로그인 유도
+        final dbStatus =
+            ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // Firestore DB Status
+        final deleteStatus = ref.watch(
+            meetFireStoreNotifierProvider.select((p) => p.deleteStatus)); // Item Delete Status
         final dbState = ref.watch(meetFireStoreNotifierProvider);
 
         _logger.i('[ MeetMainScreenView ] Current Login Status Info -> ${loginStatus}');
@@ -68,64 +70,61 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
           case MeetLoginStatus.nonLogin:
           case MeetLoginStatus.failure:
             {
-              return EmptyMeetWidget(
-                  onBtnTap: () {
-                    // 비로그인 / 로그인 실패 -> 로그인 유도 화면 이동!!
-                    CommonDialog.confirmDialog(
+              return EmptyMeetWidget(onBtnTap: () {
+                // 비로그인 / 로그인 실패 -> 로그인 유도 화면 이동!!
+                CommonDialog.confirmDialog(
+                    context: context,
+                    title: '로그인 확인',
+                    content: '로그인 시 약속장소를 저장할 수 있습니다. \n로그인 하시겠습니까?',
+                    btn1Text: '아니오',
+                    btn2Text: '네',
+                    onBtn1Pressed: (context) {
+                      // 확인 팝업 종료 후 출발지 입력 Dialog Show
+                      Navigator.of(context).pop();
+                      showDialog(
                         context: context,
-                        title: '로그인 확인',
-                        content:
-                        '로그인 시 약속장소를 저장할 수 있습니다. \n로그인 하시겠습니까?',
-                        btn1Text: '아니오',
-                        btn2Text: '네',
-                        onBtn1Pressed: (context) {
-                          // 확인 팝업 종료 후 출발지 입력 Dialog Show
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (context) =>
-                                StartAddressInputDialog(),
-                          ).then((value) {
-                            if (value != null) {
-                              var result = value as Map<String,dynamic>;
+                        builder: (context) => StartAddressInputDialog(),
+                      ).then((value) {
+                        if (value != null) {
+                          var result = value as Map<String, dynamic>;
 
-                              final isUpdate = result['update'];
+                          final isUpdate = result['update'];
 
-                              _logger.i('비로그인 사용자 -> Map 종료 값 확인 -> ${isUpdate}');
-                              if (isUpdate) {
-                                ref.read(meetFireStoreNotifierProvider.notifier).getLocationDB();
-                              }
-                            }
-                          });
-                        },
-                        onBtn2Pressed: (context) async {
-                          Navigator.of(context).pop();
-                          // 로그인 화면 실행 및 결과 대기
-                          final result = await Navigator.push<bool>(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                              fullscreenDialog: true,
-                            ),
-                          );
-
-                          // 로그인 화면에서 로그인 진행 결과 -> true : 로그인 성공! / null : 로그인 성공적으로 진행하지 않고 빠져나옴...
-                          if (result == true) {
-                            _logger.i('Login Result is Success! Current Login User!');
-                            ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(true);
+                          _logger.i('비로그인 사용자 -> Map 종료 값 확인 -> ${isUpdate}');
+                          if (isUpdate) {
                             ref.read(meetFireStoreNotifierProvider.notifier).getLocationDB();
-                            return;
                           }
+                        }
+                      });
+                    },
+                    onBtn2Pressed: (context) async {
+                      Navigator.of(context).pop();
+                      // 로그인 화면 실행 및 결과 대기
+                      final result = await Navigator.push<bool>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                          fullscreenDialog: true,
+                        ),
+                      );
 
-                          _logger.i('Login Result is Failure Or Cancel... Current Non-Login User..');
-                          ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(false);
-                        });
-                  }
-              );
+                      // 로그인 화면에서 로그인 진행 결과 -> true : 로그인 성공! / null : 로그인 성공적으로 진행하지 않고 빠져나옴...
+                      if (result == true) {
+                        _logger.i('Login Result is Success! Current Login User!');
+                        ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(true);
+                        ref.read(meetFireStoreNotifierProvider.notifier).getLocationDB();
+                        return;
+                      }
+
+                      _logger.i('Login Result is Failure Or Cancel... Current Non-Login User..');
+                      ref.read(meetFireStoreNotifierProvider.notifier).updateLoginState(false);
+                    });
+              });
             }
           case MeetLoginStatus.login:
             {
-              _logger.i('[ _MeetMainScreenView ] Current FireStore Database Status Info -> ${dbStatus}');
+              _logger.i(
+                  '[ _MeetMainScreenView ] Current FireStore Database Status Info -> ${dbStatus}');
               switch (dbStatus) {
                 case MeetFireStoreStatus.initial:
                 case MeetFireStoreStatus.loading:
@@ -134,15 +133,13 @@ class _MeetMainScreenView extends ConsumerState<MeetMainScreenView> {
                   }
                 case MeetFireStoreStatus.failure:
                   {
-                    return EmptyMeetWidget(
-                    onBtnTap: () {
+                    return EmptyMeetWidget(onBtnTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) =>
-                            StartAddressInputDialog(),
+                        builder: (context) => StartAddressInputDialog(),
                       ).then((value) {
                         if (value != null) {
-                          var result = value as Map<String,dynamic>;
+                          var result = value as Map<String, dynamic>;
 
                           final isUpdate = result['update'];
 

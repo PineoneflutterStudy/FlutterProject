@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/common_utils.dart';
-import '../../../../../core/utils/constant/tag.dart';
-import '../../../../../core/utils/logger.dart';
-import '../../bloc/email_bloc.dart';
-import '../dialog/login_dialog.dart';
+import '../../../../core/utils/common_utils.dart';
+import '../../../../core/utils/constant/tag.dart';
+import '../../../../core/utils/logger.dart';
+import '../bloc/email/email_bloc.dart';
+import '../dialogs/login_dialog.dart';
 
 /// ## 이메일 로그인 화면
 ///

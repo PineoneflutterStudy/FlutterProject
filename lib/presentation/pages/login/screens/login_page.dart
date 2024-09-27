@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/theme/constant/app_colors.dart';
-import '../../../core/theme/constant/app_icons.dart';
-import '../../../core/utils/common_utils.dart';
-import '../../../core/utils/constant/tag.dart';
-import '../../../core/utils/logger.dart';
-import '../../../domain/model/display/login/auth_type.dart';
-import 'bloc/login_bloc.dart';
-import 'screens/dialog/login_dialog.dart';
-import 'screens/email/email_login_page.dart';
-import 'widgets/login_option_item.dart';
+import '../../../../core/theme/constant/app_colors.dart';
+import '../../../../core/theme/constant/app_icons.dart';
+import '../../../../core/utils/common_utils.dart';
+import '../../../../core/utils/constant/tag.dart';
+import '../../../../core/utils/logger.dart';
+import '../../../../domain/model/display/login/auth_type.dart';
+import '../bloc/login_bloc.dart';
+import '../dialogs/login_dialog.dart';
+import '../widgets/login_option_item.dart';
+import 'email_login_page.dart';
 
 /// ## 로그인 화면
 ///
@@ -94,7 +94,8 @@ class _LoginPageState extends State<LoginPage> {
               state.when(
                 initial: () {},
                 alreadyLoggedIn: _onAlreadyLoggedIn,
-                emailDuplicateError: (email) => LoginDialog.showEmailDuplicateDialog(context, email),
+                emailDuplicateError: (email) =>
+                    LoginDialog.showEmailDuplicateDialog(context, email),
                 requireMoreUserInfo: _onRequireMoreUserInfo,
                 navigateToEmailLogin: _navigateToEmailLogin,
                 loggedIn: _onLoggedIn,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/constant/app_colors.dart';
+import '../../../../core/theme/constant/app_colors.dart';
 
 /// ## 로그인 팝업
 ///
@@ -19,7 +19,8 @@ class LoginDialog {
                 ),
                 TextSpan(
                   text: "\n\ntip: ",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                  style: TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
                 ),
                 TextSpan(
                   text: "로그인 방법을 추가하려면, 마이페이지의 내 정보에서 설정하실 수 있습니다.",
