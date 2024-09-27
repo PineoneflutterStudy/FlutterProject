@@ -10,6 +10,7 @@ import '../../main/common/component/widget/double_back_to_exit_widget.dart';
 import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import '../login/login_page.dart';
 import 'bloc/user_bloc.dart';
+import 'screens/my_info_page.dart';
 
 /// ## 마이페이지 화면
 ///
@@ -87,16 +88,17 @@ class _UserPageState extends State<UserPage> {
               listener: (context, state) {
                 CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
                 state.when(
-                    initial: () {},
-                    loggedIn: (currentUser) => setState(() {
-                          this._currentUser = currentUser;
-                          _isGuest = false;
-                        }),
-                    loggedOut: () => setState(() {
-                          _currentUser = null;
-                          _isGuest = true;
-                        }),
-                    error: () {});
+                  initial: () {},
+                  loggedIn: (currentUser) => setState(() {
+                    this._currentUser = currentUser;
+                    _isGuest = false;
+                  }),
+                  loggedOut: () => setState(() {
+                    _currentUser = null;
+                    _isGuest = true;
+                  }),
+                  error: () {},
+                );
               },
             ),
           ),
@@ -193,7 +195,7 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
         ),
-        onTap: _launchLoginPopup,
+        onTap: _isGuest ? _launchLoginPopup : _navigateMyInfoPage,
       );
 
   Widget _buildDefaultProfile() => CircleAvatar(
@@ -268,12 +270,32 @@ class _UserPageState extends State<UserPage> {
 //==============================================================================
   /// ## 로그인 화면 실행
   Future<void> _launchLoginPopup() async {
-    CustomLogger.logger.i('$_tag launchLoginPopup()');
+    CustomLogger.logger.i('$_tag _launchLoginPopup()');
     await Navigator.push<bool>(
       context,
       MaterialPageRoute(
         builder: (context) => LoginPage(),
         fullscreenDialog: true,
+      ),
+    );
+
+    // 다른 화면에서 돌아올 때마다 UserEvent.started() 이벤트를 트리거
+    _userBloc.add(UserEvent.started());
+  }
+
+  /// ## 내 정보 화면으로 이동
+  Future<void> _navigateMyInfoPage() async {
+    final User? _tempUser = _currentUser;
+    if (_tempUser == null) {
+      CustomLogger.logger.e('$_tag `Error - _tempUser == null');
+      return;
+    }
+
+    CustomLogger.logger.i('$_tag _navigateMyInfoPage()');
+    await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MyInfoPage(_tempUser),
       ),
     );
 
