@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../core/theme/constant/app_colors.dart';
 import '../../../../core/utils/common_utils.dart';
 import '../../../../core/utils/logger.dart';
 import '../../../../domain/model/display/meet/location_db.model.dart';
@@ -19,6 +20,7 @@ import '../notifiers/meet_mobility/meet_mobility_notifier.dart';
 import '../notifiers/meet_mobility/meet_mobility_state.dart';
 import '../widgets/common/map_loading_fail_widget.dart';
 import '../widgets/common/map_loading_widget.dart';
+import '../widgets/map_bottom_sheet_widget.dart';
 
 /**
  * 1. 출발위치 입력받아 가운데 지점 구하기
@@ -118,6 +120,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
           final firestoreState = ref.watch(meetFireStoreNotifierProvider); // 파이어베이스 - 마커에 사용할 이미지 정보 사용
           final firestoreStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.storageStatus));
 
+
           _logger.i('[ __ContentMapViewState ] Kakao Mobility Status -> ${mobilityStatus}');
           switch (mobilityStatus) {
             case MeetMobilityStatus.initial:
@@ -167,169 +170,186 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                     }
                   case MeetFireStorageStatus.success:
                     {
-                      return PopScope(
-                        canPop: false,
-                        onPopInvoked: (bool didPop) {
-                          if (didPop) {
-                            // IOS 뒤로가기 버튼, ButtonWidget이건 뒤로가기 제스쳐가 감지되면 호출 된다.
-                            print('didPop호출');
-                            return;
-                          }
-                          CommonDialog.confirmDialog(
-                              context: context,
-                              title: '약속장소 찾기 종료',
-                              content: '약속장소 찾기를 종료하시겠습니까?',
-                              btn1Text: '아니오',
-                              btn2Text: '네',
-                              onBtn1Pressed: (context) {
-                                context.pop();
+                      return Stack(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(bottom: 40),
+                            child: PopScope(
+                              canPop: false,
+                              onPopInvoked: (bool didPop) {
+                                if (didPop) {
+                                  // IOS 뒤로가기 버튼, ButtonWidget이건 뒤로가기 제스쳐가 감지되면 호출 된다.
+                                  print('didPop호출');
+                                  return;
+                                }
+                                CommonDialog.confirmDialog(
+                                    context: context,
+                                    title: '약속장소 찾기 종료',
+                                    content: '약속장소 찾기를 종료하시겠습니까?',
+                                    btn1Text: '아니오',
+                                    btn2Text: '네',
+                                    onBtn1Pressed: (context) {
+                                      context.pop();
+                                    },
+                                    onBtn2Pressed: (context) async {
+                                      ref.read(addressShprfNotifierProvider.notifier)
+                                          .resetAddress();
+                                      context.pop();
+                                      context.pop();
+                                    });
                               },
-                              onBtn2Pressed: (context) async {
-                                ref.read(addressShprfNotifierProvider.notifier)
-                                    .resetAddress();
-                                context.pop();
-                                context.pop();
-                              });
-                        },
-                        child: KakaoMap(
-                          onMapCreated: ((controller) async {
-                            // 맵 생성 Callback
-                            mapController = controller;
-                            List<LatLng> latLngs = [];
+                              child: KakaoMap(
+                                onMapCreated: ((controller) async {
+                                  // 맵 생성 Callback
+                                  mapController = controller;
+                                  List<LatLng> latLngs = [];
 
-                            // 출발지 좌표 마커 생성
-                            for (int i = 0; i < addressModel.starting_point_list.length; i++) {
-                              _logger.i('사용하는데서 확인  2 -> ${firestoreState.startingPointInfo}');
-                              List<LatLng> polyLatLngs = [];
-                              // ==================== Markers ====================
-                              markers.add(Marker(
-                                markerId: UniqueKey().toString(),
-                                latLng: await LatLng(
-                                    addressModel.starting_point_list[i].latitude,
-                                    addressModel.starting_point_list[i].longitude),
-                                markerImageSrc:
-                                '${firestoreState.startingPointInfo[i].imagePath}',
-                                width: 40,
-                                height: 40,
-                              ));
+                                  // 출발지 좌표 마커 생성
+                                  for (int i = 0; i < addressModel.starting_point_list.length; i++) {
+                                    _logger.i('사용하는데서 확인  2 -> ${firestoreState.startingPointInfo}');
+                                    List<LatLng> polyLatLngs = [];
+                                    // ==================== Markers ====================
+                                    markers.add(Marker(
+                                      markerId: UniqueKey().toString(),
+                                      latLng: await LatLng(
+                                          addressModel.starting_point_list[i].latitude,
+                                          addressModel.starting_point_list[i].longitude),
+                                      markerImageSrc:
+                                      '${firestoreState.startingPointInfo[i].imagePath}',
+                                      width: 40,
+                                      height: 40,
+                                    ));
 
-                              latLngs.add(
-                                  LatLng(addressModel.starting_point_list[i].latitude,
-                                      addressModel.starting_point_list[i].longitude));
+                                    latLngs.add(
+                                        LatLng(addressModel.starting_point_list[i].latitude,
+                                            addressModel.starting_point_list[i].longitude));
 
-                              // ==================== CustomOverLay ( 마커 위 텍스트 : 출발지 ) ====================
-                              final startCustomOverlay = CustomOverlay(
-                                customOverlayId: UniqueKey().toString(),
-                                latLng: LatLng(
-                                    addressModel.starting_point_list[i].latitude,
-                                    addressModel.starting_point_list[i].longitude),
-                                content:
-                                '<p style="background-color: white; padding: 8px; border-radius: 8px;">${i +
-                                    1}번</p>',
-                                xAnchor: 0.4,
-                                yAnchor: 0.1,
-                                zIndex: 0,
-                              );
+                                    // ==================== CustomOverLay ( 마커 위 텍스트 : 출발지 ) ====================
+                                    final startCustomOverlay = CustomOverlay(
+                                      customOverlayId: UniqueKey().toString(),
+                                      latLng: LatLng(
+                                          addressModel.starting_point_list[i].latitude,
+                                          addressModel.starting_point_list[i].longitude),
+                                      content:
+                                      '<p style="background-color: white; padding: 8px; border-radius: 8px;">${i +
+                                          1}번</p>',
+                                      xAnchor: 0.4,
+                                      yAnchor: 0.1,
+                                      zIndex: 0,
+                                    );
 
-                              customOverlays.add(startCustomOverlay);
+                                    customOverlays.add(startCustomOverlay);
 
-                              // ==================== PolyLine ====================
-                              var latitudeList = jsonDecode(mobilityState
-                                  .directionsModel[i].latitudePaths);
-                              var longitudeList = jsonDecode(mobilityState
-                                  .directionsModel[i].longitudePaths);
+                                    // ==================== PolyLine ====================
+                                    var latitudeList = jsonDecode(mobilityState
+                                        .directionsModel[i].latitudePaths);
+                                    var longitudeList = jsonDecode(mobilityState
+                                        .directionsModel[i].longitudePaths);
 
-                              // 주소 정보 업데이트
-                              ref.read(addressShprfNotifierProvider.notifier)
-                                  .addAddressInput(
-                                  MeetAddressModel(
-                                      index: addressModel.starting_point_list[i]
-                                          .index,
-                                      address: addressModel.starting_point_list[i]
-                                          .address,
-                                      latitude: addressModel.starting_point_list[i]
-                                          .latitude,
-                                      longitude: addressModel.starting_point_list[i]
-                                          .longitude,
-                                      totalDuration: addressModel
-                                          .starting_point_list[i].totalDuration,
-                                      totalDistance: addressModel
-                                          .starting_point_list[i].totalDistance
+                                    // 주소 정보 업데이트
+                                    ref.read(addressShprfNotifierProvider.notifier)
+                                        .addAddressInput(
+                                        MeetAddressModel(
+                                            index: addressModel.starting_point_list[i]
+                                                .index,
+                                            address: addressModel.starting_point_list[i]
+                                                .address,
+                                            latitude: addressModel.starting_point_list[i]
+                                                .latitude,
+                                            longitude: addressModel.starting_point_list[i]
+                                                .longitude,
+                                            totalDuration: addressModel
+                                                .starting_point_list[i].totalDuration,
+                                            totalDistance: addressModel
+                                                .starting_point_list[i].totalDistance
+                                        ));
+
+                                    // DirectionDto의 경도 리스트 길이만큼 실행...
+                                    for (int j = 0; j < latitudeList.length; j++) {
+                                      if (j % 2 == 0) {
+                                        // index 가 짝수 일때만 추가..
+                                        polyLatLngs.add(LatLng(
+                                            double.tryParse(
+                                                latitudeList[j].toString())!,
+                                            double.tryParse(
+                                                longitudeList[j].toString())!));
+                                      } else if (j == latitudeList.length - 1) {
+                                        polyLatLngs.add(LatLng(
+                                            double.tryParse(
+                                                latitudeList[j].toString())!,
+                                            double.tryParse(
+                                                longitudeList[j].toString())!));
+                                      }
+                                    }
+
+                                    // 폴리라인 생성
+                                    polyLines.add(
+                                      Polyline(
+                                        polylineId: UniqueKey().toString(),
+                                        points: polyLatLngs,
+                                        strokeColor: Color(firestoreState.startingPointInfo[i].loadColorValue),
+                                        strokeOpacity: 0.8,
+                                        strokeWidth: 7,
+                                        strokeStyle: StrokeStyle.solid,
+                                      ),
+                                    );
+                                  }
+
+                                  // ==================== Last Marker ( 목적지 ) ====================
+                                  // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
+                                  markers.add(Marker(
+                                    markerId: '-1',
+                                    latLng: await LatLng(
+                                        double.parse(
+                                            addressModel.destination_point[0].mapy),
+                                        double.parse(
+                                            addressModel.destination_point[0].mapx)),
+                                    markerImageSrc:
+                                    '${firestoreState.destinationImg}',
+                                    width: 40,
+                                    height: 50,
                                   ));
 
-                              // DirectionDto의 경도 리스트 길이만큼 실행...
-                              for (int j = 0; j < latitudeList.length; j++) {
-                                if (j % 2 == 0) {
-                                  // index 가 짝수 일때만 추가..
-                                  polyLatLngs.add(LatLng(
-                                      double.tryParse(
-                                          latitudeList[j].toString())!,
-                                      double.tryParse(
-                                          longitudeList[j].toString())!));
-                                } else if (j == latitudeList.length - 1) {
-                                  polyLatLngs.add(LatLng(
-                                      double.tryParse(
-                                          latitudeList[j].toString())!,
-                                      double.tryParse(
-                                          longitudeList[j].toString())!));
-                                }
-                              }
+                                  // ==================== CustomOverLay ( 마커 위 텍스트 : 목적지 ) ====================
+                                  final destinationCustomOverlay = CustomOverlay(
+                                    customOverlayId: UniqueKey().toString(),
+                                    latLng: LatLng(
+                                        double.parse(
+                                            addressModel.destination_point[0].mapy),
+                                        double.parse(
+                                            addressModel.destination_point[0].mapx)),
+                                    content:
+                                    '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
+                                    xAnchor: 0.4,
+                                    yAnchor: 1.3,
+                                    zIndex: 0,
+                                  );
 
-                              // 폴리라인 생성
-                              polyLines.add(
-                                Polyline(
-                                  polylineId: UniqueKey().toString(),
-                                  points: polyLatLngs,
-                                  strokeColor: Color(firestoreState.startingPointInfo[i].loadColorValue),
-                                  strokeOpacity: 0.8,
-                                  strokeWidth: 7,
-                                  strokeStyle: StrokeStyle.solid,
-                                ),
-                              );
-                            }
+                                  customOverlays.add(destinationCustomOverlay);
 
-                            // ==================== Last Marker ( 목적지 ) ====================
-                            // 마지막에 추가되는 마커는 중간지점 마커임...! ( 자동차 기준 먼져 적용하기 위해 /n 나눈 위도 경도 우선 적용
-                            markers.add(Marker(
-                              markerId: '-1',
-                              latLng: await LatLng(
-                                  double.parse(
-                                      addressModel.destination_point[0].mapy),
-                                  double.parse(
-                                      addressModel.destination_point[0].mapx)),
-                              markerImageSrc:
-                              '${firestoreState.destinationImg}',
-                              width: 40,
-                              height: 50,
-                            ));
-
-                            // ==================== CustomOverLay ( 마커 위 텍스트 : 목적지 ) ====================
-                            final destinationCustomOverlay = CustomOverlay(
-                              customOverlayId: UniqueKey().toString(),
-                              latLng: LatLng(
-                                  double.parse(
-                                      addressModel.destination_point[0].mapy),
-                                  double.parse(
-                                      addressModel.destination_point[0].mapx)),
-                              content:
-                              '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
-                              xAnchor: 0.4,
-                              yAnchor: 1.3,
-                              zIndex: 0,
-                            );
-
-                            customOverlays.add(destinationCustomOverlay);
-
-                            // ==================== Update Map ====================
-                            setState(() {
-                              // 마커가 보이도록 지도 재설정하기
-                              mapController.fitBounds(latLngs);
-                            });
-                          }),
-                          markers: markers.toList(),
-                          polylines: polyLines.toList(),
-                          customOverlays: customOverlays,
-                        ),
+                                  // ==================== Update Map ====================
+                                  setState(() {
+                                    // 마커가 보이도록 지도 재설정하기
+                                    mapController.fitBounds(latLngs);
+                                  });
+                                }),
+                                markers: markers.toList(),
+                                polylines: polyLines.toList(),
+                                customOverlays: customOverlays,
+                              ),
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MapBottomSheetWidget(
+                                destination: addressModel.destination_point[0],
+                                startingPointList: addressModel.starting_point_list,
+                                viewMaxCount: addressModel.starting_point_list.length + 2,
+                              ),
+                            ],
+                          ),
+                        ],
                       );
                     }
                 }
