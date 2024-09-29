@@ -11,6 +11,7 @@ _$MeetMarkerModelImpl _$$MeetMarkerModelImplFromJson(
     _$MeetMarkerModelImpl(
       imagePath: json['imagePath'] as String,
       loadColorValue: (json['loadColorValue'] as num).toInt(),
+      mapMarkerIcon: json['mapMarkerIcon'] as String,
     );
 
 Map<String, dynamic> _$$MeetMarkerModelImplToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$MeetMarkerModelImplToJson(
     <String, dynamic>{
       'imagePath': instance.imagePath,
       'loadColorValue': instance.loadColorValue,
+      'mapMarkerIcon': instance.mapMarkerIcon,
     };

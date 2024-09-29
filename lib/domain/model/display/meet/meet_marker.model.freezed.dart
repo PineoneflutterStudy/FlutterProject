@@ -22,13 +22,10 @@ MeetMarkerModel _$MeetMarkerModelFromJson(Map<String, dynamic> json) {
 mixin _$MeetMarkerModel {
   String get imagePath => throw _privateConstructorUsedError;
   int get loadColorValue => throw _privateConstructorUsedError;
+  String get mapMarkerIcon => throw _privateConstructorUsedError;
 
-  /// Serializes this MeetMarkerModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MeetMarkerModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MeetMarkerModelCopyWith<MeetMarkerModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -39,7 +36,7 @@ abstract class $MeetMarkerModelCopyWith<$Res> {
           MeetMarkerModel value, $Res Function(MeetMarkerModel) then) =
       _$MeetMarkerModelCopyWithImpl<$Res, MeetMarkerModel>;
   @useResult
-  $Res call({String imagePath, int loadColorValue});
+  $Res call({String imagePath, int loadColorValue, String mapMarkerIcon});
 }
 
 /// @nodoc
@@ -52,13 +49,12 @@ class _$MeetMarkerModelCopyWithImpl<$Res, $Val extends MeetMarkerModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MeetMarkerModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? imagePath = null,
     Object? loadColorValue = null,
+    Object? mapMarkerIcon = null,
   }) {
     return _then(_value.copyWith(
       imagePath: null == imagePath
@@ -69,6 +65,10 @@ class _$MeetMarkerModelCopyWithImpl<$Res, $Val extends MeetMarkerModel>
           ? _value.loadColorValue
           : loadColorValue // ignore: cast_nullable_to_non_nullable
               as int,
+      mapMarkerIcon: null == mapMarkerIcon
+          ? _value.mapMarkerIcon
+          : mapMarkerIcon // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -81,7 +81,7 @@ abstract class _$$MeetMarkerModelImplCopyWith<$Res>
       __$$MeetMarkerModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String imagePath, int loadColorValue});
+  $Res call({String imagePath, int loadColorValue, String mapMarkerIcon});
 }
 
 /// @nodoc
@@ -92,13 +92,12 @@ class __$$MeetMarkerModelImplCopyWithImpl<$Res>
       _$MeetMarkerModelImpl _value, $Res Function(_$MeetMarkerModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MeetMarkerModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? imagePath = null,
     Object? loadColorValue = null,
+    Object? mapMarkerIcon = null,
   }) {
     return _then(_$MeetMarkerModelImpl(
       imagePath: null == imagePath
@@ -109,6 +108,10 @@ class __$$MeetMarkerModelImplCopyWithImpl<$Res>
           ? _value.loadColorValue
           : loadColorValue // ignore: cast_nullable_to_non_nullable
               as int,
+      mapMarkerIcon: null == mapMarkerIcon
+          ? _value.mapMarkerIcon
+          : mapMarkerIcon // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -117,7 +120,9 @@ class __$$MeetMarkerModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MeetMarkerModelImpl implements _MeetMarkerModel {
   const _$MeetMarkerModelImpl(
-      {required this.imagePath, required this.loadColorValue});
+      {required this.imagePath,
+      required this.loadColorValue,
+      required this.mapMarkerIcon});
 
   factory _$MeetMarkerModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MeetMarkerModelImplFromJson(json);
@@ -126,10 +131,12 @@ class _$MeetMarkerModelImpl implements _MeetMarkerModel {
   final String imagePath;
   @override
   final int loadColorValue;
+  @override
+  final String mapMarkerIcon;
 
   @override
   String toString() {
-    return 'MeetMarkerModel(imagePath: $imagePath, loadColorValue: $loadColorValue)';
+    return 'MeetMarkerModel(imagePath: $imagePath, loadColorValue: $loadColorValue, mapMarkerIcon: $mapMarkerIcon)';
   }
 
   @override
@@ -140,16 +147,17 @@ class _$MeetMarkerModelImpl implements _MeetMarkerModel {
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
             (identical(other.loadColorValue, loadColorValue) ||
-                other.loadColorValue == loadColorValue));
+                other.loadColorValue == loadColorValue) &&
+            (identical(other.mapMarkerIcon, mapMarkerIcon) ||
+                other.mapMarkerIcon == mapMarkerIcon));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, imagePath, loadColorValue);
+  int get hashCode =>
+      Object.hash(runtimeType, imagePath, loadColorValue, mapMarkerIcon);
 
-  /// Create a copy of MeetMarkerModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MeetMarkerModelImplCopyWith<_$MeetMarkerModelImpl> get copyWith =>
@@ -167,7 +175,8 @@ class _$MeetMarkerModelImpl implements _MeetMarkerModel {
 abstract class _MeetMarkerModel implements MeetMarkerModel {
   const factory _MeetMarkerModel(
       {required final String imagePath,
-      required final int loadColorValue}) = _$MeetMarkerModelImpl;
+      required final int loadColorValue,
+      required final String mapMarkerIcon}) = _$MeetMarkerModelImpl;
 
   factory _MeetMarkerModel.fromJson(Map<String, dynamic> json) =
       _$MeetMarkerModelImpl.fromJson;
@@ -176,11 +185,10 @@ abstract class _MeetMarkerModel implements MeetMarkerModel {
   String get imagePath;
   @override
   int get loadColorValue;
-
-  /// Create a copy of MeetMarkerModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get mapMarkerIcon;
+  @override
+  @JsonKey(ignore: true)
   _$$MeetMarkerModelImplCopyWith<_$MeetMarkerModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

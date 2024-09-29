@@ -319,7 +319,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                         double.parse(
                                             addressModel.destination_point[0].mapx)),
                                     content:
-                                    '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
+                                    '<p style="background-color: white; padding: 8px; border-radius: 8px;">${addressModel.destination_point[0].title}</p>',
                                     xAnchor: 0.4,
                                     yAnchor: 1.3,
                                     zIndex: 0,
@@ -346,6 +346,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                 destination: addressModel.destination_point[0],
                                 startingPointList: addressModel.starting_point_list,
                                 viewMaxCount: addressModel.starting_point_list.length + 2,
+                                markerModel: firestoreState.startingPointInfo,
                               ),
                             ],
                           ),

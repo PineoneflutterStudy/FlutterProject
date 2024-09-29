@@ -8,6 +8,7 @@ class MeetMarkerModel with _$MeetMarkerModel {
   const factory MeetMarkerModel({
     required String imagePath,
     required int loadColorValue,
+    required String mapMarkerIcon
   }) = _MeetMarkerModel;
 
   factory MeetMarkerModel.fromJson(Map<String, dynamic> json) =>

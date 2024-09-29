@@ -1,5 +1,6 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/utils/db_key.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/meet/location_db.model.dart';
@@ -182,7 +183,8 @@ class MeetFireStoreNotifier extends _$MeetFireStoreNotifier {
           markerList.add(
               MeetMarkerModel(
                   imagePath: await _locationRepo.getImgUrl(path),
-                  loadColorValue: getLoadColor(path)
+                  loadColorValue: getLoadColor(path),
+                  mapMarkerIcon: getMarkerIcon(path),
               )
           );
         }
@@ -220,5 +222,21 @@ int getLoadColor(String path) {
     return yellowColorValue;
   } else {
     return 0;
+  }
+}
+
+String getMarkerIcon(String path) {
+  if (path.contains('blue')) {
+    return AppIcons.mapMungBlue;
+  } else if (path.contains('green')) {
+    return AppIcons.mapMungGreen;
+  } else if (path.contains('orange')) {
+    return AppIcons.mapMungOrange;
+  } else if (path.contains('red')) {
+    return AppIcons.mapMungRed;
+  } else if (path.contains('yellow')) {
+    return AppIcons.mapMungYellow;
+  } else {
+    return'';
   }
 }

@@ -267,7 +267,6 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
 
                                         // 출발지 좌표 마커 생성
                                         for (int i = 0; i < addressList.length; i++) {
-                                          _logger.i('사용하는데서 확인  1 -> ${firestoreState.startingPointInfo[i].imagePath}');
                                           List<LatLng> polyLatLngs = [];
                                           // ==================== Markers ====================
                                           markers.add(Marker(
@@ -370,7 +369,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                               double.parse(
                                                   tourServiceState.tourDto[0].mapx)),
                                           content:
-                                          '<p style="background-color: white; padding: 8px; border-radius: 8px;">여기서 만나요!</p>',
+                                          '<p style="background-color: white; padding: 8px; border-radius: 8px;">${tourServiceState.tourDto[0].title}</p>',
                                           xAnchor: 0.4,
                                           yAnchor: 1.3,
                                           zIndex: 0,
@@ -393,21 +392,11 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(30),
-                                          topRight: Radius.circular(30),
-                                        ),
-                                        color: AppColors.surfaceVariant,
-                                      ),
-                                      height: 150,
-                                      width: double.infinity,
-                                      child: MapBottomSheetWidget(
-                                        destination: tourServiceState.tourDto[0],
-                                        startingPointList: addressList,
-                                        viewMaxCount: addressList.length + 2,
-                                      ),
+                                    MapBottomSheetWidget(
+                                      destination: tourServiceState.tourDto[0],
+                                      startingPointList: addressList,
+                                      viewMaxCount: addressList.length + 2,
+                                      markerModel: firestoreState.startingPointInfo,
                                     ),
                                   ],
                                 ),
