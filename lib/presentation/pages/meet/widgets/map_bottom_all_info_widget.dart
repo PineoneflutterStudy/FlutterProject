@@ -13,13 +13,11 @@ final Logger _logger = CustomLogger.logger;
 
 /// ## Map Bottom Sheet No.1 전체 정보
 class MapBottomAllInfoWidget extends StatelessWidget {
-  final int vHeight;
   final TourLocationModel destination;
   final List<MeetAddressModel> startingPointList;
   final List<MeetMarkerModel> markerModel;
   const MapBottomAllInfoWidget ({
     super.key,
-    required this.vHeight,
     required this.destination,
     required this.startingPointList,
     required this.markerModel

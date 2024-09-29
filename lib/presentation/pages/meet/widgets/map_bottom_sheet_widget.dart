@@ -8,6 +8,7 @@ import '../../../../domain/model/display/meet/meet_address.model.dart';
 import '../../../../domain/model/display/meet/meet_marker.model.dart';
 import '../../../../domain/model/display/meet/tour_location.model.dart';
 import 'map_bottom_all_info_widget.dart';
+import 'map_bottom_destination_info_widget.dart';
 
 final Logger _logger = CustomLogger.logger;
 
@@ -35,10 +36,7 @@ class _MapBottomSheetView extends State<MapBottomSheetWidget> {
   int _maxHeight = 150;
   @override
   void initState() {
-    _logger.i('전달된값확인 1 -> ${widget.destination}');
-    _logger.i('전달된값확인 2 -> ${widget.startingPointList}');
-    _logger.i('전달된값확인 3 -> ${widget.viewMaxCount}');
-    _logger.i('전달된값확인 4 -> ${widget.markerModel}');
+    _logger.i('[ _MapBottomSheetView ] initState!');
   }
   @override
   Widget build(BuildContext context) {
@@ -112,7 +110,6 @@ class _MapBottomSheetView extends State<MapBottomSheetWidget> {
       case 1: // 1 -> 전체 정보
         {
           return MapBottomAllInfoWidget(
-            vHeight: _maxHeight,
             destination: widget.destination,
             startingPointList: widget.startingPointList,
             markerModel: widget.markerModel,
@@ -120,8 +117,8 @@ class _MapBottomSheetView extends State<MapBottomSheetWidget> {
         }
       case 2: // 2 -> 목적지 정보
         {
-          return Container(
-
+          return MapBottomDestinationInfoWidget(
+            destination: widget.destination,
           );
         }
       default: // 1, 2를 제외한 기본 -> 출발지 정보들
