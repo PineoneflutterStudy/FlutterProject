@@ -27,11 +27,16 @@ class MapBottomDestinationInfoWidget extends StatelessWidget{
                   SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    '${destination.title}',
-                    style: TextStyle(
-                        fontSize: 45,
-                        color: AppColors.black
+                  Container(
+                    width: 210,
+                    child: Text(
+                      '${destination.title}',
+                      style: TextStyle(
+                          fontSize: 35,
+                          color: AppColors.black
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1
                     ),
                   ),
                   SizedBox(

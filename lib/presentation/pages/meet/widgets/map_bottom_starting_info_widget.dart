@@ -8,7 +8,6 @@ import '../../../../domain/model/display/meet/meet_marker.model.dart';
 import '../../../../domain/model/display/meet/tour_location.model.dart';
 
 class MapBottomStartingInfoWidget extends StatelessWidget {
-
   final MeetAddressModel startingInfo;
   final MeetMarkerModel markerModel;
   final TourLocationModel destination;
@@ -21,6 +20,7 @@ class MapBottomStartingInfoWidget extends StatelessWidget {
     required this.destination,
     required this.viewCount,
   });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,13 +35,10 @@ class MapBottomStartingInfoWidget extends StatelessWidget {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    '출발지 ${viewCount}',
-                    style: TextStyle(
-                        fontSize: 45,
-                        color: AppColors.black
-                    ),
-                  ),
+                  Text('출발지 ${viewCount}',
+                      style: TextStyle(fontSize: 45, color: AppColors.black),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1),
                   SizedBox(
                     width: 5,
                   ),
@@ -50,7 +47,8 @@ class MapBottomStartingInfoWidget extends StatelessWidget {
                       //  kakaomap://route?sp=37.53723,127.00551&ep=37.49795,127.027637&by=CAR
                       /*final Uri baseUrl = Uri.parse(
                           'kakaomap://look?p=${startingInfo.longitude},${startingInfo.latitude}');*/
-                      final Uri baseUrl = Uri.parse('kakaomap://route?sp=${startingInfo.latie},${startingInfo.longitude}&ep=${destination.mapy},${destination.mapx}&by=CAR');
+                      final Uri baseUrl = Uri.parse(
+                          'kakaomap://route?sp=${startingInfo.latitude},${startingInfo.longitude}&ep=${destination.mapy},${destination.mapx}&by=CAR');
                       await launchUrl(baseUrl);
                     },
                     child: Container(
@@ -66,8 +64,14 @@ class MapBottomStartingInfoWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset(
-                            AppIcons.iconMapRed, width: 20, height: 20,),
-                          Text('길찾기 이동', style: TextStyle(fontSize: 15),)
+                            AppIcons.iconMapRed,
+                            width: 20,
+                            height: 20,
+                          ),
+                          Text(
+                            '길찾기 이동',
+                            style: TextStyle(fontSize: 15),
+                          )
                         ],
                       ),
                     ),
@@ -78,9 +82,7 @@ class MapBottomStartingInfoWidget extends StatelessWidget {
                 children: [
                   Text(
                     '${startingInfo.address}',
-                    style: TextStyle(
-                        fontSize: 23
-                    ),
+                    style: TextStyle(fontSize: 23),
                   ),
                 ],
               ),
