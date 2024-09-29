@@ -9,6 +9,7 @@ import '../../../../domain/model/display/meet/meet_marker.model.dart';
 import '../../../../domain/model/display/meet/tour_location.model.dart';
 import 'map_bottom_all_info_widget.dart';
 import 'map_bottom_destination_info_widget.dart';
+import 'map_bottom_starting_info_widget.dart';
 
 final Logger _logger = CustomLogger.logger;
 
@@ -123,8 +124,11 @@ class _MapBottomSheetView extends State<MapBottomSheetWidget> {
         }
       default: // 1, 2를 제외한 기본 -> 출발지 정보들
         {
-          return Container(
-
+          return MapBottomStartingInfoWidget(
+            startingInfo: widget.startingPointList[_initViewCount-3],
+            markerModel: widget.markerModel[_initViewCount-3],
+            destination: widget.destination,
+            viewCount: _initViewCount-2,
           );
         }
 
