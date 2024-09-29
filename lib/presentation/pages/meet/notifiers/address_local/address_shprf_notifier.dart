@@ -39,6 +39,14 @@ class AddressShprfNotifier extends _$AddressShprfNotifier {
     );
   }
 
+  Future<void> getAddress() async {
+    final list = await _repo.getAllAddress();
+
+    state = state.copyWith(
+      addresses: list,
+    );
+  }
+
   /// ## 출발지 정보 Update
   Future<void> addAddressInput(MeetAddressModel addressModel) async {
     state = state.copyWith(status: AddressShprfStatus.loading);

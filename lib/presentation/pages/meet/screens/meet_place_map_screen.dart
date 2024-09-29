@@ -131,6 +131,8 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
           final firestoreState = ref.watch(meetFireStoreNotifierProvider); // 파이어베이스 - 마커에 사용할 이미지 정보 사용
           final firestoreStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.storageStatus));
 
+          final shprfState  = ref.watch(addressShprfNotifierProvider);
+
           // 관광 정보 서비스 api - 위치 기반 관관광 정보 조회 상태
           _logger.i('[ __ContentMapViewState ] Tour Service Status -> ${tourServiceStatus}');
           switch (tourServiceStatus) {
@@ -394,7 +396,7 @@ class __ContentMapViewState extends ConsumerState<_ContentMapView> {
                                   children: [
                                     MapBottomSheetWidget(
                                       destination: tourServiceState.tourDto[0],
-                                      startingPointList: addressList,
+                                      startingPointList: shprfState.addressList,
                                       viewMaxCount: addressList.length + 2,
                                       markerModel: firestoreState.startingPointInfo,
                                     ),
