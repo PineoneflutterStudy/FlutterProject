@@ -11,6 +11,7 @@ import '../../../../domain/model/display/common/category.model.dart';
 import '../../../../domain/usecase/display/category/get_category.usecase.dart';
 import '../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../service_locator.dart';
+import '../../../main/common/component/widget/double_back_to_exit_widget.dart';
 import '../banner/screen/banner_contents.dart';
 import '../festival_info/screen/festival_contents.dart';
 import '../utils/home_util.dart';
@@ -59,23 +60,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const HomeAppbar(title: '댕꿀트립'),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            // 검색
-            HomeSearchBar(),
-            // 인기 지역 크롤링 이였던것..
-            PopularContents(),
-            // 배너 이미지
-            BannerContents(),
-            /*// 목록 Mock
-            CategoryContents(categoryList: categoryList),*/
-            // 전국 축제
-            FestivalContents()
-          ],
+    return DoubleBackToExitWidget(
+      child: Scaffold(
+        appBar: const HomeAppbar(title: '댕꿀트립'),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              // 검색
+              HomeSearchBar(),
+              // 인기 지역 크롤링 이였던것..
+              PopularContents(),
+              // 배너 이미지
+              BannerContents(),
+              /*// 목록 Mock
+              CategoryContents(categoryList: categoryList),*/
+              // 전국 축제
+              FestivalContents()
+            ],
+          ),
         ),
       ),
     );
