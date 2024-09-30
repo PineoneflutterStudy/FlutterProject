@@ -13,7 +13,7 @@ part 'banner_notifier.g.dart';
 @riverpod
 class BannerNotifier extends _$BannerNotifier {
   @override
-  build() {
+  BannerState build() {
     return BannerState();
   }
 
