@@ -17,26 +17,6 @@ class EmailLoginPage extends StatefulWidget {
   State<EmailLoginPage> createState() => _EmailLoginPage();
 }
 
-enum ErrorState {
-  none,
-  emailEmpty,
-  emailInvalid,
-  passwordEmpty,
-  passwordInvalid,
-  signUpPwInvalid,
-  signUpPwMismatch
-}
-
-enum Pages {
-  emailInput(0),
-  passwordInput(1),
-  signUp(2);
-
-  const Pages(this.page);
-
-  final int page;
-}
-
 class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderStateMixin {
 //==============================================================================
 //  Fields
@@ -149,7 +129,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               ),
               keyboardType: TextInputType.emailAddress,
               autofocus: true,
-              onChanged: _onEmailTextChanged,
+              onChanged: (_) =>
+                  _onTextChanged(_emailErrorState, (state) => _emailErrorState = state),
               onSubmitted: (value) => _onEmailSubmitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
@@ -192,7 +173,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               ),
               obscureText: true,
               autofocus: true,
-              onChanged: _onPasswordTextChanged,
+              onChanged: (_) =>
+                  _onTextChanged(_passwordErrorState, (state) => _passwordErrorState = state),
               onSubmitted: (value) => _onPasswordSubmitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
@@ -223,13 +205,13 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
         onPressed: () {
           controller.clear();
           if (controller == _emailController) {
-            _onEmailTextChanged(controller.text);
+            _onTextChanged(_emailErrorState, (state) => _emailErrorState = state);
           } else if (controller == _passwordController) {
-            _onPasswordTextChanged(controller.text);
+            _onTextChanged(_passwordErrorState, (state) => _passwordErrorState = state);
           } else if (controller == _signUpPw1Controller) {
-            _onSignUpPw1TextChanged(controller.text);
+            _onTextChanged(_signUpPw1ErrorState, (state) => _signUpPw1ErrorState = state);
           } else if (controller == _signUpPw2Controller) {
-            _onSignUpPw2TextChanged(controller.text);
+            _onTextChanged(_signUpPw2ErrorState, (state) => _signUpPw2ErrorState = state);
           } else {}
         },
       );
@@ -258,7 +240,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               ),
               obscureText: true,
               autofocus: true,
-              onChanged: _onSignUpPw1TextChanged,
+              onChanged: (_) =>
+                  _onTextChanged(_signUpPw1ErrorState, (state) => _signUpPw1ErrorState = state),
               onSubmitted: _onSignUpPw1Submitted,
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
@@ -277,7 +260,8 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
               ),
               obscureText: true,
               autofocus: true,
-              onChanged: _onSignUpPw2TextChanged,
+              onChanged: (_) =>
+                  _onTextChanged(_signUpPw2ErrorState, (state) => _signUpPw2ErrorState = state),
               onSubmitted: (value) => _onSignUpPw2Submitted(context, value),
               onTapOutside: (event) => FocusScope.of(context).unfocus(), // 포커스 해제
             ),
@@ -291,9 +275,11 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
 //==============================================================================
   EmailBloc _getBloc(BuildContext context) => context.read<EmailBloc>();
 
-  void _onEmailTextChanged(String email) {
-    if (_emailErrorState != ErrorState.none) {
-      setState(() => _emailErrorState = ErrorState.none);
+  void _onTextChanged(ErrorState errorState, Function(ErrorState) updateErrorState) {
+    if (errorState != ErrorState.none) {
+      setState(() {
+        updateErrorState(ErrorState.none);
+      });
     }
   }
 
@@ -315,12 +301,6 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     }
   }
 
-  void _onPasswordTextChanged(String password) {
-    if (_passwordErrorState != ErrorState.none) {
-      setState(() => _passwordErrorState = ErrorState.none);
-    }
-  }
-
   void _onPasswordSubmitted(BuildContext context, String password) {
     setState(() {
       if (password.isEmpty) {
@@ -334,18 +314,6 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
       _getBloc(context).add(EmailEvent.passwordSubmitted(password));
     } else {
       _passwordFocusNode.requestFocus();
-    }
-  }
-
-  void _onSignUpPw1TextChanged(String password) {
-    if (_signUpPw1ErrorState != ErrorState.none) {
-      setState(() => _signUpPw1ErrorState = ErrorState.none);
-    }
-  }
-
-  void _onSignUpPw2TextChanged(String password) {
-    if (_signUpPw2ErrorState != ErrorState.none) {
-      setState(() => _signUpPw2ErrorState = ErrorState.none);
     }
   }
 
@@ -402,4 +370,24 @@ class _EmailLoginPage extends State<EmailLoginPage> with SingleTickerProviderSta
     //ett 토스트 불필요한 경우에도 노출될 수 있음 확인해야함.
     CommonUtils.showToastMsg('알 수 없는 오류가 발생했습니다.\n다른 방법으로 로그인하거나 다시 시도해 주세요.');
   }
+}
+
+enum ErrorState {
+  none,
+  emailEmpty,
+  emailInvalid,
+  passwordEmpty,
+  passwordInvalid,
+  signUpPwInvalid,
+  signUpPwMismatch
+}
+
+enum Pages {
+  emailInput(0),
+  passwordInput(1),
+  signUp(2);
+
+  const Pages(this.page);
+
+  final int page;
 }
