@@ -1,16 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 /// ## 마이페이지 팝업
 ///
 /// author [Eogeum@naver.com]
 class UserDialog {
-  /// 프로필 편집 팝업을 노출한다.
+  /// ## 프로필 편집 팝업을 노출한다.
   static showProfileImageEditDialog(
     BuildContext context, {
     bool hideResetImage = false,
-    required VoidCallback onCameraPressed,
-    required VoidCallback onGalleryPressed,
-    required VoidCallback onResetImagePressed,
+    required ProfileImageEditCallback callbacks,
   }) =>
       showDialog(
         context: context,
@@ -23,20 +24,30 @@ class UserDialog {
               _buildProfileImageEditOptionItem(
                 context,
                 '카메라로 촬영',
-                onPressed: onCameraPressed,
+                onPressed: () async {
+                  final ImagePicker picker = ImagePicker();
+                  final XFile? image = await picker.pickImage(source: ImageSource.camera);
+                  final File? imageFile = image == null ? null : File(image.path);
+                  callbacks(ProfileImageEditOption.camera, imageFile);
+                },
               ),
               Divider(height: 1, color: Colors.grey),
               _buildProfileImageEditOptionItem(
                 context,
                 '갤러리에서 선택',
-                onPressed: onGalleryPressed,
+                onPressed: () async {
+                  final ImagePicker picker = ImagePicker();
+                  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                  final File? imageFile = image == null ? null : File(image.path);
+                  callbacks(ProfileImageEditOption.gallery, imageFile);
+                },
               ),
               if (!hideResetImage) ...[
                 Divider(height: 1, color: Colors.grey),
                 _buildProfileImageEditOptionItem(
                   context,
                   '기본 이미지로 변경',
-                  onPressed: onResetImagePressed,
+                  onPressed: () => callbacks(ProfileImageEditOption.reset, null),
                 ),
               ]
             ],
@@ -50,8 +61,8 @@ class UserDialog {
         width: double.infinity,
         child: TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
             onPressed();
+            Navigator.of(context).pop();
           },
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: 16),
@@ -63,3 +74,11 @@ class UserDialog {
         ),
       );
 }
+
+enum ProfileImageEditOption {
+  camera,
+  gallery,
+  reset,
+}
+
+typedef ProfileImageEditCallback = void Function(ProfileImageEditOption option, File? imageFile);
