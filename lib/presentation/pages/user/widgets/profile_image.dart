@@ -7,12 +7,14 @@ class ProfileImage extends StatelessWidget {
   final String? imageUrl;
   final double size;
   final double radius;
+  final double iconSize;
 
   const ProfileImage({
     Key? key,
     required this.imageUrl,
     required this.size,
   })  : radius = size / 2,
+        iconSize = size * 0.67,
         super(key: key);
 
   @override
@@ -33,6 +35,6 @@ class ProfileImage extends StatelessWidget {
   Widget _buildDefaultProfile() => CircleAvatar(
         radius: radius,
         backgroundColor: Colors.grey[300],
-        child: Icon(Icons.person, size: 40, color: Colors.white),
+        child: Icon(Icons.person, size: iconSize, color: Colors.white),
       );
 }
