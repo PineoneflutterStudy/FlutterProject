@@ -28,12 +28,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       CustomLogger.logger.i('$_tag Event occurred. event = ${event.runtimeType}');
       await event.when(
         started: () => _onStarted(emit),
-        errorOccurred: () => _onErrorOccurred(),
       );
     });
   }
 
   Future<void> _onStarted(Emitter<UserState> emit) async {
+    _emitWithReset(emit, UserState.loading());
+
     final User? currentUser = FirebaseAuthUtil().getCurrentUser();
     if (currentUser == null) {
       emit(UserState.loggedOut());
@@ -41,8 +42,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserState.loggedIn(currentUser));
     }
   }
-
-  Future<void> _onErrorOccurred() async {}
 
   /// ## 현재와 동일한 상태(state)인 경우 초기화 후 변경
   void _emitWithReset(Emitter<UserState> emit, UserState userState) {

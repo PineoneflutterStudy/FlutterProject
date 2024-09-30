@@ -31,8 +31,7 @@ class _UserPageState extends State<UserPage> {
 
   late UserBloc _userBloc;
 
-  User? _currentUser;
-  bool _isGuest = true;
+  User? _user;
 
   @override
   void initState() {
@@ -61,34 +60,22 @@ class _UserPageState extends State<UserPage> {
             appBar: MainAppbar(title: '마이페이지'),
             body: BlocConsumer<UserBloc, UserState>(
               builder: (context, state) {
-                state.maybeMap(
-                  initial: (_) {
-                    return MangmungLoadingIndicator();
-                  },
-                  orElse: () {},
-                );
-
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _buildProfileCard(_currentUser),
-                      _buildMenuCard(_isGuest),
-                      _buildFooter(),
-                    ],
-                  ),
+                return state.maybeMap(
+                  initial: (_) => MangmungLoadingIndicator(),
+                  loading: (_) => MangmungLoadingIndicator(),
+                  orElse: () => _buildUserScreen(_user),
                 );
               },
               listener: (context, state) {
                 CustomLogger.logger.i('$_tag State Changed. state = ${state.runtimeType}');
                 state.when(
                   initial: () {},
+                  loading: () {},
                   loggedIn: (currentUser) => setState(() {
-                    this._currentUser = currentUser;
-                    _isGuest = false;
+                    this._user = currentUser;
                   }),
                   loggedOut: () => setState(() {
-                    _currentUser = null;
-                    _isGuest = true;
+                    _user = null;
                   }),
                   error: () {},
                 );
@@ -101,6 +88,16 @@ class _UserPageState extends State<UserPage> {
 //==============================================================================
 //  Layout
 //==============================================================================
+  SingleChildScrollView _buildUserScreen(User? user) => SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildProfileCard(user),
+            _buildMenuCard(user),
+            _buildFooter(),
+          ],
+        ),
+      );
+
   Card _buildCustomCard({
     Color color = AppColors.onPrimary,
     double topMargin = 7,
@@ -125,7 +122,7 @@ class _UserPageState extends State<UserPage> {
               children: [
                 Row(
                   children: [
-                    ProfileImage(imageUrl: _currentUser?.photoURL, size: 60),
+                    ProfileImage(imageUrl: user?.photoURL, size: 60),
                     SizedBox(width: 16),
                     RichText(
                       text: TextSpan(
@@ -136,7 +133,7 @@ class _UserPageState extends State<UserPage> {
                           fontFamily: 'Dongle',
                         ),
                         children: [
-                          if (_isGuest) ...[
+                          if (user == null) ...[
                             TextSpan(
                               text: '로그인',
                               style: TextStyle(color: AppColors.primary, fontSize: 32),
@@ -147,7 +144,7 @@ class _UserPageState extends State<UserPage> {
                               style: TextStyle(color: AppColors.primary, fontSize: 32),
                             ),
                           ] else ...[
-                            TextSpan(text: _currentUser?.email ?? ''),
+                            TextSpan(text: user.email ?? ''),
                           ],
                         ],
                       ),
@@ -160,7 +157,7 @@ class _UserPageState extends State<UserPage> {
                   height: 10,
                 ),
                 Text(
-                  _isGuest
+                  user == null
                       ? '로그인하고 더 많은 여행 정보와 편리한 기능을 경험해 보세요!'
                       : '내 정보를 수정하고 프로필을 새롭게 업데이트해 보세요!',
                   style: TextStyle(fontSize: 18),
@@ -169,29 +166,34 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
         ),
-        onTap: _isGuest ? _launchLoginPopup : _navigateMyInfoPage,
+        onTap: user == null
+            ? _launchLoginPopup
+            : () {
+                _navigateMyInfoPage(user);
+              },
       );
 
   //ett 필요한 메뉴 확정하고 기능 구현 필요
-  Widget _buildMenuCard(bool isGuest) => _buildCustomCard(
-          child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _buildMenuItem(
-              icon: Icons.headset_mic,
-              title: '고객센터/공지사항',
-              onTap: () {},
-            ),
-            _buildMenuItem(
-              icon: Icons.message_outlined,
-              title: '1:1 문의',
-              onTap: () {},
-            ),
-          ],
+  Widget _buildMenuCard(User? user) => _buildCustomCard(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildMenuItem(
+                icon: Icons.headset_mic,
+                title: '고객센터/공지사항',
+                onTap: () {},
+              ),
+              _buildMenuItem(
+                icon: Icons.message_outlined,
+                title: '1:1 문의',
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
   Widget _buildMenuItem(
           {required IconData icon, required String title, required VoidCallback onTap}) =>
@@ -252,18 +254,12 @@ class _UserPageState extends State<UserPage> {
   }
 
   /// ## 내 정보 화면으로 이동
-  Future<void> _navigateMyInfoPage() async {
-    final User? _tempUser = _currentUser;
-    if (_tempUser == null) {
-      CustomLogger.logger.e('$_tag `Error - _tempUser == null');
-      return;
-    }
-
+  Future<void> _navigateMyInfoPage(User user) async {
     CustomLogger.logger.i('$_tag _navigateMyInfoPage()');
     await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (context) => MyInfoPage(_tempUser),
+        builder: (context) => MyInfoPage(user),
       ),
     );
 
