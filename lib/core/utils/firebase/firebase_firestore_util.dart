@@ -24,22 +24,6 @@ class FirebaseFirestoreUtil {
         _auth = auth ?? FirebaseAuthUtil(),
         _logger = logger ?? CustomLogger.logger;
 
-  /// ## 신규 유저 정보를 파이어스토어에 저장한다.
-  Future<void> setUserDoc(User user) async {
-    try {
-      await _firestore.collection(DBKey.DB_USERS).doc(user.uid).set({
-        UsersField.UID: user.uid,
-        // User에서 email은 소문자로만 반환되므로 toLowerCase() 불필요
-        UsersField.EMAIL: user.email,
-        UsersField.PROVIDERS: await _auth.getProvidersFromUser(user),
-        UsersField.PHOTO_URL: user.photoURL,
-        UsersField.CREATION_TIME: user.metadata.creationTime,
-      });
-    } catch (error) {
-      CustomLogger.logger.e('Set user Document failed. error = $error');
-    }
-  }
-
   /// User > uid 문서 참조 위치 반환
   Future<DocumentReference?> getUserDocRef() async {
     if (!await _auth.isLoggedIn()) {
@@ -256,22 +240,6 @@ class FirebaseFirestoreUtil {
     return await action(userDocRef);
   }
 
-  Future<kkul.User?> getUserByEmail(String email) async {
-    final String lowerCaseEmail = email.toLowerCase();
-    final QuerySnapshot snapshot = await _firestore
-        .collection(DBKey.DB_USERS)
-        .where(UsersField.EMAIL, isEqualTo: lowerCaseEmail)
-        .get();
-    final List<kkul.User> userList =
-        snapshot.docs.map((e) => kkul.User.fromJson(toDynamicMap(e))).toList();
-
-    if (!CustomLogger.isDebugLogHidden) {
-      CustomLogger.logger.d('${Tag.LOGIN} userList = $userList');
-    }
-
-    return userList.firstOrNull;
-  }
-
   Map<String, dynamic> toDynamicMap(DocumentSnapshot<Object?>? snapshot) {
     final data = snapshot?.data();
     if (data is Map<String, dynamic>) {
@@ -314,5 +282,59 @@ class FirebaseFirestoreUtil {
         return null;
       }
     });
+  }
+
+//==============================================================================
+//  For [UserPage] or [LoginPage] By Eogeum
+//==============================================================================
+  /// ## 신규 유저 정보를 파이어스토어에 저장한다.
+  Future<void> setUserDoc(User user) async {
+    try {
+      await _firestore.collection(DBKey.DB_USERS).doc(user.uid).set({
+        UsersField.UID: user.uid,
+        // User에서 email은 소문자로만 반환되므로 toLowerCase() 불필요
+        UsersField.EMAIL: user.email,
+        UsersField.PROVIDERS: await _auth.getProvidersFromUser(user),
+        UsersField.PHOTO_URL: user.photoURL,
+        UsersField.CREATION_TIME: user.metadata.creationTime,
+      });
+    } catch (error) {
+      CustomLogger.logger.e('Set user Document failed. error = $error');
+    }
+  }
+
+  /// ## 전달받은 이메일과 일치하는 유저를 반환한다.
+  Future<kkul.User?> getUserByEmail(String email) async {
+    final String lowerCaseEmail = email.toLowerCase();
+    final QuerySnapshot snapshot = await _firestore
+        .collection(DBKey.DB_USERS)
+        .where(UsersField.EMAIL, isEqualTo: lowerCaseEmail)
+        .get();
+    final List<kkul.User> userList =
+        snapshot.docs.map((e) => kkul.User.fromJson(toDynamicMap(e))).toList();
+
+    if (!CustomLogger.isDebugLogHidden) {
+      CustomLogger.logger.d('${Tag.LOGIN} userList = $userList');
+    }
+
+    return userList.firstOrNull;
+  }
+
+  /// ## 유저의 [photoUrl]를 변경하고 파이어스토어에 저장한다.
+  Future<void> updateUserPhotoUrl(User user, String newPhotoUrl) async {
+    if (newPhotoUrl.isEmpty) {
+      await user.updateProfile(photoURL: null);
+    } else {
+      await user.updatePhotoURL(newPhotoUrl);
+    }
+    await user.reload();
+
+    try {
+      await _firestore.collection(DBKey.DB_USERS).doc(user.uid).update({
+        UsersField.PHOTO_URL: newPhotoUrl,
+      });
+    } catch (error) {
+      rethrow;
+    }
   }
 }
