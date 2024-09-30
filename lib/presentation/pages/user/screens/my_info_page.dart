@@ -90,7 +90,10 @@ class _MyInfoPage extends State<MyInfoPage> {
                   GestureDetector(
                     child: ProfileImage(imageUrl: user.photoURL, size: 100),
                     onTap: () {
-                      //ett 누르면 사진 확대
+                      final String imageUrl = user.photoURL ?? '';
+                      if (imageUrl.isNotEmpty) {
+                        UserDialog.showProfileImageDetailDialog(context, imageUrl);
+                      }
                     },
                   ),
                   Positioned(

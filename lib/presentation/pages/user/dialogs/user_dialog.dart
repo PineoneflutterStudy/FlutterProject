@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 ///
 /// author [Eogeum@naver.com]
 class UserDialog {
-  /// ## 프로필 편집 팝업을 노출한다.
+  /// ## 프로필 이미지 편집 팝업을 노출한다.
   static showProfileImageEditDialog(
     BuildContext context, {
     bool hideResetImage = false,
@@ -70,6 +70,26 @@ class UserDialog {
           child: Text(
             label,
             style: TextStyle(color: Colors.black, fontSize: 21, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+
+  /// ## 프로필 이미지 상세 팝업을 노출한다.
+  static showProfileImageDetailDialog(BuildContext context, String imageUrl) => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          backgroundColor: Colors.black,
+          child: InteractiveViewer(
+            panEnabled: true, // 드래그 가능
+            minScale: 0.5, // 최소 축소
+            maxScale: 4.0, // 최대 확대
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Image.network(
+                imageUrl ?? '',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
         ),
       );
