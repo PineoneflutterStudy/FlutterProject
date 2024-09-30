@@ -323,7 +323,7 @@ class FirebaseFirestoreUtil {
   /// ## 유저의 [photoUrl]를 변경하고 파이어스토어에 저장한다.
   Future<void> updateUserPhotoUrl(User user, String newPhotoUrl) async {
     if (newPhotoUrl.isEmpty) {
-      await user.updateProfile(photoURL: null);
+      await user.updateProfile(displayName: user.displayName, photoURL: null);
     } else {
       await user.updatePhotoURL(newPhotoUrl);
     }
