@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import '../../../core/utils/common_utils.dart';
 import '../../../core/utils/logger.dart';
 import '../../main/common/component/widget/appbar.dart';
+import '../../main/common/component/widget/double_back_to_exit_widget.dart';
 import '../../main/common/component/widget/mangmung_loding_indicator.dart';
 import 'screens/meet_main_screen.dart';
 import 'notifiers/meet_firestore/meet_firestore_notifier.dart';
@@ -68,38 +69,40 @@ class _MeetMainView extends ConsumerState<MeetMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppbar(title: '우리 어디서 만날까?'),
-      body: Consumer(builder: (context, ref, child) {
-        final dbState = ref.watch(meetFireStoreNotifierProvider);
-        final dbStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // DB Status
-        final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status
+    return DoubleBackToExitWidget(
+      child: Scaffold(
+        appBar: MainAppbar(title: '우리 어디서 만날까?'),
+        body: Consumer(builder: (context, ref, child) {
+          final dbState = ref.watch(meetFireStoreNotifierProvider);
+          final dbStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.status)); // DB Status
+          final loginStatus = ref.watch(meetFireStoreNotifierProvider.select((p) => p.loginStatus)); // Login Status
 
-        _logger.i('[ MeetPage ] Current Login Status Info -> ${loginStatus}');
-        switch (loginStatus) {
-          case MeetLoginStatus.initial:
-            {
-              // Init -> CircularProgress
-              return MangmungLoadingIndicator();
-            }
-          case MeetLoginStatus.nonLogin:
-            {
-              // 비로그인 -> EmptyMeetScreen
-              return MeetMainScreen();
-            }
-          case MeetLoginStatus.failure:
-            {
-              // 간단 토스트 팝업 제공 후 -> EmptyMeetScreen
-              CommonUtils.showToastMsg('로그인 정보가 확인되지 않습니다.');
-              return MeetMainScreen();
-            }
-          case MeetLoginStatus.login:
-            {
-              _logger.i('[ MeetPage ] Current FireStore Database Status Info -> ${dbStatus}');
-              return MeetMainScreen();
-            }
-        }
-      }),
+          _logger.i('[ MeetPage ] Current Login Status Info -> ${loginStatus}');
+          switch (loginStatus) {
+            case MeetLoginStatus.initial:
+              {
+                // Init -> CircularProgress
+                return MangmungLoadingIndicator();
+              }
+            case MeetLoginStatus.nonLogin:
+              {
+                // 비로그인 -> EmptyMeetScreen
+                return MeetMainScreen();
+              }
+            case MeetLoginStatus.failure:
+              {
+                // 간단 토스트 팝업 제공 후 -> EmptyMeetScreen
+                CommonUtils.showToastMsg('로그인 정보가 확인되지 않습니다.');
+                return MeetMainScreen();
+              }
+            case MeetLoginStatus.login:
+              {
+                _logger.i('[ MeetPage ] Current FireStore Database Status Info -> ${dbStatus}');
+                return MeetMainScreen();
+              }
+          }
+        }),
+      ),
     );
   }
 }
