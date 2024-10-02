@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_team1/presentation/pages/plan/screens/planner/page_item_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'planner_error_page.dart';
+import '../plan_error_page.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../domain/model/display/common/fab_item.dart';
 import '../../../../../domain/model/display/plan/planner.model.dart';
@@ -97,7 +97,7 @@ class _PlannerPageState extends State<PlannerPage> with PlanUtil{
                 ]
             );
           },
-          error: (error) => PlannerErrorPage(title: '플래너를 불러오는 데 실패했습니다.'),
+          error: (error) => PlanErrorPage(title: '플래너를 불러오는 데 실패했습니다.'),
         );
       },
     );

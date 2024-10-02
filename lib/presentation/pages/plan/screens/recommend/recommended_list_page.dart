@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
+import '../plan_error_page.dart';
 import 'place_list_view.dart';
-import '../../../../../core/utils/common_utils.dart';
 import '../../bloc/address_bloc/address_bloc.dart';
 import 'place_app_bar_view.dart';
 
 import '../../../../../core/utils/constant.dart';
-import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../../service_locator.dart';
 import '../../../../main/common/bloc/ctgr_bloc/category_bloc.dart';
-import '../../../../main/common/component/dialog/common_dialog.dart';
 import 'category_view.dart';
 
 /// ### Plan 메뉴 > 추천 장소 목록 화면
@@ -29,7 +28,7 @@ class RecommendedListPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => CategoryBloc(locator<DisplayUsecase>())
         ..add(CategoryEvent.getCategoryList(MenuType.plan, selectedCg: categoryId)),
-      child: RecommendedListPageView(location: location,prevPlaceId : prevPlaceId, addressBloc: addressBloc, root: root),
+      child: RecommendedListPageView(location: location, prevPlaceId: prevPlaceId, addressBloc: addressBloc, root: root),
     );
   }
 }
@@ -48,8 +47,9 @@ class RecommendedListPageView extends StatefulWidget {
 
 class _RecommendedListPageViewState extends State<RecommendedListPageView> {
   late String _location;
-  int radius = 10000;
-  String sort = "distance";
+  int radius = defaultRadius;
+  String sort = defaultSortOrder;
+  ValueNotifier<Address?> addressNotifier = ValueNotifier<Address?>(null);
 
   @override
   void initState() {
@@ -60,63 +60,52 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PlaceAppBarView(location: _location,radius: radius,sort: sort, onLocationChanged:_updateAddressInfo, onFilterChanged: _updateFilter),
-        body: BlocConsumer<CategoryBloc, CategoryState>(
+        resizeToAvoidBottomInset: false,
+        appBar: PlaceAppBarView(location: _location,radius: radius,sort: sort, isFilterVisible: (widget.root != 'nextPage'), onLocationChanged:_updateAddressInfo, onFilterChanged: _updateFilter),
+        body: BlocBuilder<CategoryBloc, CategoryState>(
           builder: (_, ctgrState) {
             return ctgrState.when(
-                loading: () => MangmungLoadingIndicator(),
+                loading: () => Container(),
                 success: (categorys, selected){
                   var selectedIndex = categorys.indexOf(selected);
                   return Column(
                     children: [
                       CategoryView(categorys: categorys, categoryBloc: BlocProvider.of<CategoryBloc>(context), selectedIndex : selectedIndex),
                       Expanded(
-                        child: BlocConsumer<AddressBloc, AddressState>(
+                        child: BlocBuilder<AddressBloc, AddressState>(
                           bloc: widget.addressBloc,
                           builder: (_, state) {
                             return state.when(
-                              loading: () => CircularProgressIndicator(),
+                              loading: () => MangmungLoadingIndicator(),
                               success: (addressInfo) {
+                                addressNotifier.value = addressInfo;
                                 return IndexedStack(
                                   index: selectedIndex,
-                                  children: List.generate(categorys.length, (index) => PlaceListView(category: categorys[index], search: widget.location, address: addressInfo, prevPlaceId : widget.prevPlaceId, root: widget.root)),
+                                  children: List.generate(
+                                    categorys.length,
+                                    (index) {
+                                      return PlaceListView(
+                                          key: ValueKey('${categorys[index].ctgrId} + $addressInfo'),
+                                          category: categorys[index],
+                                          search: _location,
+                                          address: addressInfo,
+                                          prevPlaceId: widget.prevPlaceId,
+                                          root: widget.root);
+                                    },
+                                  ),
                                 );
                               },
-                              error: (error) {
-                                return Center(
-                                  child: Text(error.message ?? '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.', textAlign: TextAlign.center),
-                                );
-                              },
+                              error: (error) => PlanErrorPage(title: error.message ?? '검색한 장소에 대한 정보가 없습니다.\n다시 검색해주세요.')
                             );
-                          },
-                          listener: (_, state) async {
-                            state.maybeWhen(
-                              error: (error) {
-                                CustomLogger.logger.e(error);
-                                CommonUtils.showToastMsg("도착지를 다시 입력해주세요.");
-                              },
-                              orElse: () {},
-                            );
-                          },
-                          listenWhen: (prev, curr) => prev.runtimeType != curr.runtimeType,
+                          }
                         ),
                       ),
                     ],
                   );
                 },
-                error: (error) => Center(child: Text("목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요.",textAlign: TextAlign.center)),
+                error: (error) => PlanErrorPage(title: "목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요."),
             );
           },
-          listener: (context, state) async {
-            if (state is CategoryError) { // category bloc error
-              CustomLogger.logger.e(state.error);
-              final bool result = (await CommonDialog.errorDialog(context, state.error) ?? false);
-              if (result) {
-                context.read<CategoryBloc>().add(CategoryEvent.getCategoryList(MenuType.plan));
-              }
-            }
-          },
-          listenWhen: (prev, curr) => prev.runtimeType != curr.runtimeType,
         ),
     );
   }
@@ -126,7 +115,6 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
   void _updateAddressInfo(String newLocation) {
     setState(() => _location = newLocation);
     widget.addressBloc.add(AddressUpdated(newLocation));
-
   }
 
   /// 필터조건 update
@@ -137,5 +125,7 @@ class _RecommendedListPageViewState extends State<RecommendedListPageView> {
     });
     widget.addressBloc.add(FilterUpdated(newRadius, newSort));
   }
-
 }
+
+const int defaultRadius = 10000;
+const String defaultSortOrder = 'distance';

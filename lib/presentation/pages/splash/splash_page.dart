@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () => context.go(RoutePath.main)); // 4초 후 홈 화면으로 이동, 뒤로가지 못하도록 push가 아닌 go로 설정
+    _timer = Timer(Duration(seconds: 4), () => context.go(RoutePath.main)); // 4초 후 홈 화면으로 이동, 뒤로가지 못하도록 push가 아닌 go로 설정
   }
 
   @override
@@ -55,5 +55,4 @@ class _SplashPageState extends State<SplashPage> {
       )
     );
   }
-
 }

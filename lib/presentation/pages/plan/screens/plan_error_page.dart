@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/constant/app_icons.dart';
-import '../../utils/plan_util.dart';
+import '../../../../core/theme/constant/app_icons.dart';
+import '../utils/plan_util.dart';
 
 /// ### plan메뉴 초기 화면
-class PlannerErrorPage extends StatelessWidget with PlanUtil{
+class PlanErrorPage extends StatelessWidget with PlanUtil{
   final String title;
   final String? desc;
   final VoidCallback? clickEvent;
   final String? btnText;
 
-  PlannerErrorPage({super.key, required this.title, this.desc, this.clickEvent, this.btnText});
+  PlanErrorPage({super.key, required this.title, this.desc, this.clickEvent, this.btnText});
 
   @override
   Widget build(BuildContext context) {

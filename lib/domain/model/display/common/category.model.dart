@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'category.model.freezed.dart';
-part '../common/category.model.g.dart';
+part 'category.model.g.dart';
 
 @freezed
 class Category with _$Category {

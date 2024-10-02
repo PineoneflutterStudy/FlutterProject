@@ -106,7 +106,7 @@ class __$$CategoryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CategoryImpl with DiagnosticableTreeMixin implements _Category {
+class _$CategoryImpl implements _Category {
   const _$CategoryImpl({required this.ctgrId, required this.ctgrName});
 
   factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
@@ -118,17 +118,8 @@ class _$CategoryImpl with DiagnosticableTreeMixin implements _Category {
   final String ctgrName;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Category(ctgrId: $ctgrId, ctgrName: $ctgrName)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Category'))
-      ..add(DiagnosticsProperty('ctgrId', ctgrId))
-      ..add(DiagnosticsProperty('ctgrName', ctgrName));
   }
 
   @override

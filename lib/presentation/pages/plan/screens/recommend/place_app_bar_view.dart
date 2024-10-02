@@ -9,11 +9,12 @@ class PlaceAppBarView extends StatefulWidget implements PreferredSizeWidget {
   final String location;
   final int radius;
   final String sort;
-  final double appbar_height = 70;
+  final bool isFilterVisible;
   final ValueChanged<String> onLocationChanged;
   final Function(int, String) onFilterChanged;
+  final double appbar_height = 70;
 
-  PlaceAppBarView({required this.location, required this.radius, required this.sort, required this.onLocationChanged, required this.onFilterChanged});
+  PlaceAppBarView({required this.location, required this.radius, required this.sort, required this.isFilterVisible, required this.onLocationChanged, required this.onFilterChanged});
 
   @override
   State<PlaceAppBarView> createState() => _PlaceAppBarViewState();
@@ -53,13 +54,14 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded),
-          color: AppColors.carrot,
+          color: AppColors.contentSecondary,
           onPressed: () {
             _handleButtonPress();
             Navigator.pop(context);
           },
         ),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               // 검색창
@@ -102,20 +104,14 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
               ),
             ),
             SizedBox(width: 20),
-            IconButton(
-              icon: Icon(Icons.place_sharp,color: AppColors.carrot),
-              onPressed: () {
-                _handleButtonPress();
-                // todo 한눈에 보기 기능 추가 (지도 좌표 표시)
-              },
-            ),
-            IconButton(
-              icon: Image.asset(AppIcons.iconFilter , color: AppColors.carrot, width: 18, height: 18),
-              onPressed: () {
-                _handleButtonPress();
-                _showFilterPopup(context);
-              },
-            ),
+            if(widget.isFilterVisible)
+              IconButton(
+                icon: Image.asset(AppIcons.iconFilter , color: AppColors.contentSecondary, width: 18, height: 18),
+                onPressed: () {
+                  _handleButtonPress();
+                  _showFilterPopup(context);
+                },
+              ),
           ],
         ),
       ),
@@ -146,10 +142,8 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 20), //
-                Text('정렬 순서',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center),
+                SizedBox(height: 20),
+                Text('정렬 순서', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,7 +151,7 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () => setState(() => _selectedSortOption = 'distance'),
-                        style: CommonUtils.getYellowButtonStyle(_selectedSortOption == 'distance'),
+                        style: CommonUtils.getMelonButtonStyle(_selectedSortOption == 'distance'),
                         child: Text('거리순', style: TextStyle(fontSize: 18)),
                       ),
                     ),
@@ -165,13 +159,13 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () => setState(() => _selectedSortOption = 'accuracy'),
-                        style: CommonUtils.getYellowButtonStyle(_selectedSortOption == 'accuracy'),
+                        style: CommonUtils.getMelonButtonStyle(_selectedSortOption == 'accuracy'),
                         child: Text('정확도순', style: TextStyle(fontSize: 18)),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20), // 슬라이더와 버튼 사이에 간격 추가
+                SizedBox(height: 20),
                 Text('반경 ${_currentSliderValue ~/ 1000}km 이내의 장소 검색',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center),
@@ -182,30 +176,43 @@ class _PlaceAppBarViewState extends State<PlaceAppBarView> {
                   divisions: 20,
                   label: '${(_currentSliderValue ~/ 1000).round()}km',
                   onChanged: (double value) => setState(() => _currentSliderValue = (value / 1000).round() * 1000),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.melon,
                   inactiveColor: AppColors.onInverseSurface,
                 ),
                 SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         _currentSliderValue = widget.radius;
                         _selectedSortOption = widget.sort;
                         Navigator.pop(context);
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.contentFourth),
-                      child: Text('취소', style: TextStyle(fontSize: 18)),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: AppColors.melon, width: 0.5)),
+                        child: Text('취소', style: const TextStyle(color: AppColors.melon, fontWeight: FontWeight.bold, fontSize: 20)),
+                      ),
                     ),
                     SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         Navigator.pop(context);
                         widget.onFilterChanged(_currentSliderValue, _selectedSortOption);
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                      child: Text('변경', style: TextStyle(fontSize: 18)),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(color: AppColors.melon, borderRadius: BorderRadius.circular(30)),
+                        child: Text('변경', style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      ),
                     ),
                   ],
                 ),

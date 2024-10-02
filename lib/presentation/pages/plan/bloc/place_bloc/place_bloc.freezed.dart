@@ -104,18 +104,12 @@ class __$$PlaceLoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceLoadingImpl with DiagnosticableTreeMixin implements PlaceLoading {
+class _$PlaceLoadingImpl implements PlaceLoading {
   const _$PlaceLoadingImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'PlaceState.loading'));
   }
 
   @override
@@ -239,7 +233,7 @@ class __$$PlaceSuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceSuccessImpl with DiagnosticableTreeMixin implements PlaceSuccess {
+class _$PlaceSuccessImpl implements PlaceSuccess {
   const _$PlaceSuccessImpl(final List<Place> places) : _places = places;
 
   final List<Place> _places;
@@ -251,16 +245,8 @@ class _$PlaceSuccessImpl with DiagnosticableTreeMixin implements PlaceSuccess {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceState.success(places: $places)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'PlaceState.success'))
-      ..add(DiagnosticsProperty('places', places));
   }
 
   @override
@@ -383,18 +369,12 @@ class __$$PlaceEmptyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceEmptyImpl with DiagnosticableTreeMixin implements PlaceEmpty {
+class _$PlaceEmptyImpl implements PlaceEmpty {
   const _$PlaceEmptyImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceState.empty()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'PlaceState.empty'));
   }
 
   @override
@@ -518,23 +498,15 @@ class __$$PlaceErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceErrorImpl with DiagnosticableTreeMixin implements PlaceError {
+class _$PlaceErrorImpl implements PlaceError {
   const _$PlaceErrorImpl(this.error);
 
   @override
   final ErrorResponse error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceState.error(error: $error)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'PlaceState.error'))
-      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -781,9 +753,7 @@ class __$$PlaceSearchedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceSearchedImpl
-    with DiagnosticableTreeMixin
-    implements PlaceSearched {
+class _$PlaceSearchedImpl implements PlaceSearched {
   const _$PlaceSearchedImpl(this.search, this.category, {this.page = 1});
 
   @override
@@ -795,18 +765,8 @@ class _$PlaceSearchedImpl
   final int page;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceEvent.search(search: $search, category: $category, page: $page)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'PlaceEvent.search'))
-      ..add(DiagnosticsProperty('search', search))
-      ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('page', page));
   }
 
   @override
@@ -962,7 +922,7 @@ class __$$PlaceSearchedXYImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
-      null == prevPlaceId
+      prevPlaceId: null == prevPlaceId
           ? _value.prevPlaceId
           : prevPlaceId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -984,12 +944,9 @@ class __$$PlaceSearchedXYImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlaceSearchedXYImpl
-    with DiagnosticableTreeMixin
-    implements PlaceSearchedXY {
-  const _$PlaceSearchedXYImpl(
-      this.search, this.category, this.address, this.prevPlaceId,
-      {this.page = 1});
+class _$PlaceSearchedXYImpl implements PlaceSearchedXY {
+  const _$PlaceSearchedXYImpl(this.search, this.category, this.address,
+      {this.prevPlaceId = '', this.page = 1});
 
   @override
   final String search;
@@ -998,26 +955,15 @@ class _$PlaceSearchedXYImpl
   @override
   final Address address;
   @override
+  @JsonKey()
   final String prevPlaceId;
   @override
   @JsonKey()
   final int page;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'PlaceEvent.searchXY(search: $search, category: $category, address: $address, prevPlaceId: $prevPlaceId, page: $page)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'PlaceEvent.searchXY'))
-      ..add(DiagnosticsProperty('search', search))
-      ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('address', address))
-      ..add(DiagnosticsProperty('prevPlaceId', prevPlaceId))
-      ..add(DiagnosticsProperty('page', page));
   }
 
   @override
@@ -1115,9 +1061,9 @@ class _$PlaceSearchedXYImpl
 }
 
 abstract class PlaceSearchedXY implements PlaceEvent {
-  const factory PlaceSearchedXY(final String search, final String? category,
-          final Address address, final String prevPlaceId, {final int page}) =
-      _$PlaceSearchedXYImpl;
+  const factory PlaceSearchedXY(
+      final String search, final String? category, final Address address,
+      {final String prevPlaceId, final int page}) = _$PlaceSearchedXYImpl;
 
   @override
   String get search;

@@ -15,10 +15,10 @@ class CommonUtils {
       textColor: AppColors.contentTertiary, fontSize: 16.0);
   }
 
-  static ButtonStyle getYellowButtonStyle(bool isSelected) {
+  static ButtonStyle getMelonButtonStyle(bool isSelected) {
     return ElevatedButton.styleFrom(
-      backgroundColor: isSelected ? AppColors.primaryContainer : AppColors.onPrimary,
-      foregroundColor: isSelected ? AppColors.onPrimary : AppColors.primaryContainer // text color
+      backgroundColor: isSelected ? AppColors.melon : AppColors.onPrimary,
+      foregroundColor: isSelected ? AppColors.onPrimary : AppColors.melon // text color
     );
   }
 

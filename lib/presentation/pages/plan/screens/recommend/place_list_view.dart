@@ -1,7 +1,10 @@
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'recommended_list_page.dart';
 import '../../../../../domain/model/display/plan/address.model.dart';
 import '../../../../main/common/component/widget/mangmung_loding_indicator.dart';
+import '../plan_error_page.dart';
 import 'place_item_view.dart';
 
 import '../../../../../domain/model/display/common/category.model.dart';
@@ -19,28 +22,29 @@ class PlaceListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final placeBloc = PlaceBloc(locator<PlannerUsecase>());
     return BlocProvider(
       create: (_) {
-        final placeBloc = PlaceBloc(locator<PlannerUsecase>());
         if(root == 'nextPage'){
           placeBloc.add(PlaceEvent.search(search, category.ctgrId));
         }else{
-          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, prevPlaceId));
+          placeBloc.add(PlaceEvent.searchXY(search, category.ctgrId, address, prevPlaceId: prevPlaceId));
         }
         return placeBloc;
       },
-      child: PlaceListPageView(category, address, root, search),
+      child: PlaceListPageView(placeBloc, category, address, root, search),
     );
   }
 }
 
 class PlaceListPageView extends StatefulWidget {
+  final PlaceBloc placeBloc;
   final Category category;
   final Address address;
   final String root;
   final String search;
 
-  const PlaceListPageView(this.category, this.address, this.root, this.search, {Key? key}) : super(key: key);
+  const PlaceListPageView(this.placeBloc, this.category, this.address, this.root, this.search, {Key? key}) : super(key: key);
 
   @override
   _PlaceListPageViewState createState() => _PlaceListPageViewState();
@@ -49,7 +53,6 @@ class PlaceListPageView extends StatefulWidget {
 class _PlaceListPageViewState extends State<PlaceListPageView> {
   final ScrollController _scrollController = ScrollController();
   int _currentPage = 1;
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -70,53 +73,47 @@ class _PlaceListPageViewState extends State<PlaceListPageView> {
   }
 
   void _loadMoreData() {
-    if (!_isLoading) {
-      setState(() => _isLoading = true);
-      _currentPage++;
-      if (widget.root == 'nextPage') {
-        context.read<PlaceBloc>().add(PlaceEvent.search(widget.search, widget.category.ctgrId, page: _currentPage));
-      } else {
-        context.read<PlaceBloc>().add(PlaceEvent.searchXY(widget.search, widget.category.ctgrId, widget.address, '', page : _currentPage));
-      }
+    _currentPage++;
+    _addPlaceEvent(page: _currentPage);
+  }
+
+  void _addPlaceEvent({int page = 1}) {
+    if (widget.root == 'nextPage') {
+      widget.placeBloc.add(PlaceEvent.search(widget.search, widget.category.ctgrId, page: page));
+    } else {
+      widget.placeBloc.add(PlaceEvent.searchXY(widget.search, widget.category.ctgrId, widget.address, page: page));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PlaceBloc, PlaceState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          success: (_) => _isLoading = false,
-          orElse: () {},
-        );
-      },
+    return BlocBuilder<PlaceBloc, PlaceState>(
       builder: (context, state) {
         return state.when(
-          loading: () => Center(child: MangmungLoadingIndicator()),
-          empty: () => Container(
-            alignment: Alignment.center,
-            child: Text('반경 ${(widget.address.radius ?? 10000) ~/ 1000}km 등록된 ${widget.category.ctgrName}이 없습니다.', style: TextStyle(fontSize: 23)),
+          loading: () => MangmungLoadingIndicator(),
+          empty: () => PlanErrorPage(title: '반경 ${(widget.address.radius ?? defaultRadius) ~/ 1000}km 등록된 ${widget.category.ctgrName}이 없습니다.'),
+          success: (places) => FadingEdgeScrollView.fromScrollView(
+            gradientFractionOnEnd: 0.2,
+            gradientFractionOnStart: 0.2,
+            child: ListView.builder(
+              controller: _scrollController,
+              scrollDirection: Axis.vertical,
+              itemCount: places.length + 1,
+              itemBuilder: (context, index) {
+                if (index < places.length) {
+                  return PlaceItemView(
+                    place: places[index],
+                    root: widget.root,
+                    radius: widget.address.radius ?? defaultRadius,
+                    sort: widget.address.sort ?? defaultSortOrder,
+                  );
+                } else {
+                  return const MangmungLoadingIndicator(size: 80);
+                }
+              },
+            ),
           ),
-          success: (places) => ListView.builder(
-            controller: _scrollController,
-            scrollDirection: Axis.vertical,
-            itemCount: places.length + 1,
-            itemBuilder: (context, index) {
-              if (index < places.length) {
-                return PlaceItemView(
-                  place: places[index],
-                  root: widget.root,
-                  radius: widget.address.radius ?? 10000,
-                  sort: widget.address.sort ?? 'distance',
-                );
-              } else {
-                return _isLoading
-                    ? Center(child: MangmungLoadingIndicator())
-                    : SizedBox.shrink();
-              }
-            },
-          ),
-          error: (error) => Center(child: Text('${error.message}')),
+          error: (error) => PlanErrorPage(title: "목록을 불러오는 데 실패하였습니다.\n다시 시도해주세요."),
         );
       },
     );

@@ -50,7 +50,7 @@ class AppColors {
   static const Color kakaoFont = Color(0xDB000000);
   static const Color emailBg = Color(0xFFBBBBBB);
   static const Color emailFont = Color(0xFF000000);
-  static const Color melon = Color(0xFFE2F57F);
+  static const Color melon = Color(0xFFD2E774);
   static const Color carrot = Color(0xFFF88740);
   static const Color carrot_secondary = Color(0xFFF89E65);
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -38,7 +37,7 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
             final currentState = state as PlaceSuccess;
             emit(PlaceState.success([...currentState.places, ...result]));
           }
-        } else if (page == 1) {
+        } else {
           emit(PlaceState.empty());
         }
       }, failure: (error) {
@@ -61,13 +60,17 @@ class PlaceBloc extends Bloc<PlaceEvent, PlaceState> {
     try {
       final response = await _fetch(search: _search, category: _category, x: _x, y: _y, radius: _radius, page: _page, sort: _sort);
       response.when(success: (result) {
-        final filteredResult = result.where((place) => (place as Place).placeId != prevPlaceId).toList();
-        if (page == 1) {
-          emit(PlaceState.success(filteredResult));
-        } else {
-          // 기존 placeList에 불러온 정보 추가
-          final currentState = state as PlaceSuccess;
-          emit(PlaceState.success([...currentState.places, ...filteredResult]));
+        final List<Place> filteredResult = result.where((place) => (place as Place).placeId != prevPlaceId).toList();
+        if(filteredResult.isNotEmpty){
+          if (page == 1) {
+            emit(PlaceState.success(filteredResult));
+          } else {
+            // 기존 placeList에 불러온 정보 추가
+            final currentState = state as PlaceSuccess;
+            emit(PlaceState.success([...currentState.places, ...filteredResult]));
+          }
+        }else{
+          emit(PlaceState.empty());
         }
       }, failure: (error) {
         emit(PlaceState.error(ErrorResponse(status: '1', code: '9999', message: '목록을 불러오는데 실패하였습니다.')));

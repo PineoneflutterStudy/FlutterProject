@@ -252,11 +252,11 @@ class _EditPlacePopupState extends State<EditPlacePopup> with PlanUtil {
       actions: [
         TextButton(
             onPressed: () =>  context.pop(),
-            child: Text("취소", style: TextStyle(color: AppColors.carrot, fontSize: 20)),
+            child: Text("취소", style: TextStyle(color: AppColors.carrot, fontSize: 20, fontWeight: FontWeight.bold)),
         ),
         TextButton(
           onPressed: () => _onConfirm(),
-          child: Text("수정", style: TextStyle(color: AppColors.carrot, fontSize: 20)),
+          child: Text("수정", style: TextStyle(color: AppColors.carrot, fontSize: 20, fontWeight: FontWeight.bold)),
         ),
       ],
     );
