@@ -44,3 +44,12 @@ app.*.map.json
 
 # env
 .env
+
+#firebase 설정파일
+firebase_options.dart
+firebase_app_id_file.json
+GoogleService-info.plist
+google-services.json
+
+#firebase dev mode 설정파일
+firebase_options_dev.dart

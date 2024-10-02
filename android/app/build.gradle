@@ -96,6 +96,20 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    flavorDimensions "app"
+
+    productFlavors{
+        dev{
+            dimension "app"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "댕꿀트립DEV"
+        }
+        prod{
+            dimension "app"
+            resValue "string", "app_name", "댕꿀트립"
+        }
+    }
 }
 
 flutter {

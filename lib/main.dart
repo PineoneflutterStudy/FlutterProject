@@ -6,7 +6,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 import 'core/theme/theme_data.dart';
-import 'firebase_options.dart';
+import 'firebase_options_dev.dart';
 import 'presentation/routes/routes.dart';
 import 'service_locator.dart';
 
