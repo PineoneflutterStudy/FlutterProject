@@ -6,11 +6,10 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 import 'core/theme/theme_data.dart';
-import 'firebase_options_dev.dart';
 import 'presentation/routes/routes.dart';
 import 'service_locator.dart';
 
-void main() async {
+void main(options) async {
   // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -19,7 +18,7 @@ void main() async {
   AuthRepository.initialize(appKey: FlutterConfig.get('KAKAO_JAVA_SCRIPT_KEY') ?? '');
   KakaoSdk.init(nativeAppKey: FlutterConfig.get('KAKAO_NATIVE_APP_KEY'));
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: options);
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
