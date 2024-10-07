@@ -80,25 +80,26 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 
 ## 📸 ScreenShot
 ### [ 스플래쉬 화면 ]
-<img width="250" src="https://github.com/user-attachments/assets/08c66632-335e-4455-9920-fd554ba3249f">
+<img height="514" src="https://github.com/user-attachments/assets/08c66632-335e-4455-9920-fd554ba3249f">
 
 ### [ 홈 ]
-<img src = "https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
+<img height="514" src = "https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
 
 ### [ 나만의 여행플레너 ]
-<img src = "https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
-<img src = "https://github.com/user-attachments/assets/a2ecd18e-d2fa-438a-b6e3-bcb2091f140f">
-<img src = "https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
+<img height="514" src = "https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
+<img height="514" src = "https://github.com/user-attachments/assets/a2ecd18e-d2fa-438a-b6e3-bcb2091f140f">
+<img height="514" src = "https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
 
 ### [ 나만의 장소 (찜목록) ]
-<img src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
+<img height="514" src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
 
 ### [ 우리 어디서 만날까? (약속장소 추천) ]
-<img src = "">
+<img height="514" src = "">
 
 ### [ 마이페이지 ]
-<img src = "https://github.com/user-attachments/assets/df9fcd5f-4cf9-4432-b227-dad365a2f806">
-<img src = "https://github.com/user-attachments/assets/cab7a5a5-4c69-458c-a6fd-226f9e8f1a70">
+<img height="514" src = "https://github.com/user-attachments/assets/df9fcd5f-4cf9-4432-b227-dad365a2f806">
+<img height="514" src = "https://github.com/user-attachments/assets/cab7a5a5-4c69-458c-a6fd-226f9e8f1a70">
 
 ## 🎥 ScreenShot & Video Recording Link
+Android, iOS 에서 실행 시킨 앱의 스크린샷, 화면녹화영상 모음
 > https://drive.google.com/drive/u/1/folders/1qLlPNuuw4dMfbkmMkWi9nFC710DYM37N
