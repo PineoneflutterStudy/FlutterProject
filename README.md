@@ -79,25 +79,25 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
     - 이메일 로그인 및 회원가입 (Firebase Auth)
 
 ## 📸 ScreenShot
-#### [ 스플래쉬 화면 ]
+### [ 스플래쉬 화면 ]
 
-#### [ 홈 ]
+### [ 홈 ]
 <img src = "https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
 
-#### [ 나만의 여행플레너 ]
+### [ 나만의 여행플레너 ]
 <img src = "https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
 <img src = "https://github.com/user-attachments/assets/a2ecd18e-d2fa-438a-b6e3-bcb2091f140f">
 <img src = "https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
 
-#### [ 나만의 장소 (찜목록) ]
+### [ 나만의 장소 (찜목록) ]
 <img src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
 
-#### [ 우리 어디서 만날까? (약속장소 추천) ]
+### [ 우리 어디서 만날까? (약속장소 추천) ]
 <img src = "">
 
-#### [ 마이페이지 ]
+### [ 마이페이지 ]
 <img src = "https://github.com/user-attachments/assets/df9fcd5f-4cf9-4432-b227-dad365a2f806">
 <img src = "https://github.com/user-attachments/assets/cab7a5a5-4c69-458c-a6fd-226f9e8f1a70">
 
-## 🎥 스크린샷 및 영상 녹화 모음 
+## 🎥 ScreenShot & Video Recording Link
 > https://drive.google.com/drive/u/1/folders/1qLlPNuuw4dMfbkmMkWi9nFC710DYM37N
