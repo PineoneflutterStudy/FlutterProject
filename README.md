@@ -80,6 +80,7 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 
 ## 📸 ScreenShot
 ### [ 스플래쉬 화면 ]
+<img width="250" src="https://github.com/user-attachments/assets/08c66632-335e-4455-9920-fd554ba3249f">
 
 ### [ 홈 ]
 <img src = "https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
