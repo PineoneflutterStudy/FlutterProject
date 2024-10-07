@@ -91,7 +91,7 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 <img height="514" src = "https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
 
 ### [ 나만의 장소 (찜목록) ]
-<img height="514" src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
+<img height="542" src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
 
 ### [ 우리 어디서 만날까? (약속장소 추천) ]
 <img height="514" src = "">
