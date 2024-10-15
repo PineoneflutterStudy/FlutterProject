@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/72a8c2ff-b4ae-4e66-bfa6-5a85493c296e)# 2024 Pineone Flutter Study 
+# 2024 Pineone Flutter Study 
 [ 24.06.10 ~ 24.10.08 ]
 
 Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코드를 기록하고 공유합니다.
