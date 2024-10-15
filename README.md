@@ -94,7 +94,7 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 <img src="https://github.com/user-attachments/assets/fcddc4f2-257f-47a4-8d11-ddcb6d7fc88f"  height="514">
 
 #### [ 나만의 여행플레너 (Plan) ]
-<img height="514" src="https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
+<img src="https://github.com/user-attachments/assets/1dbe1e04-aea5-42d9-86d5-efd58c9cfb1f" height="514">
 <img height="514" src="https://github.com/user-attachments/assets/9a143e46-b86b-4de7-927d-1cf08329d280">
 <img height="514" src="https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
 
