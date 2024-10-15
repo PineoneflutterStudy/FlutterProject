@@ -1,4 +1,4 @@
-![project_home_main_image](https://github.com/user-attachments/assets/4c2ca3d6-fa1e-4f42-87ff-ffbca6f26d61)# 2024 Pineone Flutter Study 
+![image](https://github.com/user-attachments/assets/72a8c2ff-b4ae-4e66-bfa6-5a85493c296e)# 2024 Pineone Flutter Study 
 [ 24.06.10 ~ 24.10.08 ]
 
 Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코드를 기록하고 공유합니다.
@@ -92,10 +92,6 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 
 #### [ 홈 (Home) ]
 <img height="514" src="https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
-
-![project_home_main_image](https://github.com/user-attachments/assets/640b97c7-4ca7-4778-98a2-41a31c3773d7)
-
-
 
 #### [ 나만의 여행플레너 (Plan) ]
 <img height="514" src="https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
