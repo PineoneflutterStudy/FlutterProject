@@ -95,20 +95,20 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 
 #### [ 나만의 여행플레너 (Plan) ]
 <img src="https://github.com/user-attachments/assets/1dbe1e04-aea5-42d9-86d5-efd58c9cfb1f" height="514">
-<img height="514" src="https://github.com/user-attachments/assets/9a143e46-b86b-4de7-927d-1cf08329d280">
-<img height="514" src="https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
+<img src="https://github.com/user-attachments/assets/8addadf0-2ce6-4823-bda6-06cbe137eaa7" height="514">
+<img src="https://github.com/user-attachments/assets/fb4cbedf-f37d-43c7-af2c-b0fcd5c65234" height="514">
 
 #### [ 나만의 장소 (Like) ]
-<img height="542" src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
+<img src="https://github.com/user-attachments/assets/18e1aa12-52c6-4d67-b900-d42a870a7778" height="542">
 
 #### [ 약속장소 추천 (Meet) ]
-<img height="611" src = "https://github.com/user-attachments/assets/96b7a306-87f1-4060-9273-6ec3f68bd876">
-<img height="611" src = "https://github.com/user-attachments/assets/05f751bb-99ea-47c1-82ae-a1ff1d0cf2ac">
-<img height="611" src = "https://github.com/user-attachments/assets/194a0eed-507b-4348-98d2-a1f720dd9354">
+<img src="https://github.com/user-attachments/assets/ff0edf61-2183-47d2-bb88-fca68179e491" height="611">
+<img src="https://github.com/user-attachments/assets/c1b4fb48-a193-4ec9-856e-f25733d2d0b0" height="611">
+<img src="https://github.com/user-attachments/assets/9765ee19-371e-49b2-b2d0-a22908f28c32" height="611">
 
 #### [ 마이페이지 (MyPage) ]
-<img height="514" src = "https://github.com/user-attachments/assets/df9fcd5f-4cf9-4432-b227-dad365a2f806">
-<img height="514" src = "https://github.com/user-attachments/assets/cab7a5a5-4c69-458c-a6fd-226f9e8f1a70">
+<img src="https://github.com/user-attachments/assets/8f4a41fc-eb10-495e-bc3f-bad49f4a450d" height="514">
+<img src="https://github.com/user-attachments/assets/2143c1ad-9b76-4308-ab56-d6b1015b5d22" height="514">
 
 ## 🎥 ScreenShot & Video Recording Link
 Android, iOS 에서 실행 시킨 앱의 스크린샷, 화면녹화영상 모음
@@ -117,11 +117,11 @@ Android, iOS 에서 실행 시킨 앱의 스크린샷, 화면녹화영상 모음
 ## Fine
 24.10.04 테스트용 앱 배포 완료! 
 <p float="left">
-<img height="400" src = "https://github.com/user-attachments/assets/e7f4537b-cf69-409f-b111-89c0275d80cd">
-<img width="500" src = "https://github.com/user-attachments/assets/9d474328-5764-4b5c-87ac-6977f4e6dc3d">
+<img src="https://github.com/user-attachments/assets/d65a4f79-ebc1-44b4-a1e8-29a68241d87d" height="400">
+<img src="https://github.com/user-attachments/assets/4c95ebd9-e383-44ea-af03-ec4366bdf520" width="500">
 </p>
 24.10.08 회식 ~!
 
 <p float="left">
-<img height="400" src = "https://github.com/user-attachments/assets/bc36cd45-f624-488e-b907-1390362a4218">
+<img src="https://github.com/user-attachments/assets/bc36cd45-f624-488e-b907-1390362a4218" height="400">
 </p>
