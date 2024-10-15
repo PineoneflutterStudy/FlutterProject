@@ -123,5 +123,5 @@ Android, iOS 에서 실행 시킨 앱의 스크린샷, 화면녹화영상 모음
 24.10.08 회식 ~!
 
 <p float="left">
-<img src="https://github.com/user-attachments/assets/bc36cd45-f624-488e-b907-1390362a4218" height="400">
+<img src="https://github.com/user-attachments/assets/b394c36c-4ac2-476b-ba3e-97ecfe048663" height="400">
 </p>
