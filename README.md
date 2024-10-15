@@ -91,12 +91,12 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 <img height="514" src="https://github.com/user-attachments/assets/08c66632-335e-4455-9920-fd554ba3249f">
 
 #### [ 홈 (Home) ]
-<img height="514" src = "https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
+<img height="514" src="https://github.com/user-attachments/assets/0739b64b-1a20-4c3c-aabb-cad44dd0e38d">
 
 #### [ 나만의 여행플레너 (Plan) ]
-<img height="514" src = "https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
-<img height="514" src = "https://github.com/user-attachments/assets/9a143e46-b86b-4de7-927d-1cf08329d280">
-<img height="514" src = "https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
+<img height="514" src="https://github.com/user-attachments/assets/99aab0c2-5a52-4942-bca9-d1f5b8d500a4">
+<img height="514" src="https://github.com/user-attachments/assets/9a143e46-b86b-4de7-927d-1cf08329d280">
+<img height="514" src="https://github.com/user-attachments/assets/22cf21bc-5e9b-4c91-bf4b-3adb90890356">
 
 #### [ 나만의 장소 (Like) ]
 <img height="542" src = "https://github.com/user-attachments/assets/827c8afb-1a01-42f1-9c98-b1b89db20d94">
