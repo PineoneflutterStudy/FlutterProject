@@ -22,6 +22,12 @@ Flutter 프로젝트 '나만의 여행플래너, 댕꿀트립🍯'에 대한 코
 #### Firebase의 Firestore, storage를 활용하여 로그인한 회원들의 데이터를 관리하였습니다.
 #### SharedPreference를 활용하여 로그인하지 않은 비회원들의 데이터를 관리하였습니다.
 
+## ⚒️Skills⚒️
+#### Clean Architecture + Bloc + DI
+#### MVVM Architecture + RiverPod
+#### Freezed, Firestore, Firebase Storage, Firebase Auth, OICD
+#### TourAPI, Kakao Map, Kakao Local API, kpostal, 한국관광공사 관광정보 서비스 API, 카카오모빌리티 API, GoogleCloud Server, Json Crawling
+
 ## 🗣️Subject
 ### 나만의 여행 플래너 (댕꿀트립🍯)
 파워 J를 위한 앱! 당신의 여행과 만남을 스마트하게 관리해줍니다! 
